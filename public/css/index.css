@@ -1,0 +1,140 @@
+/* header S*/
+.header {
+	position: fixed;
+	width: 100%;
+	top: 0;
+	left: 0;
+	box-sizing: border-box;
+	height: 65px;
+	line-height: 65px;
+	font-weight: bold;
+	z-index: 9999;
+	background: #fff;
+}
+.header .inner {
+	width: 60%;
+	margin: 0 auto;
+}
+.header .inner h1 {
+	float: left;
+	font-size: 32px;
+	color:#66AF33;
+}
+
+.header .inner nav {
+	float: right;
+}
+.header .inner nav a {
+	padding: 0 15px;
+	text-decoration: none;
+	font-size: 21px;
+	color: #404040;
+}
+
+.header .inner nav .active {
+	color: #66AF33;
+}
+
+.header .inner nav a:hover {
+	color: #66AF33;
+}
+
+/* header E */
+
+/* slider S */
+.slider ul {
+	padding-top: 65px;
+	font-weight: bold;
+	color:white;
+}
+.slider ul li {
+	position: relative;
+}
+.slider ul li .description {
+	width: 800px;
+	height: 200px;
+	position: absolute;
+	left: 50%;
+	margin-left: -400px;
+	margin-bottom: 100px;
+	top: 25%;
+	text-align: center;
+}
+.slider ul li .description h2 {
+	font-size: 40px;
+	margin-bottom: 40px;
+}
+.slider ul li .description h3 {
+	font-size: 36px;
+	margin-bottom: 40px;
+}
+.slider ul li .description p {
+	font-size: 18px;
+	margin-bottom: 10px;
+}
+.slider ul li a {
+	display: block;
+}
+.slider ul li a img {
+	display: block;
+	width: 100%;
+}
+
+
+/* introduce */
+ .introduce {
+	padding: 100px 0;
+	font-weight: bold;
+}
+.introduce .wrapper {
+	width: 1100px;
+	margin: 0 auto;
+}
+.introduce .wrapper .caption {
+	width: 500px;
+	float: left;
+}
+.introduce .wrapper .caption h3 {
+	font-size: 32px;
+	margin-bottom: 30px;
+	color:rgb(65,65,65);
+}
+.introduce .wrapper .caption h2 {
+	margin-bottom: 50px;
+	font-size: 36px;
+	color:#66AF33;
+}
+.introduce .wrapper .caption p {
+	color:rgba(65,65,65, .8);
+	line-height: 24px;
+	font-size: 16px;
+}
+.introduce .wrapper .show{
+	float: right;
+	width: 510px;
+}
+.introduce .wrapper .show h2 {
+	font-size: 32px;
+	margin-bottom: 30px;
+	color:rgb(65,65,65);
+}
+.introduce .wrapper .show .wrapper {
+	font-size: 0;
+	width: 100%;
+}
+.introduce .wrapper .show .wrapper span{
+	display: inline-block;
+	width: 250px;
+}
+.introduce .wrapper .show .wrapper>:nth-child(odd) {
+	padding-right: 10px;
+}
+.introduce .wrapper .show .wrapper>span {
+	padding-bottom: 10px;
+}
+.introduce .wrapper .show .wrapper span img {
+	display: block;
+	width: 100%;
+}
+
+/* slider E */

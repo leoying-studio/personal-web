@@ -1,0 +1,32 @@
+extend layout
+block content
+	script.
+		//- function registerUser() {
+		//- 	$.ajax({
+		//- 		url: "/users/register",
+		//- 		type: "POST",
+		//- 		data: {username:$("#regName").val(), password:$("#regPass").val(), passAgain:$("#regPassAgain").val(), email:$("#regEmail").val()},
+		//- 		dataType: "JSON",
+		//- 		success: function(data) {
+		//- 			alert(data.msg);
+		//- 		},
+		//- 		error: function() {
+		//- 			alert("error");
+		//- 		}
+		//- 	})
+		//- }
+	div.loginRegister
+		form(action="").login
+				div.item
+					span.fa.fa-user.icon
+					input(type="text" placeholder = "请输入用户名")
+				div.item
+					span.fa.fa-lock.icon
+					input(type="password" placeholder = "请输入密码")
+				div.item
+					input(type="checkbox")
+					span.remeber 记住我
+					a(href="#").forget 忘记密码
+				div.item.last
+					button 登录
+					a(href="#" onclick="switchLoginRegister('regisiter')").reg-text 注册
