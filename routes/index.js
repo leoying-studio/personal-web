@@ -14,14 +14,7 @@ router.get('/', function (req, res, next) {
 });
 
 router.get('/login', function (req, res, next) {
-  res.render('login', {
-      title: 'Express', navs: [
-        { name: "首页" },
-        { name: "笔记" },
-        { name: "鎏金岁月" },
-        { name: "光影怀旧" }
-      ]
-  });
+  res.render('login');
 });
 
 router.get('/register', function (req, res, next) {

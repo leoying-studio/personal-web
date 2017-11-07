@@ -11,7 +11,7 @@ var config = require("./config");
 // 自定义引入
 // var cookieParser = require('cookie-parser');
 // var session = require("express-session");
-var users = require("./route/users");
+// var users = require("./route/users");
 
 var index = require('./route/index');
 // var db = require('./db');
@@ -57,7 +57,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', index);
-app.use('/users', users);
+// app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
