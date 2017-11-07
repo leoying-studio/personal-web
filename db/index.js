@@ -1,8 +1,7 @@
-var config = require("./config");
-var mongoose = require("mongoose");
-mongoose.connect("mongodb://"+config.address+":"+config.port+"/"+config.db);
-var connection = mongoose.connection;
+var config=require("./../config");
+var mongoose=require('mongoose');
+mongoose.connect(`mongodb://${config.ip}:${config.port}/${config.db}`);
 module.exports = {
-	"dbConnection": connection,
-	"mongoose": mongoose
-}
+    "dbConnection":mongoose.connections,
+    "mongoose":mongoose
+};

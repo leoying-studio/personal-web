@@ -1,56 +1,56 @@
-/* header S*/
+
+body {
+    min-width: 1300px;
+}
 .header {
-	position: fixed;
-	width: 100%;
-	top: 0;
-	left: 0;
-	box-sizing: border-box;
-	height: 65px;
-	line-height: 65px;
-	font-weight: bold;
-	z-index: 9999;
-	background: #fff;
-}
-.header .inner {
-	width: 60%;
-	margin: 0 auto;
-}
-.header .inner h1 {
-	float: left;
-	font-size: 32px;
-	color:#66AF33;
+    width: 100%;
+    min-height: 50px;
+    line-height: 65px;
+    height: 65px;
+    box-sizing: border-box;
+    padding: 0 8%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index:999;
+    background: #ffffff;
+    /*box-shadow: 0 0 1px 0px #e4e4e4;*/
 }
 
-.header .inner nav {
-	float: right;
-}
-.header .inner nav a {
-	padding: 0 15px;
-	text-decoration: none;
-	font-size: 21px;
-	color: #404040;
+.header h1 {
+    float:left;
+    font-weight: bold;
+    font-size: 24px;
+    color:#66AF33;
 }
 
-.header .inner nav .active {
-	color: #66AF33;
+.header nav {
+    float: right;
 }
 
-.header .inner nav a:hover {
-	color: #66AF33;
+.header nav a {
+    padding: 0 15px;
+    font-weight: bold;
+    color: #404040;
+    text-decoration: none;
 }
 
-/* header E */
+.header nav a:hover {
+    color: #66AF33;
+}
 
-/* slider S */
-.slider ul {
-	padding-top: 65px;
-	font-weight: bold;
-	color:white;
+
+/*banner  开始*/
+.slider {
+    padding-top:65px;
 }
-.slider ul li {
-	position: relative;
+
+.slider ul > li img{
+    display: block;
+    width: 100%;
 }
-.slider ul li .description {
+
+.slider ul li .content {
 	width: 800px;
 	height: 200px;
 	position: absolute;
@@ -59,16 +59,17 @@
 	margin-bottom: 100px;
 	top: 25%;
 	text-align: center;
+    color: #fff;
 }
-.slider ul li .description h2 {
-	font-size: 40px;
-	margin-bottom: 40px;
-}
-.slider ul li .description h3 {
+.slider ul li .content h2 {
 	font-size: 36px;
 	margin-bottom: 40px;
 }
-.slider ul li .description p {
+.slider ul li .content h3 {
+	font-size: 30px;
+	margin-bottom: 40px;
+}
+.slider ul li .content p {
 	font-size: 18px;
 	margin-bottom: 10px;
 }
@@ -80,15 +81,11 @@
 	width: 100%;
 }
 
-
 /* introduce */
  .introduce {
-	padding: 100px 0;
+    box-sizing: border-box;
+	padding: 100px 100px;
 	font-weight: bold;
-}
-.introduce .wrapper {
-	width: 1100px;
-	margin: 0 auto;
 }
 .introduce .wrapper .caption {
 	width: 500px;
@@ -97,7 +94,7 @@
 .introduce .wrapper .caption h3 {
 	font-size: 32px;
 	margin-bottom: 30px;
-	color:rgb(65,65,65);
+	color:rgb(85,85,85);
 }
 .introduce .wrapper .caption h2 {
 	margin-bottom: 50px;
@@ -105,7 +102,7 @@
 	color:#66AF33;
 }
 .introduce .wrapper .caption p {
-	color:rgba(65,65,65, .8);
+	color:rgba(85,85,85, .8);
 	line-height: 24px;
 	font-size: 16px;
 }
@@ -116,7 +113,7 @@
 .introduce .wrapper .show h2 {
 	font-size: 32px;
 	margin-bottom: 30px;
-	color:rgb(65,65,65);
+	color:rgb(85,85,85);
 }
 .introduce .wrapper .show .wrapper {
 	font-size: 0;
@@ -137,4 +134,75 @@
 	width: 100%;
 }
 
-/* slider E */
+/*introduce  E*/
+
+/*timeline S*/
+.timeline {
+    background: #404040;
+    padding: 80px 0;
+    color: #fff;
+}
+.timeline .wrapper {
+    width: 80%;
+    margin: 0 auto;
+}
+.timeline .wrapper h3 {
+    font-weight: bold;
+    font-size: 24px;
+    padding-bottom: 80px;
+    text-align: center;
+}
+.timeline .wrapper .line {
+    width: 6px;
+    margin: 0 auto;
+    background: #fff;
+    height: 100px;
+    position: relative;
+}
+.timeline .line::after {
+    display: block;
+    content: "";
+    width: 15px;
+    height: 15px;
+    border-radius:100%;
+    position: absolute;
+    top: -10px;
+    left: -4.5px;
+    background: #fff;
+}
+.timeline .line:nth-of-type(odd) .content {
+    position: absolute;
+    width: 400px;
+    left: -500px;
+    text-align: right;
+}
+
+.timeline .line:nth-of-type(even) .content {
+    position: absolute;
+    width: 400px;
+    left:  100px;
+}
+
+.timeline .line .content h2 {
+    font-size:40px;
+    padding-bottom: 12px;
+}
+
+.timeline .line .content p {
+    color: #b7b7b7;
+    font-size: 13px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/*timeline E*/
+
+/*footer S*/
+.footer {
+  background:#404040 url("./../images/contact-bg.jpg") no-repeat center center;
+  background-size: cover;
+  background-attachment: fixed;
+  color: #fff;
+}
+.footer .wrapper {
+    min-height: 600px;
+}
