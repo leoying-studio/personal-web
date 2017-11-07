@@ -11,5 +11,5 @@ var Scheam = new mongoose.Schema({
 	 ]
 });
 
-var User = mongoose.model('users', Scheam);
-module.exports = User;
+var Nav = mongoose.model('Nav', Scheam);
+module.exports = Nav;
