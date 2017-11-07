@@ -1,8 +1,11 @@
-let express = require('express');
-let router = express.Router();
-let User = require("./../models/users");
-let Code = require("./../config/code");
-let Utils = require("./../utils");
+var express = require('express');
+var router = express.Router();
+var User = require("./../models/users");
+// var Utils = require("./../utils");
+
+router.get('/view', function (req, res, next) {
+    res.render('login');
+});
 
 router.post("/submit", function(req,res) {
     const {username, password } = req.body;

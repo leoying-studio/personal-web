@@ -9,11 +9,10 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 // 自定义引入
-// var cookieParser = require('cookie-parser');
-// var session = require("express-session");
-// var users = require("./route/users");
 
-var index = require('./route/index');
+var index = require('./routes/index');
+var login = require('./routes/login');
+var register = require('./routes/register');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
@@ -57,6 +56,8 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', index);
+app.use("/login", login);
+app.use("/register", register);
 // app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

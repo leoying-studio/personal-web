@@ -1,8 +1,12 @@
 let express = require('express');
 let router = express.Router();
 let User = require("./../models/users");
-let Code = require("./../config/code");
-let Utils = require("./../utils");
+// let Utils = require("./../utils");
+
+router.get('/view', function (req, res, next) {
+   res.render('register');
+});
+
 
 router.post("/submit", function(req,res) {
     const {username, password, passAgain, email} = req.body;
