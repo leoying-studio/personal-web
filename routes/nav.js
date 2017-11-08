@@ -1,8 +1,7 @@
 let express = require('express');
 let router = express.Router();
-let Nav = require("./../../models/nav");
-let Code = require("./../../config/code");
-let Utils = require("./../../utils");
+let Nav = require("./../models/nav");
+let Utils = require("./../utils");
 
 router.post("/submit", function(req,res) {
     const {name, categories } = req.body;
@@ -18,7 +17,7 @@ router.post("/submit", function(req,res) {
         return res.redirect("/regview");
     }
 
-    // 用户登录
+    // 设置导航
     new Nav({name, categories}).save((err, res) => {
 		if (err) {
 			req.flash("error", "导航设置失败");
@@ -31,7 +30,14 @@ router.post("/submit", function(req,res) {
 });
 
 router.get("/list", (res, req) => {
-	 Nav.find()
+	 Nav.find((err, res) => {
+         if (err) {
+            req.flash("error", "获取列表失败");
+         } else {
+             req.flash("success", "获取列表成功");
+         }
+         return res.redirect("/");
+     })
 });
 
 module.exports = router;
