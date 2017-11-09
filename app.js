@@ -10,7 +10,7 @@ var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 // 自定义引入
 
-var index = require('./routes/index');
+var home = require('./routes/home');
 var login = require('./routes/login');
 var register = require('./routes/register');
 // var db = require('./db');
@@ -55,7 +55,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use('/', index);
+app.use('/', home);
 app.use("/login", login);
 app.use("/register", register);
 // app.use('/users', users);

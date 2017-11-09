@@ -1,12 +1,13 @@
-var mongoose=require('../db').mongoose;
-
+let mongoose=require('../db').mongoose;
+let Utils = require("./../utils/index");
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
-	 title:"string",
-	 caption:"string",
-	 description:"string",
-	 background: "string"
+let Scheam = new mongoose.Schema({
+	 title: {type: "string"},
+	 caption: {type: "string"},
+	 description:{type: 'string'},
+	 background:{type: 'string'},
+	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 
-var Banner = mongoose.model('banner', Scheam);
-module.exports = User;
+let Banner = mongoose.model('banner', Scheam);
+module.exports = Banner;
