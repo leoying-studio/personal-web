@@ -1,0 +1,40 @@
+doctype html
+html
+  head
+    meta(charst='utf-8')
+    title = title
+    link(rel='stylesheet', href='/lib/kendo/styles/kendo.common.min.css')
+    link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.default.min.css')
+    link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.min.css')
+    link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
+    link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
+    script(src="/lib/jquery/jquery.min.js")
+     script(src="/lib/jquery/jszip.min.js")
+      script(src="/lib/jquery/console.js")
+    script(src="/lib/kendo/kendo.all.min.js")
+    script(src="/js/manager.js")
+  body
+   nav.nav
+    h1.title 后台管理系统
+    ul#nav-menu
+     li 首页
+     li 导航栏目
+     li#nav-config-item 导航配置
+    ul#left-tree-menu
+     - var navs = data.navs;
+     each nav in navs
+      li #{nav.name}
+       ul 
+        each category in nav.categories
+         li #{category.name}
+    div#nav-window(style="display:none;")
+     form.nav-form(action="/nav/submit" method='post')
+      div.k-content(style="margin-bottom: 10px")
+       label 导航名称: 
+       input(type="text" class="k-textbox" name="name")
+      div.k-content
+       label 内容分类: 
+       input(type="text" class="k-textbox" name="categories")
+      div.k-content
+       button(type="submit" class="k-primary") 确认添加
+       

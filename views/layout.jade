@@ -3,6 +3,7 @@ html
   head
     meta(charst='utf-8')
     title = title
+    block head
     link(rel='stylesheet', href='/css/common.css')
     link(rel='stylesheet', href='/css/reset.css')
     link(rel='stylesheet', href='/css/index.css')
@@ -13,9 +14,7 @@ html
       h1 LIUYING
       nav.nav
         a(href="#" onclick="backHome()") 首页
-        a(href="#") 难忘今朝
-        a(href="#") 流金影视 
-        a(href="#") 故乡
-        a(href="#") 随笔  
-        a(href="#") 时光轴
+        - var navs = data.navs;
+        each nav in navs
+         a(href="#") #{nav.name}
     block content
