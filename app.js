@@ -15,6 +15,7 @@ var login = require('./routes/login');
 var register = require('./routes/register');
 var manager = require('./routes/manager');
 var nav = require('./routes/nav');
+// var acticle = require('./routes/acticle');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
@@ -62,6 +63,7 @@ app.use('/manager', manager);
 app.use("/login", login);
 app.use("/register", register);
 app.use("/nav", nav);
+// app.use("/acticle", acticle);
 // app.use('/users', users);
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

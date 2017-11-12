@@ -1,0 +1,9 @@
+.left-tree-menu {
+    float: left;
+    width: 20%,
+}
+
+.content-right {
+     width: 80%;
+     float: right;
+}

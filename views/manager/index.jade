@@ -8,9 +8,10 @@ html
     link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.min.css')
     link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
     link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
+    link(rel='stylesheet', href='/css/reset.css')
+    link(rel='stylesheet', href='/css/common.css')
+    link(rel='stylesheet', href='/css/manager.css')
     script(src="/lib/jquery/jquery.min.js")
-     script(src="/lib/jquery/jszip.min.js")
-      script(src="/lib/jquery/console.js")
     script(src="/lib/kendo/kendo.all.min.js")
     script(src="/js/manager.js")
   body
@@ -20,13 +21,24 @@ html
      li 首页
      li 导航栏目
      li#nav-config-item 导航配置
-    ul#left-tree-menu
-     - var navs = data.navs;
-     each nav in navs
-      li #{nav.name}
-       ul 
-        each category in nav.categories
-         li #{category.name}
+    div.nav-config-wrap
+     button.k-button.k-primary#nav-add-btn 添加
+     button.k-button.k-primary 删除
+     button.k-button.k-primary 编辑
+   div.content-wrapper.clearfix
+     ul#left-tree-menu.left-tree-menu
+      - var navs = data.navs;
+      each nav,navIndex in navs
+       li #{nav.name}
+        ul  
+         each category,cateIndex in nav.categories
+          - var navStr = JSON.stringify(nav);
+          - var cateStr = JSON.stringify(category);
+          - var dataStr = JSON.stringify(data);
+          li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
+           
+     div.content-right
+      div#grid
     div#nav-window(style="display:none;")
      form.nav-form(action="/nav/submit" method='post')
       div.k-content(style="margin-bottom: 10px")
@@ -36,5 +48,8 @@ html
        label 内容分类: 
        input(type="text" class="k-textbox" name="categories")
       div.k-content
-       button(type="submit" class="k-primary") 确认添加
+       button(type="submit" class="k-button k-default") 确认添加
+   div#article-window(style="display:none;")
+    form(action="/article/submit" method='post' id="article-window-form")
+    
        

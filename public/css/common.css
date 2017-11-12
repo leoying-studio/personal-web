@@ -9,3 +9,11 @@
 	clear: both;
 	visibility: hidden;
 }
+
+form .form-item {
+	padding: 8px 0;
+}
+
+form .form-item  input, textarea {
+   margin-left: 6px;
+}
