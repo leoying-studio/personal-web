@@ -22,10 +22,10 @@ function selectLeftMenu(nav, cate, data) {
          "</div>"+
         "<div class='k-content form-item'>"
             +"<label>导航标记</label>"+"<input type='text' "+
-            "class='k-textbox' disabled='false' value="+navId+" name='navId'/>"+
+            "class='k-textbox' readonly='readonly' value="+navId+" name='navId'/>"+
          "</div>"+
          "<div class='k-content form-item'>"
-            +"<button class='k-button k-default'> 确认添加" +
+            +"<button class='k-button k-default' type='submit'> 确认添加" +
          "</div>"
      );
 } 
