@@ -5,7 +5,7 @@ function selectLeftMenu(nav, cate, data) {
      var categories = nav.categories;
      var navId = nav._id;
      for(var c = 0; c < categories.length; c++) {
-         articleTypes+="<input type='checkbox' name='type[]' value="+categories[c]._id+">"+categories[c].name
+         articleTypes+="<input type='checkbox' name='categoriesId[]' value="+categories[c]._id+">"+categories[c].name
      }
      $("#article-window-form").html(
          "<div class='k-content form-item'>"
@@ -22,7 +22,7 @@ function selectLeftMenu(nav, cate, data) {
          "</div>"+
         "<div class='k-content form-item'>"
             +"<label>导航标记</label>"+"<input type='text' "+
-            "class='k-textbox' disabled='true' value="+navId+" name='navId'/>"+
+            "class='k-textbox' disabled='false' value="+navId+" name='navId'/>"+
          "</div>"+
          "<div class='k-content form-item'>"
             +"<button class='k-button k-default'> 确认添加" +

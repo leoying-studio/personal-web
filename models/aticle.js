@@ -4,11 +4,12 @@ let Utils = require("./../utils/index");
 var Scheam = new mongoose.Schema({
 	 title: String,
 	 description: String,
-	 img: {type: 'string'},
+	 img: String,
 	 navId: String,
 	 categoriesId: [
 		 {id: {type: 'string'}}
 	 ],
+	 type: Number,
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 var Aticle = mongoose.model('acticle', Scheam);
