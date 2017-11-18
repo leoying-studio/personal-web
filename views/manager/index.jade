@@ -30,13 +30,11 @@ html
      ul#left-tree-menu.left-tree-menu
       - var navs = data.navs;
       each nav,navIndex in navs
-       li #{nav.name}
+       - var navStr = JSON.stringify(nav);
+       li(onclick="selectLeftMenu(#{navStr})") #{nav.name}
         ul  
          each category,cateIndex in nav.categories
-          - var navStr = JSON.stringify(nav);
-          - var cateStr = JSON.stringify(category);
-          - var dataStr = JSON.stringify(data);
-          li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
+          li #{category.name}
      div.content-right
       div#grid
     div#nav-window(style="display:none;")
