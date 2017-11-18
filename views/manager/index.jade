@@ -29,18 +29,14 @@ html
    div.content-wrapper.clearfix
      ul#left-tree-menu.left-tree-menu
       - var navs = data.navs;
-      - var type = data.type;
-      - if (type == 1)
-        each nav,navIndex in navs
-        li #{nav.name}
-          ul  
-          each category,cateIndex in nav.categories
-            - var navStr = JSON.stringify(nav);
-            - var cateStr = JSON.stringify(category);
-            - var dataStr = JSON.stringify(data);
-            li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
-      - else if(type == 0) 
-       h2 主页
+      each nav,navIndex in navs
+       li #{nav.name}
+        ul  
+         each category,cateIndex in nav.categories
+          - var navStr = JSON.stringify(nav);
+          - var cateStr = JSON.stringify(category);
+          - var dataStr = JSON.stringify(data);
+          li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
      div.content-right
       div#grid
     div#nav-window(style="display:none;")

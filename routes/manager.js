@@ -40,7 +40,7 @@ var Home = {
 	}
 }
 
-router.get("/", function(req, res) {
+router.get("/default", function(req, res) {
 	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
 		if (err) {
 			req.flash('error', "读取导航列表失败");
@@ -74,7 +74,7 @@ router.get("/navs/:navId/:categoryId", function(req, res) {
 				articles: coll,
 				type: 0
 			});
-			res.render("/manager/navs", messageBody);
+			res.render("manager/index", messageBody);
 		});
 	});
 });
