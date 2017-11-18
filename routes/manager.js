@@ -41,15 +41,23 @@ var Home = {
 }
 
 router.get("/", function(req, res) {
-	res.redirect("/manager/navs");
+	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
+		if (err) {
+			req.flash('error', "读取导航列表失败");
+			res.redirect("/manager");
+		} 
+		var navId = collections[0]._id;
+		var categoryId = collections[0].categories[0]._id;
+		res.redirect("/manager/navs/"+navId+"/"+categoryId);
+	});
 });
 
 router.get("/navs/:navId/:categoryId", function(req, res) {
 	 var params = req.params;
 	 var navId = params.navId;
-	 var category = params.category;
+	 var categoryId = params.categoryId;
 	// 请求
-	Nav.table.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
+	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
 		if (err) {
 			req.flash('error', "读取导航列表失败");
 			res.redirect("/manager");
@@ -66,7 +74,7 @@ router.get("/navs/:navId/:categoryId", function(req, res) {
 				articles: coll,
 				type: 0
 			});
-			res.render("/manager", messageBody);
+			res.render("/manager/navs", messageBody);
 		});
 	});
 });
