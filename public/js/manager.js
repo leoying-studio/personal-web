@@ -1,5 +1,5 @@
 var articleTypes = "";
-function selectLeftMenu(nav) {
+function selectLeftMenu(nav, cate, data) {
      newGrid();
      articleTypes = "";
      var categories = nav.categories;

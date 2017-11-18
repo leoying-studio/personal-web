@@ -6,6 +6,7 @@ var TimeLine = require("./../models/timeline");
 var Footer = require("./../models/footer");
 var Nav = require("./../models/nav");
 var Body = require("./../config/body");
+var Article = require("./../models/article");
 var Home = {
 	render(req, res)  {
 		var findAll = [
@@ -20,6 +21,7 @@ var Home = {
 			for(var item of result) {
 			    body.data[item.key] = item.collections;
 			}
+			body.data.type = 1;
 			res.render("manager/index", body);
 		}).catch((e) => {
 			req.flash("error", e.message);
@@ -38,7 +40,33 @@ var Home = {
 	}
 }
 
+router.get("/navs/:navId/:categoryId", function(req, res) {
+	 var params = req.params;
+	 var navId = params.navId;
+	 var category = params.category;
+	// 请求
+	Nav.table.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
+		if (err) {
+			req.flash('error', "读取导航列表失败");
+			res.redirect("/manager");
+		} 
+		navId = navId || collections[0]._id;
+		categoryId = categoryId || collections[0].categories[0]._id;
+		Article.find({navId, 'categoriesId.id': categoryId}).exec(function(error, coll) {
+			if (error) {
+				req.flash('error', "读取当前分类下的文章列表失败");
+				req.redirect("/manager");
+			} 
+			var messageBody = new Body({
+				navs: collections,
+				articles: coll,
+				type: 0
+			});
+			res.render("/manager", messageBody);
+		});
+	});
+});
 
-router.get("/",Home.render.bind(Home));
+router.get("/home", Home.render.bind(Home));
 
 module.exports = router;

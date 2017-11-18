@@ -16,7 +16,6 @@ router.post("/submit", function(req,res) {
         req.flash("error", e.message);
         return res.redirect("/regview");
     }
-
     // 设置导航
     try {
         var categoriesCollections = categories.split(",");
