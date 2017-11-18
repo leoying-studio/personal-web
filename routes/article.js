@@ -33,14 +33,15 @@ router.post("/submit", (req, res) => {
 		}
 	}catch(e) {
 		req.flash("error", e.message);
-		res.redirect("/manager");
+		res.redirect("/manager/default");
 	}
 	// 开始插入数据
 	var article = new ArticleModel({
 		title,
 		img,
 		navId,
-		categoriesId
+		categoriesId,
+		description
 	});
 	article.save(function(err, current) {
 		if (err) {
@@ -48,7 +49,7 @@ router.post("/submit", (req, res) => {
 		} else {
 			req.flash("success", "添加成功");
 		}
-		res.redirect("/manager");
+		res.redirect("/manager/default");
 	});
 });
 

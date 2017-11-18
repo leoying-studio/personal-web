@@ -1,6 +1,6 @@
 var articleTypes = "";
 function selectLeftMenu(nav, cate, data) {
-     newGrid();
+    //  newGrid();
      articleTypes = "";
      var categories = nav.categories;
      var navId = nav._id;
@@ -31,17 +31,17 @@ function selectLeftMenu(nav, cate, data) {
 } 
 
 
-function newGrid() {
+function newGrid(data) {
       $("#grid").kendoGrid({
             dataSource: {
-                data: [],
-                schema: {
-                    model: {
-                        fields: {
-                            name: { type: "string" },
-                        }
-                    }
-                },
+                data: data,
+                // schema: {
+                //     model: {
+                //         fields: {
+                //             title: { type: "string" },
+                //         }
+                //     }
+                // },
                 pageSize: 20
             },
             height: 550,
@@ -53,10 +53,11 @@ function newGrid() {
                 numeric: false
             },
             columns: [
-                "年龄",
-                "年龄",
-                "年龄",
-                { field: "name", title: "姓名", format: "{0:c}",},
+                { field: "title", title: "标题"},
+                { field: 'description', title:'文章说明'},
+                { field: 'img', title:'图片地址'},
+                { field: 'navId', title:'导航id'},
+                { field: 'serverTime', title:'发布时间'},
             ]
         });
 }            
@@ -79,7 +80,6 @@ $(document).ready(function() {
     $("#left-tree-menu").kendoMenu({
         orientation: "vertical",
     }).data("kendoMenu").wrapper.css("width", "18%");
-
     $("#nav-add-btn").click(function() {
         $("#article-window").kendoWindow({
            width: "500px",
@@ -93,6 +93,8 @@ $(document).ready(function() {
             ]
         }).data("kendoWindow").center().open();
     });
-    
+    var articles = $("#articles-value").val();
+    articles = JSON.parse(articles);
+    newGrid(articles);
 })
   

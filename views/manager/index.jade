@@ -39,6 +39,9 @@ html
           li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
      div.content-right
       div#grid
+      //- 设置隐藏article数据
+      - var articles = JSON.stringify(data.articles);
+      input(value="#{articles}" style="display:none;" id="articles-value")
     div#nav-window(style="display:none;")
      form.nav-form(action="/nav/submit" method='post')
       div.k-content(style="margin-bottom: 10px")
