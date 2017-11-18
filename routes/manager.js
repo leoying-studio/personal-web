@@ -40,6 +40,10 @@ var Home = {
 	}
 }
 
+router.get("/", function(req, res) {
+	res.redirect("/manager/navs");
+});
+
 router.get("/navs/:navId/:categoryId", function(req, res) {
 	 var params = req.params;
 	 var navId = params.navId;
