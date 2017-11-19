@@ -1,45 +1,11 @@
 extends layout
 block content
-  section.slider
-    ul
-      li
-        img(src="/images/slider/1.jpg", alt="")
-        div.content
-           h2 天净沙·秋思
-           h3 枯藤老树昏鸦，小桥流水人家，古道西风瘦马
-           p 以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。
-  article.introduce
-    div.wrapper.clearfix
-        div.caption
-            h3 欢迎到我的工作室
-            h2 数字工作室
-            p  以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。 以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。
-        div.show
-            h2 这是个标题
-            div.wrapper
-                span
-                    img(src="/images/company-img-1.jpg", alt="")
-                span
-                    img(src="/images/company-img-2.jpg", alt="")
-                span
-                    img(src="/images/company-img-3.jpg", alt="")
-                span
-                    img(src="/images/company-img-4.jpg", alt="")        
+   section.slider
+    include ./home/banner.jade
+   article.intro
+    include ./home/intro.jade
    section.timeline
-    div.wrapper
-      h3 时光轴
-      div.line
-        div.content
-          h2 2011
-          p  这里是内容
-      div.line
-        div.content
-          h2 2012
-          p  这里是内容
-      div.line
-        div.content
-          h2 2013
-          p  这里是内容
-  footer.footer
-    div.wrapper
-      p 备案  
+    include ./home/timeline.jade
+   footer.footer
+    include ./home/footer.jade
+  

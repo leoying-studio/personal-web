@@ -81,60 +81,60 @@ body {
 	width: 100%;
 }
 
-/* introduce */
- .introduce {
+/* intro */
+ .intro {
     box-sizing: border-box;
 	padding: 100px 100px;
 	font-weight: bold;
 }
-.introduce .wrapper .caption {
+.intro .wrapper .caption {
 	width: 500px;
 	float: left;
 }
-.introduce .wrapper .caption h3 {
+.intro .wrapper .caption h3 {
 	font-size: 32px;
 	margin-bottom: 30px;
 	color:rgb(85,85,85);
 }
-.introduce .wrapper .caption h2 {
+.intro .wrapper .caption h2 {
 	margin-bottom: 50px;
 	font-size: 36px;
 	color:#66AF33;
 }
-.introduce .wrapper .caption p {
+.intro .wrapper .caption p {
 	color:rgba(85,85,85, .8);
 	line-height: 24px;
 	font-size: 16px;
 }
-.introduce .wrapper .show{
+.intro .wrapper .show{
 	float: right;
 	width: 510px;
 }
-.introduce .wrapper .show h2 {
+.intro .wrapper .show h2 {
 	font-size: 32px;
 	margin-bottom: 30px;
 	color:rgb(85,85,85);
 }
-.introduce .wrapper .show .wrapper {
+.intro .wrapper .show .wrapper {
 	font-size: 0;
 	width: 100%;
 }
-.introduce .wrapper .show .wrapper span{
+.intro .wrapper .show .wrapper span{
 	display: inline-block;
 	width: 250px;
 }
-.introduce .wrapper .show .wrapper>:nth-child(odd) {
+.intro .wrapper .show .wrapper>:nth-child(odd) {
 	padding-right: 10px;
 }
-.introduce .wrapper .show .wrapper>span {
+.intro .wrapper .show .wrapper>span {
 	padding-bottom: 10px;
 }
-.introduce .wrapper .show .wrapper span img {
+.intro .wrapper .show .wrapper span img {
 	display: block;
 	width: 100%;
 }
 
-/*introduce  E*/
+/*intro  E*/
 
 /*timeline S*/
 .timeline {

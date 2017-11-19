@@ -1,0 +1,7 @@
+header.header
+    h1 LIUYING
+    nav.nav
+     a(href="#" onclick="backHome()") 首页
+     - var navs = data.navs;
+     each nav in navs
+      a(href="#") #{nav.name}

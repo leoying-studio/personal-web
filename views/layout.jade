@@ -10,11 +10,5 @@ html
     link(rel='stylesheet', href='/css/loginRegister.css')
     script(src="/js/index.js")
   body
-    header.header
-      h1 LIUYING
-      nav.nav
-        a(href="#" onclick="backHome()") 首页
-        - var navs = data.navs;
-        each nav in navs
-         a(href="#") #{nav.name}
+    include ./common/header.jade
     block content
