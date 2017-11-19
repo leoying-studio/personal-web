@@ -40,15 +40,34 @@ var Home = {
 	}
 }
 
-router.get("/default", function(req, res) {
+router.get("/", function(req, res) {
 	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
 		if (err) {
 			req.flash('error', "读取导航列表失败");
 			res.redirect("/manager");
 		} 
+		if (collections.length == 0) {
+			var messageBody = new Body({
+				navs: collections,
+				articles: [],
+				type: 0
+			});
+			return res.render("manager", messageBody);
+		}
 		var navId = collections[0]._id;
 		var categoryId = collections[0].categories[0]._id;
-		res.redirect("/manager/navs/"+navId+"/"+categoryId);
+		Article.find({navId, 'categoriesId.id': categoryId}).exec(function(error, coll) {
+			if (error) {
+				req.flash('error', "读取当前分类下的文章列表失败");
+				req.redirect("/manager");
+			} 
+			var messageBody = new Body({
+				navs: collections,
+				articles: coll,
+				type: 0
+			});
+			res.render("manager", messageBody);
+		});
 	});
 });
 

@@ -1,13 +1,13 @@
 .left-tree-menu {
     float: left;
-    width: 20%,
 }
-
+.content-wrapper {
+    padding-top: 2px;
+}
 .content-right {
-     width: 80%;
-     float: right;
+    width: 88.5%;
+    float: right;
 }
-
 .nav .title {
    height: 70px;
    line-height: 70px;

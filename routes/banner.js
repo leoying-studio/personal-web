@@ -4,7 +4,7 @@ let Banner = require("./../models/banner");
 let Utils = require("./../utils");
 
 router.post("/submit", function(req,res) {
-    const {title, caption, descrption, background} = req.body;
+    const {title, caption, description, background} = req.body;
     try {
         if (!title) {
             throw new Error("banner标题不能为空!");
@@ -12,7 +12,7 @@ router.post("/submit", function(req,res) {
         if (!caption) {
             throw new Error("banner的字幕不能为空");
 		}
-		if (!descrption) {
+		if (!description) {
 			throw new Error("banner的说明不能为空");
 		}
 		if (!background) {
@@ -24,13 +24,13 @@ router.post("/submit", function(req,res) {
     }
 
     // 用户登录
-    new Banner({title, caption, descrption, background}).save((err, res) => {
+    new Banner({title, caption, description, background}).save((err, coll) => {
 		if (err) {
 			req.flash("error", "设置banner失败");
 		} else {
 			req.flash("success", "设置成功");
 		}
-		return res.redirect("/");
+		return res.redirect("/manager");
 	});
 });
 

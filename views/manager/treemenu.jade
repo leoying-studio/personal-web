@@ -1,0 +1,10 @@
+ul#left-tree-menu
+    - var dataStr = JSON.stringify(data);
+    - var navs = data.navs;
+    each nav,navIndex in navs
+     - var navStr = JSON.stringify(nav);
+     li(onclick="addNav(#{navStr},#{dataStr})") #{nav.name}
+      ul  
+       each category,cateIndex in nav.categories
+        - var cateStr = JSON.stringify(category)
+        li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}

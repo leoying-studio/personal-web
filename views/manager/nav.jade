@@ -1,0 +1,11 @@
+div#grid-nav
+div#nav-window(style="display:none;")
+ form.nav-form(action="/nav/submit" method='post')
+    div.k-content(style="margin-bottom: 10px")
+       label 导航名称: 
+       input(type="text" class="k-textbox" name="name")
+    div.k-content
+       label 内容分类: 
+       input(type="text" class="k-textbox" name="categories")
+    div.k-content
+       button(type="submit" class="k-button k-default") 确认添加
