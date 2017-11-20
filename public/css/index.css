@@ -42,7 +42,7 @@ body {
 
 /*banner  开始*/
 .slider {
-    padding-top:65px;
+    padding-top:50px;
 }
 
 .slider .slider-panel {
@@ -51,12 +51,12 @@ body {
 }
 
 .slider .slider-panel ul {
-    width: 800%;
+    width: 400%;
     -webkit-animation: play 21s ease-in-out infinite 0s;    
 }
 
 .slider .slider-panel ul li {
-    width: 12.5%;
+    width: 25%;
     float:left;
 }
 
@@ -66,25 +66,16 @@ body {
 }
 
 @keyframes play {
-    0%,12.5% {
+    0%,20% {
         transform:translateX(-0%);
     }
-    12.5%,25% {
-        transform:translateX(-12.5%);
-    }
-    25%,37.5% {
+    25%,45% {
         transform:translateX(-25%);
     }
-    37.5%,50% {
-        transform:translateX(-37.5%);
-    }
-    50%,62.5% {
+    50%,75% {
         transform:translateX(-50%);
     }
-    75%,87.5% {
-        transform:translateX(-62.5%);
-    }
-    87.5%,100% {
+    80%,100%{
         transform:translateX(-75%);
     }
 }
