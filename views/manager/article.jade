@@ -1,3 +1,20 @@
 div#grid-article
 div#article-window(style="display:none;")
  form(action="/article/submit" method='post' id="article-window-form")
+  div.k-content.form-item
+   label 文章标题
+   input(type='text' class='k-textbox' name='title')
+  div.k-content.form-item
+   label 文章说明
+   textarea(name='description' class='k-textbox')
+  div.k-content.form-item
+   label 图片地址
+   input(type='text' class='k-textbox' name='img')
+  div.k-content.form-item
+   label 导航标识
+   input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navId-input")
+  div.k-content.form-item
+   label 所属分类
+   span#blog-cateory
+  div.k-content.form-item
+   button(class='k-button k-default' type='submit') 添加
