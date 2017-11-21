@@ -83,13 +83,9 @@ body {
 
 
 .slider ul li .content {
-	width: 800px;
+	width:70%;
 	height: 200px;
-	position: absolute;
-	left: 50%;
-	margin-left: -400px;
-	margin-bottom: 100px;
-	top: 25%;
+
 	text-align: center;
     color: #fff;
 }
