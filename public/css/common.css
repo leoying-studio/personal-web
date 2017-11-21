@@ -10,10 +10,13 @@
 	visibility: hidden;
 }
 
+/* 表单通用样式 */
+
 form .form-item {
 	padding: 8px 0;
 }
 
-form .form-item  input, textarea {
-   margin-left: 6px;
+form .form-item input, form .form-item textarea {
+   margin-left: 8px;
 }
+

@@ -16,28 +16,9 @@ function addNav(nav, data) {
      for(var c = 0; c < categories.length; c++) {
          articleTypes+="<input type='checkbox' name='categoriesId[]' value="+categories[c]._id+">"+categories[c].name
      }
-     $("#article-window-form").html(
-         "<div class='k-content form-item'>"
-            +"<label>文章标题</label><input type='text' class='k-textbox' name='title'>"+
-         "</div>"+
-         "<div class='k-content form-item'>"
-            +"<label>文章说明</label><textarea name='description' class='k-textbox'/>"+
-         "</div>"+
-         "<div class='k-content form-item'>"
-            +"<label>所属分类</label>"+articleTypes+
-         "</div>"+
-        "<div class='k-content form-item'>"
-            +"<label>图片地址</label><input type='text' class='k-textbox' name='img'/>"+
-         "</div>"+
-        "<div class='k-content form-item'>"
-            +"<label>导航标记</label>"+"<input type='text' "+
-            "class='k-textbox' readonly='readonly' value="+navId+" name='navId'/>"+
-         "</div>"+
-         "<div class='k-content form-item'>"
-            +"<button class='k-button k-default' type='submit'> 确认添加" +
-         "</div>"
-     );
-    $("#article-window").kendoWindow({
+     $("#blog-cateory").html(articleTypes);
+     $("#navId-input").val(navId);
+     $("#article-window").kendoWindow({
            width: "500px",
             title: "添加文章列表",
             visible: false,
@@ -114,7 +95,7 @@ $(document).ready(function() {
                     }},
                     {name: 'edit', text:'编辑', click: function(item) {
                         console.log(grid,item);
-                    }},
+                    }}
                 ]}
             ];
     Grid($("#grid-article"),data.articles, articleColumns);
