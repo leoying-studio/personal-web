@@ -1,6 +1,7 @@
 
 body {
     min-width: 1300px;
+    background-color: #eff3f5;
 }
 .header {
     width: 100%;
@@ -52,7 +53,7 @@ body {
 
 .banner .banner-panel ul {
     width: 400%;
-    -webkit-animation: play 21s ease-in-out infinite 0s;    
+    -webkit-animation: play 17s ease-in-out infinite 2s;    
 }
 
 .banner .banner-panel ul li {

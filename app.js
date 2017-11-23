@@ -9,6 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 // 自定义引入
+require("./gulp/index");
 
 var home = require('./routes/home');
 var login = require('./routes/login');
