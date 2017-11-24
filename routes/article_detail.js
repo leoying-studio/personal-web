@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var ArticleDetailModel = require("./../models/article_detail");
-
+var Body = require("./../config/body");
 router.post("/submit", (req, res) => {
 	var body = req.body;
 	var title = body.title;
@@ -72,8 +72,13 @@ router.get("/view/:navId/:cateoryId/:articleId", function(req, res) {
 		res.redirect("/article");
 	}
 
-	ArticleDetailModel.find({navId, 'categoriesId.id': params.categoryId, articleId}).then(function() {
-
+	ArticleDetailModel.find({navId, 'categoriesId.id': params.categoryId, articleId}).exec(function(error, coll) {
+		if (erro) {
+			req.flash("error", '请求失败');
+			res.redirect("/article");
+		}
+		const body = new Body(coll);
+		res.render("/article/article_detail", body);
 	});
 });
 
