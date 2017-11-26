@@ -2,19 +2,15 @@ var express = require('express');
 var router = express.Router();
 var ArticleDetailModel = require("./../models/article_detail");
 var Body = require("./../config/body");
+var Article = require("./../models/article");
+
 router.post("/submit", (req, res) => {
 	var body = req.body;
 	var title = body.title;
 	var navId = body.navId;
 	var articleId = body.articleId;
-	var categoriesId = body["categoriesId[]"];
-	var content = body.content || "暂无内容";
-	if (typeof categoriesId == "string") {
-		categoriesId = [categoriesId];
-	}
-	categoriesId = categoriesId.map(function(item) {
-		return {id: item};
-	});
+	var categoryId = body.categoryId;
+	var content = body.content;
 	try {
 		if (!title) {
 			throw new Error("标题不能为空");
@@ -22,35 +18,46 @@ router.post("/submit", (req, res) => {
 		if (!navId) {
 			throw new Error("navId不能为空");
 		}
-		if (!categoriesId) {
-			throw new Error("categoriesId不能为空");
+		if (!categoryId) {
+			throw new Error("类别id不能为空!");
 		}
-		if (!Array.isArray(categoriesId)) {
-			throw new Error("categoriesId必须为数组");
-		}
-		if (!categoriesId.length) {
-			throw new Error("请至少选择一个分类");
+		if (!content) {
+			throw new Error("请输入内容!");
 		}
 	}catch(e) {
 		req.flash("error", e.message);
 		res.redirect("/manager");
 	}
-	// 开始插入数据
-	var articleDetail = new ArticleDetailModel({
-		title,
-		navId,
-		categoriesId,
-		articleId,
-		content
-	});
-	articleDetail.save(function(err, current) {
+	// 查询categories id
+	Article.find({"categoriesId.id": categoryId}).then(function(err, idColl) {
 		if (err) {
-			req.flash("error", "添加文章详情失败");
-		} else {
-			req.flash("success", "添加成功");
+			req.flash("error", "查询类别Id出现错误");
+			return res.redirect("/manager");
 		}
-		res.redirect("/manager");
-	});
+		return new Promise(function(resolve, reject) {
+			resolve(idColl);
+		})
+	})
+	.then(function(idColl) {
+		// 开始插入数据
+		var articleDetail = new ArticleDetailModel({
+			title,
+			navId,
+			categoryId,
+			articleId,
+			categoriesId: idColl,
+			content
+		});
+		articleDetail.save(function(err, current) {
+			if (err) {
+				req.flash("error", "添加文章详情失败");
+			} else {
+				req.flash("success", "添加成功");
+			}
+			res.redirect("/manager");
+		});
+	})
+	
 });
 
 router.get("/view/:navId/:cateoryId/:articleId", function(req, res) {

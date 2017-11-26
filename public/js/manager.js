@@ -84,17 +84,36 @@ $(document).ready(function() {
     var data = $("#articles-value").val();
     data = JSON.parse(data);
     var articleColumns = [
-                { field: "title", title: "标题"},
+                { field: "title", title: "标题", width: '100px'},
                 { field: 'description', title:'文章说明'},
-                { field: 'img', title:'图片地址'},
-                { field: 'navId', title:'导航id'},
+                { field: 'img', title:'图片地址', width: '100px'},
+                { field: 'navId', title:'导航id', width: '100px'},
                 { field: 'serverTime', title:'发布时间'},
                 {title:'操作',command: [
-                    {name: 'destroy',text:'删除', click: function() {
-                        
+                    {text:'删除', click: function(e) {
+                        debugger;
+                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                     }},
-                    {name: 'edit', text:'编辑', click: function(item) {
-                        console.log(grid,item);
+                    {text:'编辑', click: function(item) {
+                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    }},
+                    {text:'添加', click: function(e) {
+                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                         $("#article-detail-content").kendoEditor({ resizable: {
+                            content: true,
+                            toolbar: true
+                         }});
+                         $("#article-detail-window").kendoWindow({
+                            width: "500px",
+                            title: "添加文章详情",
+                            visible: false,
+                            actions: [
+                                "Pin",
+                                "Minimize",
+                                "Maximize",
+                                "Close"
+                            ]
+                        }).data("kendoWindow").center().open();
                     }}
                 ]}
             ];
