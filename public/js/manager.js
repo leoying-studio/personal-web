@@ -100,9 +100,11 @@ $(document).ready(function() {
                     {text:'添加', click: function(e) {
                         debugger;
                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                        var categoriesId = dataItem.categoriesId;
                          $("#article_detail_navId").val(dataItem.navId);
                          $("#article_detail_cateoryId").val(dataItem.cateoryId);
                          $("#article_detail_articleId").val(dataItem.articleId);
+                         
                          $("#article-detail-content").kendoEditor({ resizable: {
                             content: true,
                             toolbar: true
