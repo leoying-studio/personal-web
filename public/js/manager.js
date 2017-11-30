@@ -83,6 +83,7 @@ $(document).ready(function() {
     });
     var data = $("#articles-value").val();
     data = JSON.parse(data);
+    var currentArticle = null;
     var articleColumns = [
                 { field: "title", title: "标题", width: '100px'},
                 { field: 'description', title:'文章说明'},
@@ -91,24 +92,13 @@ $(document).ready(function() {
                 { field: 'serverTime', title:'发布时间'},
                 {title:'操作',command: [
                     {text:'删除', click: function(e) {
-                        debugger;
                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                     }},
                     {text:'编辑', click: function(item) {
                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                     }},
                     {text:'添加', click: function(e) {
-                        debugger;
-                        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                        var categoriesId = dataItem.categoriesId;
-                         $("#article_detail_navId").val(dataItem.navId);
-                         $("#article_detail_cateoryId").val(dataItem.cateoryId);
-                         $("#article_detail_articleId").val(dataItem.articleId);
-                         
-                         $("#article-detail-content").kendoEditor({ resizable: {
-                            content: true,
-                            toolbar: true
-                         }});
+                         currentArticle = this.dataItem($(e.currentTarget).closest("tr"));
                          $("#article-detail-window").kendoWindow({
                             width: "1000px",
                             title: "添加文章详情",
@@ -124,7 +114,31 @@ $(document).ready(function() {
                 ]}
             ];
     Grid($("#grid-article"),data.articles, articleColumns);
+    $("#article-detail-content").kendoEditor({ resizable: {
+        content: true,
+        toolbar: true
+     }});
+    $("#article_detail_submit").click(function() {
+       var content = $("#article-detail-content").val();        
+       var title = $("#article_detail_title").val();
+       $.ajax({
+            url: 'http://localhost:3000/article/article_detail/submit',
+            type:'post',
+            data: {
+                navId: currentArticle.navId,
+                categoriesId: currentArticle.categoriesId,
+                articleId: currentArticle.articleId,
+                content: content,
+                title: title
+            },
+            success:function() {
+                
+            },
+            error:function() {
 
+            }
+       });
+    });
     //导航切换
     $("#nav-item-nav").click(function() {
          $("#left-tree-menu").hide();

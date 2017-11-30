@@ -19,17 +19,11 @@ div#article-window(style="display:none;")
   div.k-content.form-item
    button(class='k-button k-default' type='submit') 添加
 div#article-detail-window(style="display:none;")
-  form(action="/article/submit" method='post' id="article-detail-window-form")
+  form( id="article-detail-window-form")
    div.k-content.form-item
     label 文章标题
     input(type='text' class='k-textbox' name='title' id="article_detail_title")
    div.k-content.form-item
-    label 导航标识
-    input(type='text' class='k-textbox' name='navId' id="article_detail_navId")
-   div.k-content.form-item
-    label 文章标识
-    input(type='text' class='k-textbox' name='articleId' id="article_detail_articleId")
-   div.k-content.form-item
     textarea#article-detail-content
    div.k-content.form-item
-    button.k-button 提交
+    button.k-button#article_detail_submit(type='button') 提交
