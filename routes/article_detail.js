@@ -9,7 +9,7 @@ router.post("/submit", (req, res) => {
 	var title = body.title;
 	var navId = body.navId;
 	var articleId = body.articleId;
-	var categoryId = body.categoryId;
+	var categoriesId = body.categoriesId;
 	var content = body.content;
 	try {
 		if (!title) {
@@ -28,24 +28,13 @@ router.post("/submit", (req, res) => {
 		req.flash("error", e.message);
 		res.redirect("/manager");
 	}
-	// 查询categories id
-	Article.find({"categoriesId.id": categoryId}).then(function(err, idColl) {
-		if (err) {
-			req.flash("error", "查询类别Id出现错误");
-			return res.redirect("/manager");
-		}
-		return new Promise(function(resolve, reject) {
-			resolve(idColl);
-		})
-	})
-	.then(function(idColl) {
-		// 开始插入数据
-		var articleDetail = new ArticleDetailModel({
+
+	var articleDetail = new ArticleDetailModel({
 			title,
 			navId,
 			categoryId,
 			articleId,
-			categoriesId: idColl,
+			categoriesId,
 			content
 		});
 		articleDetail.save(function(err, current) {
@@ -56,9 +45,7 @@ router.post("/submit", (req, res) => {
 			}
 			res.redirect("/manager");
 		});
-	})
-	
-});
+	});
 
 router.get("/view/:navId/:cateoryId/:articleId", function(req, res) {
 	 var params = req.params;

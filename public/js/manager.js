@@ -98,13 +98,17 @@ $(document).ready(function() {
                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                     }},
                     {text:'添加', click: function(e) {
+                        debugger;
                         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                         $("#article_detail_navId").val(dataItem.navId);
+                         $("#article_detail_cateoryId").val(dataItem.cateoryId);
+                         $("#article_detail_articleId").val(dataItem.articleId);
                          $("#article-detail-content").kendoEditor({ resizable: {
                             content: true,
                             toolbar: true
                          }});
                          $("#article-detail-window").kendoWindow({
-                            width: "500px",
+                            width: "1000px",
                             title: "添加文章详情",
                             visible: false,
                             actions: [
@@ -157,5 +161,5 @@ $(document).ready(function() {
             ]
         }).data("kendoWindow").center().open();
     });
-})
+});
   
