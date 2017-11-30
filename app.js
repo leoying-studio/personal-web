@@ -17,6 +17,7 @@ var register = require('./routes/register');
 var manager = require('./routes/manager');
 var nav = require('./routes/nav');
 var article = require('./routes/article');
+var article_detail = require('./routes/article_detail');
 var banner = require('./routes/banner');
 // var acticle = require('./routes/acticle');
 // var db = require('./db');
@@ -68,6 +69,7 @@ app.use("/register", register);
 app.use("/nav", nav);
 app.use("/article", article);
 app.use("/banner", banner);
+app.use("/article/article_detail", article_detail);
 // app.use("/acticle", acticle);
 // app.use('/users', users);
 // catch 404 and forward to error handler

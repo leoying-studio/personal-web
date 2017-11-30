@@ -25,8 +25,7 @@ router.post("/submit", (req, res) => {
 			throw new Error("请输入内容!");
 		}
 	}catch(e) {
-		req.flash("error", e.message);
-		res.redirect("/manager");
+		return res.send(new Body({}, 0, false, e.message));
 	}
 
 	var articleDetail = new ArticleDetailModel({
@@ -40,10 +39,11 @@ router.post("/submit", (req, res) => {
 		articleDetail.save(function(err, current) {
 			if (err) {
 				req.flash("error", "添加文章详情失败");
+				return res.send(new Body({}, 500, false, "添加文章详情失败"));
 			} else {
 				req.flash("success", "添加成功");
+				return res.send(new Body(current));
 			}
-			res.redirect("/manager");
 		});
 	});
 

@@ -119,23 +119,25 @@ $(document).ready(function() {
         toolbar: true
      }});
     $("#article_detail_submit").click(function() {
+        debugger;
        var content = $("#article-detail-content").val();        
        var title = $("#article_detail_title").val();
        $.ajax({
-            url: 'http://localhost:3000/article/article_detail/submit',
+            url: '/article/article_detail/submit',
             type:'post',
             data: {
                 navId: currentArticle.navId,
-                categoriesId: currentArticle.categoriesId,
-                articleId: currentArticle.articleId,
+                categoriesId: '',
+                articleId: '',
                 content: content,
                 title: title
             },
-            success:function() {
-                
+            dataType: "json",
+            success:function(data) {
+                alert(0);
             },
-            error:function() {
-
+            error:function(data) {
+                alert(0);
             }
        });
     });

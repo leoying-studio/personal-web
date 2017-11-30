@@ -1,3 +1,5 @@
+var mongoose=require('../db').mongoose;
+var Utils = require("./../utils/index");
 var detailSchema = new mongoose.Schema({
 	 title: String,
 	 navId: String,
@@ -5,7 +7,7 @@ var detailSchema = new mongoose.Schema({
 		 {id: {type: 'string'}}
 	 ],
 	 articleId: String,
-	 content: string,
+	 content: String,
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 var AticleDetail = mongoose.model('acticle_detail', detailSchema);
