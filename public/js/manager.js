@@ -119,25 +119,28 @@ $(document).ready(function() {
         toolbar: true
      }});
     $("#article_detail_submit").click(function() {
-        debugger;
        var content = $("#article-detail-content").val();        
        var title = $("#article_detail_title").val();
+       var categoriesId = currentArticle.categoriesId.toJSON();
+       categoriesId = JSON.stringify(categoriesId);
        $.ajax({
             url: '/article/article_detail/submit',
             type:'post',
             data: {
                 navId: currentArticle.navId,
-                categoriesId: '',
-                articleId: '',
+                categoriesId:categoriesId,
+                articleId: currentArticle._id,
                 content: content,
                 title: title
             },
             dataType: "json",
             success:function(data) {
-                alert(0);
+                if (data.code == 200) {
+                    alert('success');
+                }
             },
             error:function(data) {
-                alert(0);
+               alert('error');
             }
        });
     });

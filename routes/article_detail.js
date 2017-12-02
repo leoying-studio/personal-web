@@ -18,7 +18,7 @@ router.post("/submit", (req, res) => {
 		if (!navId) {
 			throw new Error("navId不能为空");
 		}
-		if (!categoryId) {
+		if (!categoriesId) {
 			throw new Error("类别id不能为空!");
 		}
 		if (!content) {
@@ -28,20 +28,21 @@ router.post("/submit", (req, res) => {
 		return res.send(new Body({}, 0, false, e.message));
 	}
 
+	categoriesId = JSON.parse(categoriesId).map(function(item) {
+		return {id: item.id};
+	})
+
 	var articleDetail = new ArticleDetailModel({
 			title,
 			navId,
-			categoryId,
 			articleId,
 			categoriesId,
 			content
 		});
 		articleDetail.save(function(err, current) {
 			if (err) {
-				req.flash("error", "添加文章详情失败");
 				return res.send(new Body({}, 500, false, "添加文章详情失败"));
 			} else {
-				req.flash("success", "添加成功");
 				return res.send(new Body(current));
 			}
 		});

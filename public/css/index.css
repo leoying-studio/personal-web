@@ -1,4 +1,6 @@
-
+html {
+   font-family: '微软雅黑'
+}
 body {
     min-width: 1300px;
     background-color: #eff3f5;
@@ -231,4 +233,67 @@ body {
 }
 .footer .wrapper {
     min-height: 600px;
+}
+
+/*文章块*/
+.article-wrapper {
+    padding-top: 65px;
+    width: 90%;
+    margin:  0 auto;
+}
+
+.article-block {
+    width: 280px;
+    padding: 10px;
+    display: inline-block;
+}
+
+.article-block:hover {
+    background-color: white;
+}
+
+.article-block-img {
+    display: block;
+    width: 100%;
+    border-radius: 4px;
+}
+
+.article-block .title {
+    font-size: 14px;
+    line-height: 25px;
+    color: #34495e;
+}
+
+.article-block .article-info {
+    height: 21px;
+    line-height: 21px;
+    font-size: 14px;
+}
+
+.article-block .article-info .article-mode-type {
+    padding: 2px 4px;
+    border-radius: 1px;
+    background-color: #dfe5e9;
+    color:#9aabb8;
+}
+
+.article-block .article-info .article-comment {
+    padding: 0 5px;
+}
+
+.article-block .article-info .article-comment i {
+    font-style: normal;
+    padding: 0 2px;
+    color: #9aabb8;
+}
+
+.article-block .description {
+    width: 100%;
+    height: 30px;
+    line-height: 30px;
+    font-size: 14px;
+    white-space: nowrap;
+    overflow: hidden;   
+    text-overflow: ellipsis;
+    color: #999;
 }

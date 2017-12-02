@@ -4,4 +4,5 @@ header.header
      a(href="#" onclick="backHome()") 首页
      - var navs = data.navs;
      each nav in navs
-      a(href="#") #{nav.name}
+      - var categories = JSON.stringify(nav.categories);
+      a(href="#" navId="#{nav._id}" categories="#{categories}").nav-name #{nav.name}

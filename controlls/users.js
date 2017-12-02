@@ -1,7 +1,0 @@
-class User {
-
-    static checkLogin() {
-        
-    }
-
-}

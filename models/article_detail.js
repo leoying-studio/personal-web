@@ -10,5 +10,5 @@ var detailSchema = new mongoose.Schema({
 	 content: String,
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
-var AticleDetail = mongoose.model('acticle_detail', detailSchema);
+var AticleDetail = mongoose.model('article_detail', detailSchema);
 module.exports = AticleDetail;
