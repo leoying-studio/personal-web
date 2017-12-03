@@ -1,4 +1,3 @@
-var express = require('express');
 var Banner = require("./banner");
 var Intro = require("./intro");
 var Nav = require("./nav");
