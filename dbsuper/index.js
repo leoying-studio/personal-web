@@ -27,9 +27,9 @@ exports.findOne = function(condtion) {
 }
 
 //  新增
-exports.save = function(schema) {
+exports.save = function(model) {
     try{
-        return schema.save().exec();
+        return model.save().exec();
     }catch(e) {
         console.log('error');
     }

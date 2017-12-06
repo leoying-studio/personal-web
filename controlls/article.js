@@ -34,7 +34,7 @@ exports.submit = function(req, res, next) {
 	var img = body.img;
 	var description = body.description;
 	var navId = body.navId;
-	var categoriesId = body["categoriesId[]"];
+	var categoriesId = body["categoriesId"];
 	if (typeof categoriesId == "string") {
 		categoriesId = [categoriesId];
 	}
@@ -62,14 +62,14 @@ exports.submit = function(req, res, next) {
 		res.redirect("/manager");
 	}
 	// 开始插入数据
-	var article = new ArticleModel({
+	var article = {
 		title,
 		img,
 		navId,
 		categoriesId,
 		description
-	});
-	ArticleDAL.add(article).then( (articles) => {
-		  
+	};
+	ArticleDAL.submit(article).then( (articles, aa, eee) => {
+		  console.log(articles, aa, eee);
 	});
 }
