@@ -242,11 +242,25 @@ body {
     padding: 0 5px;
 }
 
+.creation-type {
+    font-size:14px;
+    background-color: #9aabb8;
+    border-radius: 5px;
+    padding: 0 4px;
+    color: white;
+}
+
 /*文章块 block-item-white*/
+
+.container {
+    width: 70%;
+    margin: 68px auto;
+    padding-bottom: 68px;
+}
+
 .article-wrapper {
-    padding-top: 65px;
-    width: 90%;
-    margin:  0 auto;
+    padding: 0 30px 15px 30px;
+    background-color: white;
 }
 
 .article-block {
@@ -311,6 +325,7 @@ body {
 .block-item-white .img {
     width: 100%;
     display: block;
+    height: 236px;
 }
 
 .block-item-white .text-wrap {
@@ -326,9 +341,9 @@ body {
     font-size: 18px;
 }
 
-
 .block-item-white .text-wrap .description {
     height: 60px;
+    line-height: 20px;
     margin-bottom: 8px;
     font-size:14px;
     color: '#666';
@@ -336,7 +351,70 @@ body {
 }
 
 .block-item-white .article-info i {
+    font-size:12px;
     font-style: normal;
     padding: 0 2px;
     color: #9aabb8;
+}
+
+/* 后期调整为css3动画 */
+.block-item-white:hover {
+    box-shadow:  1px 1px 1px #ccc;
+}
+
+
+/*article-verticle-item  组件文章横向的*/
+
+.article-verticle-item {
+    padding: 35px 0;
+    background-color: white;
+    border-bottom: 2px dashed #f1f1f1;
+}
+
+.article-verticle-item .icon {
+    width: 270px;
+    height: 160px;
+    display: inline-block;
+    padding-right: 25px;
+}
+
+.article-verticle-item .content {
+    width: 500px;
+    vertical-align: top;
+    display: inline-block;
+}
+
+.article-verticle-item .content .title {
+    line-height: 28px;
+}
+
+.article-verticle-item .content .title a {
+    font-size: 18px;
+    color:#3f3f3f;
+    font-weight: 600;
+}
+
+.article-verticle-item  .content .time {
+    margin-top: 14px;
+    margin-bottom: 10px;
+    padding-left: 3px;
+    font-style: normal;
+    font-size: 15px;
+    color: #a2a2a2;
+}
+
+.article-verticle-item  .content .description {
+    line-height: 33px;
+    font-size:15px;
+    font-family: "Microsoft Yahei", "冬青黑体简体中文 w3";
+    color: '#404040';
+}
+
+/* title-panel */
+
+.title-panel {
+    border-left: solid 4px #66AF33;
+    line-height: 24px;
+    text-indent: 10px;
+    margin: 15px 0;
 }
