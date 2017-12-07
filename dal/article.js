@@ -1,6 +1,3 @@
-
-
-
 var ArticleModel = require("./../models/article");
 var NavModel = require("./../models/nav");
 var Body = require("./../config/body");
@@ -24,5 +21,6 @@ exports.getPaging = function(params, cb) {
 
 // 添加文章列表
 exports.submit = function(fields) {
-    return DBSuper.save(new ArticleModel(fields));
+    var model = new ArticleModel(fields);
+    return DBSuper.save(model);
 }

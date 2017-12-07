@@ -235,7 +235,14 @@ body {
     min-height: 600px;
 }
 
-/*文章块*/
+
+
+/* 文章块common */
+.article-footer-between {
+    padding: 0 5px;
+}
+
+/*文章块 block-item-white*/
 .article-wrapper {
     padding-top: 65px;
     width: 90%;
@@ -270,18 +277,13 @@ body {
     font-size: 14px;
 }
 
-.article-block .article-info .article-mode-type {
+.article-block .article-info  {
     padding: 2px 4px;
     border-radius: 1px;
-    background-color: #dfe5e9;
     color:#9aabb8;
 }
 
-.article-block .article-info .article-comment {
-    padding: 0 5px;
-}
-
-.article-block .article-info .article-comment i {
+.article-block .article-info i {
     font-style: normal;
     padding: 0 2px;
     color: #9aabb8;
@@ -296,4 +298,45 @@ body {
     overflow: hidden;   
     text-overflow: ellipsis;
     color: #999;
+}
+
+/* article-block-white */
+.block-item-white {
+    background-color: white;
+    width: 285px;
+    float: left;
+    margin: 20px 10px;
+}
+
+.block-item-white .img {
+    width: 100%;
+    display: block;
+}
+
+.block-item-white .text-wrap {
+    padding: 10px 15px;
+}
+
+.block-item-white .text-wrap .title {
+    color: black;
+    font-weight:normal;
+    font-family: '微软雅黑';
+    height: 32px;
+    line-height: 32px;
+    font-size: 18px;
+}
+
+
+.block-item-white .text-wrap .description {
+    height: 60px;
+    margin-bottom: 8px;
+    font-size:14px;
+    color: '#666';
+    overflow: hidden;
+}
+
+.block-item-white .article-info i {
+    font-style: normal;
+    padding: 0 2px;
+    color: #9aabb8;
 }

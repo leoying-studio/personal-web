@@ -38,8 +38,8 @@ exports.submit = function(req, res, next) {
 	if (typeof categoriesId == "string") {
 		categoriesId = [categoriesId];
 	}
-	categoriesId = categoriesId.map(function(item) {
-		return {id: item};
+	categoriesId = categoriesId.map(function(id) {
+		return {id};
 	});
 	try {
 		if (!title) {
@@ -69,7 +69,15 @@ exports.submit = function(req, res, next) {
 		categoriesId,
 		description
 	};
-	ArticleDAL.submit(article).then( (articles, aa, eee) => {
-		  console.log(articles, aa, eee);
+	ArticleDAL.submit(article)
+	.then( (articles, command) => {
+		 // 插入成功
+		 req.flash("success", "添加文章列表成功!")
+		 res.render("manager")
+	}, () => {
+		// 失败
+		req.flash("error", "添加文章列表失败!")
+		res.render("manager")
 	});
+	
 }

@@ -3,15 +3,14 @@ var ArticleDetailModel = require("./../models/article_detail");
 var Body = require("./../config/body");
 var DBSuper = require("./../dbsuper/index");
 
-exports.add = function() {
-    return DBSuper.save(ArticleDetailModel);
-}
-
-exports.list = function(params) {
+exports.get = function(fields) {
     return DBSuper.findOne({
         model: ArticleDetailModel,
-        params: params
+        fields
     });
 }
 
-
+exports.save = function(fields) {
+    var model = new ArticleDetailModel(fields);
+    return DBSuper.save(model);
+}

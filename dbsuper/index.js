@@ -17,10 +17,10 @@ exports.findAll = function(model) {
 }
 
 exports.findOne = function(condtion) {
-    var params = condtion.params;
+    var fields = condtion.fields;
     var model = condtion.model;
     try {
-        return model.findOne(params).exec();
+        return model.findOne(fields).exec();
     }catch(e) {
         console.log('error');
     }
@@ -29,9 +29,9 @@ exports.findOne = function(condtion) {
 //  新增
 exports.save = function(model) {
     try{
-        return model.save().exec();
+        return model.save();
     }catch(e) {
-        console.log('error');
+        console.log(e);
     }
 }
 
