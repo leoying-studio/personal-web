@@ -37,7 +37,7 @@ function Grid(el,dataSource, columns) {
             data: dataSource,
             pageSize: 50
         },
-        height: 800,
+        height: "100%",
         scrollable: true,
         sortable: true,
         filterable: true,

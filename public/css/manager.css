@@ -1,13 +1,20 @@
-.left-tree-menu {
-    float: left;
+.left-wrapper{
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    top: 110px;
+    left:0;
+    z-index: 999;
 }
-.content-wrapper {
-    padding-top: 2px;
+
+.right-wrapper {
+    position: absolute;
+    top: 110px;
+    left: 205px;
+    bottom: 2px;
+    right: 0;
 }
-.content-right {
-    width: 88.5%;
-    float: right;
-}
+
 .nav .title {
    height: 70px;
    line-height: 70px;
