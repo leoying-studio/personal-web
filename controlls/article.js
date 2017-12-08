@@ -30,7 +30,8 @@ exports.getPaging = function(req, res, next) {
 		msg.params = {
 			navId,
 			categoryId,
-			currentPage
+			currentPage,
+			total: msg.articles.length
 		};
         res.render("article/index", new Body(msg));
     });

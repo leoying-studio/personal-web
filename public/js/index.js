@@ -5,11 +5,13 @@ $(document).ready(function() {
      var navId = null;
      var categoryId = null;
      var currentPage =null;
+     var total = 0
      var inited = false;
      if (params) {
          navId = params.navId;
          categoryId = params.categoryId;
          currentPage = params.currentPage;
+         total = params.total;
      }
     
 
@@ -26,8 +28,8 @@ $(document).ready(function() {
      // 分页初始化
      $("#paging").paging({
         initPageNo: currentPage, // 初始页码
-        totalPages: 30, //总页数
-        totalCount: '合计300条数据', // 条目总数
+        totalPages: Math.ceil(total / 20), //总页数
+        totalCount: '共'+total+'条', // 条目总数
         slideSpeed: 600, // 缓动速度。单位毫秒 
         callback: function(pageNo) { // 回调函数 
             if (inited)
