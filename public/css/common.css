@@ -10,6 +10,10 @@
 	visibility: hidden;
 }
 
+.hide {
+	display: none;
+}
+
 /* 表单通用样式 */
 
 form .form-item {

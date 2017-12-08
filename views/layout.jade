@@ -16,3 +16,5 @@ html
   body
     include ./common/header.jade
     block content
+    - var str = JSON.stringify(data)
+    input(id="params-station" value="#{str}" class="hide")
