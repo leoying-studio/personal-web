@@ -2,10 +2,17 @@ $(document).ready(function() {
      //全局参数
      var data = $("#params-station").val();
      var params = JSON.parse(data).params;
-     var navId = params.navId;
-     var categoryId = params.categoryId;
-     var currentPage = params.currentPage;
+     var navId = null;
+     var categoryId = null;
+     var currentPage =null;
      var inited = false;
+     if (params) {
+         navId = params.navId;
+         categoryId = params.categoryId;
+         currentPage = params.currentPage;
+     }
+    
+
      // 返回到首页
      $("#homePage").click(function() {
         window.location.href = "http://localhost:3000";

@@ -6,7 +6,7 @@ exports.find = function(params) {
    var pageSize = params.pageSize || 20;
    var currentPage = params.currentPage || 0;
    try {
-        return model.find(conditions).sort({'serverTime': 1}).skip(currentPage).limit(pageSize).exec();
+        return model.find(conditions).sort({'serverTime': 1}).skip((currentPage - 1) * pageSize ).limit(pageSize).exec();
    }catch(e) {
       console.log('error');
    }
