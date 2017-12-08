@@ -1,15 +1,15 @@
-function backHome() {
-    window.location.href = "http://localhost:3000";
-}
-
 $(document).ready(function() {
-     $('.nav-name').click(function() {
-         debugger;
-         var navId = $(this).attr('navid');
-         var categories = $(this).attr('categories');
-         var category = JSON.parse(categories)[0]._id;
-         window.location.href=window.location.origin+"/article/view/"+navId+"/"+category
+     // 返回到首页
+     $("#homePage").click(function() {
+        window.location.href = "http://localhost:3000";
      });
+     // 分类选择
+     $('.category-menu').click(function() {
+         var navId = $(this).attr('navid');
+         var categoryId = $(this).attr('categoryId');
+         window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1"
+     });
+     // 分页初始化
      $("#paging").paging({
         initPageNo: 1, // 初始页码
         totalPages: 30, //总页数
@@ -18,5 +18,6 @@ $(document).ready(function() {
         callback: function(page) { // 回调函数 
             console.log(page);
         }
-     })
+     });
+
 });

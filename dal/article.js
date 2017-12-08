@@ -5,12 +5,9 @@ var DBSuper = require("./../dbsuper/index");
 
 // 获取分页数据
 exports.getPaging = function(params, cb) {
-    var conditions = {
-        model:ArticleModel,
-        params
-    };
+    params.model = ArticleModel;
     DBSuper.findAll(NavModel).then(function(navs) {
-         DBSuper.find(conditions).then(function(articles) {
+         DBSuper.find(params).then(function(articles) {
              cb({
                  navs,
                  articles

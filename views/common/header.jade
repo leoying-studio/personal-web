@@ -1,8 +1,15 @@
 header.header
     h1 LIUYING
     nav.nav
-     a(href="#" onclick="backHome()") 首页
-     - var navs = data.navs;
-     each nav in navs
-      - var categories = JSON.stringify(nav.categories);
-      a(href="#" navId="#{nav._id}" categories="#{categories}").nav-name #{nav.name}
+     ul.clearfix
+      li.nav-item
+        a(href="#" id="homePage") 首页
+      - var navs = data.navs;
+      each nav in navs
+       - var categories = JSON.stringify(nav.categories);
+       li.nav-item
+        a(href="#" ).nav-name #{nav.name}
+        ul.categories-wrapper
+         each category in nav.categories
+          li
+           a.category-menu(href="#" navId="#{nav._id}" categoryId="#{category.id}") #{category.name}

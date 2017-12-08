@@ -1,12 +1,12 @@
 
 // 查询
-exports.find = function(condtion) {
-   var model = condtion.model;
-   var params = condtion.params || {};
-   var pageSize = condtion.pageSize || 20;
-   var currentPage = condtion.currentPage || 1;
+exports.find = function(params) {
+   var model = params.model;
+   var conditions = params.conditions || {};
+   var pageSize = params.pageSize || 20;
+   var currentPage = params.currentPage || 0;
    try {
-        return model.find(params).sort({'serverTime': 1}).skip(currentPage).limit(pageSize).exec();
+        return model.find(conditions).sort({'serverTime': 1}).skip(currentPage).limit(pageSize).exec();
    }catch(e) {
       console.log('error');
    }

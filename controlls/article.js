@@ -7,6 +7,7 @@ exports.getPaging = function(req, res, next) {
      var params = req.params;
 	 var navId = params.navId;
 	 var categoryId = params.categoryId;
+	 var currentPage = params.currentPage;
 	 try {
 		if (!navId) {
 			throw new Error("navId不存在");
@@ -19,10 +20,18 @@ exports.getPaging = function(req, res, next) {
 		res.redirect("/article");
 	}
     params = {
-        navId,
-        'categoriesId.id': categoryId,
+		conditions: {
+			navId,
+			'categoriesId.id': categoryId,
+		},
+		currentPage
     };
     ArticleDAL.getPaging(params, function(msg) {
+		msg.params = {
+			navId,
+			categoryId,
+			currentPage
+		};
         res.render("article/index", new Body(msg));
     });
 }
@@ -72,12 +81,12 @@ exports.submit = function(req, res, next) {
 	ArticleDAL.submit(article)
 	.then( (articles, command) => {
 		 // 插入成功
-		 req.flash("success", "添加文章列表成功!")
-		 res.render("manager")
+		 req.flash("success", "添加文章列表成功!");
+		 res.redirect("manager");
 	}, () => {
 		// 失败
-		req.flash("error", "添加文章列表失败!")
-		res.render("manager")
+		req.flash("error", "添加文章列表失败!");
+		res.render("manager");
 	});
 	
 }
