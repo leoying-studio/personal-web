@@ -1,7 +1,7 @@
 - var articles = data.articles;
 each article in articles
   div.article-block
-   img(src="/images/1.jpg").article-block-img 
+   img(src="#{article.img}").article-block-img 
    h2.title #{article.title}
    div.article-info
     span.creation-type 原创

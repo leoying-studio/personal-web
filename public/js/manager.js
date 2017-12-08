@@ -68,19 +68,7 @@ $(document).ready(function() {
     $("#left-tree-menu").kendoMenu({
         orientation: "vertical",
     }).data("kendoMenu").wrapper.css("width", "100%");
-    $("#nav-add-btn").click(function() {
-       $("#nav-window").kendoWindow({
-           width: "500px",
-            title: "添加导航",
-            visible: false,
-            actions: [
-                "Pin",
-                "Minimize",
-                "Maximize",
-                "Close"
-            ]
-    }).data("kendoWindow").center().open();
-    });
+
     var data = $("#articles-value").val();
     data = JSON.parse(data);
     var currentArticle = null;
@@ -146,8 +134,21 @@ $(document).ready(function() {
     });
     //导航切换
     $("#nav-item-nav").click(function() {
-         $("#left-tree-menu").hide();
          var navs =data.navs;
+         $("#left-wrapper").html("<ul id='panel-bar'><li id='nav-add-btn'>添加</li></ul>");
+         $("#nav-add-btn").click(function() {
+            $("#nav-window").kendoWindow({
+                width: "500px",
+                 title: "添加导航",
+                 visible: false,
+                 actions: [
+                     "Pin",
+                     "Minimize",
+                     "Maximize",
+                     "Close"
+                 ]
+         }).data("kendoWindow").center().open();
+         });
          var navColumns = [
                 { field: 'name', title:'导航名称'},
                 { field: 'serverTime', title:'发布时间'},
@@ -160,8 +161,10 @@ $(document).ready(function() {
                     }},
                 ]}
          ];
+         $("#panel-bar").kendoPanelBar({
+            expandMode: "single"
+         });
          $("#grid-article").remove();
-         $(".content-right").eq(0).css({width: '100%'});
          Grid($("#grid-nav"),navs,navColumns);
     });
 
