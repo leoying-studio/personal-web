@@ -1,2 +1,6 @@
-
- 
+extend layout
+block content
+ div.container
+  - var content = data.article_detail ? data.article_detail.content : "";
+   article
+    p#articleContent.article-content #{content}

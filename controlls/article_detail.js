@@ -5,33 +5,30 @@ var Body = require("./../config/body");
 
 exports.get = function(req, res, next) {
     var params = req.params;
+	var navId = params.navId;
+	var categoryId = params.categoryId;
+	var articleId = params.articleId;
 	try {
-	   if (!params.navId) {
+	   if (!navId) {
 		   throw new Error("navId不存在");
 	   }
-	   if (!params.cateoryId) {
+	   if (!categoryId) {
 		   throw new Error("cateoryId不存在");
 	   }
-	   if (!params.articleId) {
+	   if (!articleId) {
 		   throw new Error("articleId不存在");
 	   }
    } catch(e) {
-	   if (err) {
-		   req.flash("error", e.message);
-	   }
-	   res.redirect("/article");
+	   req.flash("error", e.message);
+	   return res.redirect("/article");
    }
 
    ArticleDetailDAL.get({
 	   	navId, 
 		'categoriesId.id': params.categoryId, 
 		articleId
-	}).then( 
-	 (doc) => {
-
-		}, 
-	 (err) => {
-
+	}, function(doc) {
+		res.render("article_detail", new Body(doc));
 	});
 
 }
@@ -74,10 +71,10 @@ exports.submit = function(req, res, next) {
 	}).
 	then((doc) => {
 	   // 成功
-	   res.render(new Body(doc));
+	   res.send(new Body(doc));
 	}, (error) => {
 	  //失败
-	   res.render(new Body(null, 0, false, '添加数据失败'))
+	   res.send(new Body(null, 0, false, '添加数据失败'))
 	});
 
 }

@@ -1,6 +1,7 @@
 - var articles = data.articles;
+- var params = data.params;
 each article in articles
- div.article-verticle-item
+ div.article-verticle-item(navId="#{article.navId}" articleId="#{article._id}" categoryId="#{params.categoryId}")
    img.icon(src="#{article.img}", alt="")
    div.content
      h2.title

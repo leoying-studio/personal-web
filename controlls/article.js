@@ -30,8 +30,7 @@ exports.getPaging = function(req, res, next) {
 		msg.params = {
 			navId,
 			categoryId,
-			currentPage,
-			total: msg.articles.length
+			currentPage
 		};
         res.render("article/index", new Body(msg));
     });
@@ -83,11 +82,11 @@ exports.submit = function(req, res, next) {
 	.then( (articles, command) => {
 		 // 插入成功
 		 req.flash("success", "添加文章列表成功!");
-		 res.redirect("manager");
+		 res.redirect("/manager");
 	}, () => {
 		// 失败
 		req.flash("error", "添加文章列表失败!");
-		res.render("manager");
+		res.redirect("manager");
 	});
 	
 }

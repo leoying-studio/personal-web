@@ -6,7 +6,10 @@ exports.find = function(params) {
    var pageSize = params.pageSize || 20;
    var currentPage = params.currentPage || 0;
    try {
-        return model.find(conditions).sort({'serverTime': 1}).skip((currentPage - 1) * pageSize ).limit(pageSize).exec();
+        return model.find(conditions)
+        .sort({'serverTime': 1})
+        .skip((currentPage - 1) * pageSize )
+        .limit(pageSize);
    }catch(e) {
       console.log('error');
    }
@@ -16,11 +19,11 @@ exports.findAll = function(model) {
     return model.find({}).exec();
 }
 
-exports.findOne = function(condtion) {
-    var fields = condtion.fields;
-    var model = condtion.model;
+exports.findOne = function(params) {
+    var conditions = params.conditions;
+    var model = params.model;
     try {
-        return model.findOne(fields).exec();
+        return model.findOne(conditions).exec();
     }catch(e) {
         console.log('error');
     }

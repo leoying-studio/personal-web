@@ -185,9 +185,6 @@ $(document).ready(function() {
             ]
         }).data("kendoWindow").center().open();
     });
-
-    $("#panel-bar").kendoPanelBar({
-        expandMode: "single"
-    });
+    
 });
   

@@ -6,6 +6,6 @@ var Article = require("./../models/article");
 
 router.post("/submit", ArticleDetailControll.submit);
 
-router.get("/view/:navId/:cateoryId/:articleId", ArticleDetailControll.get);
+router.get("/view/:navId/:categoryId/:articleId", ArticleDetailControll.get);
 
 module.exports = router;

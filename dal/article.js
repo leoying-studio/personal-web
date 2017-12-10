@@ -8,9 +8,12 @@ exports.getPaging = function(params, cb) {
     params.model = ArticleModel;
     DBSuper.findAll(NavModel).then(function(navs) {
          DBSuper.find(params).then(function(articles) {
-             cb({
-                 navs,
-                 articles
+             ArticleModel.count(params.conditions, function(err, total) {
+                 cb({
+                    navs,
+                    articles,
+                    total
+                 });
              });
          });
     });

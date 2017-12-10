@@ -12,7 +12,7 @@ $(document).ready(function() {
          navId = params.navId;
          categoryId = params.categoryId;
          currentPage = params.currentPage;
-         total = params.total;
+         total = JSON.parse(data).total;
      }
 
      // 返回到首页   
@@ -28,17 +28,33 @@ $(document).ready(function() {
      });
      
      // 分页初始化
-     $("#paging").paging({
-        initPageNo: currentPage, // 初始页码
-        totalPages: Math.ceil(total / 20), //总页数
-        totalCount: '共'+total+'条', // 条目总数
-        slideSpeed: 600, // 缓动速度。单位毫秒 
-        callback: function(pageNo) { // 回调函数 
-            if (inited)
-              window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
-            inited = true;
-        }
-     });
+     var paging = $("#paging");
+     if (paging[0]) {
+          paging.paging({
+            initPageNo: currentPage, // 初始页码
+            totalPages: Math.ceil(total / 20), //总页数
+            totalCount: '共'+total+'条', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒 
+            callback: function(pageNo) { // 回调函数 
+                if (inited)
+                window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
+                inited = true;
+            }
+        });
+     }
+   
 
+    // 进入文章详情页面
+    $(".article-verticle-item").click(function() {
+        var navId = $(this).attr("navId");
+        var categoryId = $(this).attr("categoryId");
+        var articleId = $(this).attr("articleId");
+         window.location.href=window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId;
+    });
+     
+    var aricleContent = $("#articleContent").text()
+    $("#articleContent").html(aricleContent);
+    var aricleContent = $("#articleContent").text()
+    $("#articleContent").html(aricleContent);
 
 });

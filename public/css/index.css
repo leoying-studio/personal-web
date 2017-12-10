@@ -43,7 +43,7 @@ body {
 
 .header nav .nav-item a {
     display: block;
-    width:80px;
+    width:120px;
 }
 
 .header .nav .nav-item:hover .categories-wrapper{
@@ -459,4 +459,11 @@ body {
     line-height: 24px;
     text-indent: 10px;
     margin: 15px 0;
+}
+
+
+/*article_detail*/
+
+.article-content {
+    line-height: 24px;
 }
