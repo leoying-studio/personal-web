@@ -52,9 +52,9 @@ $(document).ready(function() {
          window.location.href=window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId;
     });
      
-    var aricleContent = $("#articleContent").text()
+    var aricleContent = $("#articleContent").text();
     $("#articleContent").html(aricleContent);
-    var aricleContent = $("#articleContent").text()
+    var aricleContent = $("#articleContent").text();
     $("#articleContent").html(aricleContent);
 
 });

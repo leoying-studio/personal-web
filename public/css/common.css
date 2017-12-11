@@ -24,3 +24,16 @@ form .form-item input, form .form-item textarea {
    margin-left: 8px;
 }
 
+.btn {
+	padding: 5px 8px;
+	color: white;
+	border:none;
+	border-radius: 3px;
+	outline: none;
+}
+
+.btn-primary {
+	border-color: #4cae4c;
+	background-color: #5cb85c;
+
+}
