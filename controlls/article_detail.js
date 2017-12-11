@@ -67,7 +67,8 @@ exports.submit = function(req, res, next) {
 		navId,
 		articleId,
 		categoriesId,
-		content
+		content,
+		comment: []
 	}).
 	then((doc) => {
 	   // 成功
