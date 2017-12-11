@@ -104,8 +104,44 @@ $(document).ready(function() {
     Grid($("#grid-article"),data.articles, articleColumns);
     $("#article-detail-content").kendoEditor({ resizable: {
         content: true,
-        toolbar: true
-     }});
+        toolbar: false
+     },
+     tools: [
+        "bold",
+        "italic",
+        "underline",
+        "strikethrough",
+        "justifyLeft",
+        "justifyCenter",
+        "justifyRight",
+        "justifyFull",
+        "insertUnorderedList",
+        "insertOrderedList",
+        "indent",
+        "outdent",
+        "createLink",
+        "unlink",
+        "insertImage",
+        "insertFile",
+        "subscript",
+        "superscript",
+        "createTable",
+        "addRowAbove",
+        "addRowBelow",
+        "addColumnLeft",
+        "addColumnRight",
+        "deleteRow",
+        "deleteColumn",
+        "viewHtml",
+        "formatting",
+        "cleanFormatting",
+        "fontName",
+        "fontSize",
+        "foreColor",
+        "backColor",
+        "print"
+    ]
+    });
     $("#article_detail_submit").click(function() {
        var content = $("#article-detail-content").val();        
        var title = $("#article_detail_title").val();
