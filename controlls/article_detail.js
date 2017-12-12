@@ -28,9 +28,10 @@ exports.get = function(req, res, next) {
 		'categoriesId.id': params.categoryId, 
 		articleId
 	}, function(doc) {
+		doc.article_detail = doc.article_detail || {};
+		doc.article_detail.categoryId = params.categoryId;
 		res.render("article_detail", new Body(doc));
 	});
-
 }
 
 // 提交ajax  查询
@@ -77,7 +78,6 @@ exports.submit = function(req, res, next) {
 	  //失败
 	   res.send(new Body(null, 0, false, '添加数据失败'))
 	});
-
 }
 
 
@@ -89,7 +89,7 @@ exports.submitComment = function(req, res, next) {
 	ArticleDetailDAL.addComment({
 		conditions,
 		fields: {username,content}
-	}).then(function() {
-		
+	}).then(function(doc) {
+		res.send(new Body(doc));
 	});
 }

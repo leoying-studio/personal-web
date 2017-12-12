@@ -29,6 +29,9 @@ $(document).ready(function() {
      
      // 分页初始化
      var paging = $("#paging");
+     if ($("#commentPaging")[0]) {
+         paging = $("#commentPaging");
+     }
      if (paging[0]) {
           paging.paging({
             initPageNo: currentPage, // 初始页码
@@ -42,6 +45,42 @@ $(document).ready(function() {
             }
         });
      }
+
+     //发表文章详情页的评论
+     $("#publishComment").click(function() {
+        var navId = $(this).attr("navId");
+        var categoryId = $(this).attr("categoryId");
+        var articleId = $(this).attr("articleId");
+        $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){ 
+              var country = remote_ip_info["country"];
+              var province = remote_ip_info["province"];  
+              var city = remote_ip_info["city"];    
+              var username = country+" "+province+city+"用户说:"
+              var content = $("#comment-content").val();
+              var params = {
+                  username, 
+                  content,
+                  conditions: {
+                    articleId, categoryId, navId
+                  }
+              };
+              $.ajax({
+                 url: '/article/article_detail/submit_comment',
+                 data: params,
+                 type:'post',
+                 success: function(data) {
+                    if (data.code == 200) {
+                        alert("提交成功");
+                    }else {
+                        alert("提交失败");
+                    }
+                 },
+                 error: function() {
+                     alert("提交失败");
+                 }
+              });
+         }) ;   
+     });
    
 
     // 进入文章详情页面

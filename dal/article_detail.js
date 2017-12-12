@@ -27,5 +27,7 @@ exports.save = function(fields) {
 exports.addComment = function(params) {
     var conditions = params.conditions;
     var fields = params.fields;
-    return ArticleDetailModel.update(conditions, {'$push': fields});
+    return ArticleDetailModel.update(conditions, {$push: {comment: fields}}, function(a) {
+        console.log(a);
+    });
 }

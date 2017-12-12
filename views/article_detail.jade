@@ -1,15 +1,24 @@
+
 extend layout
 block content
  div.article-detail-container
   div.article-detail-inner
-   - var content = data.article_detail ? data.article_detail.content : "";
-   - var title = data.article_detail ? data.article_detail.title : "";
+   - var content = data.article_detail.content || "";
+   - var title = data.article_detail.title || "";
     article
      h1.title #{title}
      p.publish-info 
       span.time 
      p#articleContent.article-content #{content}
     section.comment-section
+     div.comment-wrapper
+      img(src="/images/dw-author.png").icon
+      textarea.comment-input#comment-content
+      - var navId = data.article_detail.navId || "";
+      - var categoryId = data.article_detail.categoryId || "";
+      - var articleId = data.article_detail.articleId || "";
+      div.commit-btn-wrapper
+        button(type='button' navId="#{navId}" categoryId="#{categoryId}" articleId="#{articleId}").btn.btn-primary#publishComment 发表看法
      div.comment-list-wrapper
       div.comment-list-item
        div.user-wrapper
@@ -17,8 +26,4 @@ block content
         div.info
          h3 nihao 
          p ok
-     form.comment-wrapper
-      img(src="/images/dw-author.png").icon
-      textarea.comment-input
-      div.commit-btn-wrapper
-       button.btn.btn-primary 发表看法
+    div#commentPaging.paging
