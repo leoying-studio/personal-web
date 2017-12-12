@@ -15,10 +15,17 @@ exports.get = function(conditions, cb) {
         });
     }, function() {
         console.log();
-    })
+    });
 }
 
 exports.save = function(fields) {
     var model = new ArticleDetailModel(fields);
     return DBSuper.save(model);
+}
+
+
+exports.addComment = function(params) {
+    var conditions = params.conditions;
+    var fields = params.fields;
+    return ArticleDetailModel.update(conditions, {'$push': fields});
 }

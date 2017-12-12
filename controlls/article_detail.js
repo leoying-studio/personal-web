@@ -79,3 +79,17 @@ exports.submit = function(req, res, next) {
 	});
 
 }
+
+
+exports.submitComment = function(req, res, next) {
+	var body = req.body;
+	var username = body.username;
+	var content = body.content;
+	var conditions = body.conditions;
+	ArticleDetailDAL.addComment({
+		conditions,
+		fields: {username,content}
+	}).then(function() {
+		
+	});
+}
