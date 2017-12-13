@@ -8,6 +8,7 @@ exports.get = function(req, res, next) {
 	var navId = params.navId;
 	var categoryId = params.categoryId;
 	var articleId = params.articleId;
+	var currentPage = params.currentPage;
 	try {
 	   if (!navId) {
 		   throw new Error("navId不存在");
@@ -29,7 +30,15 @@ exports.get = function(req, res, next) {
 		articleId
 	}, function(doc) {
 		doc.article_detail = doc.article_detail || {};
-		doc.article_detail.categoryId = params.categoryId;
+		doc.article_detail._doc.categoryId = params.categoryId;
+		doc.article_detail._doc.currentPage = params.currentPage; 
+		if (doc.article_detail && doc.article_detail.comment) {
+			doc.commentTotal = doc.article_detail.comment.length;
+			currentPage -=1;
+			var startIndex = currentPage* 15;
+			var endIndex = (Number(currentPage)+1)*15;
+			doc.article_detail.comment = doc.article_detail.comment.sort({serverTime: 1}).slice(startIndex, endIndex);
+		}
 		res.render("article_detail", new Body(doc));
 	});
 }

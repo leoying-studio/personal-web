@@ -7,7 +7,6 @@ $(document).ready(function() {
      var currentPage =null;
      var total = 0
      var inited = false;
-
      if (params) {
          navId = params.navId;
          categoryId = params.categoryId;
@@ -29,9 +28,6 @@ $(document).ready(function() {
      
      // 分页初始化
      var paging = $("#paging");
-     if ($("#commentPaging")[0]) {
-         paging = $("#commentPaging");
-     }
      if (paging[0]) {
           paging.paging({
             initPageNo: currentPage, // 初始页码
@@ -41,6 +37,29 @@ $(document).ready(function() {
             callback: function(pageNo) { // 回调函数 
                 if (inited)
                 window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
+                inited = true;
+            }
+        });
+     }
+
+     // 评论页面分页初始化
+     var commentPaging = $("#commentPaging");
+     if (commentPaging[0]) {
+        var article_detail = JSON.parse(data).article_detail;
+        var data = JSON.parse(data);
+        var commentTotal = data.commentTotal;
+        var navId = article_detail.navId;
+        var categoryId = article_detail.categoryId;
+        var articleId = article_detail.articleId;
+        var initPageNo = article_detail.currentPage;
+        commentPaging.paging({
+            initPageNo: initPageNo, // 初始页码
+            totalPages: Math.ceil(commentTotal / 20), //总页数
+            totalCount: '共'+commentTotal+'条', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒 
+            callback: function(no) { // 回调函数 
+                if (inited)
+                window.location.href = window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/"+no;
                 inited = true;
             }
         });

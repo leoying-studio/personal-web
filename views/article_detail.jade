@@ -30,4 +30,4 @@ block content
            h3 #{comm.username} 
            p #{comm.publishTime}
           p #{comm.content}
-    div#commentPaging.paging
+    div(total="#{data.commentTotal}")#commentPaging.paging
