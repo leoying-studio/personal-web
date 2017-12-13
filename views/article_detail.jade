@@ -19,11 +19,15 @@ block content
       - var articleId = data.article_detail.articleId || "";
       div.commit-btn-wrapper
         button(type='button' navId="#{navId}" categoryId="#{categoryId}" articleId="#{articleId}").btn.btn-primary#publishComment 发表看法
-     div.comment-list-wrapper
-      div.comment-list-item
-       div.user-wrapper
-        img(src="/images/user-128.png").user-icon
-        div.info
-         h3 nihao 
-         p ok
+     - if(data.article_detail.comment)
+      div.comment-list-wrapper
+       - var comment = data.article_detail.comment;
+       - each comm in comment
+        div.comment-list-item
+         div.user-wrapper
+          img(src="/images/user-128.png").user-icon
+          div.info
+           h3 #{comm.username} 
+           p #{comm.publishTime}
+          p #{comm.content}
     div#commentPaging.paging

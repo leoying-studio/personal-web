@@ -7,7 +7,7 @@ var Article = require("./../models/article");
 
 router.post("/submit", ArticleDetailControll.submit);
 
-router.get("/view/:navId/:categoryId/:articleId", ArticleDetailControll.get);
+router.get("/view/:navId/:categoryId/:articleId/:currentPage", ArticleDetailControll.get);
 
 router.post("/submit_comment", ArticleDetailControll.submitComment);
 

@@ -3,8 +3,8 @@
 exports.find = function(params) {
    var model = params.model;
    var conditions = params.conditions || {};
-   var pageSize = params.pageSize || 20;
-   var currentPage = params.currentPage || 0;
+   var pageSize = params.pageSize || 10;
+   var currentPage = params.currentPage || 1;
    try {
         return model.find(conditions)
         .sort({'serverTime': 1})

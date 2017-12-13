@@ -55,7 +55,7 @@ $(document).ready(function() {
               var country = remote_ip_info["country"];
               var province = remote_ip_info["province"];  
               var city = remote_ip_info["city"];    
-              var username = country+" "+province+city+"用户说:"
+              var username = province+city+"用户说:"
               var content = $("#comment-content").val();
               var params = {
                   username, 
@@ -88,7 +88,7 @@ $(document).ready(function() {
         var navId = $(this).attr("navId");
         var categoryId = $(this).attr("categoryId");
         var articleId = $(this).attr("articleId");
-         window.location.href=window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId;
+         window.location.href=window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/1";
     });
      
     var aricleContent = $("#articleContent").text();

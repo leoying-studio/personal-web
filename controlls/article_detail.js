@@ -86,10 +86,15 @@ exports.submitComment = function(req, res, next) {
 	var username = body.username;
 	var content = body.content;
 	var conditions = body.conditions;
+	conditions["categoriesId.id"] = conditions.categoryId;
+	delete conditions.categoryId;
 	ArticleDetailDAL.addComment({
 		conditions,
 		fields: {username,content}
-	}).then(function(doc) {
-		res.send(new Body(doc));
+	}, function(err, state) {
+		  if (err) {
+			 return res.send(new Body(null, 404, false , "发表失败"));
+		  }
+		  return res.send(new Body(state));
 	});
 }
