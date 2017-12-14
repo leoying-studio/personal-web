@@ -8,8 +8,19 @@ var flash = require("connect-flash");
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
+var app = express();
 // 自定义引入
-var gulp = require("./gulp/gulpfile");
+// var connect = require('connect')
+var sassMiddleware = require('node-sass-middleware');
+app.use(sassMiddleware({
+      /* Options */
+      src: path.join(__dirname, "/public/sass")
+    , dest: __dirname + '/public/css'
+    , debug: true
+    , outputStyle: 'expanded'
+    , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+  }));
+app.use(express.static(path.join(__dirname, "/public")))
 
 
 var home = require('./routes/home');
@@ -24,7 +35,7 @@ var banner = require('./routes/banner');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
-var app = express();
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

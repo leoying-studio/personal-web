@@ -1,0 +1,25 @@
+.left-wrapper{
+    width: 200px;
+    position: absolute;
+    bottom: 0;
+    top: 110px;
+    left:0;
+    z-index: 999;
+}
+
+.right-wrapper {
+    position: absolute;
+    top: 110px;
+    left: 205px;
+    bottom: 2px;
+    right: 0;
+}
+
+.nav {
+	.title {
+		height: 70px;
+		line-height: 70px;
+		background:#eae8e0;
+		padding-left:50px;
+	}
+}

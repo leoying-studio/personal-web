@@ -1,39 +1,51 @@
+@charset "UTF-8";
 .clearfix {
-	zoom: 1;
+  zoom: 1;
 }
 
 .clearfix::after {
-	display: block;
-	content: " . ";
-	height: 0;
-	clear: both;
-	visibility: hidden;
+  display: block;
+  content: " . ";
+  height: 0;
+  clear: both;
+  visibility: hidden;
+}
+
+html {
+  font-family: '微软雅黑';
+}
+
+html > body {
+  min-width: 1300px;
+  background-color: #eff3f5;
 }
 
 .hide {
-	display: none;
+  display: none;
 }
 
 /* 表单通用样式 */
-
 form .form-item {
-	padding: 8px 0;
+  padding: 8px 0;
 }
 
-form .form-item input, form .form-item textarea {
-   margin-left: 8px;
+form .form-item input {
+  margin-left: 8px;
+}
+
+form .form-item textarea {
+  margin-left: 8px;
 }
 
 .btn {
-	padding: 5px 8px;
-	color: white;
-	border:none;
-	border-radius: 3px;
-	outline: none;
+  padding: 5px 8px;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  outline: none;
 }
 
 .btn-primary {
-	border-color: #4cae4c;
-	background-color: #5cb85c;
-
+  border-color: #4cae4c;
+  background-color: #5cb85c;
 }

@@ -1,0 +1,260 @@
+/* 文章块common */
+.article-footer-between {
+    padding: 0 5px;
+}
+
+.creation-type {
+    font-size:14px;
+    background-color: #9aabb8;
+    border-radius: 5px;
+    padding: 0 4px;
+    color: white;
+}
+
+/*文章块 wrapper*/
+.article-container {
+    width: 70%;
+    margin: 68px auto;
+	padding-bottom: 68px;
+	.article-wrapper {
+		padding: 0 30px 15px 30px;
+		background-color: white;
+	}
+}
+
+/*文章块 block-block*/
+.article-block {
+    width: 280px;
+    padding: 10px;
+	display: inline-block;
+	&:hover {
+		background-color: white;
+	}
+	.article-block-img {
+		display: block;
+		width: 100%;
+		border-radius: 4px;
+	}
+	.title {
+		font-size: 14px;
+		line-height: 25px;
+		color: #34495e;
+	}
+	.article-info {
+		height: 21px;
+		line-height: 21px;
+		font-size: 14px;
+		padding: 2px 4px;
+		border-radius: 1px;
+		color:#9aabb8;
+		i {
+			font-style: normal;
+			padding: 0 2px;
+			color: #9aabb8;
+		}
+	}
+	.description {
+		width: 100%;
+		height: 30px;
+		line-height: 30px;
+		font-size: 14px;
+		white-space: nowrap;
+		overflow: hidden;   
+		text-overflow: ellipsis;
+		color: #999;
+	}
+}
+
+
+/* article-block-white */
+.block-item-white {
+    background-color: white;
+    width: 285px;
+    float: left;
+	margin: 20px 10px;
+	.img {
+		width: 100%;
+		display: block;
+		height: 236px;
+	}
+	.text-wrap {
+		padding: 10px 15px;
+		.title {
+			color: black;
+			font-weight:normal;
+			font-family: '微软雅黑';
+			height: 32px;
+			line-height: 32px;
+			font-size: 18px;
+		}
+		.description {
+			height: 60px;
+			line-height: 20px;
+			margin-bottom: 8px;
+			font-size:14px;
+			color: '#666';
+			overflow: hidden;
+		}
+	}
+}
+
+
+.block-item-white {
+	.article-info {
+		i {
+			font-size:12px;
+			font-style: normal;
+			padding: 0 2px;
+			color: #9aabb8;
+		}
+	}
+	/* 后期调整为css3动画 */
+	&:hover {
+		box-shadow:  1px 1px 1px #ccc;
+	}
+}
+
+
+/*article-verticle-item  组件文章横向的*/
+
+.article-verticle-item {
+    padding: 35px 0;
+    background-color: white;
+	border-bottom: 2px dashed #f1f1f1;
+	.icon {
+		width: 270px;
+		height: 160px;
+		display: inline-block;
+		padding-right: 25px;
+	}
+	.content {
+		width: 500px;
+		vertical-align: top;
+		display: inline-block;
+		.title {
+			line-height: 28px;
+			a {
+				font-size: 18px;
+				color:#3f3f3f;
+				font-weight: 600;
+			}
+		}
+		.time {
+			margin-top: 14px;
+			margin-bottom: 10px;
+			padding-left: 3px;
+			font-style: normal;
+			font-size: 15px;
+			color: #a2a2a2;
+		}
+		.description {
+			line-height: 33px;
+			font-size:15px;
+			font-family: "Microsoft Yahei", "冬青黑体简体中文 w3";
+			color: '#404040';
+		}
+	}
+}
+
+
+/*article_detail*/
+.article-content {
+	line-height: 32px;
+	p {
+		/* word-break: break-all; */
+		white-space: pre-wrap;
+		padding: 0 0 25px 0;
+		font-family: "Microsoft Yahei", "冬青黑体简体中文 w3";
+	}
+}
+
+.article-detail-container {
+    margin-top: 68px;
+    padding: 20px;
+    padding-bottom: 100px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 3px;
+    color: #2f2f2f;
+	background-color: white;
+	.article-detail-inner {
+		min-width: 640px;
+		max-width: 960px;
+		width:65%;
+		margin:  0 auto;
+		.comment-section {
+			margin-top:100px;
+		}
+		.comment-wrapper {
+			margin-top:50px;
+			.icon {
+				width: 50px;
+				border-radius: 100%;
+				vertical-align: top;
+			}
+			.comment-input {
+				border-radius: 5px;
+				outline: none;
+				padding: 0 5px;
+				margin-left: 15px;
+				min-height: 75px;
+				max-height: 95px;
+				width: 500px;
+				resize:none;
+			}
+			.commit-btn-wrapper {
+				text-align: right;
+				margin-right: 400px;
+				margin-top:15px;
+			}
+		}
+	}
+	.title {
+		height: 28px;
+		line-height: 28px;
+		margin-bottom: 12px;
+		font-size: 20px;
+		font-weight: bold;
+		color: #666;
+	}
+	.publish-info {
+		height: 20px;
+		padding-bottom: 20px;
+		margin-bottom: 10px;
+		border-bottom: 1px solid #ccc;
+	}
+	.comment-list-wrapper {
+		margin-bottom: 30px;
+		.comment-list-item {
+			padding: 10px 0;
+			.user-icon {
+				width: 35px;
+				display: inline-block;
+				border-radius: 100%;
+			}
+			.info {
+				display: inline-block;
+				padding-left: 8px;
+				vertical-align: top;
+				h3 {
+					font-size:13px;
+					color: #666;
+					font-style: normal;
+					margin-bottom: 8px;
+				}
+				p {
+					font-size: 12px;
+					color: #999;
+				}
+			 }
+			 .user-wrapper {
+				 & > p {
+					font-size: 15px;
+					color: #333;
+					line-height: 25px;
+					text-indent: 12px;
+				 }
+			}
+		}
+	}
+}

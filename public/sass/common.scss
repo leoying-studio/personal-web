@@ -1,0 +1,51 @@
+.clearfix {
+	zoom: 1;
+}
+
+.clearfix::after {
+	display: block;
+	content: " . ";
+	height: 0;
+	clear: both;
+	visibility: hidden;
+}
+
+html {
+	font-family: '微软雅黑';
+	& > body {
+		min-width: 1300px;
+		background-color: #eff3f5;
+	}
+ }
+ 
+.hide {
+	display: none;
+}
+
+/* 表单通用样式 */
+
+form {
+	.form-item {
+		padding: 8px 0;
+		input {
+			margin-left: 8px;
+		}
+		textarea {
+			margin-left: 8px;
+		}
+	}
+}
+
+
+.btn {
+	padding: 5px 8px;
+	color: white;
+	border:none;
+	border-radius: 3px;
+	outline: none;
+}
+
+.btn-primary {
+	border-color: #4cae4c;
+	background-color: #5cb85c;
+}
