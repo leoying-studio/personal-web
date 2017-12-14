@@ -1,18 +1,4 @@
 $(document).ready(function() {
-     //全局参数
-     var data = $("#params-station").val();
-     var params = JSON.parse(data).params;
-     var navId = null;
-     var categoryId = null;
-     var currentPage =null;
-     var total = 0
-     var inited = false;
-     if (params) {
-         navId = params.navId;
-         categoryId = params.categoryId;
-         currentPage = params.currentPage;
-         total = JSON.parse(data).total;
-     }
 
      // 返回到首页   
      $("#homePage").click(function() {
@@ -27,79 +13,85 @@ $(document).ready(function() {
      });
      
      // 分页初始化
-     var paging = $("#paging");
-     if (paging[0]) {
-          paging.paging({
+     var inited = false;
+     var articlePaging = $("#articlePaging");
+     if (articlePaging[0]) {
+        var currentPage = articlePaging.attr('currentPage');
+        var navId = articlePaging.attr("navId");
+        var categoryId = articlePaging.attr("categoryId");
+        var total = articlePaging.attr("total");
+        articlePaging.paging({
             initPageNo: currentPage, // 初始页码
-            totalPages: Math.ceil(total / 20), //总页数
+            totalPages: Math.ceil(total / 10), //总页数
             totalCount: '共'+total+'条', // 条目总数
             slideSpeed: 600, // 缓动速度。单位毫秒 
             callback: function(pageNo) { // 回调函数 
-                if (inited)
-                window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
+                if (inited) {
+                    window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
+                }
                 inited = true;
             }
         });
      }
 
      // 评论页面分页初始化
-     var commentPaging = $("#commentPaging");
-     if (commentPaging[0]) {
-        var article_detail = JSON.parse(data).article_detail;
-        var data = JSON.parse(data);
-        var commentTotal = data.commentTotal;
-        var navId = article_detail.navId;
-        var categoryId = article_detail.categoryId;
-        var articleId = article_detail.articleId;
-        var initPageNo = article_detail.currentPage;
-        commentPaging.paging({
-            initPageNo: initPageNo, // 初始页码
-            totalPages: Math.ceil(commentTotal / 20), //总页数
-            totalCount: '共'+commentTotal+'条', // 条目总数
-            slideSpeed: 600, // 缓动速度。单位毫秒 
-            callback: function(no) { // 回调函数 
-                if (inited)
-                window.location.href = window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/"+no;
-                inited = true;
-            }
-        });
-     }
+    //  var commentPaging = $("#commentPaging");
+    //  if (commentPaging[0]) {
+    //     var article_detail = JSON.parse(data).article_detail;
+    //     var data = JSON.parse(data);
+    //     var commentTotal = data.commentTotal;
+    //     var navId = article_detail.navId;
+    //     var categoryId = article_detail.categoryId;
+    //     var articleId = article_detail.articleId;
+    //     var initPageNo = article_detail.currentPage;
+    //     commentPaging.paging({
+    //         initPageNo: initPageNo, // 初始页码
+    //         totalPages: Math.ceil(commentTotal / 20), //总页数
+    //         totalCount: '共'+commentTotal+'条', // 条目总数
+    //         slideSpeed: 600, // 缓动速度。单位毫秒 
+    //         callback: function(no) { // 回调函数 
+    //             if (inited)
+    //             window.location.href = window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/"+no;
+    //             inited = true;
+    //         }
+    //     });
+    //  }
 
-     //发表文章详情页的评论
-     $("#publishComment").click(function() {
-        var navId = $(this).attr("navId");
-        var categoryId = $(this).attr("categoryId");
-        var articleId = $(this).attr("articleId");
-        $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){ 
-              var country = remote_ip_info["country"];
-              var province = remote_ip_info["province"];  
-              var city = remote_ip_info["city"];    
-              var username = province+city+"用户说:"
-              var content = $("#comment-content").val();
-              var params = {
-                  username, 
-                  content,
-                  conditions: {
-                    articleId, categoryId, navId
-                  }
-              };
-              $.ajax({
-                 url: '/article/article_detail/submit_comment',
-                 data: params,
-                 type:'post',
-                 success: function(data) {
-                    if (data.code == 200) {
-                        alert("提交成功");
-                    }else {
-                        alert("提交失败");
-                    }
-                 },
-                 error: function() {
-                     alert("提交失败");
-                 }
-              });
-         }) ;   
-     });
+    //  //发表文章详情页的评论
+    //  $("#publishComment").click(function() {
+    //     var navId = $(this).attr("navId");
+    //     var categoryId = $(this).attr("categoryId");
+    //     var articleId = $(this).attr("articleId");
+    //     $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){ 
+    //           var country = remote_ip_info["country"];
+    //           var province = remote_ip_info["province"];  
+    //           var city = remote_ip_info["city"];    
+    //           var username = province+city+"用户说:"
+    //           var content = $("#comment-content").val();
+    //           var params = {
+    //               username, 
+    //               content,
+    //               conditions: {
+    //                 articleId, categoryId, navId
+    //               }
+    //           };
+    //           $.ajax({
+    //              url: '/article/article_detail/submit_comment',
+    //              data: params,
+    //              type:'post',
+    //              success: function(data) {
+    //                 if (data.code == 200) {
+    //                     alert("提交成功");
+    //                 }else {
+    //                     alert("提交失败");
+    //                 }
+    //              },
+    //              error: function() {
+    //                  alert("提交失败");
+    //              }
+    //           });
+    //      }) ;   
+    //  });
    
 
     // 进入文章详情页面

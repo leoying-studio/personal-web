@@ -4,5 +4,6 @@ block content
   div.article-container
    div.article-wrapper.clearfix
     include ./../components/verticle-item.jade
-   div(style="margin-top:15px;")
-    div.paging#paging
+   div.article-paging-wrapper
+    - var params = data.params;
+     div.paging#articlePaging(navId="#{params.navId}" categoryId="#{params.categoryId}" currentPage="#{params.currentPage}" total="#{data.total}")
