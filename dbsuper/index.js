@@ -9,21 +9,21 @@ exports.find = function(params) {
         return model.find(conditions)
         .sort({'serverTime': 1})
         .skip((currentPage - 1) * pageSize )
-        .limit(pageSize);
+        .limit(pageSize).lean();
    }catch(e) {
       console.log('error');
    }
 }
 
 exports.findAll = function(model) {
-    return model.find({}).exec();
+    return model.find({}).lean();
 }
 
 exports.findOne = function(params) {
     var conditions = params.conditions;
     var model = params.model;
     try {
-        return model.findOne(conditions).exec();
+        return model.findOne(conditions).lean();
     }catch(e) {
         console.log('error');
     }
@@ -32,7 +32,7 @@ exports.findOne = function(params) {
 //  新增
 exports.save = function(model) {
     try{
-        return model.save();
+        return model.save().lean();
     }catch(e) {
         console.log(e);
     }

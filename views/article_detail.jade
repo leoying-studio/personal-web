@@ -30,5 +30,5 @@ block content
            h3 #{comm.username} 
            p #{comm.publishTime}
           p #{comm.content}
-    - var article_detail = JSON.parse(JSON.stringify(data.article_detail));
-    div(total="#{data.commentTotal}" navId="#{article_detail.navId}" articleId="#{article_detail.articleId}" categoryId="#{article_detail.categoryId}" article_detail="#{article_detail}" type="#{typeof}")#commentPaging.paging
+    //- - var article_detail = JSON.parse(JSON.stringify(data.article_detail));
+    div(total="#{data.commentTotal}" )#commentPaging.paging
