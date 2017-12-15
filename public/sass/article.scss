@@ -185,79 +185,51 @@
 		max-width: 960px;
 		width:65%;
 		margin:  0 auto;
-		.comment-section {
-			margin-top:100px;
-		}
-		.comment-wrapper {
-			margin-top:50px;
-			.icon {
-				width: 50px;
-				border-radius: 100%;
-				vertical-align: top;
-			}
-			.comment-input {
-				border-radius: 5px;
-				outline: none;
-				padding: 0 5px;
-				margin-left: 15px;
-				min-height: 75px;
-				max-height: 95px;
-				width: 500px;
-				resize:none;
-			}
-			.commit-btn-wrapper {
-				text-align: right;
-				margin-right: 400px;
-				margin-top:15px;
-			}
+	}
+}
+
+
+.comment {
+	.comment-header {
+		margin-bottom:34px;
+		textarea {
+			width: 100%;
+			height: 118px;
+			padding: 12px;
+			box-sizing: border-box;
+			border-radius: 3px;
+			outline: none;
+			resize: none;
+			border-color:#5cb85c; 
+		}	
+		.publish-wrapper {
+			text-align: right;
+			margin-top: 12px;
 		}
 	}
-	.title {
-		height: 28px;
-		line-height: 28px;
-		margin-bottom: 12px;
-		font-size: 20px;
-		font-weight: bold;
-		color: #666;
-	}
-	.publish-info {
-		height: 20px;
-		padding-bottom: 20px;
-		margin-bottom: 10px;
-		border-bottom: 1px solid #ccc;
-	}
-	.comment-list-wrapper {
-		margin-bottom: 30px;
-		.comment-list-item {
-			padding: 10px 0;
-			.user-icon {
-				width: 35px;
-				display: inline-block;
-				border-radius: 100%;
-			}
-			.info {
-				display: inline-block;
-				padding-left: 8px;
-				vertical-align: top;
-				h3 {
-					font-size:13px;
-					color: #666;
-					font-style: normal;
-					margin-bottom: 8px;
-				}
-				p {
-					font-size: 12px;
+	.comment-content {
+		border-bottom: solid 1px #f0f0f0;
+		color: #333;
+		font-size: 14px;
+		.comment-content-item {
+			padding: 20px 0;
+			.user {
+				line-height: 25px;
+				font-weight: normal;
+				margin-bottom: 15px;
+				.publish-time {
 					color: #999;
+					margin-left:10px;
+					font-size: 12px;
 				}
-			 }
-			 .user-wrapper {
-				 & > p {
-					font-size: 15px;
-					color: #333;
-					line-height: 25px;
-					text-indent: 12px;
-				 }
+			}
+			.content {
+				word-wrap: break-word;
+				line-height: 22px;
+				text-indent: 24px;
 			}
 		}
 	}
 }
+
+

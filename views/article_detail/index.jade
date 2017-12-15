@@ -1,0 +1,12 @@
+extend ../layout
+block content
+ div.article-detail-container
+  div.article-detail-inner
+   - var content = data.article_detail.content || "";
+   - var title = data.article_detail.title || "";
+    article
+     h1.title #{title}
+     p.publish-info 
+      span.time 
+     p#articleContent.article-content #{content}
+    include ./comment.jade

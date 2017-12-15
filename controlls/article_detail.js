@@ -30,8 +30,8 @@ exports.get = function(req, res, next) {
 		articleId
 	}, function(doc) {
 		doc.article_detail = doc.article_detail || {};
-		doc.article_detail._doc.categoryId = params.categoryId;
-		doc.article_detail._doc.currentPage = params.currentPage; 
+		doc.article_detail.categoryId = params.categoryId;
+		doc.article_detail.currentPage = params.currentPage; 
 		if (doc.article_detail && doc.article_detail.comment) {
 			doc.commentTotal = doc.article_detail.comment.length;
 			currentPage -=1;
@@ -39,7 +39,7 @@ exports.get = function(req, res, next) {
 			var endIndex = (Number(currentPage)+1)*15;
 			doc.article_detail.comment = doc.article_detail.comment.sort({serverTime: 1}).slice(startIndex, endIndex);
 		}
-		res.render("article_detail", new Body(doc));
+		res.render("article_detail/index", new Body(doc));
 	});
 }
 
