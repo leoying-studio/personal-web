@@ -20,6 +20,11 @@ html > body {
   background-color: #eff3f5;
 }
 
+html > body .container {
+  margin-top: 65px;
+  background-color: white;
+}
+
 .hide {
   display: none;
 }

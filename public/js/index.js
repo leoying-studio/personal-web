@@ -35,27 +35,25 @@ $(document).ready(function() {
      }
 
      // 评论页面分页初始化
-    //  var commentPaging = $("#commentPaging");
-    //  if (commentPaging[0]) {
-    //     var article_detail = JSON.parse(data).article_detail;
-    //     var data = JSON.parse(data);
-    //     var commentTotal = data.commentTotal;
-    //     var navId = article_detail.navId;
-    //     var categoryId = article_detail.categoryId;
-    //     var articleId = article_detail.articleId;
-    //     var initPageNo = article_detail.currentPage;
-    //     commentPaging.paging({
-    //         initPageNo: initPageNo, // 初始页码
-    //         totalPages: Math.ceil(commentTotal / 20), //总页数
-    //         totalCount: '共'+commentTotal+'条', // 条目总数
-    //         slideSpeed: 600, // 缓动速度。单位毫秒 
-    //         callback: function(no) { // 回调函数 
-    //             if (inited)
-    //             window.location.href = window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/"+no;
-    //             inited = true;
-    //         }
-    //     });
-    //  }
+     var commentPaging = $("#commentPaging");
+     if (commentPaging[0]) {
+        var commentTotal = commentPaging.attr("commentTotal");
+        var navId = commentPaging.attr("navId");
+        var categoryId =commentPaging.attr("categoryId");
+        var articleId = commentPaging.attr("articleId");
+        var currentPage = commentPaging.attr("currentPage");
+        commentPaging.paging({
+            initPageNo: currentPage, // 初始页码
+            totalPages: Math.ceil(commentTotal / 20), //总页数
+            totalCount: '共'+commentTotal+'条', // 条目总数
+            slideSpeed: 600, // 缓动速度。单位毫秒 
+            callback: function(no) { // 回调函数 
+                if (inited)
+                window.location.href = window.location.origin+"/article/article_detail/view/"+navId+"/"+categoryId+"/"+articleId+"/"+no;
+                inited = true;
+            }
+        });
+     }
 
     //  //发表文章详情页的评论
     //  $("#publishComment").click(function() {

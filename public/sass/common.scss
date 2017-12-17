@@ -15,6 +15,10 @@ html {
 	& > body {
 		min-width: 1300px;
 		background-color: #eff3f5;
+		.container {
+			margin-top:65px;
+			background-color: white;
+		}
 	}
  }
  

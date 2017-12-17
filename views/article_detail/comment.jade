@@ -1,4 +1,8 @@
 - var comment = data.article_detail.comment;
+- var article_detail = data.article_detail;
+- var navId = article_detail.navId;
+- var categoryId = article_detail.categoryId;
+- var articleId = article_detail.articleId;
 article.comment
   header.comment-header
    textarea.comment-input(placeholder="说说你的看法......")
@@ -10,4 +14,4 @@ article.comment
      span.publish-time 48分钟前
     p.content 有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……
   footer.comment-footer
-    div(total="#{data.commentTotal}" )#commentPaging.paging
+    div(commentTotal="#{data.commentTotal}" navId="#{navId}" categoryId="#{categoryId}" articleId="#{articleId}")#commentPaging.paging
