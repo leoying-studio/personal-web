@@ -1,11 +1,10 @@
 let express = require('express');
 let router = express.Router();
 let User = require("./../models/users");
+var RegisterControlls = require("./../controlls/register");
 // let Utils = require("./../utils");
 
-router.get('/view', function (req, res, next) {
-   res.render('register');
-});
+router.get('/view', RegisterControlls.getAll);
 
 
 router.post("/submit", function(req,res) {

@@ -1,11 +1,10 @@
 var express = require('express');
 var router = express.Router();
 var User = require("./../models/users");
+
 // var Utils = require("./../utils");
 
-router.get('/view', function (req, res, next) {
-    res.render('login');
-});
+router.get('/view');
 
 router.post("/submit", function(req,res) {
     const {username, password } = req.body;

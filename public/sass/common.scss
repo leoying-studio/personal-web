@@ -18,12 +18,17 @@ html {
 		.container {
 			margin-top:65px;
 			background-color: white;
+			min-height: 1000px;
 		}
 	}
  }
  
 .hide {
 	display: none;
+}
+
+input {
+	outline: none;
 }
 
 /* 表单通用样式 */

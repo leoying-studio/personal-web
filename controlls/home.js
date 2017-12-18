@@ -1,5 +1,4 @@
 var HomeDAL = require("./../dal/home");
-var express = require('express');
 var Utils = require("./../utils");
 var Body = require("./../config/body");
 

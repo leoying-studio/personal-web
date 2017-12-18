@@ -1,20 +1,2 @@
 extend layout
 block content
-	script.
-	div.loginRegister
-		form(action="/users/register" method='post').register
-			div.item
-				span.fa.fa-user.icon
-				input(type="text" placeholder = "请输入用户名" name="username" required id="regName")
-			div.item
-				span.fa.fa-lock.icon
-				input(type="password" placeholder = "请输入密码" name="password"  required id="regPass")
-			div.item
-				span.fa.fa-lock.icon
-				input(type="password" placeholder = "请确认密码" name="passAgain"  required id="regPassAgain")
-			div.item
-				span.fa.fa-envelope-o.icon
-				input(type="password" placeholder = "请输入邮箱" name="email"  required id="regEmail")
-			div.item.last
-				button(type="button" onclick="registerUser()") 确认注册
-				a(href="#" onclick="switchLoginRegister('login')").login-text 登录

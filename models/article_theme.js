@@ -11,5 +11,5 @@ var Scheam = new mongoose.Schema({
 	 ],
 });
 
-var ArticleTheme = mongoose.model('article_theme', Scheam);
-module.exports = ArticleTheme;
+var Articvarheme = mongoose.model('article_theme', Scheam);
+module.exports = Articvarheme;
