@@ -10,12 +10,13 @@ html
     link(rel='stylesheet', href='/css/index.css')
     link(rel='stylesheet', href='/css/article.css')
     link(rel='stylesheet', href='/css/register.css')
+    link(rel='stylesheet', href='/css/login.css')
     link(rel='stylesheet', href='/lib/font-awesome-4.7.0/css/font-awesome.min.css')
     script(src="/lib/jquery/jquery.min.js")
     script(src="/lib/paging/paging.min.js")
     script(src="/js/index.js")
   body
     include ./common/header.jade
-    block content
-    //- - var str = JSON.stringify(data)
-    //- input(id="params-station" value="#{str}" class="hide")
+    div.container
+     block content
+   
