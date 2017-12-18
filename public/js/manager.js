@@ -65,9 +65,25 @@ $(document).ready(function() {
                 ]
         }).data("kendoWindow").center().open();           
     });
-    $("#left-tree-menu").kendoMenu({
-        orientation: "vertical",
-    }).data("kendoMenu").wrapper.css("width", "100%");
+    // $("#left-tree-menu").kendoMenu({
+    //     orientation: "vertical",
+    // }).data("kendoMenu").wrapper.css("width", "100%");
+
+    // 切换文章类别grid
+    $(".article-category").click(function(e) {
+         var nav = JSON.parse($(this).attr("categories"));
+         $.map(function(item) {
+             return {
+                 field: item.name,
+                 id: item._id
+             };
+         });
+         
+    });
+
+    $("#panelWrapper").kendoPanelBar({
+        expandMode: "single"
+    });
 
     var data = $("#articles-value").val();
     data = JSON.parse(data);

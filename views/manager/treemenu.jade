@@ -1,10 +1,10 @@
-ul#left-tree-menu
-    - var dataStr = JSON.stringify(data);
+ul#panelWrapper
     - var navs = data.navs;
-    each nav,navIndex in navs
-     - var navStr = JSON.stringify(nav);
-     li(onclick="addNav(#{navStr},#{dataStr})") #{nav.name}
-      ul  
-       each category,cateIndex in nav.categories
-        - var cateStr = JSON.stringify(category)
-        li(onclick="selectLeftMenu(#{navStr},#{cateStr},#{dataStr})") #{category.name}
+    li 类别
+      ul
+       each nav,navIndex in navs
+        - var str = JSON.stringify(nav.categories);
+         li(categories="#{str}").article-category #{nav.name}
+    li 操作
+      ul
+       li 列表
