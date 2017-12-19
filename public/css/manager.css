@@ -15,6 +15,14 @@
   right: 0;
 }
 
+.right-wrapper .right-header {
+  margin-bottom: 2px;
+}
+
+.right-wrapper .right-header .btn-group li {
+  padding: 5px 8px;
+}
+
 .nav .title {
   height: 70px;
   line-height: 70px;

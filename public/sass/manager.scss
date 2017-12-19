@@ -13,6 +13,15 @@
     left: 205px;
     bottom: 2px;
     right: 0;
+    .right-header {
+        margin-bottom: 2px;
+        .btn-group {
+            li {
+                padding: 5px 8px;
+            }
+        }
+    }
+    
 }
 
 .nav {

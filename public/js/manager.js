@@ -58,6 +58,13 @@ $(document).ready(function() {
     $("#panelWrapper").kendoPanelBar({
         expandMode: "single"
     });
+    // 初始化right-header
+    $("#buttonGroup").kendoMobileButtonGroup({
+        select: function(e) {
+            
+        },
+        index: 0
+    });
       // 切换文章类别grid
     $(".article-category").click(function(e) {
         var nav = JSON.parse($(this).attr("categories"));
