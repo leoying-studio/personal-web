@@ -31,8 +31,9 @@ function addNav(nav, data) {
     }).data("kendoWindow").center().open();
 }
 
-function Grid(el,dataSource, columns) {
-    var grid = el.kendoGrid({
+function Grid(dataSource, columns) {
+    $("#grid").html("");
+    var grid = $("#grid").kendoGrid({
         dataSource: {
             data: dataSource,
             pageSize: 50
@@ -60,13 +61,11 @@ $(document).ready(function() {
       // 切换文章类别grid
     $(".article-category").click(function(e) {
         var nav = JSON.parse($(this).attr("categories"));
-        $.map(function(item) {
-            return {
-                field: item.name,
-                id: item._id
-            };
-        });
-        
+        var fields = [
+            {field: "name", title: '类别名称'},
+            {field: '_id', title:'id'}
+        ];
+        Grid(nav, fields);
    });
 
     // $("#nav-config-item").click(function() {
