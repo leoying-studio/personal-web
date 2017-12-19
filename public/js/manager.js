@@ -33,12 +33,15 @@ function addNav(nav, data) {
 
 function Grid(dataSource, columns) {
     $("#grid").html("");
-    var grid = $("#grid").kendoGrid({
+    var rightHeight = $(".right-wrapper").eq(0).height();
+    var headerHeight = $(".right-header").eq(0).height();
+    var gridHeight = rightHeight - headerHeight - 2 + "px";
+    $("#grid").kendoGrid({
         dataSource: {
             data: dataSource,
             pageSize: 50
         },
-        height: "100%",
+        height: gridHeight,
         scrollable: true,
         sortable: true,
         filterable: true,
@@ -94,9 +97,6 @@ $(document).ready(function() {
     // }).data("kendoMenu").wrapper.css("width", "100%");
 
   
-
-
-
     var data = $("#articles-value").val();
     data = JSON.parse(data);
     var currentArticle = null;
