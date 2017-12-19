@@ -10,19 +10,6 @@
 	visibility: hidden;
 }
 
-html {
-	font-family: '微软雅黑';
-	& > body {
-		min-width: 1300px;
-		background-color: #eff3f5;
-		.container {
-			margin-top:65px;
-			background-color: white;
-			min-height: 1000px;
-		}
-	}
- }
- 
 .hide {
 	display: none;
 }
@@ -30,21 +17,6 @@ html {
 input {
 	outline: none;
 }
-
-/* 表单通用样式 */
-
-form {
-	.form-item {
-		padding: 8px 0;
-		input {
-			margin-left: 8px;
-		}
-		textarea {
-			margin-left: 8px;
-		}
-	}
-}
-
 
 .btn {
 	padding: 5px 8px;
@@ -58,3 +30,33 @@ form {
 	border-color: #4cae4c;
 	background-color: #5cb85c;
 }
+
+
+
+html {
+	font-family: '微软雅黑';
+	& > body {
+		min-width: 1300px;
+		background-color: #eff3f5;
+		.container {
+			margin-top:65px;
+			background-color: white;
+			min-height: 1000px;
+		}
+	}
+ }
+
+/* 表单通用样式 */
+form {
+	.form-item {
+		padding: 8px 0;
+		input {
+			margin-left: 8px;
+		}
+		textarea {
+			margin-left: 8px;
+		}
+	}
+}
+
+
