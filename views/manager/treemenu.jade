@@ -1,10 +1,11 @@
 ul#panelWrapper
     - var navs = data.navs;
-    li 类别
+    li 名称
       ul
        each nav,navIndex in navs
-        - var str = JSON.stringify(nav.categories);
-         li(categories="#{str}").article-category #{nav.name}
-    li 操作
-      ul
-       li 列表
+         - var str = JSON.stringify(nav.categories);
+         li(categories="#{str}").panel-item #{nav.name}
+           ul
+             each category in nav.categories
+               li.category-item(navId="#{nav._id}" categoryId="#{category._id}") #{category.name}
+            

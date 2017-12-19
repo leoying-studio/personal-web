@@ -1,3 +1,4 @@
+
 var articleTypes = "";
 function selectLeftMenu(nav, cate, data) {
     // 阻止时间冒泡
@@ -64,12 +65,19 @@ $(document).ready(function() {
     // 初始化right-header
     $("#buttonGroup").kendoMobileButtonGroup({
         select: function(e) {
-            
+            var index = e.index;
+            if (index == 0) {
+
+            } else if (index == 1) {
+
+            } else if (index == 2) {
+
+            }
         },
         index: 0
     });
       // 切换文章类别grid
-    $(".article-category").click(function(e) {
+    $(".panel-item").click(function(e) {
         var nav = JSON.parse($(this).attr("categories"));
         var fields = [
             {field: "name", title: '类别名称'},
