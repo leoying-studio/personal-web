@@ -20,10 +20,8 @@ html
      div.left-wrapper#left-wrapper
       include ./treemenu.jade
      div.right-wrapper
+      div#grid
       include ./article.jade
-      div#grid-nav
-      //- 设置隐藏article数据
-      input(value="#{dataStr}" style="display:none;" id="articles-value")
       include ./nav.jade
       include ./home.jade
     

@@ -51,39 +51,45 @@ function Grid(el,dataSource, columns) {
 }            
 
 $(document).ready(function() {
+    // 导航菜单
     $("#nav-menu").kendoMenu({ });
-    $("#nav-config-item").click(function() {
-        $("#nav-window").kendoWindow({
-                width: "400px",
-                title: "添加导航模块",
-                visible: false,
-                actions: [
-                    "Pin",
-                    "Minimize",
-                    "Maximize",
-                    "Close"
-                ]
-        }).data("kendoWindow").center().open();           
+    // 左侧panel
+    $("#panelWrapper").kendoPanelBar({
+        expandMode: "single"
     });
+      // 切换文章类别grid
+    $(".article-category").click(function(e) {
+        var nav = JSON.parse($(this).attr("categories"));
+        $.map(function(item) {
+            return {
+                field: item.name,
+                id: item._id
+            };
+        });
+        
+   });
+
+    // $("#nav-config-item").click(function() {
+    //     $("#nav-window").kendoWindow({
+    //             width: "400px",
+    //             title: "添加导航模块",
+    //             visible: false,
+    //             actions: [
+    //                 "Pin",
+    //                 "Minimize",
+    //                 "Maximize",
+    //                 "Close"
+    //             ]
+    //     }).data("kendoWindow").center().open();           
+    // });
+
     // $("#left-tree-menu").kendoMenu({
     //     orientation: "vertical",
     // }).data("kendoMenu").wrapper.css("width", "100%");
 
-    // 切换文章类别grid
-    $(".article-category").click(function(e) {
-         var nav = JSON.parse($(this).attr("categories"));
-         $.map(function(item) {
-             return {
-                 field: item.name,
-                 id: item._id
-             };
-         });
-         
-    });
+  
 
-    $("#panelWrapper").kendoPanelBar({
-        expandMode: "single"
-    });
+
 
     var data = $("#articles-value").val();
     data = JSON.parse(data);
