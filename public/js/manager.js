@@ -60,29 +60,36 @@ $(document).ready(function() {
     $("#nav-menu").kendoMenu({ });
     // 左侧panel
     $("#panelWrapper").kendoPanelBar({
-        expandMode: "single"
+        expandMode: "multiple",
+        select: function(e) {
+            var panelItem = e.item;
+            var panelClass = panelItem.classList[0];
+            if (panelClass == "") {
+                
+            }
+        }
     });
     // 初始化right-header
-    $("#buttonGroup").kendoMobileButtonGroup({
-        select: function(e) {
-            var index = e.index;
-            if (index == 0) {
+    $("#buttonGroup").kendoMobileButtonGroup({});
+    // 添加列表项
+    var panelTier = 0;
+    $("#groupItemAdd").click(function() {
+        if (panelTier == 1) {
 
-            } else if (index == 1) {
+        } else if (panelTier == 2) {
 
-            } else if (index == 2) {
-
-            }
-        },
-        index: 0
+        }
     });
+
+    
       // 切换文章类别grid
     $(".panel-item").click(function(e) {
-        var nav = JSON.parse($(this).attr("categories"));
+        nav = JSON.parse($(this).attr("categories"));
         var fields = [
             {field: "name", title: '类别名称'},
             {field: '_id', title:'id'}
         ];
+        panelTier = 1;
         Grid(nav, fields);
    });
 
