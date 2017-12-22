@@ -9,6 +9,6 @@ var Body = require("./../config/body");
 router.post("/submit", ArticleControll.submit);
 
 // 查询
-router.get("/view/:navId/:categoryId/:currentPage", ArticleControll.getPaging); 
+router.get("/view/:navId/:categoryId/:currentPage/:admin", ArticleControll.getPaging); 
 
 module.exports = router;

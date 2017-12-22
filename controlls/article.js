@@ -8,6 +8,7 @@ exports.getPaging = function(req, res, next) {
 	 var navId = params.navId;
 	 var categoryId = params.categoryId;
 	 var currentPage = params.currentPage;
+	 var admin = params.admin;
 	 try {
 		if (!navId) {
 			throw new Error("navId不存在");
@@ -32,7 +33,11 @@ exports.getPaging = function(req, res, next) {
 			categoryId,
 			currentPage
 		};
-        res.render("article/index", new Body(msg));
+		if (admin == "true") {
+			res.send(new Body(msg));
+		} else {
+			res.render("article/index", new Body(msg));
+		}
     });
 }
 

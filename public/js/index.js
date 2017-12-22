@@ -9,7 +9,7 @@ $(document).ready(function() {
      $('.category-menu').click(function() {
          var navId = $(this).attr('navid');
          var categoryId = $(this).attr('categoryId');
-         window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1"
+         window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1"+"/false";
      });
      
      // 分页初始化
@@ -27,7 +27,7 @@ $(document).ready(function() {
             slideSpeed: 600, // 缓动速度。单位毫秒 
             callback: function(pageNo) { // 回调函数 
                 if (inited) {
-                    window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo
+                    window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/"+pageNo+"/false";
                 }
                 inited = true;
             }
