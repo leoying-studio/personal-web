@@ -3,18 +3,19 @@ html
   head
     meta(charst='utf-8')
     title = title
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.common.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.default.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.mobile.min.css')
-    link(rel='stylesheet', href='/css/reset.css')
-    link(rel='stylesheet', href='/css/common.css')
-    link(rel='stylesheet', href='/css/manager.css')
-    script(src="/lib/jquery/jquery.min.js")
-    script(src="/lib/kendo/kendo.all.min.js")
-    script(src="/js/manager.js")
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.common.min.css')
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.default.min.css')
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.min.css')
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
+    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.mobile.min.css')
+    //- link(rel='stylesheet', href='/css/reset.css')
+    //- link(rel='stylesheet', href='/css/common.css')
+    //- link(rel='stylesheet', href='/css/manager.css')
+    //- script(src="/lib/kendo/kendo.all.min.js")
+    //- script(src="/js/manager.js")
+    script(src="/lib/require/require.js" data-main="./../../js/main")
+    
   body
    include ./navmenu.jade
    div.content-wrapper.clearfix

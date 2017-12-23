@@ -57,6 +57,7 @@ function Grid(dataSource, columns) {
 
 $(document).ready(function () {
     var panelItemType = 0;
+    debugger;
     // 导航菜单
     $("#nav-menu").kendoMenu({});
     // 左侧panel
