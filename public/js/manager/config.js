@@ -38,7 +38,25 @@ define(function (require) {
             }
         ],
         categories:[
-            { field: 'name', title: '导航名称' },
+            { field: 'name', title: '类别名称' },
+            { field: '_id', title: 'id' },
+            {
+                title: '操作', command: [
+                    {
+                        name: 'destroy', text: '删除', click: function () {
+
+                        }
+                    },
+                    {
+                        name: 'edit', text: '编辑', click: function (item) {
+
+                        }
+                    },
+                ]
+            }
+        ],
+        navs: [
+            { field: 'name', title: '导航名称'},
             { field: '_id', title: 'id' },
             {
                 title: '操作', command: [

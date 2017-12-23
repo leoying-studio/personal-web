@@ -1,7 +1,9 @@
 require.config({
      paths: {
          "manager": "./manager/index",
-         "config": "./manager/config"
+         "config": "./manager/config",
+         "init": "./common/init",
+         "navs": "./manager/navs"
      },
      shim: {
          "manager": {

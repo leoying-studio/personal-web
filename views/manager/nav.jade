@@ -1,10 +1,10 @@
-div#nav-window(style="display:none;")
+div#nav-window.hide
  form.nav-form(action="/nav/submit" method='post')
-    div.k-content(style="margin-bottom: 10px")
+    div.form-item
        label 导航名称: 
        input(type="text" class="k-textbox" name="name")
-    div.k-content
+    div.form-item
        label 内容分类: 
        input(type="text" class="k-textbox" name="categories")
-    div.k-content
+    div.form-item
        button(type="submit" class="k-button k-default") 确认添加
