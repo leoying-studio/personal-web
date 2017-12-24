@@ -1,8 +1,9 @@
 
-$(document).ready(function () {
-    define(["navs"], function (config) {
-         
-    });
+
+define(["navs"], function (config) {
+        
 });
 
 
+
+// 

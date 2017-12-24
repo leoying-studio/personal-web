@@ -1,13 +1,34 @@
 define([
     'require',
     'init',
-    'config'
+    'config',
 ], function (require, init, config) {
     var panelItemType = 0;
     var navId = null;
     var categoriesId = [];
     var categoriesId = null;
     var articleId = null;
+    var grid = null;
+    var onPaging = function (option) {
+        var page = option.page;
+        // if (panelItemType == 2) {
+        //     var url = "article/view" + "/" + navId + "/" + categoryId + "/" + page + "/true";
+        //     $.ajax({
+        //         url: url,
+        //         type:'get',
+        //         dataType: 'json',
+        //         success: function(data) {
+        //             if (data.code == 200) {
+        //                 init.grid(data.data.articles, config.columns.articles);
+        //             }
+        //         },
+        //         error: function(data) {
+        //             alert("错误");
+        //         }
+        //     }); 
+        // }
+    }
+
     // 导航菜单
     $("#nav-menu").kendoMenu({});
     // 左侧panel
@@ -19,40 +40,51 @@ define([
             switch (panelItemType) {
                 case '0':
                     var navs = JSON.parse(panelItem.getAttribute("navs"));
-                    init.grid(navs, config.columns.navs);
+                    grid = init.grid(navs, config.columns.navs);
                     break;
 
                 case '1':
                     categories = JSON.parse(panelItem.getAttribute("categories"));
-                    init.grid(categories, config.columns.categories);
+                    grid = init.grid(categories, config.columns.categories);
                     break;
 
                 case '2':
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
                     var url = "article/view" + "/" + navId + "/" + categoryId + "/" + 1 + "/true";
-                    $.ajax({
-                        url: url,
-                        type: 'get',
-                        success: function (data) {
-                            if (data.code == 200) {
-                                data = data.data;
-                                var articles = data.articles;
-                                init.grid(articles, config.columns.articles);
-                            } else {
-                                alert(data.msg);
-                            }
+                    var ds =  {
+                        type: "get",
+                        transport: {
+                            read: url
                         },
-                        error: function () {
+                        pageSize: 20
+                    };
+                    init.grid(ds, config.columns.articles);
+                    // $.ajax({
+                    //     url: url,
+                    //     type: 'get',
+                    //     success: function (data) {
+                    //         if (data.code == 200) {
+                    //             data = data.data;
+                    //             var articles = data.articles;
+                    //             grid = init.grid(articles, config.columns.articles, onPaging);
+                    //         } else {
+                    //             alert(data.msg);
+                    //         }
+                    //     },
+                    //     error: function () {
 
-                        }
-                    });
+                    //     }
+                    // });
+
+
                     break;
             }
         }
     });
     // 初始化right-header
     $("#buttonGroup").kendoMobileButtonGroup({});
+
 
     // 添加列表项
     $("#groupItemAdd").click(function () {

@@ -20,7 +20,6 @@ define(function (require) {
                     },
                     {
                         text: '添加', click: function (e) {
-                            currentArticle = this.dataItem($(e.currentTarget).closest("tr"));
                             $("#article-detail-window").kendoWindow({
                                 width: "1000px",
                                 title: "添加文章详情",

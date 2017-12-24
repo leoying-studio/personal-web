@@ -34,7 +34,7 @@ exports.getPaging = function(req, res, next) {
 			currentPage
 		};
 		if (admin == "true") {
-			res.send(new Body(msg));
+			res.send(msg.articles);
 		} else {
 			res.render("article/index", new Body(msg));
 		}
