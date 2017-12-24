@@ -14,6 +14,13 @@ define([
             //     template: "<input value='#= _id #' type='checkbox' />",  
             //     filterable: false  
             // }, ...columns];
+            dataSource = {
+                 ...dataSource,
+                 serverPaging: true,
+                 serverFiltering: true,
+                 serverSorting: true
+
+            }
             var grid = $("#grid").kendoGrid({
                 dataSource: dataSource,
                 height: gridHeight,
@@ -25,13 +32,13 @@ define([
                     input: true,
                     numeric: false,
                     refresh: true,
-                    pageSize: 10,
+                    pageSize: 2,
                     buttonCount: 5
                 },
                 columns: columns,
                 editable: false,
                 columnMenu: true,
-                page: onPaging
+                // page: onPaging
             });
             return grid;
          },

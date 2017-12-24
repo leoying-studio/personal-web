@@ -57,7 +57,7 @@ define([
                         transport: {
                             read: url
                         },
-                        pageSize: 20
+                        pageSize: 2
                     };
                     init.grid(ds, config.columns.articles);
                     // $.ajax({
