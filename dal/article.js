@@ -1,6 +1,5 @@
 var ArticleModel = require("./../models/article");
 var NavModel = require("./../models/nav");
-var Body = require("./../config/body");
 var DBSuper = require("./../dbsuper/index");
 
 // 获取分页数据

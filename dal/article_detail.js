@@ -1,7 +1,6 @@
 var express = require('express');
 var ArticleDetailModel = require("./../models/article_detail");
 var NavDAL = require("./../dal/nav");
-var Body = require("./../config/body");
 var DBSuper = require("./../dbsuper/index");
 
 exports.get = function(conditions, cb) {
@@ -22,7 +21,6 @@ exports.save = function(fields) {
     var model = new ArticleDetailModel(fields);
     return DBSuper.save(model);
 }
-
 
 exports.addComment = function(params, cb) {
     var conditions = params.conditions;

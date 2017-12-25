@@ -1,7 +1,7 @@
 var ArticleDetailDAL = require("./../dal/article_detail");
 var express = require('express');
 var Utils = require("./../utils");
-var Body = require("./../config/body");
+var Msg = require("./../config/msg");
 
 exports.get = function(req, res, next) {
     var params = req.params;
@@ -32,14 +32,15 @@ exports.get = function(req, res, next) {
 		doc.article_detail = doc.article_detail || {};
 		doc.article_detail.categoryId = params.categoryId;
 		doc.article_detail.currentPage = params.currentPage; 
-		if (doc.article_detail && doc.article_detail.comment) {
+		doc.commentTotal = 0; 
+		if (doc.article_detail.comment) {
 			doc.commentTotal = doc.article_detail.comment.length;
 			currentPage -=1;
-			var startIndex = currentPage* 15;
-			var endIndex = (Number(currentPage)+1)*15;
+			var startIndex = currentPage * 15;
+			var endIndex = (Number(currentPage)+1) * 15;
 			doc.article_detail.comment = doc.article_detail.comment.sort({serverTime: 1}).slice(startIndex, endIndex);
 		}
-		res.render("article_detail/index", new Body(doc));
+		res.render("article_detail/index", Msg(doc));
 	});
 }
 
@@ -65,7 +66,10 @@ exports.submit = function(req, res, next) {
 			throw new Error("请输入内容!");
 		}
 	}catch(e) {
-		return res.send(new Body({}, 0, false, e.message));
+		return res.send(Msg({
+			code: 'validate',
+			msg: e.message
+		}));
 	}
 
 	categoriesId = JSON.parse(categoriesId).map(function(item) {
@@ -85,7 +89,9 @@ exports.submit = function(req, res, next) {
 	   res.send(new Body(doc));
 	}, (error) => {
 	  //失败
-	   res.send(new Body(null, 0, false, '添加数据失败'))
+	   res.send(Msg({
+		   code: 'unknown'
+	   }))
 	});
 }
 
@@ -100,10 +106,12 @@ exports.submitComment = function(req, res, next) {
 	ArticleDetailDAL.addComment({
 		conditions,
 		fields: {username,content}
-	}, function(err, state) {
+	}, function(err, doc) {
 		  if (err) {
-			 return res.send(new Body(null, 404, false , "发表失败"));
+			 return res.send(Msg({
+				 code: 'unknown'
+			 }));
 		  }
-		  return res.send(new Body(state));
+		  return res.send(msg(doc));
 	});
 }

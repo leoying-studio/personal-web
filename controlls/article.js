@@ -1,7 +1,7 @@
 var ArticleDAL = require("./../dal/article");
 var express = require('express');
 var Utils = require("./../utils");
-var Body = require("./../config/body");
+var Msg = require("./../config/msg");
 
 exports.getPaging = function(req, res, next) {
      var params = req.params;
@@ -36,7 +36,7 @@ exports.getPaging = function(req, res, next) {
 		if (admin == "true") {
 			res.send(msg.articles);
 		} else {
-			res.render("article/index", new Body(msg));
+			res.render("article/index", Msg(msg));
 		}
     });
 }
