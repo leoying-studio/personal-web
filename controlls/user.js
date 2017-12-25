@@ -5,20 +5,18 @@ var DBSuper = require("./../dbsuper/index");
 
 var Utils = require("./../utils");
 var Msg = require("./../config/msg");
-var LoginDAL = require("./../dal/login");
 
 exports.loginView = function(req, res, next) {
-    LoginDAL.getNavs().then(function(doc) {
-		res.render("login", Msg({navs: doc}));
-	});
+    // LoginDAL.getNavs().then(function(doc) {
+	// 	res.render("login", Msg({navs: doc}));
+	// });
 }
 
 
-var RegisterDAL = require("./../dal/register");
 exports.registerView = function(req, res, next) {
-    RegisterDAL.getNavs().then(function(doc) {
-		res.render("register", Msg({navs: doc}));
-	});
+    // RegisterDAL.getNavs().then(function(doc) {
+	// 	res.render("register", Msg({navs: doc}));
+	// });
 }
 
 exports.registerSubmit = function(req, res) {
@@ -70,7 +68,7 @@ exports.registerSubmit = function(req, res) {
 }
 
 
-exports.submit = function(req, res, next) {
+exports.loginSubmit = function(req, res, next) {
 	var params = req.query;
 	var username = params.username;
 	var password = params.password
