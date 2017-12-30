@@ -1,7 +1,7 @@
 var express = require('express');
 var ArticleDetailModel = require("./../models/article_detail");
 var NavDAL = require("./../dal/nav");
-var DBSuper = require("./../dbsuper/index");
+var DBSuper = require("./../db/super");
 
 exports.get = function(conditions, cb) {
     var params = {

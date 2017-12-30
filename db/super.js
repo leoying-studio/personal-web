@@ -1,17 +1,11 @@
-// 查询
-exports.find = function(params) {
-   var model = params.model;
-   var conditions = params.conditions || {};
-   var pageSize = params.pageSize || 10;
-   var currentPage = params.currentPage || 1;
-   try {
-        return model.find(conditions)
-        .sort({'serverTime': 1})
-        .skip((currentPage - 1) * pageSize )
-        .limit(pageSize).lean();
-   }catch(e) {
-      console.error('error');
-   }
+exports.regFind = function () {
+    arguments[0].statics.findPaging = function (params = {}, conditions = {}) {
+        var currentPage = params.currentPage || 1;
+        var pageSize = params.pageSize || 10;
+        return schema.find(conditions).sort({ 'serverTime': 1 })
+            .skip((currentPage - 1) * pageSize)
+            .limit(pageSize).lean();
+    }
 }
 
 exports.findAll = function(model) {

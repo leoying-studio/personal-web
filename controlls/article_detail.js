@@ -1,7 +1,7 @@
 var ArticleDetailDAL = require("./../dal/article_detail");
 var express = require('express');
 var Utils = require("./../utils");
-var Msg = require("./../config/msg");
+var Body = require("./Body");
 
 exports.get = function(req, res, next) {
     var params = req.params;
@@ -39,7 +39,7 @@ exports.get = function(req, res, next) {
 			var endIndex = (Number(currentPage)+1) * 15;
 			doc.article_detail.comment = doc.article_detail.comment.sort({serverTime: 1}).slice(startIndex, endIndex);
 		}
-		res.render("article_detail/index", Msg(doc));
+		res.render("article_detail/index", Body(doc));
 	});
 }
 
@@ -65,9 +65,9 @@ exports.submit = function(req, res, next) {
 			throw new Error("请输入内容!");
 		}
 	}catch(e) {
-		return res.send(Msg({
+		return res.send(Body({
 			code: 'validate',
-			msg: e.message
+			Body: e.message
 		}));
 	}
 
@@ -88,7 +88,7 @@ exports.submit = function(req, res, next) {
 	   res.send(new Body(doc));
 	}, (error) => {
 	  //失败
-	   res.send(Msg({
+	   res.send(Body({
 		   code: 'unknown'
 	   }))
 	});
@@ -107,10 +107,10 @@ exports.submitComment = function(req, res, next) {
 		fields: {username,content}
 	}, function(err, doc) {
 		  if (err) {
-			 return res.send(Msg({
+			 return res.send(Body({
 				 code: 'unknown'
 			 }));
 		  }
-		  return res.send(msg(doc));
+		  return res.send(Body(doc));
 	});
 }

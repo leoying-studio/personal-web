@@ -29,11 +29,11 @@ var ManagerControll = require("./../controlls/manager");
 // 			res.redirect("/");
 // 		});
 // 	},
-// 	get(table, key, msg) {
+// 	get(table, key, Body) {
 // 		return new Promise((resolve, reject) => {
 // 			table.find({}).sort({'serverTime': 1}).exec( (err, collections) => {
 // 				if (err) {
-// 					throw new Error(msg);
+// 					throw new Error(Body);
 // 				}
 // 				resolve({key,collections});
 // 			})

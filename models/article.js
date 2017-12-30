@@ -1,5 +1,6 @@
 var mongoose=require('../db').mongoose;
 var Utils = require("./../utils/index");
+var DBSuper = require("./../db/super");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
 	 title: {type: "string"},
@@ -11,5 +12,11 @@ var Scheam = new mongoose.Schema({
 		 {id: {type: 'string'}}
 	 ],
 });
+
+Scheam.plugin(DBSuper.regFind);
+
 var Article = mongoose.model('article', Scheam);
+
+
+
 module.exports = Article;

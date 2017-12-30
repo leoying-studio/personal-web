@@ -1,6 +1,6 @@
 var ArticleModel = require("./../models/article");
 var NavModel = require("./../models/nav");
-var DBSuper = require("./../dbsuper/index");
+var DBSuper = require("./../db/super");
 
 // 获取分页数据
 exports.getPaging = function(params, cb) {

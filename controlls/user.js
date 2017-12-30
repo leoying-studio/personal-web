@@ -1,21 +1,19 @@
 
 var UsersModel = require("./../models/users");
-var Msg = require("./../config/msg");
-var DBSuper = require("./../dbsuper/index");
-
+var Body = require("./body");
+var DBSuper = require("./../db/index");
 var Utils = require("./../utils");
-var Msg = require("./../config/msg");
 
 exports.loginView = function(req, res, next) {
     // LoginDAL.getNavs().then(function(doc) {
-	// 	res.render("login", Msg({navs: doc}));
+	// 	res.render("login", Body({navs: doc}));
 	// });
 }
 
 
 exports.registerView = function(req, res, next) {
     // RegisterDAL.getNavs().then(function(doc) {
-	// 	res.render("register", Msg({navs: doc}));
+	// 	res.render("register", Body({navs: doc}));
 	// });
 }
 

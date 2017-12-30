@@ -1,7 +1,7 @@
 var express = require('express');
 var Nav = require("./../models/nav");
 var Utils = require("./../utils");
-var DBSuper = require("./../dbsuper/index");
+var DBSuper = require("./../db/super");
 
 exports.getAll = function() {
     return DBSuper.findAll(Nav);
