@@ -23,7 +23,6 @@ exports.get = function(req, res, next) {
 	   req.flash("error", e.message);
 	   return res.redirect("/article");
    }
-
    ArticleDetailDAL.get({
 	   	navId, 
 		'categoriesId.id': params.categoryId, 
