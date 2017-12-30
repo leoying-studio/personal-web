@@ -1,7 +1,7 @@
 var HomeDAL = require("./../dal/home");
 var express = require('express');
 var Utils = require("./../utils");
-var Body = require("./../config/body");
+var Msg = require("./../config/msg");
 
 exports.getAll = function(req, res, next) {
     HomeDAL.getAll().then(function(collections) {
@@ -9,7 +9,7 @@ exports.getAll = function(req, res, next) {
             navs: collections[0],
             banner: collections[1]
         };
-        res.render("manager", new Body(msg));
+        res.render("manager", Msg(msg));
     }).catch(function(e) {
         req.flash("error", e.message);
         res.redirect("manager");

@@ -1,4 +1,3 @@
-
 // 查询
 exports.find = function(params) {
    var model = params.model;
@@ -11,7 +10,7 @@ exports.find = function(params) {
         .skip((currentPage - 1) * pageSize )
         .limit(pageSize).lean();
    }catch(e) {
-      console.log('error');
+      console.error('error');
    }
 }
 
@@ -37,4 +36,3 @@ exports.save = function(model) {
         console.log(e);
     }
 }
-

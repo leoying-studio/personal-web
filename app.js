@@ -24,8 +24,7 @@ app.use(express.static(path.join(__dirname, "/public")))
 
 
 var home = require('./routes/home');
-var login = require('./routes/login');
-var register = require('./routes/register');
+var user = require('./routes/user');
 var manager = require('./routes/manager');
 var nav = require('./routes/nav');
 var article = require('./routes/article');
@@ -76,8 +75,7 @@ app.use(function (req, res, next) {
 
 app.use('/', home);
 app.use('/manager', manager);
-app.use("/login", login);
-app.use("/register", register);
+app.use("/user", user);
 app.use("/nav", nav);
 app.use("/article", article);
 app.use("/banner", banner);

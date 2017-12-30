@@ -9,25 +9,6 @@ define([
     var categoriesId = null;
     var articleId = null;
     var grid = null;
-    var onPaging = function (option) {
-        var page = option.page;
-        // if (panelItemType == 2) {
-        //     var url = "article/view" + "/" + navId + "/" + categoryId + "/" + page + "/true";
-        //     $.ajax({
-        //         url: url,
-        //         type:'get',
-        //         dataType: 'json',
-        //         success: function(data) {
-        //             if (data.code == 200) {
-        //                 init.grid(data.data.articles, config.columns.articles);
-        //             }
-        //         },
-        //         error: function(data) {
-        //             alert("错误");
-        //         }
-        //     }); 
-        // }
-    }
 
     // 导航菜单
     $("#nav-menu").kendoMenu({});
@@ -60,24 +41,6 @@ define([
                         pageSize: 2
                     };
                     init.grid(ds, config.columns.articles);
-                    // $.ajax({
-                    //     url: url,
-                    //     type: 'get',
-                    //     success: function (data) {
-                    //         if (data.code == 200) {
-                    //             data = data.data;
-                    //             var articles = data.articles;
-                    //             grid = init.grid(articles, config.columns.articles, onPaging);
-                    //         } else {
-                    //             alert(data.msg);
-                    //         }
-                    //     },
-                    //     error: function () {
-
-                    //     }
-                    // });
-
-
                     break;
             }
         }
@@ -85,13 +48,12 @@ define([
     // 初始化right-header
     $("#buttonGroup").kendoMobileButtonGroup({});
 
-
     // 添加列表项
     $("#groupItemAdd").click(function () {
         if (panelItemType == 0) {
             init.window($("#nav-window"), "添加导航模块");
         }
-        if (panelItemType == 1) {
+        else if (panelItemType == 1) {
             init.window($("#categoryWindow"), "添加文章类别");
         } else if (panelItemType == 2) {
             $("#blog-cateory").html("");

@@ -5,7 +5,6 @@ var Intro = require("./../models/intro");
 var TimeLine = require("./../models/timeline");
 var Footer = require("./../models/footer");
 var Nav = require("./../models/nav");
-var Body = require("./../config/body");
 var Article = require("./../models/article");
 var ManagerControll = require("./../controlls/manager");
 
@@ -73,32 +72,32 @@ var ManagerControll = require("./../controlls/manager");
 // 	});
 // });
 
-router.get("/navs/:navId/:categoryId", function(req, res) {
-	 var params = req.params;
-	 var navId = params.navId;
-	 var categoryId = params.categoryId;
-	// 请求
-	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
-		if (err) {
-			req.flash('error', "读取导航列表失败");
-			res.redirect("/manager");
-		} 
-		navId = navId || collections[0]._id;
-		categoryId = categoryId || collections[0].categories[0]._id;
-		Article.find({navId, 'categoriesId.id': categoryId}).exec(function(error, coll) {
-			if (error) {
-				req.flash('error', "读取当前分类下的文章列表失败");
-				req.redirect("/manager");
-			} 
-			var messageBody = new Body({
-				navs: collections,
-				articles: coll,
-				type: 0
-			});
-			res.render("manager/index", messageBody);
-		});
-	});
-});
+// router.get("/navs/:navId/:categoryId", function(req, res) {
+// 	 var params = req.params;
+// 	 var navId = params.navId;
+// 	 var categoryId = params.categoryId;
+// 	// 请求
+// 	Nav.find({}).sort({'serverTime': 1}).exec(function(err, collections) {
+// 		if (err) {
+// 			req.flash('error', "读取导航列表失败");
+// 			res.redirect("/manager");
+// 		} 
+// 		navId = navId || collections[0]._id;
+// 		categoryId = categoryId || collections[0].categories[0]._id;
+// 		Article.find({navId, 'categoriesId.id': categoryId}).exec(function(error, coll) {
+// 			if (error) {
+// 				req.flash('error', "读取当前分类下的文章列表失败");
+// 				req.redirect("/manager");
+// 			} 
+// 			var messageBody = new Body({
+// 				navs: collections,
+// 				articles: coll,
+// 				type: 0
+// 			});
+// 			res.render("manager/index", messageBody);
+// 		});
+// 	});
+// });
 
 router.get("/", ManagerControll.getAll);
 
