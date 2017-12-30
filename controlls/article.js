@@ -20,14 +20,12 @@ exports.getPaging = function(req, res, next) {
 		req.flash("error", e.message);
 		res.redirect("/article");
 	}
-    params = {
-		conditions: {
-			navId,
-			'categoriesId.id': categoryId,
-		},
-		currentPage
-    };
-    ArticleDAL.getPaging(params, function(msg) {
+    
+	var conditions = {
+		 navId,
+		'categoriesId.id': categoryId,
+	};
+    ArticleDAL.getPaging(null , conditions , function(msg) {
 		msg.params = {
 			navId,
 			categoryId,

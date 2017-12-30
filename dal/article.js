@@ -3,18 +3,17 @@ var NavModel = require("./../models/nav");
 var DBSuper = require("./../db/super");
 
 // 获取分页数据
-exports.getPaging = function(params, cb) {
-    params.model = ArticleModel;
+exports.getPaging = function(params, conditions, cb) {
     DBSuper.findAll(NavModel).then(function(navs) {
-         DBSuper.find(params).then(function(articles) {
-             ArticleModel.count(params.conditions, function(err, total) {
+         ArticleModel.findPaging(params || {}, conditions).then(function(articles) {
+              ArticleModel.count(conditions, function(err, total) {
                  cb({
                     navs,
                     articles,
                     total
                  });
              });
-         });
+         })
     });
 }
 

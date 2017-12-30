@@ -6,7 +6,7 @@ var state = {
 	permissions: 1003  //权限错误
 };
 
-module.exports = function msg(option) {
+module.exports = function Body(option) {
 	// 数据正常
 	if (!option.code) {
 		return {
