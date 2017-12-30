@@ -1,3 +1,5 @@
+var NavModel = require('./../models/nav');
+
 exports.regFind = function (schema) {
     schema.statics.findPaging = function (params = {}, conditions = {}) {
         var currentPage = params.currentPage || 1;
@@ -8,13 +10,17 @@ exports.regFind = function (schema) {
     }
 }
 
+exports.regNav = function(schema) {
+     schema.statics.getNavs = function () {
+        return NavModel.find({}).lean();
+     }
+}
+
 exports.findAll = function(model) {
     return model.find({}).lean();
 }
 
-exports.findOne = function(params) {
-    var conditions = params.conditions;
-    var model = params.model;
+exports.findOne = function(model, conditions) {
     try {
         return model.findOne(conditions).lean();
     }catch(e) {

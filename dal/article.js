@@ -5,7 +5,7 @@ var DBSuper = require("./../db/super");
 // 获取分页数据
 exports.getPaging = function(params, conditions, cb) {
     DBSuper.findAll(NavModel).then(function(navs) {
-         ArticleModel.findPaging(params || {}, conditions).then(function(articles) {
+         ArticleModel.findPaging(params, conditions).then(function(articles) {
               ArticleModel.count(conditions, function(err, total) {
                  cb({
                     navs,

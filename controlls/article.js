@@ -25,7 +25,7 @@ exports.getPaging = function(req, res, next) {
 		 navId,
 		'categoriesId.id': categoryId,
 	};
-    ArticleDAL.getPaging(null , conditions , function(msg) {
+    ArticleDAL.getPaging(undefined, conditions , function(msg) {
 		msg.params = {
 			navId,
 			categoryId,

@@ -4,17 +4,29 @@ var NavDAL = require("./../dal/nav");
 var DBSuper = require("./../db/super");
 
 exports.get = function(conditions, cb) {
-    var params = {
-        model:ArticleDetailModel,
-        conditions
-    };
-    return DBSuper.findOne(params).then(function(article_detail) {
+    return DBSuper.findOne(ArticleDetailModel, conditions).then(function(article_detail) {
         NavDAL.getAll().then(function(navs) {
             cb({article_detail, navs});
         });
     }, function() {
         console.log();
     });
+}
+
+exports.update = function(conditions, updates) {
+    ArticleDetailDAL.update(conditions, updates, function(err) {
+        // 查询更新之后的数据
+        if (!err) {
+            ArticleDetailModel.findOne(conditions, function() {
+                console.log('success');
+            });
+        }
+	});
+}
+
+exports.del = function() {
+    
+    
 }
 
 exports.save = function(fields) {

@@ -114,3 +114,15 @@ exports.submitComment = function(req, res, next) {
 		  return res.send(Body(doc));
 	});
 }
+
+// 删除
+exports.del = function(req, res, next) {
+	ArticleDetailDAL.remove({}, function() {
+
+	});
+}
+
+// 修改
+exports.update = function() {
+
+}
