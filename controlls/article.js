@@ -179,10 +179,20 @@ exports.del = function(req, res, next) {
 		ArticleDetailModel.remove(conditions),
 		ArticleModel.remove(articleCondion)
 	]).then( values => {
-		console.log(values);
+		var state = values.every(function(item) {
+			return item.result.n > 0;
+		});
+		if (state) {
+			res.send(Body(true));
+		} else {
+			res.send(Body({
+				code: 'params',
+				msg: '有残留或未删除, 请进行参数检查'
+			}));
+		}
 	}).catch(e => {
-		console.log(e);
+		res.render(Body({
+			code: 'unknown'
+		}));
 	});
-
-
 }
