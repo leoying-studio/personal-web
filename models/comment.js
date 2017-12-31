@@ -15,6 +15,6 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.plugin(DBSuper.regFind);
-var Commit = mongoose.model('commit', Scheam);
+var Comment = mongoose.model('comment', Scheam);
 
-module.exports = Commit;
+module.exports = Comment;

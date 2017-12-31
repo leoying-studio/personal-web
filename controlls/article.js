@@ -1,5 +1,6 @@
-var ArticleDAL = require("./../dal/article");
 var ArticleModel = require("./../models/article");
+var ArticleDetailModel = require("./../models/article_detail");
+var CommentModel = require("./../models/comment");
 var express = require('express');
 var Utils = require("./../utils");
 var Body = require("./body");
@@ -29,12 +30,13 @@ exports.getPaging = function(req, res, next) {
 	ArticleModel.findPaging({currentPage: 1}, conditions )
 	 .then(function(articles) {
 		 ArticleModel.getNavs().then(function(navs) {
-			 ArticleModel.count(conditions, function(err, count) {
+			 ArticleModel.count(conditions, function(err, total) {
 				   var body = Body({
 						params: {
 							navId,
 							categoryId,
-							currentPage
+							currentPage,
+							total
 						},
 						navs,
 						articles
@@ -81,20 +83,19 @@ exports.submit = function(req, res, next) {
 		res.redirect("/manager");
 	}
 	// 开始插入数据
-	var article = {
+	var fields = {
 		title,
 		img,
 		navId,
 		categoriesId,
 		description
 	};
-	ArticleDAL.submit(article)
-	.then( (articles, command) => {
-		 // 插入成功
-		 req.flash("success", "添加文章列表成功!");
-		 res.redirect("/manager");
-	}, () => {
-		// 失败
+    new ArticleModel(fields).save(function(err, article) {
+		if (!err) {
+			 // 插入成功
+			req.flash("success", "添加文章列表成功!");
+			return res.redirect("/manager");
+		}
 		req.flash("error", "添加文章列表失败!");
 		res.redirect("manager");
 	});
@@ -122,26 +123,27 @@ exports.update = function(req, res, next) {
 			data: e.message
 		}));
 	}
-    ArticleDAL.update({
+    ArticleModel.update({
 		navId,
 		'categoriesId.id': categoryId,
 		articleId
-	})
-	.then(function(doc) {
-		res.send(Body(doc));
-	}, function() {
-		res.send(Body({
-			code: 'unknown'
-		}));
+	}, function(err , doc) {
+		if (err) {
+			res.send(Body({
+				code: 'unknown'
+			}));
+		} else {
+			res.send(Body(doc));
+		}
 	});
 }
 
 
-exports.del = function() {
-	var body = req.body;
-	var navId = body.navId;
-	var categoryId = body.categoryId;
-	var articleId = body.articleId;
+exports.del = function(req, res, next) {
+	var query = req.query;
+	var navId = query.navId;
+	var categoryId = query.categoryId;
+	var articleId = query.articleId;
 	try {
 		if (!navId) {
 			throw new Error('navId 不能为空');
@@ -158,16 +160,29 @@ exports.del = function() {
 			data: e.message
 		}));
 	}
-    ArticleDAL.remove({
+
+	var conditions = {
 		navId,
 		'categoriesId.id': categoryId,
 		articleId
-	})
-	.then(function(doc) {
-		res.send(Body(doc));
-	}, function() {
-		res.send(Body({
-			code: 'unknown'
-		}));
+	};
+
+	var articleCondion = {
+		 navId,
+		'categoriesId.id': categoryId,
+		_id: articleId
+	};
+
+	// 清除关联数据
+	Promise.all([
+		CommentModel.remove(conditions),
+		ArticleDetailModel.remove(conditions),
+		ArticleModel.remove(articleCondion)
+	]).then( values => {
+		console.log(values);
+	}).catch(e => {
+		console.log(e);
 	});
+
+
 }

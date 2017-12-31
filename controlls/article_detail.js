@@ -1,5 +1,5 @@
 var ArticleDetailModel = require("./../models/article_detail");
-var CommitModel = require("./../models/commit");
+var CommentModel = require("./../models/comment");
 var express = require('express');
 var Utils = require("./../utils");
 var Body = require("./Body");
@@ -47,9 +47,9 @@ exports.get = function (req, res, next) {
 						'categoriesId.id': categoryId,
 						articleId
 					};
-					CommitModel.findPaging({ currentPage }, conditions)
+					CommentModel.findPaging({ currentPage }, conditions)
 						.then(function (comments) {
-							CommitModel.count(conditions, function () {
+							CommentModel.count(conditions, function () {
 								res.render('article_detail/index', Body({
 									navs,
 									article_detail: detail,
@@ -133,7 +133,7 @@ exports.submitComment = function (req, res, next) {
 		content
 	};
 
-	new CommitModel(fields).save(function(err, doc) {
+	new CommentModel(fields).save(function(err, doc) {
 		if (err) {
 			return res.send(Body({
 				code: 'unknown'
