@@ -20,6 +20,7 @@ define(function (require) {
                     },
                     {
                         text: '添加', click: function (e) {
+                            debugger;
                             $("#article-detail-window").kendoWindow({
                                 width: "1000px",
                                 title: "添加文章详情",

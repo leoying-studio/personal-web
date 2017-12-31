@@ -11,8 +11,8 @@ exports.regFind = function (schema) {
 }
 
 exports.regNav = function(schema) {
-     schema.statics.getNavs = function () {
-        return NavModel.find({}).lean();
+     schema.statics.getNavs = function (cb) {
+        return NavModel.find({}).lean(cb);
      }
 }
 

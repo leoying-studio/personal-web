@@ -3,7 +3,8 @@ var state = {
 	unknown: 1001,  // 未知错误
 	validate: 1002, // 验证错误
 	params: 1004,   // 参数错误
-	permissions: 1003  //权限错误
+	permissions: 1003,  //权限错误,
+	operation: 1005
 };
 
 module.exports = function Body(option) {

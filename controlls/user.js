@@ -15,7 +15,11 @@ exports.registerView = function(req, res, next) {
 }
 
 exports.registerSubmit = function(req, res) {
-	const {username, password, passAgain, email} = req.body;
+	var query = req.query;
+    var username = query.username;
+    var password = query.password;
+    var passAgain = query.passAgain;
+    var email = query.email;
     try {
         if (!username) {
             throw new Error("用户名不能为空!");
@@ -29,12 +33,12 @@ exports.registerSubmit = function(req, res) {
         if (!email) {
             throw new Error("邮箱不能为空");
         } 
-        if (!Utils.validateEmail(email)) {
-            throw new Error("邮箱格式不合法");
-        }
+        // if (!Utils.validateEmail(email)) {
+        //     throw new Error("邮箱格式不合法");
+        // }
     } catch(e) {
         req.flash("error", e.message);
-        return res.redirect("/regview");
+        return res.redirect("/user/register/view");
     }
 
     // 查询当前用户名是否注册
@@ -92,7 +96,7 @@ exports.loginSubmit = function(req, res, next) {
 			if (username !== "admin") {
 				return res.redirect("/");
 			}
-			return res.redirect("manager");
+			return res.redirect("/manager");
 		}
 		res.redirect("/user/login/view");
 	}, function(err) {

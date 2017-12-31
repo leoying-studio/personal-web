@@ -30,11 +30,11 @@ exports.getPaging = function(req, res, next) {
 			categoryId,
 			currentPage
 		};
-		if (req.session.user === 'admin') {
-			res.send(msg.articles);
-		} else {
+		// if (req.session.user === 'admin') {
+		// 	res.send(msg.articles);
+		// } else {
 			res.render("article/index", Body(msg));
-		}
+		// }
     });
 }
 

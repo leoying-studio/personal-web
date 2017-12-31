@@ -28,6 +28,7 @@ exports.del = function(conditions, cb) {
         if (!err) {
            return cb(doc);
         }
+        cb(null);
     }).lean();
 }
 

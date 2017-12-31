@@ -1,6 +1,6 @@
 extend ./layout
 block content
-   form(action="/users/register" method='post').register-form
+   form(action="/users/register/submit" method='post').register-form
      h1.title 用户注册
      div.form-item
         input(type="text" placeholder = "请输入用户名" name="username" required id="regName")

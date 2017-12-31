@@ -5,7 +5,7 @@ module.exports={
     "session": {
         secret: 'myblog',
         key: 'myblog',
-        maxAge: 2592000000
+        maxAge: 1
     },
     mongodb: 'mongodb://localhost:12345/blog',
     baseUrl: 'http://localhost:3000'

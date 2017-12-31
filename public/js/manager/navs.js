@@ -6,7 +6,7 @@ define([
     var panelItemType = 0;
     var navId = null;
     var categoriesId = [];
-    var categoriesId = null;
+    var categoryId = null;
     var articleId = null;
     var grid = null;
 
@@ -32,7 +32,7 @@ define([
                 case '2':
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
-                    var url = "article/view" + "/" + navId + "/" + categoryId + "/" + 1 + "/true";
+                    var url = "article/view" + "/" + navId + "/" + categoryId + "/" + 1;
                     var ds =  {
                         type: "get",
                         transport: {
