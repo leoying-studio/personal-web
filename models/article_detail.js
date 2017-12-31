@@ -9,9 +9,6 @@ var Schema = new mongoose.Schema({
 	 ],
 	 articleId: String,
 	 content: String,
-	 comment: [
-		 {username: {type: String}, publishTime: {type: String, default: Utils.getTime(new Date(), "s")}, content: {type: String}}
-	 ],
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 

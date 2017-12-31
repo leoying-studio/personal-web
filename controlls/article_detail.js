@@ -1,5 +1,5 @@
-// var ArticleDetailDAL = require("./../dal/article_detail");
 var ArticleDetailModel = require("./../models/article_detail");
+var CommitModel = require("./../models/commit");
 var express = require('express');
 var Utils = require("./../utils");
 var Body = require("./Body");
@@ -29,30 +29,34 @@ exports.get = function (req, res, next) {
 	ArticleDetailModel.getNavs().then(function (navs) {
 		var pageStart = (currentPage - 1) * 10;
 		var pageEnd = currentPage * 10;
-		var query = ArticleDetailModel.findOne({
+		ArticleDetailModel.findOne({
 			navId,
 			'categoriesId.id': categoryId,
 			articleId
 		}, function (err, detail) {
 			if (!err) {
 				if (!detail) {
-					res.render('/article/article_detail/view',Body({
+					res.render('article_detail/index', Body({
 						navs,
-						articleDetail: {},
-						comment: []
+						article_detail: {},
+						comments: []
 					}));
 				} else {
-					query.populate('comment', {slice:[pageStart, pageEnd]})
-						.exec(function (err, comment) {
-							if (!err) {
-								// 如果当前没有查询到数据
-								res.render(Body({
+					var conditions = {
+						navId,
+						'categoriesId.id': categoryId,
+						articleId
+					};
+					CommitModel.findPaging({ currentPage }, conditions)
+						.then(function (comments) {
+							CommitModel.count(conditions, function () {
+								res.render('article_detail/index', Body({
 									navs,
-									articleDetail: detail,
-									comment
+									article_detail: detail,
+									comments
 								}));
-							}
-					});
+							});
+						});
 				}
 			} else {
 				// 跳转到错误页面
@@ -119,23 +123,23 @@ exports.submitComment = function (req, res, next) {
 	var username = query.username;
 	var content = query.content;
 	var navId = query.navId;
-	var categoryId = query.categoryId;
+	var categoriesId = query.categoriesId;
 	var articleId = query.articleId;
-	var conditions = {
+	var fields = {
 		navId,
-		'categoriesId.id': categoryId,
-		articleId
+		categoriesId,
+		articleId,
+		username,
+		content
 	};
-	var pushDoc = {
-		$push: { comment: { username, content } }
-	};
-	ArticleDetailModel.update(conditions, pushDoc, function (err, doc) {
+
+	new CommitModel(fields).save(function(err, doc) {
 		if (err) {
 			return res.send(Body({
 				code: 'unknown'
 			}));
 		}
-		return res.render('/article/article_detail/view',Body(doc));
+		return res.render('article_detail/index', Body(doc));
 	});
 }
 

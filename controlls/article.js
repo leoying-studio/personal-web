@@ -1,4 +1,5 @@
 var ArticleDAL = require("./../dal/article");
+var ArticleModel = require("./../models/article");
 var express = require('express');
 var Utils = require("./../utils");
 var Body = require("./body");
@@ -19,23 +20,30 @@ exports.getPaging = function(req, res, next) {
 		req.flash("error", e.message);
 		res.redirect("/article");
 	}
-    
+
 	var conditions = {
 		 navId,
 		'categoriesId.id': categoryId,
 	};
-    ArticleDAL.getPaging({currentPage}, conditions , function(msg) {
-		msg.params = {
-			navId,
-			categoryId,
-			currentPage
-		};
-		// if (req.session.user === 'admin') {
-		// 	res.send(msg.articles);
-		// } else {
-			res.render("article/index", Body(msg));
-		// }
-    });
+
+	ArticleModel.findPaging({currentPage: 1}, conditions )
+	 .then(function(articles) {
+		 ArticleModel.getNavs().then(function(navs) {
+			 ArticleModel.count(conditions, function(err, count) {
+				   var body = Body({
+						params: {
+							navId,
+							categoryId,
+							currentPage
+						},
+						navs,
+						articles
+				   });
+				   //res.send(body);
+			       res.render('article/index', body);   
+			 });
+		 });
+	 });
 }
 
 // 提交
