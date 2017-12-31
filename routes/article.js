@@ -9,6 +9,6 @@ router.post("/submit", ArticleControll.submit);
 // 查询
 router.get("/view/:navId/:categoryId/:currentPage/:admin", ArticleControll.getPaging); 
 // 删除
-router.get("/del/:navId/:categoryId/:articleId", ArticleControll.del); 
+// router.get("/del/:navId/:categoryId/:articleId", ArticleControll.del); 
 
 module.exports = router;

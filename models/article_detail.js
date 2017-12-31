@@ -1,6 +1,7 @@
 var mongoose=require('../db').mongoose;
+var DBSuper = require('./../db/super');
 var Utils = require("./../utils/index");
-var detailSchema = new mongoose.Schema({
+var Schema = new mongoose.Schema({
 	 title: String,
 	 navId: String,
 	 categoriesId: [
@@ -14,5 +15,9 @@ var detailSchema = new mongoose.Schema({
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 
-var AticleDetail = mongoose.model('article_detail', detailSchema);
+Schema.plugin(DBSuper.regNav);
+
+
+
+var AticleDetail = mongoose.model('article_detail', Schema);
 module.exports = AticleDetail;

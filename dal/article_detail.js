@@ -13,20 +13,17 @@ exports.get = function(conditions, cb) {
     });
 }
 
-exports.update = function(conditions, updates) {
-    ArticleDetailDAL.update(conditions, updates, function(err) {
+exports.update = function(conditions, updates, cb) {
+    ArticleDetailModel.update(conditions, updates, function(err) {
         // 查询更新之后的数据
         if (!err) {
-            ArticleDetailModel.findOne(conditions, function() {
-                console.log('success');
-            });
+            ArticleDetailModel.findOne(conditions, cb);
         }
 	});
 }
 
-exports.del = function() {
-    
-    
+exports.del = function(conditions, cb) {
+    return ArticleDetailDAL.remove(conditions, cb).lean();
 }
 
 exports.save = function(fields) {

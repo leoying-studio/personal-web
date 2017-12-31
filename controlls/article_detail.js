@@ -117,12 +117,34 @@ exports.submitComment = function(req, res, next) {
 
 // 删除
 exports.del = function(req, res, next) {
-	ArticleDetailDAL.remove({}, function() {
-
+	var body = req.body;
+	try {
+		if (!body.navId) {
+			throw new Error('导航id不能为空');
+		}
+		if (!body.categoryId) {
+			throw new Error('类别不能为空');
+		}
+		if (!body.articleId) {
+			throw new Error('文章Id不能为空');
+		}
+	}catch(e) {
+		res.send(Body({
+			code: 'validate'
+		}))
+	}
+	ArticleDetailDAL.del({
+		navId,
+		'categoriesId.Id': categoryId,
+		articleId
+	}, function(doc) {
+		res.send(Body(send));
 	});
 }
 
 // 修改
 exports.update = function() {
-
+	ArticleDetailDAL.update({}, {}, function() {
+		 
+	});
 }
