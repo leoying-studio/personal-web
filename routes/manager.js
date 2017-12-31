@@ -6,7 +6,7 @@ var TimeLine = require("./../models/timeline");
 var Footer = require("./../models/footer");
 var Nav = require("./../models/nav");
 var Article = require("./../models/article");
-var ManagerControll = require("./../controlls/manager");
+var HomeControlls = require("./../controlls/home");
 
 // var Home = {
 // 	render(req, res)  {
@@ -99,6 +99,6 @@ var ManagerControll = require("./../controlls/manager");
 // 	});
 // });
 
-router.get("/", ManagerControll.getAll);
+router.get("/", HomeControlls.getAll);
 
 module.exports = router;

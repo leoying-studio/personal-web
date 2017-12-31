@@ -9,6 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 var app = express();
+var global_middleware = require('./middleware/check');
 // 自定义引入
 // var connect = require('connect')
 var sassMiddleware = require('node-sass-middleware');
@@ -21,6 +22,7 @@ app.use(sassMiddleware({
     , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
   }));
 app.use(express.static(path.join(__dirname, "/public")))
+
 
 
 var home = require('./routes/home');
@@ -62,6 +64,7 @@ app.use(session({
     url: config.mongodb// mongodb 地址
   })
 }));
+
 // 放在所有的路由上面,这样就能把所有的路由req 过滤一遍，否则是没有办法获取到flash这个方法的
 app.use(flash());
 // 设置模板变量
@@ -72,6 +75,8 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error').toString();
   next();
 });
+
+app.use(global_middleware.login);
 
 app.use('/', home);
 app.use('/manager', manager);

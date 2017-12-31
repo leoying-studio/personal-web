@@ -8,7 +8,6 @@ exports.getPaging = function(req, res, next) {
 	 var navId = params.navId;
 	 var categoryId = params.categoryId;
 	 var currentPage = params.currentPage;
-	 var admin = params.admin;
 	 try {
 		if (!navId) {
 			throw new Error("navId不存在");
@@ -25,13 +24,13 @@ exports.getPaging = function(req, res, next) {
 		 navId,
 		'categoriesId.id': categoryId,
 	};
-    ArticleDAL.getPaging(undefined, conditions , function(msg) {
+    ArticleDAL.getPaging({currentPage}, conditions , function(msg) {
 		msg.params = {
 			navId,
 			categoryId,
 			currentPage
 		};
-		if (admin == "true") {
+		if (req.session.user === 'admin') {
 			res.send(msg.articles);
 		} else {
 			res.render("article/index", Body(msg));
@@ -91,5 +90,76 @@ exports.submit = function(req, res, next) {
 		req.flash("error", "添加文章列表失败!");
 		res.redirect("manager");
 	});
-	
+}
+
+//修改
+exports.update = function(req, res, next) {
+	var body = req.body;
+	var navId = body.navId;
+	var categoryId = body.categoryId;
+	var articleId = body.articleId;
+	try {
+		if (!navId) {
+			throw new Error('navId 不能为空');
+		}
+		if (!categoryId) {
+			throw new Error('categoryId 不能为空');
+		}
+		if (!articleId) {
+			throw new Error('articleId 不能为空');
+		}
+	}catch(e) {
+		return res.send(Body({
+			code: 'validate',
+			data: e.message
+		}));
+	}
+    ArticleDAL.update({
+		navId,
+		'categoriesId.id': categoryId,
+		articleId
+	})
+	.then(function(doc) {
+		res.send(Body(doc));
+	}, function() {
+		res.send(Body({
+			code: 'unknown'
+		}));
+	});
+}
+
+
+exports.del = function() {
+	var body = req.body;
+	var navId = body.navId;
+	var categoryId = body.categoryId;
+	var articleId = body.articleId;
+	try {
+		if (!navId) {
+			throw new Error('navId 不能为空');
+		}
+		if (!categoryId) {
+			throw new Error('categoryId 不能为空');
+		}
+		if (!articleId) {
+			throw new Error('articleId 不能为空');
+		}
+	}catch(e) {
+		return res.send(Body({
+			code: 'validate',
+			data: e.message
+		}));
+	}
+    ArticleDAL.remove({
+		navId,
+		'categoriesId.id': categoryId,
+		articleId
+	})
+	.then(function(doc) {
+		res.send(Body(doc));
+	}, function() {
+		res.send(Body({
+			code: 'unknown'
+		}));
+	});
 }

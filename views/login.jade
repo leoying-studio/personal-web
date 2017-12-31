@@ -1,10 +1,10 @@
 extend layout
 block content
- form.login-form
+ form(action="/user/login/submit" method="post").login-form
    h1.title 用户登录	
    div.form-item 
-     input(placeholder="输入用户名")
+     input(placeholder="输入用户名" name="username")
    div.form-item 
-     input(placeholder="输入密码")
+     input(placeholder="输入密码" name="password")
    div.form-item 
      button.btn.btn-primary 登录

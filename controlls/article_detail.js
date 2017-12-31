@@ -117,25 +117,28 @@ exports.submitComment = function(req, res, next) {
 
 // 删除
 exports.del = function(req, res, next) {
-	var body = req.body;
+	var query = req.query;
+	var navId = query.navId;
+	var categoryId = query.categoryId;
+	var articleId = query.articleId;
 	try {
-		if (!body.navId) {
+		if (!navId) {
 			throw new Error('导航id不能为空');
 		}
-		if (!body.categoryId) {
+		if (!categoryId) {
 			throw new Error('类别不能为空');
 		}
-		if (!body.articleId) {
+		if (!articleId) {
 			throw new Error('文章Id不能为空');
 		}
 	}catch(e) {
-		res.send(Body({
+		return res.send(Body({
 			code: 'validate'
 		}))
 	}
 	ArticleDetailDAL.del({
 		navId,
-		'categoriesId.Id': categoryId,
+		'categoriesId.id': categoryId,
 		articleId
 	}, function(doc) {
 		res.send(Body(send));
@@ -143,8 +146,12 @@ exports.del = function(req, res, next) {
 }
 
 // 修改
-exports.update = function() {
-	ArticleDetailDAL.update({}, {}, function() {
-		 
+exports.update = function(req, res, next) {
+	var body = req.body;
+	if (!body.conditions) {
+		throw new Error('缺少更新条件');
+	}
+	ArticleDetailDAL.update(conditions, function(doc) {
+		res.send(Body(doc))	
 	});
 }

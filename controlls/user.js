@@ -1,6 +1,5 @@
 var UsersModel = require("./../models/users");
 var Body = require("./body");
-var DBSuper = require("./../db/super");
 var Utils = require("./../utils");
 
 exports.loginView = function(req, res, next) {
@@ -8,7 +7,6 @@ exports.loginView = function(req, res, next) {
 		res.render("login", Body({navs: doc}));
 	});
 }
-
 
 exports.registerView = function(req, res, next) {
     UsersModel.getNavs().then(function(doc) {
@@ -40,14 +38,14 @@ exports.registerSubmit = function(req, res) {
     }
 
     // 查询当前用户名是否注册
-    User.findOne({username}).then((error, user) => {
+    UsersModel.findOne({username}).then((error, user) => {
         if (user) {
             req.flash("error", "当前用户名已经存在");
             res.redirect("/regview");
         }
         if (!error) {
             // 开始注册
-            new User({
+            new UsersModel({
                 username,
                 password,
                 passAgain,
@@ -58,7 +56,7 @@ exports.registerSubmit = function(req, res) {
                 } else {
                     req.flash("success", "注册成功");
                 }
-                res.redirect("/regview");
+                res.redirect("/user/reigster/view");
             })
         }
     });
@@ -66,10 +64,9 @@ exports.registerSubmit = function(req, res) {
 
 
 exports.loginSubmit = function(req, res, next) {
-	var params = req.query;
-	var username = params.username;
-	var password = params.password
-	var password = params.password;
+	var body = req.body;
+	var username = body.username;
+	var password = body.password
 	try {
 		if (!username) {
 			throw new Error("用户名不能为空");
@@ -80,27 +77,24 @@ exports.loginSubmit = function(req, res, next) {
 	
 	}catch(e) {
 		req.flash("error", e.message);
-		return res.redirect("login");
+		res.redirect("/user/login/view");
 	}
 
 	username = username.replace(/\s/g, "");
 	password = password.replace(/\s/g, "");
 
-	DBSuper.findOne({
-		model: UsersModel,
-		conditions: {
-			username,
-			password
-		}
+	UsersModel.findOne({
+        username,
+        password
 	}).then(function(doc) {
 		if (doc) {
-			req.session.username = username;
+			req.session.user = username;
 			if (username !== "admin") {
 				return res.redirect("/");
 			}
 			return res.redirect("manager");
 		}
-		res.redirect("login");
+		res.redirect("/user/login/view");
 	}, function(err) {
 		console.log("查询用户失败", err);
 	});	

@@ -5,7 +5,7 @@ var DBSuper = require("./../db/super");
 
 exports.get = function(conditions, cb) {
     return DBSuper.findOne(ArticleDetailModel, conditions).then(function(article_detail) {
-        NavDAL.getAll().then(function(navs) {
+        ArticleDetailModel.getNavs().then(function(navs) {
             cb({article_detail, navs});
         });
     }, function() {
@@ -13,7 +13,8 @@ exports.get = function(conditions, cb) {
     });
 }
 
-exports.update = function(conditions, updates, cb) {
+exports.update = function(conditions, cb) {
+    var updates = {$set: conditions}
     ArticleDetailModel.update(conditions, updates, function(err) {
         // 查询更新之后的数据
         if (!err) {
@@ -23,7 +24,11 @@ exports.update = function(conditions, updates, cb) {
 }
 
 exports.del = function(conditions, cb) {
-    return ArticleDetailDAL.remove(conditions, cb).lean();
+    return ArticleDetailModel.remove(conditions, function(err, doc) {
+        if (!err) {
+           return cb(doc);
+        }
+    }).lean();
 }
 
 exports.save = function(fields) {

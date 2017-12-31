@@ -7,8 +7,7 @@ var ArticleControll = require("./../controlls/article");
 // 新增
 router.post("/submit", ArticleControll.submit);
 // 查询
-router.get("/view/:navId/:categoryId/:currentPage/:admin", ArticleControll.getPaging); 
+router.get("/view/:navId/:categoryId/:currentPage", ArticleControll.getPaging); 
 // 删除
 // router.get("/del/:navId/:categoryId/:articleId", ArticleControll.del); 
-
 module.exports = router;

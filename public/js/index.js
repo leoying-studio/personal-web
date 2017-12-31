@@ -9,7 +9,7 @@ $(document).ready(function() {
      $('.category-menu').click(function() {
          var navId = $(this).attr('navid');
          var categoryId = $(this).attr('categoryId');
-         window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1"+"/false";
+         window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1";
      });
      
      // 分页初始化
