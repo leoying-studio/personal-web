@@ -19,7 +19,6 @@ define([
                  serverPaging: true,
                  serverFiltering: true,
                  serverSorting: true
-
             }
             var grid = $("#grid").kendoGrid({
                 dataSource: dataSource,
@@ -28,17 +27,15 @@ define([
                 resizable: true,
                 sortable: true,
                 filterable: true,
+                refresh: true,   
                 pageable: {
                     input: true,
                     numeric: false,
-                    refresh: true,
-                    pageSize: 2,
-                    buttonCount: 5
+                    refresh: true
                 },
                 columns: columns,
                 editable: false,
                 columnMenu: true,
-                // page: onPaging
             });
             return grid;
          },

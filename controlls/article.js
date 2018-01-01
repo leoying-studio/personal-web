@@ -10,6 +10,11 @@ exports.getPaging = function(req, res, next) {
 	 var navId = params.navId;
 	 var categoryId = params.categoryId;
 	 var currentPage = params.currentPage;
+	 var page = req.query.page;
+	 if (page) {
+		 currentPage = page;
+	 }
+
 	 try {
 		if (!navId) {
 			throw new Error("navId不存在");
@@ -27,7 +32,7 @@ exports.getPaging = function(req, res, next) {
 		'categoriesId.id': categoryId,
 	};
 
-	ArticleModel.findPaging({currentPage: 1}, conditions )
+	ArticleModel.findPaging({currentPage}, conditions )
 	 .then(function(articles) {
 		 ArticleModel.getNavs().then(function(navs) {
 			 ArticleModel.count(conditions, function(err, total) {
@@ -42,6 +47,9 @@ exports.getPaging = function(req, res, next) {
 						articles
 				   });
 				   //res.send(body);
+				   if (req.session.user == 'admin' && page) {
+					   return res.send(articles)
+				   }
 			       res.render('article/index', body);   
 			 });
 		 });

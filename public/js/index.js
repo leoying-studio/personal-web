@@ -11,6 +11,17 @@ $(document).ready(function() {
          var categoryId = $(this).attr('categoryId');
          window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1";
      });
+
+     // banner 轮播
+     $('.banner-item :not(:first)').hide();
+     var bannerIndex = 0;
+     setInterval(function() {
+         bannerIndex+= 1;
+         if (bannerIndex >= $('.banner-item').length) {
+             bannerIndex = 0;
+         }
+         $(".banner-item").eq(bannerIndex).fadeIn(800).siblings().fadeOut(800);
+     }, 3000);
      
      // 分页初始化
     //  var inited = false;

@@ -1,5 +1,6 @@
 var NavModel = require("./../models/nav");
 var BannerModel = require("./../models/banner");
+var IntroModel = require("./../models/intro");
 var Utils = require("./../utils");
 var Body = require("./body");
 
@@ -11,8 +12,12 @@ exports.getAll = function (req, res, next) {
     Promise.all(models).then(function (docs) {
         var body = {
             navs: docs[0],
-            banner: docs[1]
+            banners: docs[1]
         };
+        if (req.session.user === 'admin') {
+            var file = req.originalUrl == "/" ? 'index' : 'manager';
+            return res.render(file, Body(body));
+        }
         res.render("index", Body(body));
     }).catch(function (e) {
         req.flash("error", e.message);
@@ -64,6 +69,36 @@ exports.addBanner = function(req, res, next) {
 }
 
 
-exports.setIntro = function() {
-    
+exports.setIntro = function(req, res, next) {
+    var query = query.query;
+    var title = query.title
+    var caption = query.caption;
+    var description = query.description;
+    var backTitle = requeryq.backTitle;
+    var backgrounds = query.backgrounds;
+
+    try {
+        backgrounds = backgrounds.map(function(background) {
+            return {
+                background
+            }
+        });
+    } catch(e) {
+        backgrounds = [];
+    }
+
+    IntroModel.create({
+        title,
+        caption,
+        description,
+        backTitle,
+        backgrounds
+    }, function(err , doc) {
+        if (err) {
+           return res.send(Body({
+                code: 'unknown'
+            }));
+        } 
+        res.send(Body(doc));
+    });
 }

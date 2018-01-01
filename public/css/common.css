@@ -11,6 +11,10 @@
   visibility: hidden;
 }
 
+ul {
+  list-style: none;
+}
+
 .hide {
   display: none;
 }

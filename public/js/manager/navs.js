@@ -32,13 +32,13 @@ define([
                 case '2':
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
-                    var url = "article/view" + "/" + navId + "/" + categoryId + "/" + 1;
+                    var url = "/article/view" + "/" + navId + "/" + categoryId + "/" + 1;
                     var ds =  {
                         type: "get",
                         transport: {
-                            read: url
+                            read: url,
                         },
-                        pageSize: 2
+                        pageSize: 10
                     };
                     init.grid(ds, config.columns.articles);
                     break;
