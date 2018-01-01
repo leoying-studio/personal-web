@@ -25,7 +25,8 @@ var Utils = {
         else {
             return year + "-" + month + "-" + day + " " + hour + ":" + minutes;
         }
-    }
+    },
+    
 } 
 
 module.exports = Utils;

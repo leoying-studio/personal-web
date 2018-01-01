@@ -19,3 +19,51 @@ exports.getAll = function (req, res, next) {
         res.redirect("index");
     });
 }
+
+exports.addBanner = function(req, res, next) {
+    var query = req.query;
+    var title = query.title;
+    var caption = query.caption;
+    var description = query.description;
+    var background = query.background;
+    try {
+        if (!title) {
+            throw new Error('title不能为空');
+        }
+        if (!caption) {
+            throw new Error('caption不能为空');
+        }
+        if (!description) {
+            throw new Error('description不能为空');
+        }
+        if (!background) {
+            throw new Error('background不能为空');
+        }
+    } catch(e) {
+        return res.send(Body({
+            code: 'validate',
+            msg: e.message
+        }));
+    }
+
+    new BannerModel({
+        title,
+        caption,
+        description,
+        background
+    }).save(function(err, doc) {
+        if (err) {
+            return res.send(Body({
+                code: 'unknown',
+                msg: e.message
+            }));
+        }
+
+        res.send(Body(doc));
+    });
+}
+
+
+exports.setIntro = function() {
+    
+}
