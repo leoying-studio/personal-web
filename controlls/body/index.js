@@ -1,3 +1,6 @@
+var express = require('express');
+var app = express();
+
 var state = {
 	success: 200,
 	unknown: 1001,  // 未知错误

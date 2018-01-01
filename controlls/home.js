@@ -1,18 +1,20 @@
-var HomeDAL = require("./../dal/home");
+var NavModel = require("./../models/nav");
+var BannerModel = require("./../models/banner");
 var Utils = require("./../utils");
 var Body = require("./body");
 
-exports.getAll = function(req, res, next) {
-    HomeDAL.getAll().then(function(collections) {
+exports.getAll = function (req, res, next) {
+    var models = [
+        NavModel.find({}),
+        BannerModel.find({})
+    ];
+    Promise.all(models).then(function (docs) {
         var body = {
-            navs: collections[0],
-            banner: collections[1]
+            navs: docs[0],
+            banner: docs[1]
         };
-        // if (req.session.user === 'admin') {
-        //     return res.render("manager", Body(body));
-        // } 
         res.render("index", Body(body));
-    }).catch(function(e) {
+    }).catch(function (e) {
         req.flash("error", e.message);
         res.redirect("index");
     });
