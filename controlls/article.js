@@ -107,6 +107,10 @@ exports.update = function(req, res, next) {
 	var navId = body.navId;
 	var categoryId = body.categoryId;
 	var articleId = body.articleId;
+	var title = body.title;
+	var description = body.description;
+	var img = body.img;
+
 	try {
 		if (!navId) {
 			throw new Error('navId 不能为空');
@@ -127,6 +131,12 @@ exports.update = function(req, res, next) {
 		navId,
 		'categoriesId.id': categoryId,
 		articleId
+	}, {
+		$set: {
+			title,
+			description,
+			img
+		}
 	}, function(err , doc) {
 		if (err) {
 			res.send(Body({
@@ -167,7 +177,7 @@ exports.del = function(req, res, next) {
 		articleId
 	};
 
-	var articleCondion = {
+	var articleCondtion = {
 		 navId,
 		'categoriesId.id': categoryId,
 		_id: articleId
@@ -177,7 +187,7 @@ exports.del = function(req, res, next) {
 	Promise.all([
 		CommentModel.remove(conditions),
 		ArticleDetailModel.remove(conditions),
-		ArticleModel.remove(articleCondion)
+		ArticleModel.remove(articleCondtion)
 	]).then( values => {
 		var state = values.every(function(item) {
 			return item.result.n > 0;

@@ -15,24 +15,3 @@ exports.regNav = function(schema) {
         return NavModel.find({}).lean(cb);
      }
 }
-
-exports.findAll = function(model) {
-    return model.find({}).lean();
-}
-
-exports.findOne = function(model, conditions) {
-    try {
-        return model.findOne(conditions).lean();
-    }catch(e) {
-        console.log('error');
-    }
-}
-
-//  新增
-exports.save = function(model) {
-    try{
-        return model.save().lean();
-    }catch(e) {
-        console.log(e);
-    }
-}
