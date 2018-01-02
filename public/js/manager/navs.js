@@ -36,7 +36,21 @@ define([
                     var ds =  {
                         type: "get",
                         transport: {
-                            read: url,
+                            read: {
+                                url: url,
+                                dataType: 'json'
+                            } ,
+                            destroy : {   
+                                url : "xxx.json", //定义删除url  
+                                type : "POST"   
+                            },   
+                            parameterMap: function(option, operation) {
+                                return option;
+                            }
+                        },
+                        schema: {
+                            data: 'data.articles',
+                            total: 'data.params.total',
                         },
                         pageSize: 10
                     };

@@ -18,7 +18,8 @@ define([
                  ...dataSource,
                  serverPaging: true,
                  serverFiltering: true,
-                 serverSorting: true
+                 serverSorting: true,
+                 pageSize: 10,
             }
             var grid = $("#grid").kendoGrid({
                 dataSource: dataSource,
@@ -31,11 +32,11 @@ define([
                 pageable: {
                     input: true,
                     numeric: false,
-                    refresh: true
+                    refresh: true,
                 },
                 columns: columns,
                 editable: false,
-                columnMenu: true,
+                columnMenu: true
             });
             return grid;
          },

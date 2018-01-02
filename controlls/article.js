@@ -48,7 +48,7 @@ exports.getPaging = function(req, res, next) {
 				   });
 				   //res.send(body);
 				   if (req.session.user == 'admin' && page) {
-					   return res.send(articles)
+					   return res.send(body)
 				   }
 			       res.render('article/index', body);   
 			 });
