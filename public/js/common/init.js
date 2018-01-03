@@ -2,7 +2,7 @@ define([
     'require',
 ], function(require) {
      return {
-         grid: function(dataSource, columns, onPaging) {
+         grid: function(dataSource, columns) {
             $("#grid").html("");
             var rightHeight = $(".right-wrapper").eq(0).height();
             var headerHeight = $(".right-header").eq(0).height();
@@ -29,6 +29,7 @@ define([
                 sortable: true,
                 filterable: true,
                 refresh: true,   
+                editable: true,
                 pageable: {
                     input: true,
                     numeric: false,

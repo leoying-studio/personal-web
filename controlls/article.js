@@ -158,10 +158,10 @@ exports.update = function(req, res, next) {
 
 
 exports.del = function(req, res, next) {
-	var query = req.query;
-	var navId = query.navId;
-	var categoryId = query.categoryId;
-	var articleId = query.articleId;
+	var body = req.body;
+	var navId = body.navId;
+	var categoryId = body.categoryId;
+	var articleId = body.articleId;
 	try {
 		if (!navId) {
 			throw new Error('navId 不能为空');
@@ -190,7 +190,6 @@ exports.del = function(req, res, next) {
 		'categoriesId.id': categoryId,
 		_id: articleId
 	};
-
 	// 清除关联数据
 	Promise.all([
 		CommentModel.remove(conditions),

@@ -10,7 +10,26 @@ define(function (require) {
                 title: '操作', command: [
                     {
                         text: '删除', click: function (e) {
+                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            var categoryId = dataItem.categoriesId.toJSON()[0].id;
+                            $.ajax({
+                                url: '/article/del',
+                                dataType: 'json',
+                                type: 'post',
+                                data: {
+                                    navId: dataItem.navId,
+                                    articleId: dataItem._id,
+                                    categoryId: categoryId
+                                },
+                                success: function(data) {
+                                    debugger;
+                                    console.log(data)
+                                },
+                                error: function(data) { 
+                                    alert(data);
+                                }
+                            });
                         }
                     },
                     {
