@@ -90,16 +90,16 @@ exports.loginSubmit = function(req, res, next) {
 	UsersModel.findOne({
         username,
         password
-	}).then(function(doc) {
-		if (doc) {
+	}, function(err, doc) {
+        if (err) {
+           return res.redirect("/user/login/view");
+        }
+        if (doc) {
 			req.session.user = username;
 			if (username !== "admin") {
 				return res.redirect("/");
 			}
 			return res.redirect("/manager");
 		}
-		res.redirect("/user/login/view");
-	}, function(err) {
-		console.log("查询用户失败", err);
-	});	
+    });
 }
