@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var ArticleDetailControll = require("./../controlls/article_detail");
-// var Article = require("./../models/article");
 
 router.post("/submit", ArticleDetailControll.submit);
 

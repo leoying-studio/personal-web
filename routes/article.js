@@ -10,4 +10,7 @@ router.post("/submit", ArticleControll.submit);
 router.get("/view/:navId/:categoryId/:currentPage", ArticleControll.getPaging); 
 // 删除
 router.post("/del", ArticleControll.del); 
+// 修改
+router.post("/update", ArticleControll.update);
+
 module.exports = router;
