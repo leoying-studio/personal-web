@@ -1,6 +1,7 @@
 var NavModel = require("./../models/nav");
 var BannerModel = require("./../models/banner");
 var IntroModel = require("./../models/intro");
+let FooterModel = require("./../models/footer");
 var Utils = require("./../utils");
 var Body = require("./body");
 
@@ -102,3 +103,44 @@ exports.setIntro = function(req, res, next) {
         res.send(Body(doc));
     });
 }
+
+
+exports.setFooter = function(req, res, next) {
+    var body = req.body;
+    var background = req.body;
+    var title = body.title;
+    var description = body.title;
+    try {
+        if (!background) {
+            throw new Error("背景图不能为空!");
+        }
+        if (!title) {
+            throw new Error("标题不能为空!");
+        }
+        if (!descrption) {
+            throw new Error("说明不能为空");
+        }
+    } catch(e) {
+        req.flash("error", e.message);
+        return res.redirect("/");
+	}
+	
+	// 提交数据
+	new Footer({
+		background, title, descrption
+	}).save((err, footer) => {
+		if (err) {
+			req.flash("error", "页脚设置失败");
+		} else {
+			req.flash("success", "页脚设置成功");
+		}
+		res.redirect("/");
+	});
+}
+
+
+exports.timeLine = function() {
+
+}
+
+
