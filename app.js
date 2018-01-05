@@ -24,15 +24,12 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, "/public")))
 
 
-
 var home = require('./routes/home');
 var user = require('./routes/user');
-var manager = require('./routes/manager');
+var nav = require('./routes/nav');
 var nav = require('./routes/nav');
 var article = require('./routes/article');
 var article_detail = require('./routes/article_detail');
-// var banner = require('./routes/banner');
-// var acticle = require('./routes/acticle');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
