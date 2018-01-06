@@ -197,7 +197,7 @@ exports.del = function(req, res, next) {
 		ArticleModel.remove(articleCondtion)
 	]).then( values => {
 		var state = values.every(function(item) {
-			return item.result.n > 0;
+			return item.result.ok == 1;
 		});
 		if (state) {
 			res.send(Body(true));
