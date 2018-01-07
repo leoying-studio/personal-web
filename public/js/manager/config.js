@@ -37,8 +37,9 @@ define(function (require) {
                             $("#article-update-title").val(dataItem.title);
                             $("#article-update-navId").val(dataItem.navId);
                             $("#article-update-description").val(dataItem.description);
-                            $("#article-update-image").val(dataItem.image);
+                            $("#article-update-img").val(dataItem.img);
                             $("#article-update-categoryId").val(categoryId);
+                            $("#article-update-articleId").val(dataItem._id);
                             $("#articleUpdateForm").kendoWindow({
                                 width: "400px",
                                 title: "文章项编辑",
@@ -53,10 +54,10 @@ define(function (require) {
                         }
                     },
                     {
-                        text: '添加', click: function (e) {
+                        text: '详情', click: function (e) {
                             $("#article-detail-window").kendoWindow({
                                 width: "1000px",
-                                title: "添加文章详情",
+                                title: "设置文章详情",
                                 visible: false,
                                 actions: [
                                     "Pin",
