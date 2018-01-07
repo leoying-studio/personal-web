@@ -26,3 +26,21 @@ div#article-detail-window.hide
     textarea#article-detail-content
    div.k-content.form-item
     button.k-button#article_detail_submit(type='button') 提交
+form(id="articleUpdateForm" action="" method="").hide
+   div.k-content.form-item
+    label 文章标题
+    input(type='text' class='k-textbox' name='title' id="article-update-title")
+   div.k-content.form-item
+    label 文章说明
+    textarea#article-update-description.k-textbox
+   div.k-content.form-item
+    label 图片地址
+    input#article-update-image.k-textbox
+   div.k-content.form-item
+    label 导航标识
+    input#article-update-navId.k-textbox
+   div.k-content.form-item
+    label 所属类别
+    input#article-update-categoryId.k-textbox
+   div.k-content.form-item
+    button.k-button.k-primary(type='button') 更新文章

@@ -10,7 +10,6 @@ define(function (require) {
                 title: '操作', command: [
                     {
                         text: '删除', click: function (e) {
-                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             var categoryId = dataItem.categoriesId.toJSON()[0].id;
                             $.ajax({
@@ -23,8 +22,7 @@ define(function (require) {
                                     categoryId: categoryId
                                 },
                                 success: function(data) {
-                                    debugger;
-                                    console.log(data)
+                                    $('#grid').data("kendoGrid").dataSource.read();
                                 },
                                 error: function(data) { 
                                     alert(data);
@@ -33,8 +31,25 @@ define(function (require) {
                         }
                     },
                     {
-                        text: '编辑', click: function (item) {
+                        text: '编辑', click: function (e) {
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            var categoryId = dataItem.categoriesId.toJSON()[0].id;
+                            $("#article-update-title").val(dataItem.title);
+                            $("#article-update-navId").val(dataItem.navId);
+                            $("#article-update-description").val(dataItem.description);
+                            $("#article-update-image").val(dataItem.image);
+                            $("#article-update-categoryId").val(categoryId);
+                            $("#articleUpdateForm").kendoWindow({
+                                width: "400px",
+                                title: "文章项编辑",
+                                visible: false,
+                                actions: [
+                                    "Pin",
+                                    "Minimize",
+                                    "Maximize",
+                                    "Close"
+                                ]
+                            }).data("kendoWindow").center().open();
                         }
                     },
                     {
@@ -58,20 +73,22 @@ define(function (require) {
         categories:[
             { field: 'name', title: '类别名称' },
             { field: '_id', title: 'id' },
-            {
-                title: '操作', command: [
-                    {
-                        name: 'destroy', text: '删除', click: function () {
+            { command: "destroy", title: " ", width: "150px" },
 
-                        }
-                    },
-                    {
-                        name: 'edit', text: '编辑', click: function (item) {
+            // {
+            //     title: '操作', command: [
+            //         {
+            //             name: 'destroy', text: '删除', click: function () {
 
-                        }
-                    },
-                ]
-            }
+            //             }
+            //         },
+            //         {
+            //             name: 'edit', text: '编辑', click: function (item) {
+
+            //             }
+            //         },
+            //     ]
+            // }
         ],
         navs: [
             { field: 'name', title: '导航名称'},

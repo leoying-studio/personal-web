@@ -1,7 +1,10 @@
 div#categoryWindow.hide
- form.form
+ form.form(method='post' action="/nav/addCategory")
   div.form-item
     label 类别名称
-    input(type="text").k-textbox
+    input(type="text" name="name").k-textbox
   div.form-item
-     button.k-button#categorySubmit 提交
+    label 导航标识
+    input(type="text" name="navId" id="categoryNavId").k-textbox
+  div.form-item
+     button.k-button#categorySubmit 提交  

@@ -4,6 +4,7 @@ var DBSuper = require("./../db/super");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
 	 username:{type: 'string'},
+	 nickName:{type: 'string', default: '暂无'},
 	 password:{type: 'string'},
 	 passAgain:{type: 'string'},
 	 email: {type: 'string'},

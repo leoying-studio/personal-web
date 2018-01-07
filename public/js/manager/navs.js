@@ -12,19 +12,26 @@ define([
 
     // 导航菜单
     $("#nav-menu").kendoMenu({});
+    $("#gridRefreshBtn").click(function() {
+         $('#grid').data("kendoGrid").dataSource.read();
+    });
     // 左侧panel
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
+            debugger;
             var panelItem = e.item;
             panelItemType = panelItem.getAttribute("panel-item-type");
+            
             switch (panelItemType) {
                 case '0':
+                    navId = panelItem.getAttribute("navId");
                     var navs = JSON.parse(panelItem.getAttribute("navs"));
                     grid = init.grid(navs, config.columns.navs);
                     break;
 
                 case '1':
+                    navId = panelItem.getAttribute("navId");
                     categories = JSON.parse(panelItem.getAttribute("categories"));
                     grid = init.grid(categories, config.columns.categories);
                     break;
@@ -39,11 +46,7 @@ define([
                             read: {
                                 url: url,
                                 dataType: 'json'
-                            } ,
-                            destroy : {   
-                                url : "xxx.json", //定义删除url  
-                                type : "POST"   
-                            },   
+                            },
                             parameterMap: function(option, operation) {
                                 return option;
                             }
@@ -68,6 +71,7 @@ define([
             init.window($("#nav-window"), "添加导航模块");
         }
         else if (panelItemType == 1) {
+            $('#categoryNavId').val(navId);
             init.window($("#categoryWindow"), "添加文章类别");
         } else if (panelItemType == 2) {
             $("#blog-cateory").html("");
