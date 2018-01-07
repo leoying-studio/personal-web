@@ -89,17 +89,17 @@ define([
     $("#article-detail-content").kendoEditor(config.editor);
 
     $("#article_detail_submit").click(function () {
+        debugger;
         var content = $("#article-detail-content").val();
         var title = $("#article_detail_title").val();
-        var categoriesId = currentArticle.categoriesId.toJSON();
-        categoriesId = JSON.stringify(categoriesId);
+        var articleId = $('#article_detail_navId').val();
+        // var categoriesId = currentArticle.categoriesId.toJSON();
+        // categoriesId = JSON.stringify(categoriesId);
         $.ajax({
             url: '/article/article_detail/submit',
             type: 'post',
             data: {
-                navId: currentArticle.navId,
-                categoriesId: categoriesId,
-                articleId: currentArticle._id,
+                articleId: articleId,
                 content: content,
                 title: title
             },

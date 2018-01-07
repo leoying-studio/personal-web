@@ -55,6 +55,8 @@ define(function (require) {
                     },
                     {
                         text: '详情', click: function (e) {
+                            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                            $('#article_detail_navId').val(dataItem._id);
                             $("#article-detail-window").kendoWindow({
                                 width: "1000px",
                                 title: "设置文章详情",
