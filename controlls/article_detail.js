@@ -60,11 +60,21 @@ exports.get = function (req, res, next) {
 				}
 			} else {
 				// 跳转到错误页面
-
 			}
 		});
+	});
+}
 
-
+exports.getDetail = function(req, res, next) {
+	var body = req.body;
+	var articleId = body.articleId;
+	ArticleDetailModel.findOne({articleId}, function(err, detail) {
+		if (err) {
+			return res.send(Body({
+				code: 'unknow'
+			}));
+		}
+		res.send(Body(detail));
 	});
 }
 
