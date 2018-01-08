@@ -100,6 +100,8 @@ exports.loginSubmit = function(req, res, next) {
 				return res.redirect("/");
 			}
 			return res.redirect("/manager");
-		}
+        }
+        req.flash('error', '用户名不存在或密码错误');
+        return res.redirect("/user/login/view");
     });
 }

@@ -27,7 +27,7 @@ app.use(express.static(path.join(__dirname, "/public")))
 var home = require('./routes/home');
 var user = require('./routes/user');
 var nav = require('./routes/nav');
-var nav = require('./routes/nav');
+var manager = require('./routes/manager');
 var article = require('./routes/article');
 var article_detail = require('./routes/article_detail');
 // var db = require('./db');
