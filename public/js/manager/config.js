@@ -56,18 +56,35 @@ define(function (require) {
                     {
                         text: '详情', click: function (e) {
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                            $('#article_detail_navId').val(dataItem._id);
-                            $("#article-detail-window").kendoWindow({
-                                width: "1000px",
-                                title: "设置文章详情",
-                                visible: false,
-                                actions: [
-                                    "Pin",
-                                    "Minimize",
-                                    "Maximize",
-                                    "Close"
-                                ]
-                            }).data("kendoWindow").center().open();
+                            $.ajax({
+                                url: '/article/article_detail/getDetail',
+                                type: 'get',
+                                dataType: 'json',
+                                data: {articleId: dataItem._id},
+                                success: function(data) {
+                                    debugger;
+                                    $('#article_detail_navId').val(data.data.articleId);
+                                  //  $("#article-detail-content").val(data.data.content);
+                                    $("#article_detail_title").val(data.data.title);
+                                    $("#article-detail-window").kendoWindow({
+                                        width: "1000px",
+                                        title: "设置文章详情",
+                                        content: data.data.content,
+                                        visible: false,
+                                        actions: [
+                                            "Pin",
+                                            "Minimize",
+                                            "Maximize",
+                                            "Close"
+                                        ]
+                                    }).data("kendoWindow").center().open();
+                                },
+                                error: function() {
+                                    alert("获取信息失败");
+                                }
+                            });
+                         
+                           
                         }
                     }
                 ]

@@ -12,4 +12,6 @@ router.post("/update", ArticleDetailControll.update);
 
 router.post("/del", ArticleDetailControll.del);
 
+router.get("/getDetail", ArticleDetailControll.getDetail);
+
 module.exports = router;

@@ -66,8 +66,7 @@ exports.get = function (req, res, next) {
 }
 
 exports.getDetail = function(req, res, next) {
-	var body = req.body;
-	var articleId = body.articleId;
+	var articleId = req.query.articleId;
 	ArticleDetailModel.findOne({articleId}, function(err, detail) {
 		if (err) {
 			return res.send(Body({
