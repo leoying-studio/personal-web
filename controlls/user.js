@@ -15,11 +15,12 @@ exports.registerView = function(req, res, next) {
 }
 
 exports.registerSubmit = function(req, res) {
-	var query = req.query;
-    var username = query.username;
-    var password = query.password;
-    var passAgain = query.passAgain;
-    var email = query.email;
+	var body = req.body;
+    var username = body.username;
+    var nickName = body.nickName;
+    var password = body.password;
+    var passAgain = body.passAgain;
+    var email = body.email;
     try {
         if (!username) {
             throw new Error("用户名不能为空!");
@@ -33,37 +34,35 @@ exports.registerSubmit = function(req, res) {
         if (!email) {
             throw new Error("邮箱不能为空");
         } 
-        // if (!Utils.validateEmail(email)) {
-        //     throw new Error("邮箱格式不合法");
-        // }
     } catch(e) {
         req.flash("error", e.message);
         return res.redirect("/user/register/view");
     }
 
     // 查询当前用户名是否注册
-    UsersModel.findOne({username}).then((error, user) => {
+    UsersModel.findOne({username}).then((user) => {
         if (user) {
-            req.flash("error", "当前用户名已经存在");
-            res.redirect("/regview");
+            req.flash("error", "当前用户已注册");
+            return res.redirect("/user/reigster/view");
         }
-        if (!error) {
-            // 开始注册
-            new UsersModel({
-                username,
-                password,
-                passAgain,
-                email,
-            }).save((err, res) => {
-                if (err) {
-                    req.flash("error", "注册失败");
-                } else {
-                    req.flash("success", "注册成功");
-                }
-                res.redirect("/user/reigster/view");
-            })
-        }
+  
+        // 开始注册
+        new UsersModel({
+            username,
+            password,
+            nickName: nickName || "暂未填写",
+            passAgain,
+            email,
+        }).save((err) => {
+            if (err) {
+                req.flash("error", "注册失败");
+            } else {
+                req.flash("success", "注册成功");
+            }
+            res.redirect("/user/reigster/view");
+        })
     });
+
 }
 
 

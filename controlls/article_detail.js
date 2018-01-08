@@ -6,17 +6,17 @@ var Body = require("./Body");
 
 exports.get = function (req, res, next) {
 	var params = req.params;
-	var navId = params.navId;
-	var categoryId = params.categoryId;
+	// var navId = params.navId;
+	// var categoryId = params.categoryId;
 	var articleId = params.articleId;
 	var currentPage = params.currentPage;
 	try {
-		if (!navId) {
-			throw new Error("navId不存在");
-		}
-		if (!categoryId) {
-			throw new Error("cateoryId不存在");
-		}
+		// if (!navId) {
+		// 	throw new Error("navId不存在");
+		// }
+		// if (!categoryId) {
+		// 	throw new Error("cateoryId不存在");
+		// }
 		if (!articleId) {
 			throw new Error("articleId不存在");
 		}
@@ -30,8 +30,8 @@ exports.get = function (req, res, next) {
 		var pageStart = (currentPage - 1) * 10;
 		var pageEnd = currentPage * 10;
 		ArticleDetailModel.findOne({
-			navId,
-			'categoriesId.id': categoryId,
+			// navId,
+			// 'categoriesId.id': categoryId,
 			articleId
 		}, function (err, detail) {
 			if (!err) {
@@ -43,8 +43,8 @@ exports.get = function (req, res, next) {
 					}));
 				} else {
 					var conditions = {
-						navId,
-						'categoriesId.id': categoryId,
+						// navId,
+						// 'categoriesId.id': categoryId,
 						articleId
 					};
 					CommentModel.findPaging({ currentPage }, conditions)
@@ -70,22 +70,22 @@ exports.get = function (req, res, next) {
 
 // 提交ajax  查询
 exports.submit = function (req, res, next) {
-	var query = req.query;
-	var title = query.title;
-	var navId = query.navId;
-	var articleId = query.articleId;
-	var categoriesId = query.categoriesId;
-	var content = query.content;
+	var body = req.body;
+	var title = body.title;
+	// var navId = query.navId;
+	var articleId = body.articleId;
+	// var categoriesId = query.categoriesId;
+	var content = body.content;
 	try {
 		if (!title) {
 			throw new Error("标题不能为空");
 		}
-		if (!navId) {
-			throw new Error("navId不能为空");
-		}
-		if (!categoriesId) {
-			throw new Error("类别id不能为空!");
-		}
+		// if (!navId) {
+		// 	throw new Error("navId不能为空");
+		// }
+		// if (!categoriesId) {
+		// 	throw new Error("类别id不能为空!");
+		// }
 		if (!content) {
 			throw new Error("请输入内容!");
 		}
@@ -96,25 +96,41 @@ exports.submit = function (req, res, next) {
 		}));
 	}
 
-	categoriesId = JSON.parse(categoriesId).map(function (item) {
-		return { id: item.id };
-	});
+	// categoriesId = JSON.parse(categoriesId).map(function (item) {
+	// 	return { id: item.id };
+	// });
 
-	new ArticleDetailModel({
-		title,
-		navId,
-		articleId,
-		categoriesId,
-		content,
-		comment: []
-	}).save(function (err, doc) {
-		if (!err) {
-			return res.send(Body(doc));
+	ArticleDetailModel.findOne({
+		articleId
+	}, function (err, doc) {
+		if (err) {
+			req.flash("error", '添加失败');
+			return res.redirect("/manager");
 		}
-		res.send(Body({
-			code: 'unknown'
-		}))
+		if (!doc) {
+			new ArticleDetailModel({
+				title,
+				articleId,
+				content
+			}).save(function (err, doc) {
+				if (!err) {
+					return res.send(Body(doc));
+				}
+				res.send(Body({
+					code: 'unknown'
+				}))
+			})
+		} else {
+			ArticleDetailModel.update({
+				articleId
+			}, {$set: {title, content}}, function(err, state) {
+				if (!err && state.n > 0) {
+					return res.send(Body(state));
+				}
+			});
+		}
 	})
+
 }
 
 
@@ -133,7 +149,7 @@ exports.submitComment = function (req, res, next) {
 		content
 	};
 
-	new CommentModel(fields).save(function(err, doc) {
+	new CommentModel(fields).save(function (err, doc) {
 		if (err) {
 			return res.send(Body({
 				code: 'unknown'

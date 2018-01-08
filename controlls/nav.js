@@ -106,3 +106,27 @@ exports.updateCategoies = function(req, res, next) {
         return res.send(Body(doc));
     });
 }
+
+
+exports.addCategory = function(req, res, next) {
+    var body = req.body;
+    var navId = body.navId;
+    var name = body.name;
+    if (!name) {
+        req.flash("缺少导航名称");
+        return res.redirect("/manager");
+    }
+    if (!navId) {
+        req.flash("缺少导航Id");
+        return res.redirect("/manager");
+    }
+
+    NavModel.update({_id: navId},{$push: {categories: {name}}}, function(err, category) {
+        if (err) {
+             req.flash("添加失败");
+        }else {
+            req.flash("添加成功"); 
+        }
+        res.redirect("/manager");
+    });
+}

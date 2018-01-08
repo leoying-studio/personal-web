@@ -3,8 +3,8 @@ block content
  form(action="/user/login/submit" method="post").login-form
    h1.title 用户登录	
    div.form-item 
-     input(placeholder="输入用户名" name="username" required="required"  pattern="[A-Za-z0-9\w]{4,20}" oninvalid="setCustomValidity('用户名长度为4到20')")
+     input(placeholder="输入用户名" name="username" required pattern="[A-Za-z0-9]{4,16}" )
    div.form-item 
-     input(placeholder="输入密码" name="password" required="required"  type="password" pattern="[A-Za-z0-9\w]{6,16}" oninvalid="setCustomValidity('请输入6到16位密码')")
+     input(placeholder="输入密码" name="password" pattern="[A-Za-z0-9]{4,16}")
    div.form-item 
      button.btn.btn-primary 登录

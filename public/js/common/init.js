@@ -3,7 +3,11 @@ define([
 ], function(require) {
      return {
          grid: function(dataSource, columns) {
-            $("#grid").html("");
+            var element = $("#grid");
+            if (element.data("kendoGrid")) {
+                element.data("kendoGrid").destroy();
+                element.empty();
+            }
             var rightHeight = $(".right-wrapper").eq(0).height();
             var headerHeight = $(".right-header").eq(0).height();
             var gridHeight = rightHeight - headerHeight - 2 + "px";
@@ -21,22 +25,21 @@ define([
                  serverSorting: true,
                  pageSize: 10,
             }
-            var grid = $("#grid").kendoGrid({
+            var grid = element.kendoGrid({
                 dataSource: dataSource,
                 height: gridHeight,
                 scrollable: true,
                 resizable: true,
                 sortable: true,
                 filterable: true,
-                refresh: true,   
-                editable: true,
+                refresh: true, 
+                editable: "inline",  
                 pageable: {
                     input: true,
                     numeric: false,
                     refresh: true,
                 },
                 columns: columns,
-                editable: false,
                 columnMenu: true
             });
             return grid;

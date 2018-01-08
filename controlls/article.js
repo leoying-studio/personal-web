@@ -138,20 +138,25 @@ exports.update = function(req, res, next) {
     ArticleModel.update({
 		navId,
 		'categoriesId.id': categoryId,
-		articleId
+		_id:articleId
 	}, {
 		$set: {
 			title,
 			description,
 			img
 		}
-	}, function(err , doc) {
+	}, function(err , state) {
 		if (err) {
 			res.send(Body({
 				code: 'unknown'
 			}));
 		} else {
-			res.send(Body(doc));
+			if (state.n > 0) {
+				return res.send(Body(true));
+			}
+			res.send(Body({
+				code: 'unknown'
+			}));
 		}
 	});
 }
@@ -197,7 +202,7 @@ exports.del = function(req, res, next) {
 		ArticleModel.remove(articleCondtion)
 	]).then( values => {
 		var state = values.every(function(item) {
-			return item.result.n > 0;
+			return item.result.ok == 1;
 		});
 		if (state) {
 			res.send(Body(true));
