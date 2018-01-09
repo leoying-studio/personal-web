@@ -6,11 +6,7 @@ var DBSuper = require("./../db/super");
 var Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
-	navId: {type: 'string'},
-	categories: [
-		{type: Object}
-	],
-	articleId: {type: 'string'},
+	detailId: {type: 'string'},
 	serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 

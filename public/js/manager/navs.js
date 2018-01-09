@@ -46,6 +46,10 @@ define([
                                 url: url,
                                 dataType: 'json'
                             },
+                            destroy: {
+                                url: "",
+                                dataType: 'json'
+                            },
                             parameterMap: function(option, operation) {
                                 return option;
                             }

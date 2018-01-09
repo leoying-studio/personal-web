@@ -1,17 +1,18 @@
-- var comment = data.comment;
+- var comments = data.comments;
 - var article_detail = data.article_detail;
 - var navId = article_detail.navId;
 - var categoryId = article_detail.categoryId;
 - var articleId = article_detail.articleId;
 article.comment
   header.comment-header
-   textarea.comment-input(placeholder="说说你的看法......")
+   textarea.comment-input(placeholder="说说你的看法......" id="commentContent")
    div.publish-wrapper
-    button.btn.btn-primary 发布
+    button.btn.btn-primary(detailId="#{article_detail._id}" id="publishCommentBtn") 发布
   section.comment-content
+  - each commnet in comments
    article.comment-content-item
-    h2.user 来自湖北的网友
+    h2.user #{comment.username}
      span.publish-time 48分钟前
-    p.content 有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……有点看不下去了，就看到辛锐那样子，觉得心酸，人余周周把她当朋友，可她倒好！哎……
+    p.content #{comment.content}
   footer.comment-footer
     div(commentTotal="#{data.commentTotal}" navId="#{navId}" categoryId="#{categoryId}" articleId="#{articleId}")#commentPaging.paging

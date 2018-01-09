@@ -55,6 +55,7 @@ define(function (require) {
                     },
                     {
                         text: '详情', click: function (e) {
+                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             $.ajax({
                                 url: '/article/article_detail/getDetail',
@@ -63,7 +64,6 @@ define(function (require) {
                                 data: {articleId: dataItem._id},
                                 success: function(data) {
                                     $('#article_detail_navId').val(data.data.articleId);
-                                    $("#article-detail-content").val(data.data.content);
                                     $("#article_detail_title").val(data.data.title);
                                     $("#article-detail-content").data("kendoEditor").value(data.data.content);
                                     $("#article-detail-window").kendoWindow({

@@ -6,17 +6,9 @@ var Body = require("./Body");
 
 exports.get = function (req, res, next) {
 	var params = req.params;
-	// var navId = params.navId;
-	// var categoryId = params.categoryId;
 	var articleId = params.articleId;
 	var currentPage = params.currentPage;
 	try {
-		// if (!navId) {
-		// 	throw new Error("navId不存在");
-		// }
-		// if (!categoryId) {
-		// 	throw new Error("cateoryId不存在");
-		// }
 		if (!articleId) {
 			throw new Error("articleId不存在");
 		}
@@ -30,8 +22,6 @@ exports.get = function (req, res, next) {
 		var pageStart = (currentPage - 1) * 10;
 		var pageEnd = currentPage * 10;
 		ArticleDetailModel.findOne({
-			// navId,
-			// 'categoriesId.id': categoryId,
 			articleId
 		}, function (err, detail) {
 			if (!err) {
@@ -42,11 +32,9 @@ exports.get = function (req, res, next) {
 						comments: []
 					}));
 				} else {
-					var conditions = {
-						// navId,
-						// 'categoriesId.id': categoryId,
-						articleId
-					};
+					var detail = detail.toObject();
+					var detailId = detail._id.toJSON();
+					var conditions = { detailId };
 					CommentModel.findPaging({ currentPage }, conditions)
 						.then(function (comments) {
 							CommentModel.count(conditions, function () {
@@ -144,27 +132,22 @@ exports.submit = function (req, res, next) {
 
 
 exports.submitComment = function (req, res, next) {
-	var query = req.query;
-	var username = query.username;
-	var content = query.content;
-	var navId = query.navId;
-	var categoriesId = query.categoriesId;
-	var articleId = query.articleId;
+	var body = req.body;
+	var username = body.username;
+	var content = body.content;
+	var detailId = body.detailId;
 	var fields = {
-		navId,
-		categoriesId,
-		articleId,
 		username,
-		content
+		content,
+		detailId
 	};
-
-	new CommentModel(fields).save(function (err, doc) {
+	new CommentModel(fields).save(function (err, comment) {
 		if (err) {
 			return res.send(Body({
 				code: 'unknown'
 			}));
 		}
-		return res.render('article_detail/index', Body(doc));
+		return res.send(Body(comment));
 	});
 }
 
