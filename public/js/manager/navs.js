@@ -19,7 +19,6 @@ define([
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
-            debugger;
             var panelItem = e.item;
             panelItemType = panelItem.getAttribute("panel-item-type");
             
@@ -89,7 +88,6 @@ define([
     $("#article-detail-content").kendoEditor(config.editor);
 
     $("#article_detail_submit").click(function () {
-        debugger;
         var content = $("#article-detail-content").val();
         var title = $("#article_detail_title").val();
         var articleId = $('#article_detail_navId').val();

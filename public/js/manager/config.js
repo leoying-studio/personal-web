@@ -62,14 +62,13 @@ define(function (require) {
                                 dataType: 'json',
                                 data: {articleId: dataItem._id},
                                 success: function(data) {
-                                    debugger;
                                     $('#article_detail_navId').val(data.data.articleId);
-                                  //  $("#article-detail-content").val(data.data.content);
+                                    $("#article-detail-content").val(data.data.content);
                                     $("#article_detail_title").val(data.data.title);
+                                    $("#article-detail-content").data("kendoEditor").value(data.data.content);
                                     $("#article-detail-window").kendoWindow({
                                         width: "1000px",
                                         title: "设置文章详情",
-                                        content: data.data.content,
                                         visible: false,
                                         actions: [
                                             "Pin",
@@ -83,8 +82,6 @@ define(function (require) {
                                     alert("获取信息失败");
                                 }
                             });
-                         
-                           
                         }
                     }
                 ]
