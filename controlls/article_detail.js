@@ -37,11 +37,15 @@ exports.get = function (req, res, next) {
 					var conditions = { detailId };
 					CommentModel.findPaging({ currentPage }, conditions)
 						.then(function (comments) {
-							CommentModel.count(conditions, function () {
+							CommentModel.count(conditions, function (err, total) {
 								res.render('article_detail/index', Body({
 									navs,
 									article_detail: detail,
-									comments
+									comments: {comments, total: total},
+									params: {
+										currentPage,
+										articleId
+									}
 								}));
 							});
 						});

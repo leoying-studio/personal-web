@@ -32,6 +32,7 @@ define(function (require) {
                     },
                     {
                         text: '编辑', click: function (e) {
+                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             var categoryId = dataItem.categoriesId.toJSON()[0].id;
                             $("#article-update-title").val(dataItem.title);
@@ -65,7 +66,33 @@ define(function (require) {
                                 success: function(data) {
                                     $('#article_detail_navId').val(data.data.articleId);
                                     $("#article_detail_title").val(data.data.title);
-                                    $("#article-detail-content").data("kendoEditor").value(data.data.content);
+                                    function html_decode(str)  
+                                    {  
+                                        var s = "";  
+                                        if (str.length == 0) return "";  
+                                        s = str.replace(/>/g, "&");  
+                                        s = s.replace(/</g, "<");  
+                                        s = s.replace(/>/g, ">");  
+                                        s = s.replace(/ /g, " ");  
+                                        s = s.replace(/'/g, "\'");  
+                                        s = s.replace(/"/g, "\"");  
+                                        s = s.replace(/<br>/g, "\n");  
+                                        return s;  
+                                    }  
+                                    function html_encode(str)  
+                                    {  
+                                        var s = "";  
+                                        if (str.length == 0) return "";  
+                                        s = str.replace(/&/g, ">");  
+                                        s = s.replace(/</g, "<");  
+                                        s = s.replace(/>/g, ">");  
+                                        s = s.replace(/ /g, " ");  
+                                        s = s.replace(/\'/g, "'");  
+                                        s = s.replace(/\"/g, "");  
+                                        s = s.replace(/\n/g, "<br>");  
+                                        return s;  
+                                    }  
+                                    $("#article-detail-content").data("kendoEditor").value(html_encode(data.data.content));
                                     $("#article-detail-window").kendoWindow({
                                         width: "1000px",
                                         title: "设置文章详情",

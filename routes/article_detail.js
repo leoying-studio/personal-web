@@ -4,7 +4,7 @@ var ArticleDetailControll = require("./../controlls/article_detail");
 
 router.post("/submit", ArticleDetailControll.submit);
 
-router.get("/view/:navId/:categoryId/:articleId/:currentPage", ArticleDetailControll.get);
+router.get("/view/:articleId/:currentPage", ArticleDetailControll.get);
 
 router.post("/submit_comment", ArticleDetailControll.submitComment);
 
