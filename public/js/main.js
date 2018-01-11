@@ -3,6 +3,7 @@ require.config({
          "manager": "./manager/index",
          "config": "./manager/config",
          "init": "./common/init",
+         "utils": "./common/utils",
          "navs": "./manager/navs"
      },
      shim: {

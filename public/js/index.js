@@ -111,9 +111,7 @@ $(document).ready(function() {
          window.location.href=window.location.origin+"/article/article_detail/view/"+articleId+"/1";
     });
      
-    var aricleContent = $("#articleContent").text();
-    $("#articleContent").html(aricleContent);
-    var aricleContent = $("#articleContent").text();
-    $("#articleContent").html(aricleContent);
+    $("#articleContent").html($("#articleContent").text());
+    $("#articleContent").html($("#articleContent").text());
 
 });

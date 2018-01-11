@@ -1,4 +1,4 @@
-define(function (require) {
+define(['require', 'utils'],function (require, utils) {
     var columns = {
         articles: [
             { field: "title", title: "标题", width: '100px' },
@@ -25,7 +25,7 @@ define(function (require) {
                                     $('#grid').data("kendoGrid").dataSource.read();
                                 },
                                 error: function(data) { 
-                                    alert(data);
+                                    alert(data.msg);
                                 }
                             });
                         }
@@ -56,50 +56,24 @@ define(function (require) {
                     },
                     {
                         text: '详情', click: function (e) {
-                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             $.ajax({
                                 url: '/article/article_detail/getDetail',
                                 type: 'get',
                                 dataType: 'json',
                                 data: {articleId: dataItem._id},
-                                success: function(data) {
+                                success: function(data) { 
                                     $('#article_detail_navId').val(data.data.articleId);
                                     $("#article_detail_title").val(data.data.title);
-                                    function html_decode(str)  
-                                    {  
-                                        var s = "";  
-                                        if (str.length == 0) return "";  
-                                        s = str.replace(/>/g, "&");  
-                                        s = s.replace(/</g, "<");  
-                                        s = s.replace(/>/g, ">");  
-                                        s = s.replace(/ /g, " ");  
-                                        s = s.replace(/'/g, "\'");  
-                                        s = s.replace(/"/g, "\"");  
-                                        s = s.replace(/<br>/g, "\n");  
-                                        return s;  
-                                    }  
-                                    function html_encode(str)  
-                                    {  
-                                        var s = "";  
-                                        if (str.length == 0) return "";  
-                                        s = str.replace(/&/g, ">");  
-                                        s = s.replace(/</g, "<");  
-                                        s = s.replace(/>/g, ">");  
-                                        s = s.replace(/ /g, " ");  
-                                        s = s.replace(/\'/g, "'");  
-                                        s = s.replace(/\"/g, "");  
-                                        s = s.replace(/\n/g, "<br>");  
-                                        return s;  
-                                    }  
-                                    $("#article-detail-content").data("kendoEditor").value(html_encode(data.data.content));
+                                    var editor = $("#article-detail-content").data("kendoEditor");
+                                    editor.value($('<div>').html(data.data.content).text());
                                     $("#article-detail-window").kendoWindow({
                                         width: "1000px",
                                         title: "设置文章详情",
                                         visible: false,
                                         actions: [
                                             "Pin",
-                                            "Minimize",
+                                            "Minimize", 
                                             "Maximize",
                                             "Close"
                                         ]
