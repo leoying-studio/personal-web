@@ -29,7 +29,11 @@ exports.get = function (req, res, next) {
 					res.render('article_detail/index', Body({
 						navs,
 						article_detail: {},
-						comments: []
+						comments: [],
+						params: {
+							currentPage,
+							articleId
+						}
 					}));
 				} else {
 					var detail = detail.toObject();
@@ -49,7 +53,7 @@ exports.get = function (req, res, next) {
 								}));
 							});
 						});
-				}
+				}	
 			} else {
 				// 跳转到错误页面
 			}
@@ -65,7 +69,12 @@ exports.getDetail = function(req, res, next) {
 				code: 'unknow'
 			}));
 		}
-		res.send(Body(detail));
+		res.send(Body({
+			detail: detail || {},
+			params: {
+				articleId
+			}
+		}));
 	});
 }
 

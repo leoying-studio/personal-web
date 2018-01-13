@@ -1,34 +1,47 @@
-.left-wrapper{
-    width: 200px;
-    position: absolute;
-    bottom: 0;
-    top: 110px;
-    left:0;
-    z-index: 999;
+
+.header {
+    height: 110px;
+    line-height: 110px;
+    background-color: #2A3F54;
+    .title {
+		float: left;
+        padding-left:50px;
+        font-size: 42px;
+        color: white;
+    }
+    .user {
+        span {
+            float: right;
+            font-size: 14px;
+            color: #eee;
+            padding: 0 12px;
+        }
+    }
 }
 
-.right-wrapper {
+.content-wrapper {
     position: absolute;
-    top: 110px;
-    left: 205px;
-    bottom: 2px;
+    top: 150px;
+    bottom: 0;
+    left: 0;
     right: 0;
-    .right-header {
-        margin-bottom: 2px;
-        .btn-group {
-            li {
-                padding: 5px 8px;
+    .left-wrapper{
+        width: 200px;
+        height: 100%;
+        float: left;
+    }
+    .right-wrapper {
+        width: 90%;
+        height: 100%;
+        float: right;
+        .right-header {
+            margin-bottom: 2px;
+            .btn-group {
+                li {
+                    padding: 5px 8px;
+                }
             }
         }
     }
-    
 }
 
-.nav {
-	.title {
-		height: 70px;
-		line-height: 70px;
-		background:#eae8e0;
-		padding-left:50px;
-	}
-}

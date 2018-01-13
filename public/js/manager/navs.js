@@ -39,27 +39,37 @@ define([
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
                     var url = "/article/view" + "/" + navId + "/" + categoryId + "/" + 1;
-                    var ds =  {
-                        type: "get",
+                    var ds =  new kendo.data.DataSource({
                         transport: {
                             read: {
                                 url: url,
-                                dataType: 'json'
+                                dataType: 'json',
+                                type: "get",
+                            },
+                            update: {
+                                url: "/Products/Update",
+                                dataType: "json"
                             },
                             destroy: {
-                                url: "",
-                                dataType: 'json'
+                                url: "/Products/Destroy",
+                                dataType: "json"
+                            },
+                            create: {
+                                url: "/Products/Create",
+                                dataType: "json"
                             },
                             parameterMap: function(option, operation) {
+                                debugger;
                                 return option;
-                            }
+                            },
+                            batch: true,
                         },
                         schema: {
-                            data: 'data.articles',
-                            total: 'data.params.total',
+                            data: 'articles',
+                            total: 'params.total',
                         },
                         pageSize: 10
-                    };
+                    });
                     init.grid(ds, config.columns.articles);
                     break;
             }
@@ -94,7 +104,7 @@ define([
     $("#article_detail_submit").click(function () {
         var content = $("#article-detail-content").val();
         var title = $("#article_detail_title").val();
-        var articleId = $('#article_detail_navId').val();
+        var articleId = $('#article_detail_articleId').val();
         // var categoriesId = currentArticle.categoriesId.toJSON();
         // categoriesId = JSON.stringify(categoriesId);
         $.ajax({

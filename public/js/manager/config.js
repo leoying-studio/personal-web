@@ -56,6 +56,7 @@ define(['require', 'utils'],function (require, utils) {
                     },
                     {
                         text: '详情', click: function (e) {
+    
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
                             $.ajax({
                                 url: '/article/article_detail/getDetail',
@@ -63,8 +64,8 @@ define(['require', 'utils'],function (require, utils) {
                                 dataType: 'json',
                                 data: {articleId: dataItem._id},
                                 success: function(data) { 
-                                    $('#article_detail_navId').val(data.data.articleId);
-                                    $("#article_detail_title").val(data.data.title);
+                                    $('#article_detail_articleId').val(data.data.params.articleId);
+                                    $("#article_detail_title").val(data.data.title || "");
                                     var editor = $("#article-detail-content").data("kendoEditor");
                                     editor.value($('<div>').html(data.data.content).text());
                                     $("#article-detail-window").kendoWindow({

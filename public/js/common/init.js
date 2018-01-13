@@ -33,7 +33,8 @@ define([
                 sortable: true,
                 filterable: true,
                 refresh: true, 
-                editable: "inline",  
+                editable: true,  
+                toolbar: ["create", "save", "cancel"],
                 pageable: {
                     input: true,
                     numeric: false,
