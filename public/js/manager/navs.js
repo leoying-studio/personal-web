@@ -103,6 +103,20 @@ define([
                             }
                         }
                     };
+                    var temp = kendo.template(
+                        "# for(var i = 0; i < categories.length; i++) { #"
+                            + "<input text='checkbox'> #= categories[i].name #"
+                        + "# } #"
+                    );
+                    temp = kendo.template(temp);
+                    var categoriesTemp = {
+                        title: "选择",  //checkbox  
+                        width: 180,  
+                        field: "selector",
+                        template: temp,
+                        filterable: false  
+                    };
+                    config.columns.articles.push(categoriesTemp);
                     init.grid(ds, config.columns.articles);
                     break;
             }
