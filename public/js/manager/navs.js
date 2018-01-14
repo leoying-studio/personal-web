@@ -39,7 +39,7 @@ define([
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
                     var url = "/article/view" + "/" + navId + "/" + categoryId + "/" + 1;
-                    var ds =  new kendo.data.DataSource({
+                    var ds = {
                         transport: {
                             read: {
                                 url: url,
@@ -48,35 +48,63 @@ define([
                             },
                             update: {
                                 url: "/Products/Update",
-                                dataType: "json"
+                                dataType: "json",
+                                type: 'post'
                             },
                             destroy: {
-                                url: "/Products/Destroy",
-                                dataType: "json"
+                                url: "/article/del",
+                                dataType: "json",
+                                type: 'post'
                             },
                             create: {
                                 url: "/Products/Create",
-                                dataType: "json"
+                                dataType: "json",
+                                type: 'post'
                             },
                             parameterMap: function(option, operation) {
-                                debugger;
+                                if (operation !== 'read') {
+                                    var categoryId = option.categoriesId[0].id;
+                                    switch(operation) {
+                                        case 'destroy':
+                                            return {
+                                                navId: option.navId,
+                                                articleId: option._id,
+                                                categoryId: categoryId
+                                            };
+                                        case 'update' :
+                                           return {
+                                               navId: option.navId,
+                                               articleId: option._id,
+                                               categoryId: categoryId,
+                                               title: option.title,
+                                               description: option.description,
+                                               img: option.img
+                                           };
+                                    }
+                                }
                                 return option;
-                            },
-                            batch: true,
+                            }
                         },
+                        batch: true,
                         schema: {
-                            data: 'articles',
-                            total: 'params.total',
-                        },
-                        pageSize: 10
-                    });
+                            data: 'data.articles',
+                            total: 'data.params.total',
+                            model: {
+                               id: '',    //id 为必填,
+                               fields: {
+                                    title: { editable: true, nullable: false },
+                        
+                               }
+                            }
+                        }
+                    };
                     init.grid(ds, config.columns.articles);
                     break;
             }
         }
     });
     // 初始化right-header
-    $("#buttonGroup").kendoMobileButtonGroup({});
+    // $("#buttonGroup").kendoMobileButtonGroup({});
 
     // 添加列表项
     $("#groupItemAdd").click(function () {

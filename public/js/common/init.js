@@ -18,6 +18,7 @@ define([
             //     template: "<input value='#= _id #' type='checkbox' />",  
             //     filterable: false  
             // }, ...columns];
+            debugger;
             dataSource = {
                  ...dataSource,
                  serverPaging: true,
@@ -26,15 +27,15 @@ define([
                  pageSize: 10,
             }
             var grid = element.kendoGrid({
-                dataSource: dataSource,
+                dataSource: new kendo.data.DataSource(dataSource),
                 height: gridHeight,
                 scrollable: true,
                 resizable: true,
                 sortable: true,
                 filterable: true,
                 refresh: true, 
-                editable: true,  
-                toolbar: ["create", "save", "cancel"],
+                editable: 'inline',  
+                toolbar: ["create", 'save'],
                 pageable: {
                     input: true,
                     numeric: false,
