@@ -35,7 +35,7 @@ define([
                 filterable: true,
                 refresh: true, 
                 editable: 'inline',  
-                toolbar: ["create", 'save'],
+                toolbar: ["create"],
                 pageable: {
                     input: true,
                     numeric: false,

@@ -57,12 +57,17 @@ define([
                                 type: 'post'
                             },
                             create: {
-                                url: "/Products/Create",
+                                url: "/article/submit",
                                 dataType: "json",
                                 type: 'post'
                             },
                             parameterMap: function(option, operation) {
-                                if (operation !== 'read') {
+                                if (operation == 'create' && option.models) {
+                                    return {
+                                        ...option.models[0]
+                                    }
+                                }
+                                if (operation !== 'read' && operation !== "create") {
                                     var categoryId = option.categoriesId[0].id;
                                     switch(operation) {
                                         case 'destroy':
@@ -90,10 +95,10 @@ define([
                             data: 'data.articles',
                             total: 'data.params.total',
                             model: {
-                               id: '',    //id 为必填,
+                               id: '_id',    //id 为必填,否则作增删改动作不会触发请求
                                fields: {
                                     title: { editable: true, nullable: false },
-                        
+                                    categoriesId: ""
                                }
                             }
                         }

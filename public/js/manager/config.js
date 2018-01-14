@@ -6,7 +6,7 @@ define(['require', 'utils'],function (require, utils) {
             { field: 'img', title: '图片地址', width: '100px' },
             { field: 'navId', title: '导航id', width: '100px' },
             { field: 'serverTime', title: '发布时间' },
-            {title: '操作', command: ['edit', 'destroy', 'create']}
+            {title: '操作', command: ['edit', 'destroy']}
             // {
             //     title: '操作', command: [
             //         {
