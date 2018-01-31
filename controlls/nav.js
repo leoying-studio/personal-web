@@ -4,7 +4,9 @@ var Utils = require("./../utils");
 
 // 添加导航
 exports.submit = function (req, res, next) {
-    const { name, categories } = req.body;
+    var body = req.body;
+    var categories = body.categories;
+    var name = body.name;
     try {
         if (!name) {
             throw new Error("导航名称不能为空!");
@@ -30,7 +32,7 @@ exports.submit = function (req, res, next) {
             msg: '分类出现错误, 请检查格式'
         }));
     }
-    new Nav({ name, categories }).save((err, nav) => {
+    new Nav({ name, categories }).save(function (err, nav) {
         if (err) {
            return res.send(Body({
               code: 'unknown',
@@ -102,7 +104,6 @@ exports.updateCategoies = function(req, res, next) {
                 code: 'unknown'
             }));
         }
-
         return res.send(Body(doc));
     });
 }

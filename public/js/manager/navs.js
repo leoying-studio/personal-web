@@ -11,10 +11,8 @@ define([
     var grid = null;
 
     // 导航菜单
-    $("#nav-menu").kendoMenu({});
-    $("#gridRefreshBtn").click(function() {
-         $('#grid').data("kendoGrid").dataSource.read();
-    });
+    $("#navMenu").kendoMenu({});
+
     // 左侧panel
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
@@ -46,47 +44,7 @@ define([
                                 dataType: 'json',
                                 type: "get",
                             },
-                            update: {
-                                url: "/Products/Update",
-                                dataType: "json",
-                                type: 'post'
-                            },
-                            destroy: {
-                                url: "/article/del",
-                                dataType: "json",
-                                type: 'post'
-                            },
-                            create: {
-                                url: "/article/submit",
-                                dataType: "json",
-                                type: 'post'
-                            },
                             parameterMap: function(option, operation) {
-                                if (operation == 'create' && option.models) {
-                                    return {
-                                        ...option.models[0]
-                                    }
-                                }
-                                if (operation !== 'read' && operation !== "create") {
-                                    var categoryId = option.categoriesId[0].id;
-                                    switch(operation) {
-                                        case 'destroy':
-                                            return {
-                                                navId: option.navId,
-                                                articleId: option._id,
-                                                categoryId: categoryId
-                                            };
-                                        case 'update' :
-                                           return {
-                                               navId: option.navId,
-                                               articleId: option._id,
-                                               categoryId: categoryId,
-                                               title: option.title,
-                                               description: option.description,
-                                               img: option.img
-                                           };
-                                    }
-                                }
                                 return option;
                             }
                         },
@@ -94,27 +52,9 @@ define([
                         schema: {
                             data: 'data.articles',
                             total: 'data.params.total',
-                            model: {
-                               id: '_id',    //id 为必填,否则作增删改动作不会触发请求
-                               fields: {
-                                    title: { editable: true, nullable: false },
-                                    categoriesId: ""
-                               }
-                            }
                         }
                     };
-                    var temp = kendo.template(
-                        "# for(var i = 0; i < categories.length; i++) { #"
-                            + "<input text='checkbox'> #= categories[i].name #"
-                        + "# } #"
-                    );
-                    var categoriesTemp = {
-                        title: "选择",  //checkbox  
-                        width: 180,  
-                        template: temp,
-                        filterable: false  
-                    };
-                    config.columns.articles.push(categoriesTemp);
+                    
                     init.grid(ds, config.columns.articles);
                     break;
             }
@@ -126,7 +66,7 @@ define([
     // 添加列表项
     $("#groupItemAdd").click(function () {
         if (panelItemType == 0) {
-            init.window($("#nav-window"), "添加导航模块");
+            init.window($("#navForm"), "添加导航模块");
         }
         else if (panelItemType == 1) {
             $('#categoryNavId').val(navId);
@@ -140,7 +80,7 @@ define([
                 );
             }
             $("#navId-input").val(navId);
-            init.window($("#article-window"), "添加文章列表项");
+            init.window($("#articleForm"), "添加文章列表项");
         }
     });
 
@@ -170,5 +110,32 @@ define([
                 alert('error');
             }
         });
+    });
+
+    // toobar 栏
+    $("#toolbar").kendoToolBar({
+        items: [
+            {type: "button", text: "添加", id: "add"},
+            {type: "button", text: "刷新", id: "refresh" }
+        ],
+        click: function(e) {
+            if (e.id == "add") {
+                switch(panelItemType) {
+                    case '0':
+                        init.window($("#navForm"));
+                        break;
+    
+                    case '1':
+                        init.window($("#categoryWindow"));
+                        break;
+    
+                    case '2':
+                        init.window($("#articleForm"));
+                        break;
+                }
+            } else {
+                $('#grid').data("kendoGrid").dataSource.read();
+            }
+        }
     });
 });

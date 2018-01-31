@@ -15,17 +15,14 @@ html
     script(src="/lib/require/require.js" data-main="./../../js/main")
     
   body
-   include ./header.jade
-   include ./navmenu.jade
-   div.content-wrapper.clearfix
-     div.left-wrapper#left-wrapper
-      include ./treemenu.jade
-     div.right-wrapper
-      div.right-header
-      //-  ul#buttonGroup.btn-group
-      //-    li#groupItemAdd 添加
-      //-    li#gridRefreshBtn 刷新
-      div#grid.right-content
+    include ./header.jade
+    include ./navmenu.jade
+    div.content-wrapper.clearfix
+      div.left-wrapper#left-wrapper
+        include ./treemenu.jade
+      div.right-wrapper
+        div#toolbar
+        div#grid.right-content
       include ./article.jade
       include ./nav.jade
       include ./home.jade

@@ -18,7 +18,6 @@ define([
             //     template: "<input value='#= _id #' type='checkbox' />",  
             //     filterable: false  
             // }, ...columns];
-            debugger;
             dataSource = {
                  ...dataSource,
                  serverPaging: true,
@@ -35,7 +34,6 @@ define([
                 filterable: true,
                 refresh: true, 
                 editable: 'inline',  
-                toolbar: ["create"],
                 pageable: {
                     input: true,
                     numeric: false,
@@ -47,9 +45,12 @@ define([
             return grid;
          },
          window: function(el, title, width) {
+             if (el.data('kendoWindow')) {
+                return el.data("kendoWindow").center().open();   
+             }
              el.kendoWindow({
                     width: width || "400px",
-                    title: title ||　"添加",
+                    title: title ||　"form",
                     visible: false,
                     actions: [
                         "Pin",
