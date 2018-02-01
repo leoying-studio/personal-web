@@ -34,7 +34,6 @@ var article_detail = require('./routes/article_detail');
 // var MongoStore=require('connect-mongo')(session);
 
 
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -46,7 +45,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
 
 // session 中间件
 app.use(session({

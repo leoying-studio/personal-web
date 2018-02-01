@@ -48,3 +48,36 @@ form(id="articleUpdateForm" action="/article/update" method="post").hide
     input(name="categoryId")#article-update-categoryId.k-textbox
   div.k-content.form-item
     button.k-button.k-primary 更新文章
+ form.form.hide#categoryForm(method='post' action="/nav/addCategory")
+  div.form-item
+    label 类别名称
+    input(type="text" name="name").k-textbox
+  div.form-item
+    label 导航标识
+    input(type="text" name="navId" id="categoryNavId").k-textbox
+  div.form-item
+    button.k-button#categorySubmit 提交 
+form.nav-form.hide(action="/nav/submit" method='post' id="navForm")
+  div.form-item
+    label 导航名称: 
+    input(type="text" class="k-textbox" name="name")
+  div.form-item
+    label 内容分类: 
+    input(type="text" class="k-textbox" name="categories")
+  div.form-item
+    button(type="submit" class="k-button k-default") 确认添加
+form#bannerForm.hide(action="/banner/submit" method="post")
+  div.k-content.form-item
+    label 轮播背景 
+    input(type="text" class="k-textbox" name="background")
+  div.k-content.form-item
+    label 轮播标题 
+    input(type="text" class="k-textbox" name="title")
+  div.k-content.form-item
+    label 轮播字幕 
+    input(type="text" class="k-textbox" name="caption")
+  div.k-content.form-item
+    label 轮播说明 
+    textarea(class="k-textbox" name="description")
+  div.k-content.form-item
+    button(type="submit" class="k-button k-default") 确认添加

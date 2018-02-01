@@ -70,7 +70,7 @@ define([
         }
         else if (panelItemType == 1) {
             $('#categoryNavId').val(navId);
-            init.window($("#categoryWindow"), "添加文章类别");
+            init.window($("#categoryForm"), "添加文章类别");
         } else if (panelItemType == 2) {
             $("#blog-cateory").html("");
             for (var c = 0; c < categories.length; c++) {
@@ -126,7 +126,7 @@ define([
                         break;
     
                     case '1':
-                        init.window($("#categoryWindow"));
+                        init.window($("#categoryForm"));
                         break;
     
                     case '2':

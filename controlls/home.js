@@ -3,7 +3,7 @@ var BannerModel = require("./../models/banner");
 var IntroModel = require("./../models/intro");
 let FooterModel = require("./../models/footer");
 var Utils = require("./../utils");
-var Body = require("./body");
+
 
 exports.getAll = function (req, res, next) {
     var models = [
