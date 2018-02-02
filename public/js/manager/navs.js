@@ -17,6 +17,7 @@ define([
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
+            debugger;
             var panelItem = e.item;
             panelItemType = panelItem.getAttribute("panel-item-type");
             
@@ -36,7 +37,7 @@ define([
                 case '2':
                     navId = panelItem.getAttribute("navId");
                     categoryId = panelItem.getAttribute("categoryId");
-                    var url = "/article/view" + "/" + navId + "/" + categoryId + "/" + 1;
+                    var url = "/article/list?navId="+navId+ "&categoryId=" + categoryId;
                     var ds = {
                         transport: {
                             read: {
@@ -50,8 +51,8 @@ define([
                         },
                         batch: true,
                         schema: {
-                            data: 'data.articles',
-                            total: 'data.params.total',
+                            data: 'articles',
+                            total: 'total',
                         }
                     };
                     
