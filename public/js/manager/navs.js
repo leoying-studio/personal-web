@@ -97,25 +97,24 @@ define([
                             model: {
                                id: '_id',    //id 为必填,否则作增删改动作不会触发请求
                                fields: {
-                                    title: { editable: true, nullable: false },
-                                    categoriesId: ""
+                                    title: { editable: true, nullable: false }
                                }
                             }
                         }
                     };
-                    var temp = kendo.template(
-                        "# for(var i = 0; i < categories.length; i++) { #"
-                            + "<input text='checkbox'> #= categories[i].name #"
-                        + "# } #"
-                    );
+                    
+                    var temp = "# for(var i = 0; i < data.categoriesId.length; i++) { #"
+                            + "<input type='checkbox'> a"
+                        + "# } #";
+                    
                     var categoriesTemp = {
-                        title: "选择",  //checkbox  
-                        width: 180,  
-                        template: temp,
-                        filterable: false  
+                        template: temp
                     };
-                    config.columns.articles.push(categoriesTemp);
-                    init.grid(ds, config.columns.articles);
+                    var col = [
+                        ...config.columns.articles,
+                        categoriesTemp
+                    ];
+                    init.grid(ds, col);
                     break;
             }
         }
