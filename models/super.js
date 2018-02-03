@@ -1,4 +1,4 @@
-var NavModel = require('./../models/nav');
+var NavModel = require('./nav');
 
 exports.regFind = function (schema) {
     schema.statics.findPaging = function (params = {}, conditions = {}) {
@@ -11,7 +11,7 @@ exports.regFind = function (schema) {
 }
 
 exports.regNav = function(schema) {
-     schema.statics.getNavs = function (cb) {
+    schema.statics.getNavs = function (cb) {
         return NavModel.find({}).lean(cb);
-     }
+    }
 }

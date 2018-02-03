@@ -1,10 +1,4 @@
-div#nav-window.hide
- form.nav-form(action="/nav/submit" method='post')
-    div.form-item
-       label 导航名称: 
-       input(type="text" class="k-textbox" name="name")
-    div.form-item
-       label 内容分类: 
-       input(type="text" class="k-textbox" name="categories")
-    div.form-item
-       button(type="submit" class="k-button k-default") 确认添加
+nav.nav
+  ul#navMenu
+    li#nav-item-home 首页
+    li#nav-item-nav 导航

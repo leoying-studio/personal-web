@@ -1,6 +1,6 @@
 var mongoose=require('../db').mongoose;
 var Utils = require("./../utils/index");
-var DBSuper = require("./../db/super");
+var DBSuper = require("./super");
 
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({

@@ -1,5 +1,5 @@
 var mongoose=require('../db').mongoose;
-var DBSuper = require('./../db/super');
+var DBSuper = require('./super');
 var Utils = require("./../utils/index");
 var Schema = new mongoose.Schema({
 	 title: String,

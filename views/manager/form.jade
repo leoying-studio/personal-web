@@ -1,0 +1,83 @@
+form(action="/article/submit" method='post' id="articleForm" class="hide")
+  div.k-content.form-item
+    label 文章标题
+    input(type='text' class='k-textbox' name='title')
+  div.k-content.form-item
+    label 文章说明
+    textarea(name='description' class='k-textbox')
+  div.k-content.form-item
+    label 图片地址
+    input(type='text' class='k-textbox' name='img')
+  div.k-content.form-item
+    label 导航标识
+    input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navId-input")
+  div.k-content.form-item
+    label 所属分类
+    span#blog-cateory
+  div.k-content.form-item
+    button(class='k-button k-default' type='submit') 添加
+form( id="detailForm" class="hide")
+  div.k-content.form-item
+    label 文章标题
+    input(type='text' class='k-textbox' name='title' id="article_detail_title")
+  div.k-content.form-item
+    label 文章标识
+    input(type='text' class='k-textbox' name='title' id="article_detail_articleId")
+  div.k-content.form-item
+    textarea#article-detail-content
+  div.k-content.form-item
+    button.k-button#article_detail_submit(type='button') 提交
+form(id="articleUpdateForm" action="/article/update" method="post").hide
+  div.k-content.form-item
+    label 文章标题
+    input(type='text' class='k-textbox' name='title' id="article-update-title")
+  div.k-content.form-item
+    label 文章说明
+    textarea(name="description")#article-update-description.k-textbox
+  div.k-content.form-item
+    label 图片地址
+    input(name="img")#article-update-img.k-textbox
+  div.k-content.form-item
+    label 导航标识
+    input(name="navId")#article-update-navId.k-textbox
+  div.k-content.form-item
+    label 文章标识
+    input(name="articleId")#article-update-articleId.k-textbox
+  div.k-content.form-item
+    label 所属类别
+    input(name="categoryId")#article-update-categoryId.k-textbox
+  div.k-content.form-item
+    button.k-button.k-primary 更新文章
+ form.form.hide#categoryForm(method='post' action="/nav/addCategory")
+  div.form-item
+    label 类别名称
+    input(type="text" name="name").k-textbox
+  div.form-item
+    label 导航标识
+    input(type="text" name="navId" id="categoryNavId").k-textbox
+  div.form-item
+    button.k-button#categorySubmit 提交 
+form.nav-form.hide(action="/nav/submit" method='post' id="navForm")
+  div.form-item
+    label 导航名称: 
+    input(type="text" class="k-textbox" name="name")
+  div.form-item
+    label 内容分类: 
+    input(type="text" class="k-textbox" name="categories")
+  div.form-item
+    button(type="submit" class="k-button k-default") 确认添加
+form#bannerForm.hide(action="/banner/submit" method="post")
+  div.k-content.form-item
+    label 轮播背景 
+    input(type="text" class="k-textbox" name="background")
+  div.k-content.form-item
+    label 轮播标题 
+    input(type="text" class="k-textbox" name="title")
+  div.k-content.form-item
+    label 轮播字幕 
+    input(type="text" class="k-textbox" name="caption")
+  div.k-content.form-item
+    label 轮播说明 
+    textarea(class="k-textbox" name="description")
+  div.k-content.form-item
+    button(type="submit" class="k-button k-default") 确认添加
