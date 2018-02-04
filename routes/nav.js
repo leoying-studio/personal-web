@@ -65,7 +65,7 @@ router.post('/category/add', function(req, res) {
                 status: false
             });
         }
-        return res.send({
+        res.send({
             message: "更新成功",
             data: category,
             status: true
@@ -130,7 +130,7 @@ router.post("/nav/update", function(req, res) {
 			});
 		} 
 		// ok
-		return res.send({
+		res.send({
 			status: true,
 			message: "success",
 			data: doc

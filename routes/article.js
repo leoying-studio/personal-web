@@ -15,6 +15,8 @@ router.post("/submit", function() {
 	var navId = body.navId;
 	var recommend = body.recommend || false;
 	var categoriesId = body["categoriesId"];
+	var content = body.content;
+
 	if (typeof categoriesId == "string") {
 		categoriesId = [categoriesId];
 	}
@@ -219,6 +221,30 @@ router.post("/update", function(req, res) {
 				code: 'unknown'
 			}));
 		}
+	});
+});
+
+router.post("/comment/submit", function (req, res) {
+	var body = req.body;
+	var username = body.username;
+	var content = body.content;
+	var detailId = body.detailId;
+	var fields = {
+		username,
+		content,
+		detailId
+	};
+	new CommentModel(fields).save(function (err, comment) {
+		if (err) {
+			return res.send({
+				status: false,
+				message: "添加失败"
+			});
+		}
+		res.send({
+			status: true,
+			data: {comment}
+		});
 	});
 });
 
