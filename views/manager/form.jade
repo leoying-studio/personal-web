@@ -10,29 +10,32 @@ form(action="/article/submit" method='post' id="articleForm" class="hide")
     input(type='text' class='k-textbox' name='img')
   div.k-content.form-item
     label 导航标识
-    input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navId-input")
+    input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navIdInput")
   div.k-content.form-item
     label 所属分类
-    span#blog-cateory
+    span#blogCateory
   div.k-content.form-item
-    label(for="") 首页推荐
+    label(for="" ) 首页推荐
     input(type="checkbox" )
-  div.k-content.form-item
+  div.k-content.form-item.form-check
     label(for="" ) 推荐图片
-    input(type="text" class="k-textbox")     
+    input(type="text" class="k-textbox" name="recommendImg")    
+  div.k-content.form-item
+    label 请输入内容
+    textarea#articleEditor(name="content") 
   div.k-content.form-item
     button(class='k-button k-default' type='submit') 添加
-form( id="detailForm" class="hide")
-  div.k-content.form-item
-    label 文章标题
-    input(type='text' class='k-textbox' name='title' id="article_detail_title")
-  div.k-content.form-item
-    label 文章标识
-    input(type='text' class='k-textbox' name='title' id="article_detail_articleId")
-  div.k-content.form-item
-    textarea#article-detail-content
-  div.k-content.form-item
-    button.k-button#article_detail_submit(type='button') 提交
+//- form( id="detailForm" class="hide")
+//-   div.k-content.form-item
+//-     label 文章标题
+//-     input(type='text' class='k-textbox' name='title' id="article_detail_title")
+//-   div.k-content.form-item
+//-     label 文章标识
+//-     input(type='text' class='k-textbox' name='title' id="article_detail_articleId")
+//-   div.k-content.form-item
+//-     textarea#article-detail-content
+//-   div.k-content.form-item
+//-     button.k-button#article_detail_submit(type='button') 提交
 form(id="articleUpdateForm" action="/article/update" method="post").hide
   div.k-content.form-item
     label 文章标题
@@ -44,14 +47,8 @@ form(id="articleUpdateForm" action="/article/update" method="post").hide
     label 图片地址
     input(name="img")#article-update-img.k-textbox
   div.k-content.form-item
-    label 导航标识
-    input(name="navId")#article-update-navId.k-textbox
-  div.k-content.form-item
     label 文章标识
     input(name="articleId")#article-update-articleId.k-textbox
-  div.k-content.form-item
-    label 所属类别
-    input(name="categoryId")#article-update-categoryId.k-textbox
   div.k-content.form-item
     input(type="checkbox" class="k-textbox")
     label 首页推荐

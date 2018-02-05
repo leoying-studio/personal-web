@@ -55,11 +55,13 @@ form {
 	padding: 15px;
 	.form-item {
 		padding: 8px 0;
-		input {
-			margin-left: 8px;
+		text-align: left;
+		input:not([type=checkbox]) {
+			width: 100%;
+			margin-top: 8px;
 		}
 		textarea {
-			margin-left: 8px;
+		    width: 100%;
 		}
 	}
 }

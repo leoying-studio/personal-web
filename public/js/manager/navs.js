@@ -9,7 +9,7 @@ define([
     var categoryId = null;
     var articleId = null;
     var grid = null;
-
+    var categories = null;
     // 导航菜单
     $("#navMenu").kendoMenu({});
 
@@ -17,27 +17,25 @@ define([
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
-            debugger;
-            var panelItem = e.item;
-            panelItemType = panelItem.getAttribute("panel-item-type");
+            var panelItem = $(e.item);
+            panelItemType = panelItem.attr("panel-item-type");
             
             switch (panelItemType) {
                 case '0':
-                    navId = panelItem.getAttribute("navId");
-                    var navs = JSON.parse(panelItem.getAttribute("navs"));
-                    grid = init.grid(navs, config.columns.navs);
+                    // navId = panelItem.attr("navId");
+                    // var navs = JSON.parse(panelItem.attr("navs"));
+                    // grid = init.grid(navs, config.columns.navs);
                     break;
 
                 case '1':
-                    navId = panelItem.getAttribute("navId");
-                    categories = JSON.parse(panelItem.getAttribute("categories"));
+                    navId = panelItem.attr("navId");
                     grid = init.grid(categories, config.columns.categories);
                     break;
 
                 case '2':
-                    navId = panelItem.getAttribute("navId");
-                    categoryId = panelItem.getAttribute("categoryId");
-                    var url = "/article/list?navId="+navId+ "&categoryId=" + categoryId;
+                    categoryId = panelItem.attr("categoryId");
+                    getArticleCategory($(panelItem).siblings().andSelf());
+                    var url = "/article/data?navId="+navId+ "&categoryId=" + categoryId;
                     var ds = {
                         transport: {
                             read: {
@@ -61,57 +59,78 @@ define([
             }
         }
     });
-    // 初始化right-header
-    // $("#buttonGroup").kendoMobileButtonGroup({});
 
-    // 添加列表项
-    $("#groupItemAdd").click(function () {
-        if (panelItemType == 0) {
-            init.window($("#navForm"), "添加导航模块");
-        }
-        else if (panelItemType == 1) {
-            $('#categoryNavId').val(navId);
-            init.window($("#categoryForm"), "添加文章类别");
-        } else if (panelItemType == 2) {
-            $("#blog-cateory").html("");
-            for (var c = 0; c < categories.length; c++) {
-                $("#blog-cateory").append(
-                    "<input type='checkbox' name='categoriesId[]' value=" + categories[c]._id + ">"
-                    + categories[c].name
-                );
-            }
-            $("#navId-input").val(navId);
-            init.window($("#articleForm"), "添加文章列表项");
-        }
-    });
 
-    $("#article-detail-content").kendoEditor(config.editor);
 
-    $("#article_detail_submit").click(function () {
-        var content = $("#article-detail-content").val();
-        var title = $("#article_detail_title").val();
-        var articleId = $('#article_detail_articleId').val();
-        // var categoriesId = currentArticle.categoriesId.toJSON();
-        // categoriesId = JSON.stringify(categoriesId);
-        $.ajax({
-            url: '/article/article_detail/submit',
-            type: 'post',
-            data: {
-                articleId: articleId,
-                content: content,
-                title: title
+    // $("#article-detail-content").kendoEditor(config.editor);
+
+    // $("#article_detail_submit").click(function () {
+    //     var content = $("#article-detail-content").val();
+    //     var title = $("#article_detail_title").val();
+    //     var articleId = $('#article_detail_articleId').val();
+    //     // var categoriesId = currentArticle.categoriesId.toJSON();
+    //     // categoriesId = JSON.stringify(categoriesId);
+    //     $.ajax({
+    //         url: '/article/article_detail/submit',
+    //         type: 'post',
+    //         data: {
+    //             articleId: articleId,
+    //             content: content,
+    //             title: title
+    //         },
+    //         dataType: "json",
+    //         success: function (data) {
+    //             if (data.code == 200) {
+    //                 alert('success');
+    //             }
+    //         },
+    //         error: function (data) {
+    //             alert('error');
+    //         }
+    //     });
+    // });
+
+
+    function openEditor() {
+        var articleEditor = $("#articleForm #articleEditor");
+        if (articleEditor.data("kendoEditor")) {
+           return;
+        } 
+        articleEditor.kendoEditor({
+            resizable: {
+                content: false,
+                toolbar: true
             },
-            dataType: "json",
-            success: function (data) {
-                if (data.code == 200) {
-                    alert('success');
-                }
+            change: function() {
+
             },
-            error: function (data) {
-                alert('error');
+            select: function() {
+
+            },
+            execute: function() {
+
+            },
+            paste: function() {
+
             }
         });
-    });
+        
+    }
+
+    function getArticleCategory(categories) {
+        // 设置导航标示
+        $("#navIdInput").val(navId);
+        // 获取分类
+        var categoryStr = "";
+        $.each(categories, function(index, item) {
+            var item = $(item);
+            var id = item.attr("categoryId");
+            var value = item.text();
+            categoryStr += "<input type='checkbox' name='categoriesId[]' value=" + id + ">"
+            + value;
+        });
+        $("#blogCateory").html(categoryStr);
+    }
 
     // toobar 栏
     $("#toolbar").kendoToolBar({
@@ -131,7 +150,8 @@ define([
                         break;
     
                     case '2':
-                        init.window($("#articleForm"));
+                        openEditor();
+                        init.window($("#articleForm"), "添加文章", "900px");
                         break;
                 }
             } else {

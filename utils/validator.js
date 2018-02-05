@@ -28,10 +28,6 @@ function Validator(validateList = []) {
 						message: item.message
 					};
 				}
-				return {
-					status: true,
-					message: "ok"
-				}
 			}
 		} catch(e) {
 			return {
@@ -40,6 +36,10 @@ function Validator(validateList = []) {
 			}
 		}
 	}
+	return {
+		status: true,
+		message: "ok"
+	}
 }
 
 Validator.trim = function(value) {
@@ -47,7 +47,10 @@ Validator.trim = function(value) {
 }
 
 Validator.len = function(value, min, max) {
-	var afterValue = Validator.trim(value);
+	if (typeof value === "string") {
+		value = Validator.trim(value);
+	}
+	
 	min = min || 0;
 	max = max || Infinity;
 	return value.length >= min && value.length <= max;
@@ -60,7 +63,7 @@ Validator.email = function(value) {
 
 Validator.required = function(value) {
 	value = Validator.trim(value);
-	return !value === "";
+	return !(value === "" || typeof value == 'undefined');
 }
 
 Validator.contrast = function(value, reducedValue) {
@@ -71,7 +74,8 @@ Validator.type = function(value, type) {
 	if (!type) {
 		return true;
 	}
-	return Object.prototype.toString.call(value) === Object.prototype.toString.call(type);
+	type = '[object '+type.name+']';
+	return Object.prototype.toString.call(value) === type;
 }
 
 module.exports = Validator;

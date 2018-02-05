@@ -11,17 +11,15 @@ define(['require', 'utils'],function (require, utils) {
                 title: '操作', command: [
                     {
                         text: '删除', click: function (e) {
+                            debugger;
                             var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                            var categoryId = dataItem.categoriesId.toJSON()[0].id;
-                            window.confirm("确定删除吗?", function() {
+                            // window.confirm("确定删除吗?", function() {
                                 $.ajax({
-                                    url: '/article/del',
+                                    url: '/article/delete',
                                     dataType: 'json',
                                     type: 'post',
                                     data: {
-                                        navId: dataItem.navId,
                                         articleId: dataItem._id,
-                                        categoryId: categoryId
                                     },
                                     success: function(data) {
                                         $('#grid').data("kendoGrid").dataSource.read();
@@ -30,7 +28,7 @@ define(['require', 'utils'],function (require, utils) {
                                         alert(data.msg);
                                     }
                                 });
-                            });
+                            // });
                         }
                     },
                     {
@@ -57,38 +55,38 @@ define(['require', 'utils'],function (require, utils) {
                             }).data("kendoWindow").center().open();
                         }
                     },
-                    {
-                        text: '详情', click: function (e) {
+                    // {
+                    //     text: '详情', click: function (e) {
     
-                            var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-                            $.ajax({
-                                url: '/article/article_detail/getDetail',
-                                type: 'get',
-                                dataType: 'json',
-                                data: {articleId: dataItem._id},
-                                success: function(data) { 
-                                    $('#article_detail_articleId').val(data.data.params.articleId);
-                                    $("#article_detail_title").val(data.data.title || "");
-                                    var editor = $("#article-detail-content").data("kendoEditor");
-                                    editor.value($('<div>').html(data.data.content).text());
-                                    $("#detailForm").kendoWindow({
-                                        width: "1000px",
-                                        title: "设置文章详情",
-                                        visible: false,
-                                        actions: [
-                                            "Pin",
-                                            "Minimize", 
-                                            "Maximize",
-                                            "Close"
-                                        ]
-                                    }).data("kendoWindow").center().open();
-                                },
-                                error: function() {
-                                    alert("获取信息失败");
-                                }
-                            });
-                        }
-                    }
+                    //         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+                    //         $.ajax({
+                    //             url: '/article/article_detail/getDetail',
+                    //             type: 'get',
+                    //             dataType: 'json',
+                    //             data: {articleId: dataItem._id},
+                    //             success: function(data) { 
+                    //                 $('#article_detail_articleId').val(data.data.params.articleId);
+                    //                 $("#article_detail_title").val(data.data.title || "");
+                    //                 var editor = $("#article-detail-content").data("kendoEditor");
+                    //                 editor.value($('<div>').html(data.data.content).text());
+                    //                 $("#detailForm").kendoWindow({
+                    //                     width: "1000px",
+                    //                     title: "设置文章详情",
+                    //                     visible: false,
+                    //                     actions: [
+                    //                         "Pin",
+                    //                         "Minimize", 
+                    //                         "Maximize",
+                    //                         "Close"
+                    //                     ]
+                    //                 }).data("kendoWindow").center().open();
+                    //             },
+                    //             error: function() {
+                    //                 alert("获取信息失败");
+                    //             }
+                    //         });
+                    //     }
+                    // }
                 ]
             }
         ],

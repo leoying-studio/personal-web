@@ -29,7 +29,7 @@ var user = require('./routes/user');
 var nav = require('./routes/nav');
 var manager = require('./routes/manager');
 var article = require('./routes/article');
-var detail = require('./routes/detail');
+// var detail = require('./routes/detail');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
@@ -78,7 +78,7 @@ app.use('/manager', manager);
 app.use("/user", user);
 app.use("/nav", nav);
 app.use("/article", article);
-app.use("/article/detail", detail);
+// app.use("/article/detail", detail);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
