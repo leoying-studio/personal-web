@@ -11,8 +11,8 @@ router.post("/submit", function (req, res) {
 	var articleId = body.articleId;
 	var content = body.content;
 	var validate = Validator([
-		{ type: 　"required", value: title, message: "标题不能为空" },
-		{ type: 　"required", value: articleId, message: "文章id不能为空" },
+		{ mode: "required", value: title, message: "标题不能为空" },
+		{ mode: "required", value: articleId, message: "文章id不能为空" },
 	]);
 	if (!validate.status) {
 		return res.send({
@@ -74,8 +74,6 @@ router.get("/view/:articleId/:currentPage", function (req, res) {
 
 	// 操作数据
 	ArticleDetailModel.getNavs().then(function (navs) {
-		var pageStart = (currentPage - 1) * 10;
-		var pageEnd = currentPage * 10;
 		ArticleDetailModel.findOne({
 			articleId
 		}, function (err, detail) {

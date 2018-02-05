@@ -12,7 +12,8 @@ var Scheam = new mongoose.Schema({
 	categoriesId: [
 		{ id: { type: 'string' } }
 	],
-	recommend: {type: Boolean, default: false}
+	recommend: {type: Boolean, default: false},
+	recommendImg: {type: String}
 });
 
 Scheam.plugin(DBSuper.regNav);

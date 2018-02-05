@@ -1,12 +1,11 @@
 var express = require('express');
 var router = express.Router();
-var homeProxy = require("./../proxy/home");
+var HomeProxy = require("./../proxy/home");
 
-router.get("/",function() {
-	homeProxy.getAll(function(data) {
-		res.render("index", {
-			data
-		});
+router.get("/",function(req, res) {
+	HomeProxy.getAll(function(data) {
+		res.render("index", data);
 	});
 });
+
 module.exports = router;

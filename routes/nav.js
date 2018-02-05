@@ -9,8 +9,8 @@ router.post("/submit", function(req, res) {
     var categories = body.categories;
     var name = body.name;
     var validate = Validator([
-        {type:"required", message: "导航名称不能为空", value: name},
-        {type: "required", message: "分类字段不合法", value: categories}
+        {mode:"required", message: "导航名称不能为空", value: name},
+        {mode: "required", message: "分类字段不合法", value: categories}
     ]);
     if (!validate.status) {
         return res.send({
@@ -49,8 +49,8 @@ router.post('/category/add', function(req, res) {
     var navId = body.navId;
     var name = body.name;
     var validate = Validator([
-        {type: "required", message: "导航名称不能为空", value: name},
-        {type: "required", message: "导航id不能为空", value: navId}
+        {mode: "required", message: "导航名称不能为空", value: name},
+        {mode: "required", message: "导航id不能为空", value: navId}
     ]);
     if (!validate.status) {
         res.send({
@@ -80,8 +80,8 @@ router.post("/categoies/update", function() {
     var categoryId = body.categoryId;
     var name = body.name;
     var validate = Validator([
-        {type: "required", message: "导航名称不能为空", value: name},
-        {type: "required", message: "导航id不能为空", value: categoryId}
+        {mode: "required", message: "导航名称不能为空", value: name},
+        {mode: "required", message: "导航id不能为空", value: categoryId}
     ]);
     if (!validate.status) {
         res.send({
@@ -113,8 +113,8 @@ router.post("/nav/update", function(req, res) {
 	var navId = body.navId;
 	var name = body.name;
 	var validator = Validator([
-	   {type: "required", value: name, message: "导航名称不能为空"},
-	   {type: "required", value: navId, message: "导航id不能为空"}
+	   {mode: "required", value: name, message: "导航名称不能为空"},
+	   {mode: "required", value: navId, message: "导航id不能为空"}
 	]);
 	if (!validator.status) {
 		return res.send({

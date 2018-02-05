@@ -1,16 +1,12 @@
-var NavModel = require("./../models/nav");
-var BannerModel = require("./../models/banner");
+var ArticleModel = require("./../models/article");
 
 exports.getAll = function(callback) {
-	var models = [
-        NavModel.find({}),
-        BannerModel.find({})
-    ];
-    Promise.all(models).then(function (docs) {
-        var body = {
-            navs: docs[0],
-            banners: docs[1]
-        };
-		callback(body);
-    })
+    var navs = ArticleModel.getNavs();
+    var recommend = ArticleModel.find({}).sort({"serverTime": 1}).limit(7);
+    return Promise.all([navs, recommend]).then(function(values) {
+        callback({
+            navs: values[0],
+            banners: values[1]
+        });
+    });
 }

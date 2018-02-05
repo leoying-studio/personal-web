@@ -1,7 +1,5 @@
 ul#panelWrapper
-    - var navs = data.navs;
-    - var navStr = JSON.stringify(navs);
-    li(panel-item-type=0 navs="#{navStr}") 名称
+    li(panel-item-type=0) 名称
       ul
         each nav,navIndex in navs
           - var str = JSON.stringify(nav.categories);
@@ -9,3 +7,4 @@ ul#panelWrapper
             ul
               each category in nav.categories
                 li.category-item(navId="#{nav._id}" categoryId="#{category._id}" panel-item-type=2) #{category.name}   
+  
