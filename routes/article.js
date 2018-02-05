@@ -16,6 +16,7 @@ router.post("/submit", function() {
 	var navId = body.navId;
 	var recommend = body.recommend || false;
 	var categoriesId = body["categoriesId"];
+<<<<<<< HEAD
 	var recommendImg = body.recommendImg; 
 
 	var validate = Validator([
@@ -25,6 +26,12 @@ router.post("/submit", function() {
 	if (!validate.status) {
 		req.flash("error", validate.message);
 		res.redirect("/manager");
+=======
+	var content = body.content;
+
+	if (typeof categoriesId == "string") {
+		categoriesId = [categoriesId];
+>>>>>>> 757cee923f760aa0a6d9692295cbf3274d5a1f45
 	}
 	categoriesId = categoriesId.map(function(id) {
 		return {id};
@@ -168,6 +175,30 @@ router.post("/update", function(req, res) {
 				status: true
 			});
 		}
+	});
+});
+
+router.post("/comment/submit", function (req, res) {
+	var body = req.body;
+	var username = body.username;
+	var content = body.content;
+	var detailId = body.detailId;
+	var fields = {
+		username,
+		content,
+		detailId
+	};
+	new CommentModel(fields).save(function (err, comment) {
+		if (err) {
+			return res.send({
+				status: false,
+				message: "添加失败"
+			});
+		}
+		res.send({
+			status: true,
+			data: {comment}
+		});
 	});
 });
 

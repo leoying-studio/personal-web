@@ -13,7 +13,11 @@ var Scheam = new mongoose.Schema({
 		{ id: { type: 'string' } }
 	],
 	recommend: {type: Boolean, default: false},
+<<<<<<< HEAD
 	recommendImg: {type: String}
+=======
+	content: {type: String}
+>>>>>>> 757cee923f760aa0a6d9692295cbf3274d5a1f45
 });
 
 Scheam.plugin(DBSuper.regNav);
