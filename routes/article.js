@@ -13,7 +13,7 @@ router.post("/submit", function(req, res) {
 	var title = body.title;
 	var img = body.img;
 	var description = body.description;
-	var navId = body.navId;
+	var navId = body.navId;		
 	var recommend = body.recommend || false;
 	var categoriesId = body["categoriesId"] || [];
 	var content = body.content;
