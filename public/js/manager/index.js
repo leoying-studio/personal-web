@@ -34,7 +34,7 @@ define([
 
                 case '2':
                     categoryId = panelItem.attr("categoryId");
-                    getArticleCategory($("#blogCategory"),$(panelItem).siblings().andSelf());
+                    getArticleCategory($("#articleForm #categories"),$(panelItem).siblings().andSelf());
                     $("#navIdInput").val(navId);
                     var url = "/article/data?navId="+navId+ "&categoryId=" + categoryId;
                     var ds = {
@@ -87,7 +87,7 @@ define([
             }
             widget.val(value);
         });
-        getArticleCategory($("#articleUpdateForm #blogCateory"), $(panelItem).siblings().andSelf());
+        getArticleCategory($("#articleUpdateForm #categories"), $(panelItem).siblings().andSelf());
         init.window($("#articleUpdateForm"), "文章项编辑", "800px");
     }
 
@@ -109,6 +109,7 @@ define([
                         break;
     
                     case '2':
+                        getArticleCategory($("#articleForm #categories"), $(panelItem).siblings().andSelf());
                         init.window($("#articleForm"), "添加文章", "900px");
                         break;
                 }
