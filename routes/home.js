@@ -3,8 +3,15 @@ var router = express.Router();
 var HomeProxy = require("./../proxy/home");
 var FooterModel = require("./../models/footer");
 var IntroModel = require("./../models/intro");
+
+router.get("/",function(req, res) {
+	HomeProxy.getAll(function(data) {
+		res.render("index", data);
+	});
+});
+
 /* GET home page. */
-router.get('/', function(req, res) {
+router.get('/manager', function(req, res) {
 	HomeProxy.getAll(function(data) {
 		res.render("manager", data);
 	});

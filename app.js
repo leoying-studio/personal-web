@@ -24,10 +24,9 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, "/public")))
 
 
-var index = require('./routes/index');
 var user = require('./routes/user');
 var nav = require('./routes/nav');
-var manager = require('./routes/manager');
+var home = require('./routes/home');
 var article = require('./routes/article');
 // var detail = require('./routes/detail');
 // var db = require('./db');
@@ -73,8 +72,7 @@ app.use(function (req, res, next) {
 
 // app.use(global_middleware.login);
 
-app.use('/', index);
-app.use('/manager', manager);
+app.use('/', home);
 app.use("/user", user);
 app.use("/nav", nav);
 app.use("/article", article);
