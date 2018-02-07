@@ -10,13 +10,11 @@ define([
         var rightHeight = $(".right-wrapper").eq(0).height();
         var headerHeight = $(".right-header").eq(0).height();
         var gridHeight = rightHeight - headerHeight - 2 + "px";
-        dataSource = {
-             ...dataSource,
-             serverPaging: true,
-             serverFiltering: true,
-             serverSorting: true,
-             pageSize: 10
-        }
+        dataSource = dataSource || {};
+        dataSource.serverPaging = true;
+        dataSource.serverFiltering = true;
+        dataSource.serverSorting = true;
+        dataSource.pageSize = 10;
         var grid = grid.kendoGrid({
             dataSource: new kendo.data.DataSource(dataSource),
             height: gridHeight,

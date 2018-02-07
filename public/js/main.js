@@ -4,7 +4,6 @@ require.config({
          "config": "./manager/config",
          "init": "./common/init",
          "utils": "./common/utils",
-         "navs": "./manager/index"
      },
      shim: {
          "manager": {
@@ -22,6 +21,6 @@ require.config({
     }
 });
 
-require(["manager"], function($) {
+require(["manager"], function(manager) {
 
 });

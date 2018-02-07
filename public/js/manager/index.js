@@ -22,9 +22,7 @@ define([
             panelItemType = panelItem.attr("panel-item-type");
             switch (panelItemType) {
                 case '0':
-                    // navId = panelItem.attr("navId");
-                    // var navs = JSON.parse(panelItem.attr("navs"));
-                    // grid = init.grid(navs, config.columns.navs);
+                    
                     break;
 
                 case '1':
@@ -36,7 +34,7 @@ define([
                     categoryId = panelItem.attr("categoryId");
                     getArticleCategory($("#articleForm #categories"),$(panelItem).siblings().andSelf());
                     $("#navIdInput").val(navId);
-                    var url = "/article/data?navId="+navId+ "&categoryId=" + categoryId;
+                    var url = "/article/data?navId="+navId + "&categoryId=" + categoryId;
                     var ds = {
                         transport: {
                             read: {
@@ -60,7 +58,7 @@ define([
         }
     });
 
-    // 获取分类
+    // 获取文章分类
     var getArticleCategory = function (el, categories) {
         var categoryStr = "";
         $.each(categories, function(index, item) {
@@ -76,6 +74,7 @@ define([
     // 编辑文章
     function editArticle(e) {
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        // 设置编辑器的value值
         var editor = init.editor($("#articleUpdateEditor"));
         editor.value(dataItem.content || "")
         $("#articleUpdateForm").children().each(function(index, child) {
@@ -87,7 +86,18 @@ define([
             }
             widget.val(value);
         });
+        // 编辑的时候先去获取文章类别
         getArticleCategory($("#articleUpdateForm #categories"), $(panelItem).siblings().andSelf());
+        // 根据对比设置选中
+        $("#articleUpdateForm #categories").children().each(function(oIndex, cate) {
+            var id = $(cate).attr("value");
+            dataItem.categoriesId.forEach(function(cateItem, index) {
+                if (id == cateItem.id) {
+                    $(cate).attr("checked", true);
+                }
+            });
+        });
+        $("#articleUpdateForm #articleId").val(dataItem._id);
         init.window($("#articleUpdateForm"), "文章项编辑", "800px");
     }
 

@@ -136,6 +136,7 @@ router.post("/update", function(req, res) {
 	var categoriesId = body["categoriesId"] || [];
 	var content = body.content;
 	var recommendImg = body.recommendImg || "";
+	var articleId = body.articleId;
 	var validate = Validator([
 		{mode: "required", value: title, message: "标题不能为空"},
 		{mode: "required", value: img, message: "缩略图不能为空"},
@@ -146,13 +147,14 @@ router.post("/update", function(req, res) {
 		req.flash("error", validate.message);
 		return res.redirect("/manager");
 	}
-
+	categoriesId = categoriesId.map(function(category) {
+		return {id: category}
+	});
     ArticleModel.update({
 		_id:articleId
 	}, {
 		$set: {
 			title,
-			description,
 			img,
 			description,
 			recommend,
@@ -161,18 +163,11 @@ router.post("/update", function(req, res) {
 			recommendImg
 		}
 	}, function(err , state) {
-		if (err) {
-			return res.send({
-				message: "更新失败",
-				status: false
-			});
-		} 
 		if (state.n > 0) {
-			res.send({
-				message: "更新成功",
-				status: true
-			});
-		}
+			req.flash("success", "更新成功");
+		} 
+		req.flash("success", "更新失败");
+		return res.redirect("/manager");
 	});
 });
 

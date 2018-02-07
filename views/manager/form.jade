@@ -51,7 +51,7 @@ form(id="articleUpdateForm" action="/article/update" method="post").hide
     input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navIdInput")
   div.k-content.form-item
     label 所属分类
-    span#blogCateory
+    span#categories
   div.k-content.form-item
     label(for="" ) 首页推荐
     input(type="checkbox" )
@@ -61,6 +61,9 @@ form(id="articleUpdateForm" action="/article/update" method="post").hide
   div.k-content.form-item
     label 请输入内容
     textarea#articleUpdateEditor(name="content") 
+  div.k-content.form-item
+    label
+    input(id="articleId" class="hide" name="articleId")
   div.k-content.form-item
     button(class='k-button k-default' type='submit') 更新文章
 form.form.hide#categoryForm(method='post' action="/nav/addCategory")
