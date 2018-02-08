@@ -1,6 +1,7 @@
 require.config({
      paths: {
          "manager": "./manager/index",
+         "home": "manager/home",
          "config": "./manager/config",
          "init": "./common/init",
          "utils": "./common/utils",
@@ -21,6 +22,6 @@ require.config({
     }
 });
 
-require(["manager"], function(manager) {
-
+require(["manager", "home"], function(manager) {
+   
 });

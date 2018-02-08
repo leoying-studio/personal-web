@@ -164,8 +164,9 @@ router.post("/update", function(req, res) {
 	}, function(err , state) {
 		if (state.n > 0) {
 			req.flash("success", "更新成功");
-		} 
-		req.flash("success", "更新失败");
+		} else {
+			req.flash("success", "更新失败");
+		}
 		return res.redirect("/manager");
 	});
 });

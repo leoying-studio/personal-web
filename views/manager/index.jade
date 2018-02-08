@@ -27,5 +27,7 @@ html
         div#toolbar
         div#grid.right-content
       include ./form.jade
-
-       
+  - if(error)
+    span#errorNotification #{error.message}
+  - else if(success)
+    span#successNotification #{success.message}
