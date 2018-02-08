@@ -22,18 +22,52 @@ define([
             panelItemType = panelItem.attr("panel-item-type");
             switch (panelItemType) {
                 case '0':
-                    
-                    break;
+                var ds = {
+                    transport: {
+                        read: {
+                            url: "/nav/data",
+                            dataType: 'json',
+                            type: "get",
+                        },
+                        parameterMap: function(option, operation) {
+                            return option;
+                        }
+                    },
+                    batch: true,
+                    schema: {
+                        data: 'data',
+                        total: 'total',
+                    }
+                };
+                grid = init.grid(ds, config.columns.categories());
+                break;
 
                 case '1':
                     navId = panelItem.attr("navId");
-                    grid = init.grid(categories, config.columns.categories());
+                    var url = "/nav/categories/data?navId="+navId;
+                    var ds = {
+                        transport: {
+                            read: {
+                                url: url,
+                                dataType: 'json',
+                                type: "get",
+                            },
+                            parameterMap: function(option, operation) {
+                                return option;
+                            }
+                        },
+                        batch: true,
+                        schema: {
+                            data: 'data',
+                            total: 'total',
+                        }
+                    };
+                    grid = init.grid(ds, config.columns.categories());
                     break;
 
                 case '2':
                     categoryId = panelItem.attr("categoryId");
-                    getArticleCategory($("#articleForm #categories"),$(panelItem).siblings().andSelf());
-                    $("#navIdInput").val(navId);
+                    navId = panelItem.attr("navId");
                     var url = "/article/data?navId="+navId + "&categoryId=" + categoryId;
                     var ds = {
                         transport: {
@@ -52,7 +86,7 @@ define([
                             total: 'total',
                         }
                     };
-                    init.grid(ds, config.columns.articles(null, editArticle));
+                    init.grid(ds, config.columns.articles(destroyArticle, editArticle));
                     break;
             }
         }
@@ -101,6 +135,27 @@ define([
         init.window($("#articleUpdateForm"), "文章项编辑", "800px");
     }
 
+    // 删除文章
+    function destroyArticle(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        if (window.confirm("确定删除吗?")) {
+            $.ajax({
+                url: '/article/delete',
+                dataType: 'json',
+                type: 'post',
+                data: {
+                    articleId: dataItem._id,
+                },
+                success: function(data) {
+                    $('#grid').data("kendoGrid").dataSource.read();
+                },
+                error: function(data) { 
+                    alert(data.msg);
+                }
+            });
+        }
+    }
+
     // toobar 栏
     $("#toolbar").kendoToolBar({
         items: [
@@ -120,6 +175,7 @@ define([
     
                     case '2':
                         getArticleCategory($("#articleForm #categories"), $(panelItem).siblings().andSelf());
+                        $("#navIdInput").val(navId);
                         init.window($("#articleForm"), "添加文章", "900px");
                         break;
                 }

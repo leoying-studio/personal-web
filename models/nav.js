@@ -9,5 +9,7 @@ var Scheam = new mongoose.Schema({
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 
+Scheam.set('toJSON', { getters: true, virtuals: false });
+
 var Nav = mongoose.model('Nav', Scheam);
 module.exports = Nav;

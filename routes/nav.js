@@ -44,6 +44,26 @@ router.post("/submit", function(req, res) {
     });
 });
 
+// 分类查询
+router.get("/categories/data", function(req, res) {
+    NavModel.find({_id: req.query.navId}).lean().then(function(nav) {
+        res.send({
+            data: nav[0].categories,
+            total: nav[0].categories.length
+        });
+    }); 
+});
+
+// 查询导航列表
+router.get("/data", function(req, res) {
+    NavModel.find({}).lean().then(function(nav) {
+        res.send({
+            data: nav,
+            total: nav.length
+        });
+    });
+});
+
 router.post('/category/add', function(req, res) {
 	var body = req.body;
     var navId = body.navId;

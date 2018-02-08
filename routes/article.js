@@ -77,7 +77,6 @@ router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 	});
 }); 
 
-
 // ajax查询文章列表
 router.get("/data",function(req, res)　{
 	var query = req.query;
