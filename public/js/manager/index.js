@@ -14,7 +14,7 @@ define([
     // 导航菜单
     $("#navMenu").kendoMenu({});
 
-    // 左侧panel
+    // 左侧panel, 查询
     $("#panelWrapper").kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
@@ -39,7 +39,7 @@ define([
                         total: 'total',
                     }
                 };
-                grid = init.grid(ds, config.columns.categories());
+                grid = init.grid(ds, config.columns.categories(null, editNav));
                 break;
 
                 case '1':
@@ -62,7 +62,7 @@ define([
                             total: 'total',
                         }
                     };
-                    grid = init.grid(ds, config.columns.categories());
+                    grid = init.grid(ds, config.columns.categories(null, editCategory));
                     break;
 
                 case '2':
@@ -156,6 +156,23 @@ define([
         }
     }
 
+    // 编辑文章类别
+    function editCategory(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        // 把当前行的值操作dom
+        $("#categoryUpdateForm #categoryUpdateInput").val(dataItem.name);
+        $("#categoryUpdateForm #categoryIdUpdateInput").val(dataItem._id);
+        init.window($("#categoryUpdateForm"));
+    }
+
+    // 更新导航
+    function editNav(e) {
+        var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+        $("#navUpdateForm").find("input").eq(0).val(dataItem.name);
+        $("#navUpdateForm").find("input").eq(1).val(dataItem._id);
+        init.window($("#navUpdateForm"));
+    }
+    
     // toobar 栏
     $("#toolbar").kendoToolBar({
         items: [
@@ -170,6 +187,7 @@ define([
                         break;
     
                     case '1':
+                        $("#categoryForm #categoryNavId").val(navId);
                         init.window($("#categoryForm"));
                         break;
     

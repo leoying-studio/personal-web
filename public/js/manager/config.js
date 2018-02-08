@@ -24,11 +24,20 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
     }
 
     // 类别
-    columns.categories = function () {
+    columns.categories = function (destroy, edit) {
         var categories = [
             { field: 'name', title: '类别名称' },
             { field: '_id', title: 'id' },
-            { command: "destroy", title: " ", width: "150px" },
+            {
+                title: '操作', command: [
+                    {
+                        text: '删除', click: destroy || new Function()
+                    },
+                    {
+                        text: '编辑', click: edit || new Function()
+                    }
+                ]
+            }
         ]
         return categories;
     }

@@ -25,17 +25,7 @@ form(action="/article/submit" method='post' id="articleForm" class="hide")
     textarea#articleEditor(name="content") 
   div.k-content.form-item
     button(class='k-button k-default' type='submit') 添加
-//- form( id="detailForm" class="hide")
-//-   div.k-content.form-item
-//-     label 文章标题
-//-     input(type='text' class='k-textbox' name='title' id="article_detail_title")
-//-   div.k-content.form-item
-//-     label 文章标识
-//-     input(type='text' class='k-textbox' name='title' id="article_detail_articleId")
-//-   div.k-content.form-item
-//-     textarea#article-detail-content
-//-   div.k-content.form-item
-//-     button.k-button#article_detail_submit(type='button') 提交
+    //- 文章更新的表单
 form(id="articleUpdateForm" action="/article/update" method="post").hide
   div.k-content.form-item
     label 文章标题
@@ -66,7 +56,8 @@ form(id="articleUpdateForm" action="/article/update" method="post").hide
     input(id="articleId" class="hide" name="articleId")
   div.k-content.form-item
     button(class='k-button k-default' type='submit') 更新文章
-form.form.hide#categoryForm(method='post' action="/nav/addCategory")
+    //- 类别添加的表单
+form.form.hide#categoryForm(method='post' action="/nav/category/add")
   div.form-item
     label 类别名称
     input(type="text" name="name").k-textbox
@@ -75,6 +66,17 @@ form.form.hide#categoryForm(method='post' action="/nav/addCategory")
     input(type="text" name="navId" id="categoryNavId").k-textbox
   div.form-item
     button.k-button#categorySubmit 提交 
+    //- 更新类别的表单
+form.form.hide#categoryUpdateForm(method='post' action="/nav/categoies/update")
+  div.form-item
+    label 类别名称
+    input(type="text" name="name" id="categoryUpdateInput").k-textbox
+  div.form-item
+    label 类别标识
+    input(type="text" name="categoryId" id="categoryIdUpdateInput").k-textbox
+  div.form-item
+    button.k-button(type="submit") 更新 
+  //-  导航提交的表单
 form.nav-form.hide(action="/nav/submit" method='post' id="navForm")
   div.form-item
     label 导航名称: 
@@ -82,5 +84,15 @@ form.nav-form.hide(action="/nav/submit" method='post' id="navForm")
   div.form-item
     label 内容分类: 
     input(type="text" class="k-textbox" name="categories")
+  div.form-item
+    button(type="submit" class="k-button k-default") 确认添加
+//-  导航更新的表单
+form.nav-form.hide(action="/nav/update" method='post' id="navUpdateForm")
+  div.form-item
+    label 导航名称: 
+    input(type="text" class="k-textbox" name="name")
+  div.form-item
+    label 导航标识:
+    input(type="text" class="k-textbox" readonly="readonly" name="navId")
   div.form-item
     button(type="submit" class="k-button k-default") 确认添加
