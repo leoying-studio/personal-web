@@ -23,6 +23,13 @@ require.config({
 });
 
 require(["manager", "home", "init"], function(manager, home, init) {
+    $("#tabStrip").kendoTabStrip({
+        animation:  {
+            open: {
+                effects: "fadeIn"
+            }
+        }
+    });
     if ($("#errorNotification").length > 0) {
         var notification = init.notification('error');
         notification.show({

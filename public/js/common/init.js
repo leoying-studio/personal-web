@@ -9,9 +9,6 @@ define([
             grid.data("kendoGrid").destroy();
             grid.empty();
         }
-        var rightHeight = $(".right-wrapper").eq(0).height();
-        var headerHeight = $(".right-header").eq(0).height();
-        var gridHeight = rightHeight - headerHeight - 2 + "px";
         dataSource = dataSource || {};
         dataSource.serverPaging = true;
         dataSource.serverFiltering = true;
@@ -19,7 +16,7 @@ define([
         dataSource.pageSize = 10;
         var grid = grid.kendoGrid({
             dataSource: new kendo.data.DataSource(dataSource),
-            height: gridHeight,
+            height: '100%',
             scrollable: true,
             resizable: true,
             sortable: true,
