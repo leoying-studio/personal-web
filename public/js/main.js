@@ -22,6 +22,18 @@ require.config({
     }
 });
 
-require(["manager", "home"], function(manager) {
-   
+require(["manager", "home", "init"], function(manager, home, init) {
+    if ($("#errorNotification").length > 0) {
+        var notification = init.notification('error');
+        notification.show({
+            title: $("#errorNotification").attr("message"),
+            message: "发生错误了"
+        }, "error");
+    } else if ($("#successNotification").length > 0) {
+        var notification = init.notification('success');
+        notification.show({
+            title: $("#successNotification").attr("message"),
+            message: "已完成此操作"
+        }, "success");
+    }
 });

@@ -1,3 +1,5 @@
-if error
-  div.error
-    h1 #{error}
+script#errorNotification(message="#{error}" type="text/x-kendo-template")
+  div.notification.error-bg
+    img(src="images/error-icon.png", alt="")
+    h3 #= title #
+    p #= message #

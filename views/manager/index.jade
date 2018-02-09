@@ -27,7 +27,8 @@ html
         div#toolbar
         div#grid.right-content
       include ./form.jade
+    span#notification
   - if(error)
-    span#errorNotification #{error.message}
+    include ./../common/error.jade
   - else if(success)
-    span#successNotification #{success.message}
+    include ./../common/success.jade

@@ -35,8 +35,6 @@ input {
 	background-color: #5cb85c;
 }
 
-
-
 html {
 	font-family: '微软雅黑';
 	body {
@@ -49,6 +47,39 @@ html {
 		}
 	}
  }
+
+.notification {
+	width: 300px;
+	height: 100px;
+	padding: 10px 20px;
+	font-size: 22px;
+	color: white;
+	img {
+		float: left;
+		margin-top: 30px;
+		margin-right: 12px;
+		width: 40px;
+	}
+	h3 {
+		margin: 30px 0 10px 0;
+		font-weight: normal;
+	}
+
+	p {
+		font-size: 16px;
+	}
+ }
+
+ .success-bg {
+	background-color: #4cae4c;
+ }
+
+ .error-bg {
+	background-color: red;
+ }
+
+
+
 
 /* 表单通用样式 */
 form {
