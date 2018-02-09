@@ -3,6 +3,7 @@ var router = express.Router();
 var HomeProxy = require("./../proxy/home");
 var FooterModel = require("./../models/footer");
 var IntroModel = require("./../models/intro");
+var Validator = require("./../utils/validator");
 
 router.get("/",function(req, res) {
 	HomeProxy.getAll(function(data) {
@@ -72,4 +73,17 @@ router.post("/intro/set", function() {
     });
 });
 
+router.get("/intro/data", function(req, res) {
+    IntroModel.find({}, function(err, intros) {
+        if (err) {
+           return res.send({
+                status: false
+           });
+        }
+        res.send({
+            status: true,
+            data: intros
+        });
+    });
+});
 module.exports = router;
