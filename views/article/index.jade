@@ -3,7 +3,7 @@ block content
  section
   div.article-container
    div.article-wrapper.clearfix
-    include ./../components/verticle-item.jade
+    include ./verticle-item.jade
    div.article-paging-wrapper
     - var params = data.params;
      div.paging#articlePaging(navId="#{params.navId}" categoryId="#{params.categoryId}" currentPage="#{params.currentPage}" total="#{data.total}")
