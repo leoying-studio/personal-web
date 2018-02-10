@@ -1,4 +1,4 @@
-define(['require', 'utils'],function (require, utils) {
+define(['require', '../common/utils'],function (require, utils) {
     var columns = {
         articles: [
             { field: "title", title: "标题", width: '100px' },

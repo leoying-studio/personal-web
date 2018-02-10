@@ -19,7 +19,6 @@ define([
             //     filterable: false  
             // }, ...columns];
             dataSource = {
-                 ...dataSource,
                  serverPaging: true,
                  serverFiltering: true,
                  serverSorting: true,

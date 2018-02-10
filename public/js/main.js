@@ -22,6 +22,7 @@ require.config({
     }
 });
 
-require(["manager"], function($) {
 
+require(["./manager/navs"], function () {
+   
 });

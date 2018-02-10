@@ -4,16 +4,16 @@ var Utils = require("./../utils/index");
 
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
-	title: { type: "string" },
-	description: { type: "string" },
+	title: String,
+	description: String,
 	img: { type: "string" },
-	navId: { type: "string" },
+	navId: String,
 	serverTime: { type: String, default: Utils.getTime(new Date(), "s") },
 	categoriesId: [
 		{ id: { type: 'string' } }
 	],
 	recommend: {type: Boolean, default: false},
-	content: {type: String}
+	content: String
 });
 
 Scheam.plugin(DBSuper.regNav);

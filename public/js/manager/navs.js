@@ -1,7 +1,7 @@
 define([
     'require',
-    'init',
-    'config',
+    '../common/init',
+    './config',
 ], function (require, init, config) {
     var panelItemType = 0;
     var navId = null;
