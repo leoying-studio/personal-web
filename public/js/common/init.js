@@ -1,10 +1,9 @@
 
-
 define([
     'require',
 ], function(require) {
-     function grid(dataSource, columns) {
-        var grid = $("#grid");
+     function grid(el, dataSource, columns, toolbar) {
+        var grid = el || $("#grid");
         if (grid.data("kendoGrid")) {
             grid.data("kendoGrid").destroy();
             grid.empty();
@@ -23,6 +22,7 @@ define([
             filterable: true,
             refresh: true, 
             editable: 'inline',  
+            toolbar: toolbar || false,
             pageable: {
                 input: true,
                 numeric: false,

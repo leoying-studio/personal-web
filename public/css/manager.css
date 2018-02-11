@@ -43,3 +43,8 @@
   width: 89.5%;
   height: 100%;
 }
+
+.home-container .k-content {
+  height: 400px;
+  margin-bottom: 25px;
+}

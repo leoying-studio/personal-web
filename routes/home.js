@@ -18,6 +18,21 @@ router.get('/manager', function(req, res) {
 	});
 });
 
+// 获取已推荐的数据
+router.get('/recommended/data', function(req, res) {
+    HomeProxy.getBanners(function(data) {
+        res.send( {
+            status: false,
+            data
+        });
+    });
+});
+
+// 取消推荐
+router.post('/recommend/delete', function() {
+    
+});
+
 router.post("/footer/set", function(req, res) {
 	var body = req.body;
     var background = req.body;
