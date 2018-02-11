@@ -32,38 +32,22 @@ router.get('/recommended/data', function(req, res) {
 // 取消推荐
 router.post('/recommend/delete', function(req, res) {
     ArticleModel.findOne({_id: req.body.articleId}, function(err, article) {
-        // 查询无异常
-        if (!err) {
-            if (article) {
-                ArticleModel.update({
-                    _id: req.body.articleId
-                }, {
-                    $set: {recommend: false}
-                }, function(err, state) {
-                    if (err) {
-                        return res.send({
-                            status: false,
-                            message: "取消推荐失败"
-                        });
-                    }
-                    res.send({
-                        status: true,
-                        message: "ok"
-                    });
-                });
-            } else {
-                res.send({
+        ArticleModel.update({
+            _id: req.body.articleId
+        }, {
+            $set: {recommend: false}
+        }, function(err, state) {
+            if (err) {
+                return res.send({
                     status: false,
-                    message: "没有查询到该文章"
+                    message: "取消推荐失败"
                 });
             }
-        } else {
             res.send({
-                status: false,
-                message: "取消推荐错误"
+                status: true,
+                message: "ok"
             });
-        }
-    });
+        });
 });
 
 router.post("/footer/set", function(req, res) {
