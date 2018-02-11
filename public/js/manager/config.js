@@ -34,7 +34,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
                 {
                     title: '操作', width: '200px', command: [
                         {
-                            text: '取消关注', click: cancel || new Function()
+                            text: '取消推荐', click: cancel || new Function()
                         }
                     ]
                 }

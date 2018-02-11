@@ -49,14 +49,18 @@ define(["init","config"], function(init, config) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		if(window.confirm("确定取消关注?")) {
 			$.ajax({
-				url: "",
+				url: "/recommend/delete",
 				data: {articleId: dataItem._id},
 				dataType: 'json',
-				success: function() {
+				type: 'post',
+				success: function(data) {
+					if (!data.status) {
+						return alert('取消失败');
+					}
 					$('#recommendedGrid').data("kendoGrid").dataSource.read();
 				},
 				error: function() {
-					kendo.alert("取消关注失败");
+					alert("取消失败");
 				}
 			});
 		}

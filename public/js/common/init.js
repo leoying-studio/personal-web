@@ -146,6 +146,8 @@ define([
         return notification;
     }
 
+    
+
      return {
          grid: grid,
          window: window,
