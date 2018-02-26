@@ -83,6 +83,14 @@ html body .container {
   background-color: red;
 }
 
+.height-full {
+  height: 100%;
+}
+
+.screen-full {
+  width: 100%;
+}
+
 /* 表单通用样式 */
 form {
   padding: 15px;

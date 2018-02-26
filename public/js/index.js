@@ -100,7 +100,8 @@ $(document).ready(function() {
               });
          }) ;   
      });
-   
+
+
 
     // 进入文章详情页面
     $(".article-verticle-item").click(function() {

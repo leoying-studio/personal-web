@@ -24,7 +24,14 @@ html
         li 首页
         li 导航
       div.tab-strip-item
-        include ./home.jade
+        div#spliterHome.height-full
+          div#panelHome.left-container
+            ul
+              li 首页推荐
+              li 介绍信息
+              li 当前专题
+          div.right-container
+            include ./home.jade
       div.tab-strip-item.clearfix
         div.left-wrapper#left-wrapper
           include ./tree.jade
