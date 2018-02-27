@@ -5,8 +5,6 @@ var Scheam = new mongoose.Schema({
 	 title:{type: 'string'},
 	 caption:{type: 'string'},
 	 descrption:{type: 'string'},
-	 backTitle: {type: 'string'},
-	 backgrounds: [{background:{type: 'string'}}],
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 

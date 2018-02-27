@@ -5,7 +5,8 @@ var FooterModel = require("./../models/footer");
 var IntroModel = require("./../models/intro");
 var Validator = require("./../utils/validator");
 var ArticleModel = require("./../models/article");
-var Special = require("./../models/special");
+var SpecialModel = require("./../models/special");
+var Validator = require("./../utils/validator");
 
 router.get("/", function (req, res) {
     HomeProxy.getAll(function (data) {
@@ -75,23 +76,10 @@ router.post("/intro/set", function (req, res) {
     var title = query.title
     var caption = query.caption;
     var description = query.description;
-    var backTitle = requeryq.backTitle;
-    var backgrounds = query.backgrounds;
-    try {
-        backgrounds = backgrounds.map(function (background) {
-            return {
-                background
-            }
-        });
-    } catch (e) {
-        backgrounds = [];
-    }
     IntroModel.create({
         title,
         caption,
-        description,
-        backTitle,
-        backgrounds
+        description
     }, function (err, doc) {
         if (err) {
             return reset.send({
@@ -121,23 +109,68 @@ router.get("/intro/data", function (req, res) {
     });
 });
 
-router.post("/special/submit", function(req, res) {
+// 添加主题内容
+router.post("/special/themes/submit", function(req, res) {
     var body = req.body;
-    var themeId = body.id;
+    var id = body.id;
     var photo = body.photo;
-    var title = body.title;
-    Special.create({themeId, photo}, function(err, doc) {
+    var presentation = body.presentation;
+    // 添加到内嵌文档
+    SpecialModel.update({_id: id}, {$push: {themes: {presentation, photo}}}, function(err, doc) {
         if (err) {
-            return reset.send({
+            return  reset.send({
                 message: "添加失败",
                 status: false
-            })
-        } 
+            });
+        }
         res.send({
             status: true,
             data: doc
         });
     });
+});
+
+// 设置主题
+router.post("/special/submit", function(req, res) {
+    var body = req.body;
+    var _id = body.id;
+    var title = body.title;
+    // 首页展示
+    var homeFigure = body.homeFigure;
+    var headline = body.headline;
+    Validator([
+        {mode: "required", value: title, message: "标题不能为空"},
+        {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
+     
+    ]);
+    if (!_id) {
+        SpecialModel.insert({title, homeFigure, headline}, function(err, doc) {
+            if (err) {
+                return res.send({
+                    message: "设置异常",
+                    status: false
+                });
+            }
+            res.send({
+                message: "设置成功",
+                status: doc
+            });
+        });
+    } else {
+        // 更新
+        SpecialModel.update({_id}, {$set: {title, homeFigure, headline}}, function(err, doc) {
+            if (err) {
+                return res.send({
+                    message: "更新异常",
+                    status: false
+                });
+            }
+            res.send({
+                message: "更新成功",
+                status: doc
+            });
+        }); 
+    }
 });
 
 module.exports = router;
