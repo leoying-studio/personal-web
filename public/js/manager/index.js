@@ -203,14 +203,6 @@ define([
         }
     });
 
-    // 初始化spliter
-    var spliter = $("#spliterHome").kendoSplitter({
-        panes: [
-            { collapsible: true, size: '200px' },
-            { collapsible: false }
-        ]
-     });
 
-    // 初始化panel
-    $("#panelHome").kendoPanelBar().data("kendoPanelBar");
+
 });

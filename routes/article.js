@@ -93,6 +93,17 @@ router.get("/data",function(req, res)　{
 	});
 }); 
 
+router.get("/data/all", function(req, res) {
+	var currentPage = req.body.page;
+	ArticleModel.findPaging({currentPage}, {})
+	.then(function(collections) {
+		res.send({
+			status: true,
+			data: collections
+		});
+	});
+});
+
 // 删除
 router.post("/delete", function(req, res) {
 	var body = req.body;

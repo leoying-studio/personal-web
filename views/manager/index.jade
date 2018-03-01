@@ -24,12 +24,11 @@ html
         li 首页
         li 导航
       div.tab-strip-item
-        div#spliterHome.height-full
-          div#panelHome.left-container
-            ul
-              li 首页推荐
-              li 介绍信息
-              li 当前专题
+        div#spliterHome.split-home-container.height-full
+          ul.left-container
+            li(type=0) 首页推荐
+            li(type=1) 介绍信息
+            li(type=2) 当前专题
           div.right-container
             include ./home.jade
       div.tab-strip-item.clearfix

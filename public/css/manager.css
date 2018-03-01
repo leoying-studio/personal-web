@@ -44,6 +44,29 @@
   height: 100%;
 }
 
+.tab-strip-item .split-home-container ul {
+  text-align: center;
+}
+
+.tab-strip-item .split-home-container ul li {
+  height: 45px;
+  line-height: 45px;
+  border-bottom: 2px #e3e3e3 solid;
+  cursor: pointer;
+}
+
+.tab-strip-item .split-home-container ul li:last-child {
+  border-bottom: none;
+}
+
+.tab-strip-item .split-home-container ul .selected {
+  background-color: #e3e3e3;
+}
+
+.tab-strip-item .split-home-container .right-container {
+  padding-left: 12px;
+}
+
 .home-container .k-content {
   height: 400px;
   margin-bottom: 25px;

@@ -41,6 +41,28 @@
         width: 89.5%;
         height: 100%;
     }
+    .split-home-container {
+        ul {
+            text-align: center;
+            li {
+                height: 45px;
+                line-height: 45px;
+                border-bottom: 2px #e3e3e3 solid;
+                cursor: pointer;
+                &:last-child {
+                    border-bottom: none;
+                }
+            }
+
+            .selected {
+                background-color: #e3e3e3;
+            }
+            
+        }
+        .right-container {
+            padding-left: 12px;
+        }
+    }
 }
 
 // home
