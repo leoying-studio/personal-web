@@ -86,6 +86,30 @@ define(["init","config"], function(init, config) {
 		]
 	});
 
+	var configTheme = function() {
+		$("#homeToolBar").kendoToolBar({
+			items: [
+				{
+					template: "<input id='dropdown' style='width: 150px;' />",
+					overflow: "never"
+				}
+			]
+		});
+
+		$("#dropdown").kendoDropDownList({
+			optionLabel: "Paragraph",
+			dataTextField: "text",
+			dataValueField: "value",
+			dataSource: [
+				{ text: "Heading 1", value: 1 },
+				{ text: "Heading 2", value: 2 },
+				{ text: "Heading 3", value: 3 },
+				{ text: "Title", value: 4 },
+				{ text: "Subtitle", value: 5 }
+			]
+		});
+	}
+
 	var loadGrid = function(type) {
 		var grid = $("#homeGrid");
 		switch(type) {
@@ -103,9 +127,13 @@ define(["init","config"], function(init, config) {
 
 			case '2':
 				init.grid(grid, introDS, config.columns.intro(), '介绍信息列表');
-				
+				break;
+			case '3':
+				configTheme();
 		}
 	}
+
+	
 
 	// 左侧菜单切换
 	$("#spliterHome>ul>li").each(function(index, item) {
