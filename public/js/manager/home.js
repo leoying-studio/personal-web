@@ -19,7 +19,6 @@ define(["init","config"], function(init, config) {
 		}
 	};
 	
-
 	// 初始化所有文章列表
 	var articleDS = {
 		transport: {
@@ -37,7 +36,24 @@ define(["init","config"], function(init, config) {
 			data: 'data'
 		}
 	};
-	
+
+	// 介绍信息
+	var introDS = {
+		transport: {
+			read: {
+				url: "/intro/data",
+				dataType: 'json',
+				type: "get",
+			},
+			parameterMap: function(option, operation) {
+				return option;
+			}
+		},
+		batch: true,
+		schema: {
+			data: 'data'
+		}
+	};
 
 
 	// 取消首页推荐
@@ -72,9 +88,6 @@ define(["init","config"], function(init, config) {
 
 	var loadGrid = function(type) {
 		var grid = $("#homeGrid");
-		if (grid.data('kendoGrid')) {
-			grid.data("kendoGrid").destroy();
-		}
 		switch(type) {
 			case '0':
 				init.grid(grid, 
@@ -87,9 +100,12 @@ define(["init","config"], function(init, config) {
 			case '1':
 				init.grid(grid, articleDS, config.columns.articles(), '所有文章列表' );
 				break;
+
+			case '2':
+				init.grid(grid, introDS, config.columns.intro(), '介绍信息列表');
+				
 		}
 	}
-
 
 	// 左侧菜单切换
 	$("#spliterHome>ul>li").each(function(index, item) {

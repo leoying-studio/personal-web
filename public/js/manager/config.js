@@ -77,6 +77,24 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
         return navs;
     }
 
+    // 介绍信息
+    columns.intro = function(destroy, apply) {
+        var func = function() {};
+        var intro = [
+            {field: "title", title: "标题"},
+            {field: "caption", title: "字幕"},
+            {field: "descrption", title: "说明"},
+            {field: "serverTime", title: "添加时间"},
+            {
+                title:'操作', command: [
+                    {text: "删除", click: destroy || func},
+                    {text: '应用', click: apply || func}
+                ]
+            }
+        ];
+        return intro;
+    }
+
     // editor
     var editor = {
         tools: [
