@@ -93,8 +93,9 @@ router.get("/data",function(req, res)　{
 	});
 }); 
 
+//查询所有文章列表
 router.get("/data/all", function(req, res) {
-	var currentPage = req.body.page;
+	var currentPage = req.query.page;
 	ArticleModel.findPaging({currentPage}, {})
 	.then(function(collections) {
 		res.send({

@@ -24,7 +24,7 @@ define(["init","config"], function(init, config) {
 	var articleDS = {
 		transport: {
 			read: {
-				url: "/home/recommended/data",
+				url: "/article/data/all",
 				dataType: 'json',
 				type: "get",
 			},
@@ -70,7 +70,7 @@ define(["init","config"], function(init, config) {
 		]
 	});
 
-	var createGrid = function(type) {
+	var loadGrid = function(type) {
 		var grid = $("#homeGrid");
 		if (grid.data('kendoGrid')) {
 			grid.data("kendoGrid").destroy();
@@ -96,8 +96,7 @@ define(["init","config"], function(init, config) {
 		$(item).on('click', function(e) {
 			$('.selected').removeClass('selected');
 			$(this).addClass('selected');
-			debugger;
-			createGrid($(this).attr('type'));
+			loadGrid($(this).attr('type'));
 		});
 	});
 
