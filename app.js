@@ -24,12 +24,11 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, "/public")))
 
 
-var home = require('./routes/home');
 var user = require('./routes/user');
 var nav = require('./routes/nav');
-var manager = require('./routes/manager');
+var home = require('./routes/home');
 var article = require('./routes/article');
-var article_detail = require('./routes/article_detail');
+// var detail = require('./routes/detail');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
 
@@ -71,16 +70,14 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(global_middleware.login);
+// app.use(global_middleware.login);
 
 app.use('/', home);
-app.use('/manager', manager);
 app.use("/user", user);
 app.use("/nav", nav);
 app.use("/article", article);
-app.use("/article/article_detail", article_detail);
-// app.use("/acticle", acticle);
-// app.use('/users', users);
+// app.use("/article/detail", detail);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

@@ -11,6 +11,7 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.plugin(DBSuper.regFind);
+Scheam.plugin(DBSuper.regNav);
 var Comment = mongoose.model('comment', Scheam);
 
 module.exports = Comment;

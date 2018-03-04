@@ -1,18 +1,42 @@
-define([
-    'require',
-], function(require) {
-     $("#nav-add-banner").click(function () {
-        $("#bannerForm").kendoWindow({
-            width: "500px",
-            title: "添加首页轮播项",
-            visible: false,
-            actions: [
-                "Pin",
-                "Minimize",
-                "Maximize",
-                "Close"
-            ]
-        }).data("kendoWindow").center().open();
-     });
-     
+define(["init","config"], function(init, config) {
+	// var recommendDs = {
+	// 	transport: {
+	// 		read: {
+	// 			url: "/nav/data",
+	// 			dataType: 'json',
+	// 			type: "get",
+	// 		},
+	// 		parameterMap: function(option, operation) {
+	// 			return option;
+	// 		}
+	// 	},
+	// 	batch: true,
+	// 	schema: {
+	// 		data: 'data',
+	// 		total: 'total',
+	// 	}
+	// };
+	// init.grid($("#recommendGrid"));
+
+	// // 初始化intro 
+	// var introDs = {
+	// 	transport: {
+	// 		read: {
+	// 			url: "/nav/data",
+	// 			dataType: 'json',
+	// 			type: "get",
+	// 		},
+	// 		parameterMap: function(option, operation) {
+	// 			return option;
+	// 		}
+	// 	},
+	// 	batch: true,
+	// 	schema: {
+	// 		data: 'data',
+	// 		total: 'total',
+	// 	}
+	// };
+	// init.grid($("#recommendGrid"));
+
+
 });

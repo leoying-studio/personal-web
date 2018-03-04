@@ -18,33 +18,28 @@
         }
     }
 }
-
-.content-wrapper {
+.tab-strip{
     position: absolute;
-    top: 130px;
-    bottom: 0;
+    top: 90px;
     left: 0;
+    bottom: 0;
     right: 0;
+    overflow: auto;
+}
+
+// tab-strip
+.tab-strip-item {
+    height: calc(100% - 90px);
+    overflow: auto;
     .left-wrapper{
-        width: 200px;
+        width: 10%;
         height: 100%;
         float: left;
     }
     .right-wrapper {
-        position: absolute;
-        top: 0;
-        left: 205px;
-        right: 0;
-        bottom: 0;
         float: right;
-        .right-header {
-            // margin-bottom: 2px;
-            // .btn-group {
-            //     li {
-            //         padding: 5px 8px;
-            //     }
-            // }
-        }
+        width: 89.5%;
+        height: 100%;
     }
 }
 

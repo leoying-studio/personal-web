@@ -4,7 +4,6 @@ header.header
      ul.clearfix
       li.nav-item
         a(href="#" id="homePage") 首页
-      - var navs = data.navs;
       each nav in navs
        - var categories = JSON.stringify(nav.categories);
        li.nav-item

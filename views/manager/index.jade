@@ -10,19 +10,30 @@ html
     //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
     //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
     //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.mobile.min.css')
+    //- link(rel='stylesheet', href='/css/reset.css')
+    //- link(rel='stylesheet', href='/css/common.css')
+    //- link(rel='stylesheet', href='/css/manager.css')
     script(src="/lib/jquery/jquery.min.js")
     script(src="/lib/kendo/kendo.all.min.js")
     script(src="/lib/require/require.js" data-main="./../../js/main")
-    
   body
     include ./header.jade
-    include ./nav.jade
-    div.content-wrapper.clearfix
-      div.left-wrapper#left-wrapper
-        include ./left.jade
-      div.right-wrapper
-        div#toolbar
-        div#grid.right-content
-      include ./form.jade
-
-       
+    //- include ./nav.jade
+    div#tabStrip.tab-strip
+      ul
+        li 首页
+        li 导航
+      div.tab-strip-item
+        include ./home.jade
+      div.tab-strip-item.clearfix
+        div.left-wrapper#left-wrapper
+          include ./tree.jade
+        div.right-wrapper
+          div#toolbar
+          div#grid.right-content
+        include ./form.jade
+    span#notification
+  - if(error)
+    include ./../common/error.jade
+  - else if(success)
+    include ./../common/success.jade

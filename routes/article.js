@@ -2,47 +2,38 @@ var express = require('express');
 var router = express.Router();
 var ArticleModel = require("./../models/article");
 var NavModel = require("./../models/nav");
-var ArticleDetailModel = require("./../models/article_detail");
 var CommentModel = require("./../models/comment");
 var Utils = require("./../utils");
+var Validator = require("./../utils/validator");
+var ArticleProxy = require("./../proxy/article");
 
 // 新增
-router.post("/submit", function() {
+router.post("/submit", function(req, res) {
 	var body = req.body;
 	var title = body.title;
 	var img = body.img;
 	var description = body.description;
-	var navId = body.navId;
+	var navId = body.navId;		
 	var recommend = body.recommend || false;
-	var categoriesId = body["categoriesId"];
+	var categoriesId = body["categoriesId"] || [];
 	var content = body.content;
-
+	var recommendImg = body.recommendImg || "";
 	if (typeof categoriesId == "string") {
-		categoriesId = [categoriesId];
+		categoriesId = categoriesId.split(",");
+	}
+	var validate = Validator([
+		{mode: "required", value: title, message: "标题不能为空"},
+		{mode: "required, len", conditions: {min: 10}, value: content, message: "文章内容不能少于十个字符"},
+		{mode: "len", type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: categoriesId}
+	]);
+	if (!validate.status) {
+		req.flash("error", validate.message);
+		return res.redirect("/manager");
 	}
 	categoriesId = categoriesId.map(function(id) {
 		return {id};
 	});
-	try {
-		if (!title) {
-			throw new Error("标题不能为空");
-		}
-		if (!navId) {
-			throw new Error("navId不能为空");
-		}
-		if (!categoriesId) {
-			throw new Error("categoriesId不能为空");
-		}
-		if (!Array.isArray(categoriesId)) {
-			throw new Error("categoriesId必须为数组");
-		}
-		if (!categoriesId.length) {
-			throw new Error("请至少选择一个分类");
-		}
-	}catch(e) {
-		req.flash("error", e.message);
-		res.redirect("/manager");
-	}
+
 	// 开始插入数据
 	var fields = {
 		title,
@@ -50,7 +41,9 @@ router.post("/submit", function() {
 		navId,
 		categoriesId,
 		description,
-		recommend
+		recommend,
+		recommendImg,
+		content
 	};
     new ArticleModel(fields).save(function(err, article) {
 		if (!err) {
@@ -59,180 +52,164 @@ router.post("/submit", function() {
 			return res.redirect("/manager");
 		}
 		req.flash("error", "添加文章列表失败!");
-		res.redirect("manager");
+		res.redirect("/manager");
 	});
 });
 
 // 查询
 router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
-	 var params = req.params;
-	 var navId = params.navId;
-	 var categoryId = params.categoryId;
-	 var currentPage = params.currentPage;
-	 var page = req.query.page;
-	 if (page) {
-		 currentPage = page;
-	 }
-	 try {
-		if (!navId) {
-			throw new Error("navId不存在");
-		} 
-		if (!categoryId) {
-			throw new Error("cateoryId不存在");
-		}
-	} catch(e) {
-		req.flash("error", e.message);
-		res.redirect("/article");
-	}
-
+	var params = req.params;
+	var navId = params.navId;
+	var categoryId = params.categoryId;
+	var currentPage = params.currentPage;
+	var page = req.query.page;
 	var conditions = {
 		 navId,
 		'categoriesId.id': categoryId,
 	};
+	ArticleProxy.list(conditions, currentPage, function(data) {
+		data.params = {
+			navId,
+			categoryId,
+ 			currentPage,
+		};
+		res.render("article/index", data);
+	});
+}); 
 
-	ArticleModel.findPaging({currentPage}, conditions )
-	 .then(function(articles) {
-		 ArticleModel.getNavs().then(function(navs) {
-			 ArticleModel.count(conditions, function(err, total) {
-				   var body = Body({
-						params: {
-							navId,
-							categoryId,
-							currentPage,
-							total
-						},
-						navs,
-						articles
-				   });
-				   //res.send(body);
-				   if (req.session.user == 'admin' && page) {
-					   return res.send(body)
-				   }
-			       res.render('article/index', body);   
-			 });
-		 });
-	 });
+// ajax查询文章列表
+router.get("/data",function(req, res)　{
+	var query = req.query;
+	var navId = query.navId;
+	var categoryId = query.categoryId;
+	var currentPage = Number(query.skip);
+	var page = req.query.page;
+	var conditions = {
+		 navId,
+		'categoriesId.id': categoryId,
+	};
+	ArticleProxy.list(conditions, currentPage, function(data) {
+		res.send(data);
+	});
 }); 
 
 // 删除
 router.post("/delete", function(req, res) {
 	var body = req.body;
-	var navId = body.navId;
-	var categoryId = body.categoryId;
 	var articleId = body.articleId;
-	try {
-		if (!navId) {
-			throw new Error('navId 不能为空');
-		}
-		if (!categoryId) {
-			throw new Error('categoryId 不能为空');
-		}
-		if (!articleId) {
-			throw new Error('articleId 不能为空');
-		}
-	}catch(e) {
-		return res.send(Body({
-			code: 'validate',
-			data: e.message
-		}));
-	}
 
-	var conditions = {
-		navId,
-		'categoriesId.id': categoryId,
-		articleId
-	};
-
-	var articleCondtion = {
-		 navId,
-		'categoriesId.id': categoryId,
-		_id: articleId
-	};
 	// 清除关联数据
 	Promise.all([
-		CommentModel.remove(conditions),
-		ArticleDetailModel.remove(conditions),
-		ArticleModel.remove(articleCondtion)
+		ArticleModel.remove({_id: articleId}),
+		CommentModel.remove({articleId}),
 	]).then( values => {
 		var state = values.every(function(item) {
 			return item.result.ok == 1;
 		});
 		if (state) {
-			res.send(Body(true));
+			res.send({
+				status: true,
+				message: "success"
+			});
 		} else {
-			res.send(Body({
-				code: 'params',
-				msg: '有残留或未删除, 请进行参数检查'
-			}));
+			res.send({
+				status: false,
+				message: "删除错误"
+			});
 		}
 	}).catch(e => {
-		res.render(Body({
-			code: 'unknown'
-		}));
+		res.send({
+			status: false,
+			message: "出现异常"
+		});
 	});
 }); 
 
 // 修改
 router.post("/update", function(req, res) {
 	var body = req.body;
-	var navId = body.navId;
-	var categoryId = body.categoryId;
-	var articleId = body.articleId;
 	var title = body.title;
-	var description = body.description;
 	var img = body.img;
-
-	try {
-		if (!navId) {
-			throw new Error('navId 不能为空');
-		}
-		if (!categoryId) {
-			throw new Error('categoryId 不能为空');
-		}
-		if (!articleId) {
-			throw new Error('articleId 不能为空');
-		}
-	}catch(e) {
-		return res.send(Body({
-			code: 'validate',
-			data: e.message
-		}));
+	var description = body.description;
+	var recommend = body.recommend || false;
+	var categoriesId = body["categoriesId"] || [];
+	var content = body.content;
+	var recommendImg = body.recommendImg || "";
+	var articleId = body.articleId;
+	var validate = Validator([
+		{mode: "required", value: title, message: "标题不能为空"},
+		{mode: "required", value: img, message: "缩略图不能为空"},
+		{mode: "required", value: description, message: "文章说明不能为空"},
+		{mode: "required, len", value: content, message: "文章内容不能少于十个字", conditions: {min: 10}}
+	]);
+	if (!validate.status) {
+		req.flash("error", validate.message);
+		return res.redirect("/manager");
 	}
+	categoriesId = categoriesId.map(function(category) {
+		return {id: category}
+	});
     ArticleModel.update({
-		navId,
-		'categoriesId.id': categoryId,
 		_id:articleId
 	}, {
 		$set: {
 			title,
+			img,
 			description,
-			img
+			recommend,
+			categoriesId,
+			content,
+			recommendImg
 		}
 	}, function(err , state) {
-		if (err) {
-			res.send(Body({
-				code: 'unknown'
-			}));
+		if (state.n > 0) {
+			req.flash("success", "更新成功");
 		} else {
-			if (state.n > 0) {
-				return res.send(Body(true));
-			}
-			res.send(Body({
-				code: 'unknown'
-			}));
+			req.flash("success", "更新失败");
 		}
+		return res.redirect("/manager");
 	});
 });
+
+router.get("/detail/view", function(req, res) {
+	var body = req.body;
+	var articleId = body.articleId;
+	var currentPage = body.currentPage;
+	ArticleProxy.detail({articleId}, currentPage, function(data) {
+		data.params = {
+			articleId,
+			currentPage
+		};
+		res.render("detail", data);
+	});
+});
+
+router.get("/comments", function(req, res) {
+	var body = req.body;
+	var articleId = body.articleId;
+	var currentPage = body.skip;
+	CommentModel.findPaging({articleId}, {currentPage}).then(function(collections) {
+		res.send(collections);
+	});
+});	
 
 router.post("/comment/submit", function (req, res) {
 	var body = req.body;
 	var username = body.username;
 	var content = body.content;
-	var detailId = body.detailId;
+	var articleId = body.articleId;
+	var validate = Validator([
+		{mode: "required", value: username, message: "用户名不能为空"},
+		{mode: "required, len", value: content, message: "评论内容不能少于10个字符", conditions: {min: 10}}
+	]);
+	if (!validate.status) {
+		res.flash("error", validate.message);
+		return res.redirect("article/detail");
+	}
 	var fields = {
 		username,
 		content,
-		detailId
+		articleId
 	};
 	new CommentModel(fields).save(function (err, comment) {
 		if (err) {

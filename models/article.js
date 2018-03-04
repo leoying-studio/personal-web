@@ -7,13 +7,15 @@ var Scheam = new mongoose.Schema({
 	title: String,
 	description: String,
 	img: { type: "string" },
-	navId: String,
+	navId: { type: "string" },
+	articleId: String,
 	serverTime: { type: String, default: Utils.getTime(new Date(), "s") },
 	categoriesId: [
 		{ id: { type: 'string' } }
 	],
 	recommend: {type: Boolean, default: false},
-	content: String
+	recommendImg: String,
+	content: {type: String}
 });
 
 Scheam.plugin(DBSuper.regNav);
