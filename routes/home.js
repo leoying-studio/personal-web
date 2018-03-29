@@ -71,7 +71,7 @@ router.post("/footer/set", function (req, res) {
     });
 });
 
-router.post("/intro/set", function (req, res) {
+router.post("/intro/submit", function (req, res) {
     var body = req.body;
     var title = body.title
     var caption = body.caption;
@@ -93,6 +93,11 @@ router.post("/intro/set", function (req, res) {
             data: doc
         });
     });
+});
+
+// intro  引用
+router.post("/intro/apply", function() {
+
 });
 
 router.get("/intro/data", function (req, res) {

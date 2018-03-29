@@ -95,7 +95,7 @@ define(["init","config"], function(init, config) {
 			debugger;
 			var loading = init.loading();
 			$.ajax({
-				url: "/intro/set",
+				url: "/intro/submit",
 				data:{
 					title: params.title,
 					caption: params.caption,
@@ -117,7 +117,18 @@ define(["init","config"], function(init, config) {
 				}
 			})	
 		},
-		
+		destroyIntro: function() {
+		   if (window.confirm('确定删除吗?')) {
+			  $.ajax({
+				 url: "",
+				 dataType:"json",
+				 data: {},
+				 type: "",
+				 success: function() {},
+				 error: function() {}
+			  });
+		   }
+		}
 	};
 
 	$("#introFormSet button").click(function() {
