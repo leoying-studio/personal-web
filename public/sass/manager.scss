@@ -67,9 +67,18 @@
 
 // home
 .home-container {
-    .k-content {
-        height: 400px;
-        margin-bottom: 25px;
+    .grid {
+       min-height: 500px; 
+    }
+    .home-toolbar {
+        padding: 5px 10px;
+        margin: 8px 0;
+        box-sizing: border-box;
+        border: solid 1px #ccc;
+        background-color: #F5F5F5;
+        .k-button {
+            margin-right: 8px;
+        }
     }
 }
 

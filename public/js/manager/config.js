@@ -83,7 +83,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
         var intro = [
             {field: "title", title: "标题"},
             {field: "caption", title: "字幕"},
-            {field: "descrption", title: "说明"},
+            {field: "description", title: "说明"},
             {field: "serverTime", title: "添加时间"},
             {
                 title:'操作', command: [

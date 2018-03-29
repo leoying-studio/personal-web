@@ -72,10 +72,10 @@ router.post("/footer/set", function (req, res) {
 });
 
 router.post("/intro/set", function (req, res) {
-    var query = query.query;
-    var title = query.title
-    var caption = query.caption;
-    var description = query.description;
+    var body = req.body;
+    var title = body.title
+    var caption = body.caption;
+    var description = body.description;
     IntroModel.create({
         title,
         caption,

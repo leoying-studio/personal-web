@@ -22,9 +22,10 @@ html
       ul
         li 首页
         li 导航
-      include ./home.jade
-      include ./nav.jade
-    span#notification
+      include ./home/index.jade
+      include ./nav/index.jade
+    include ./../common/dialog.jade
+    include ./../common/loading.jade
   - if(error)
     include ./../common/error.jade
   - else if(success)

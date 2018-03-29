@@ -146,12 +146,32 @@ define([
         return notification;
     }
 
-    
+    // 弹窗模型
+    function dialog(title, content) {
+        var dialog = $('#dialog').kendoDialog({
+            title: title,
+            width: "400px",
+            content: "<p>"+content || title +"<p>"
+        });
+        return dialog;
+    }
+
+    // loading
+    function loading() {
+        $("#loading").show(0);
+        return {
+            close: function() {
+                $("#loading").hide();
+            }
+        };
+    }
 
      return {
          grid: grid,
          window: window,
          editor: editor,
-         notification: notification
+         notification: notification,
+         dialog: dialog,
+         loading: loading
      };
 });

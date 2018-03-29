@@ -1,6 +1,5 @@
-
-
 define(["init","config"], function(init, config) {
+	var types = 0;
 	//  初始化推荐文章
 	var recommendedDS = {
 		transport: {
@@ -86,29 +85,67 @@ define(["init","config"], function(init, config) {
 		]
 	});
 
-	var configTheme = function() {
-		$("#homeToolBar").kendoToolBar({
-			items: [
-				{
-					template: "<input id='dropdown' style='width: 150px;' />",
-					overflow: "never"
+	
+	$("#homeToolBar > select").kendoDropDownList({});
+
+
+	// 接口请求列表项目
+	var request = {
+		setIntro: function(params) {
+			debugger;
+			var loading = init.loading();
+			$.ajax({
+				url: "/intro/set",
+				data:{
+					title: params.title,
+					caption: params.caption,
+					description: params.description
+				},
+				dataType: 'json',
+				type: 'post',
+				success: function(res) {
+					loading.close();
+					if (res.status) {
+						init.dialog("添加完成");
+						$("#homeGrid").data("kendoGrid").dataSource.read();
+					} else {
+						init.dialog("添加失败")
+					}
+				},
+				error: function() {
+					init.dialog("请求发生错误!")
 				}
-			]
+			})	
+		},
+		
+	};
+
+	$("#introFormSet button").click(function() {
+		debugger;
+		var params = {};
+		$("#introFormSet > .form-item").each(function(index, item) {
+			if (index == $("#introFormSet > .form-item").length - 1) return;
+			var key = $(item).children().eq(1).attr("name");
+			var value = $(item).children().eq(1).val();
+			params[key] = value;
 		});
 
-		$("#dropdown").kendoDropDownList({
-			optionLabel: "Paragraph",
-			dataTextField: "text",
-			dataValueField: "value",
-			dataSource: [
-				{ text: "Heading 1", value: 1 },
-				{ text: "Heading 2", value: 2 },
-				{ text: "Heading 3", value: 3 },
-				{ text: "Title", value: 4 },
-				{ text: "Subtitle", value: 5 }
-			]
-		});
-	}
+		request.setIntro(params);
+	});
+
+	$("#homeToolBar button").click(function() {
+		 switch(type) {
+			 case '0':
+				 break;
+			case '1':
+				break;
+			case '2':
+				init.window($("#introFormSet"), "设置介绍信息", "400px")
+				break;
+			case '3':
+				break;
+		 }
+	});
 
 	var loadGrid = function(type) {
 		var grid = $("#homeGrid");
@@ -129,7 +166,7 @@ define(["init","config"], function(init, config) {
 				init.grid(grid, introDS, config.columns.intro(), '介绍信息列表');
 				break;
 			case '3':
-				configTheme();
+				// configTheme();
 		}
 	}
 
@@ -140,7 +177,8 @@ define(["init","config"], function(init, config) {
 		$(item).on('click', function(e) {
 			$('.selected').removeClass('selected');
 			$(this).addClass('selected');
-			loadGrid($(this).attr('type'));
+			type = $(this).attr('type');
+			loadGrid(type);
 		});
 	});
 

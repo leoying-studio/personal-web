@@ -4,7 +4,7 @@ var Utils = require("./../utils/index");
 var Scheam = new mongoose.Schema({
 	 title:{type: 'string'},
 	 caption:{type: 'string'},
-	 descrption:{type: 'string'},
+	 description:{type: 'string'},
 	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
 });
 
