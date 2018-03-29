@@ -105,8 +105,7 @@ define(["init","config"], function(init, config) {
 				type: 'post',
 				success: function(res) {
 					loading.close();
-					if (res.status) {
-						init.dialog("添加完成");
+					if (res.data.status) {
 						$("#homeGrid").data("kendoGrid").dataSource.read();
 					} else {
 						init.dialog("添加失败")
@@ -128,11 +127,30 @@ define(["init","config"], function(init, config) {
 				 error: function() {}
 			  });
 		   }
+		},
+		introApply: function(id) {
+			if (window.confirm('确定应用该介绍吗?')) {
+				var laoding = init.loading();
+				$.ajax({
+				   url: "/intro/apply",
+				   dataType:"json",
+				   data: {id:id},
+				   type: "post",
+				   success: function(res) {
+					  if (res.status) {
+						return laoding.close();
+					  }
+					  init.dialog("应用失败");
+				   },
+				   error: function() {
+					  init.dialog("应用失败!");
+				   }
+				});
+			 }
 		}
 	};
 
 	$("#introFormSet button").click(function() {
-		debugger;
 		var params = {};
 		$("#introFormSet > .form-item").each(function(index, item) {
 			if (index == $("#introFormSet > .form-item").length - 1) return;
@@ -143,6 +161,12 @@ define(["init","config"], function(init, config) {
 
 		request.setIntro(params);
 	});
+
+	var applyIntro = function(e) {
+		debugger;
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		request.introApply(dataItem._id);
+	}
 
 	$("#homeToolBar button").click(function() {
 		 switch(type) {
@@ -174,7 +198,7 @@ define(["init","config"], function(init, config) {
 				break;
 
 			case '2':
-				init.grid(grid, introDS, config.columns.intro(), '介绍信息列表');
+				init.grid(grid, introDS, config.columns.intro(null, applyIntro), '介绍信息列表');
 				break;
 			case '3':
 				// configTheme();

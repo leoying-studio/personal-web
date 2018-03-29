@@ -96,8 +96,55 @@ router.post("/intro/submit", function (req, res) {
 });
 
 // intro  引用
-router.post("/intro/apply", function() {
+router.post("/intro/apply", function(req, res) {
+    IntroModel.findOne({apply: true}, function(err, doc) {
+        if (err) {
+            return res.send({
+                status: false,
+                msg: "查询异常"
+            });
+        }
+        if (doc) {
+            var _id =  doc.toJSON()._id;
+            var id = _id.toJSON();
+            IntroModel.update({_id: id}, {$set: {apply: false}}, function(err, doc) {
+                if (err) {
+                    return res.send({
+                        status: false,
+                        msg: "应用异常"
+                    });
+                }
+                IntroModel.update({_id: req.body.id}, {apply: true}, function(err, state) {
+                    if (err || state.n == 0) {
+                        return res.send({
+                            status: false,
+                            msg: "应用异常"
+                        });
+                    }
+                    res.send({
+                        status: true,
+                        data: doc,
+                        msg: "ok"
+                    });
+                });
+            });
+        } else {
+            IntroModel.update({_id: req.body.id}, {apply: true}, function(err, state) {
+                if (err || state.n == 0) {
+                    return res.send({
+                        status: false,
+                        msg: "应用异常"
+                    });
+                }
 
+                res.send({
+                    status: true,
+                    msg: "ok"
+                });
+                
+            });
+        }
+    });
 });
 
 router.get("/intro/data", function (req, res) {
