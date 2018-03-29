@@ -17,28 +17,13 @@ html
     script(src="/lib/kendo/kendo.all.min.js")
     script(src="/lib/require/require.js" data-main="./../../js/main")
   body
-    include ./header.jade
-    //- include ./nav.jade
+    //- include ./header.jade
     div#tabStrip.tab-strip
       ul
         li 首页
         li 导航
-      div.tab-strip-item
-        div#spliterHome.split-home-container.height-full
-          ul.left-container
-            li(type=0) 推荐
-            li(type=1) 文章
-            li(type=2) 介绍
-            li(type=3) 专题
-          div.right-container
-            include ./home.jade
-      div.tab-strip-item.clearfix
-        div.left-wrapper#left-wrapper
-          include ./tree.jade
-        div.right-wrapper
-          div#toolbar
-          div#grid.right-content
-        include ./form.jade
+      include ./home.jade
+      include ./nav.jade
     span#notification
   - if(error)
     include ./../common/error.jade

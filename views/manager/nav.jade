@@ -1,4 +1,7 @@
-nav.nav
-  ul#navMenu
-    li#navItemHome 首页
-    li#navItemNav 导航
+div.tab-strip-item.clearfix
+  div.left-wrapper#left-wrapper
+    include ./tree.jade
+  div.right-wrapper
+    div#toolbar
+    div#grid.right-content
+  include ./form.jade

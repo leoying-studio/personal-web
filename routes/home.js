@@ -141,8 +141,8 @@ router.post("/special/submit", function(req, res) {
     Validator([
         {mode: "required", value: title, message: "标题不能为空"},
         {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
-     
     ]);
+    // 接口存在id就进行添加
     if (!_id) {
         SpecialModel.insert({title, homeFigure, headline}, function(err, doc) {
             if (err) {

@@ -16,7 +16,7 @@ exports.getBanners = function(callback) {
         recommend: true
     }).sort({"serverTime": 1}).limit(7).lean().then(function(data) {
         if (data.length === 0) {
-            return ArticleModel.find({}).sort({"serverTime": 1}).limit(7).lean().then(function(data) {
+            ArticleModel.find({}).sort({"serverTime": 1}).limit(7).lean().then(function(data) {
                 callback(data);
             });
         } 
