@@ -26,16 +26,48 @@
     right: 0;
     overflow: auto;
   .tab-strip-item {
-    height: calc(100% - 90px);
+    height: calc(100% - 95px);
     overflow: auto;
     &:nth-child(2) {
         .wrapper {
             height: 100%;
-            .left-container{
+            .right-container {
+                width: 90%;
+                height: 100%;
+                padding:0 12px;
+                box-sizing: border-box;
+                .tool-bar {
+                    padding: 5px 10px;
+                    margin: 8px 0;
+                    box-sizing: border-box;
+                    border: solid 1px #ccc;
+                    background-color: #F5F5F5;
+                    .select-text {
+                        padding:0  8px;
+                    }
+                }
+                .grid {
+                    min-height: 400px;
+                    max-height: 600px;
+                    max-width: 100%;
+                }
+                .special-wrapper {
+                    padding: 8px 0;
+                    .tool-bar {
+
+                    }
+                    .grid {
+                        min-height: 400px;
+                    }
+                }
+            }
+            .left-container {
                 width: 10%;
                 height: 100%;
-                float: left;
                 text-align: center;
+                .selected {
+                    background-color: #e3e3e3;
+                }
                 li {
                     height: 45px;
                     line-height: 45px;
@@ -45,117 +77,8 @@
                         border-bottom: none;
                     }
             }
-            .selected {
-                background-color: #e3e3e3;
-            }
-            .right-container {
-                float: right;
-                width: 90%;
-                height: 100%;
-                padding-left: 12px;
-                box-sizing: border-box;
-            }
         }
     }
   }
 }
-    // tab-strip first-tab
-//   .tab-strip-item:nth-child(1) {
-
-//     .wrapper {
-//         background: red;
-//         .left-container{
-//             width: 10%;
-//             height: 100%;
-//             float: left;
-//         }
-//         .right-container {
-//             float: right;
-//             width: 89.5%;
-//             height: 100%;
-//         }
-//     }
-
-      
-
-        // .split-home-container {
-        //     ul {
-        //         text-align: center;
-        //         li {
-        //             height: 45px;
-        //             line-height: 45px;
-        //             border-bottom: 2px #e3e3e3 solid;
-        //             cursor: pointer;
-        //             &:last-child {
-        //                 border-bottom: none;
-        //             }
-        //         }
-
-        //         .selected {
-        //             background-color: #e3e3e3;
-        //         }
-                
-        //     }
-        //     .right-container {
-        //         padding-left: 12px;
-        //     }
-        // }
-    
-
 }
-
-// // tab-strip
-// .tab-strip-item {
-//     height: calc(100% - 90px);
-//     overflow: auto;
-//     .left-wrapper{
-//         width: 10%;
-//         height: 100%;
-//         float: left;
-//     }
-//     .right-wrapper {
-//         float: right;
-//         width: 89.5%;
-//         height: 100%;
-//     }
-//     .split-home-container {
-//         ul {
-//             text-align: center;
-//             li {
-//                 height: 45px;
-//                 line-height: 45px;
-//                 border-bottom: 2px #e3e3e3 solid;
-//                 cursor: pointer;
-//                 &:last-child {
-//                     border-bottom: none;
-//                 }
-//             }
-
-//             .selected {
-//                 background-color: #e3e3e3;
-//             }
-            
-//         }
-//         .right-container {
-//             padding-left: 12px;
-//         }
-//     }
-// }
-
-// home
-
-// .home-container {
-//     .grid {
-//        min-height: 500px; 
-//     }
-//     .home-toolbar {
-//         padding: 5px 10px;
-//         margin: 8px 0;
-//         box-sizing: border-box;
-//         border: solid 1px #ccc;
-//         background-color: #F5F5F5;
-//         .k-button {
-//             margin-right: 8px;
-//         }
-//     }
-// }

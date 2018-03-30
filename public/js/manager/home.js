@@ -85,10 +85,6 @@ define(["init","config"], function(init, config) {
 		]
 	});
 
-	
-	$("#homeToolBar > select").kendoDropDownList({});
-
-
 	// 接口请求列表项目
 	var request = {
 		setIntro: function(params) {
@@ -194,7 +190,7 @@ define(["init","config"], function(init, config) {
 		return params;
 	}
 
-	$("#introFormSet button").click(function() {
+	$(".tab-strip-item:first .right-container button").eq(0).click(function() {
 		var params = getParams($("#introFormSet > .form-item"));
 		request.setIntro(params);
 	});
@@ -226,9 +222,8 @@ define(["init","config"], function(init, config) {
 	// 获取最新的主题
 	var getNewSpecial = function() {
 		request.getNewSpecial(function(res) {
-			debugger;
 			if (res.status) {
-				var select = $("#homeToolBar .select").eq(0);
+				var select =  $(".tab-strip-item:first").find(".select:first");
 				select.empty();
 				var str = "";
 				$(res.data).each(function(index, item) {
@@ -244,7 +239,7 @@ define(["init","config"], function(init, config) {
 		});
 	}
 
-	$("#homeToolBar button").click(function() {
+	$(".tab-strip-item:first .right-container .tool-bar:first button").eq(0).click(function() {
 		 switch(type) {
 			 case '0':
 				 break;
@@ -260,20 +255,8 @@ define(["init","config"], function(init, config) {
 	});
 
 	var loadGrid = function(type) {
-		var grid = $("#homeGrid");
+		var grid = $(".tab-strip-item:first").find(".grid").eq(0);
 		switch(type) {
-			case '0':
-				init.grid(grid, 
-					recommendedDS, 
-					config.columns.homeRecommend(cancelRecommend), 
-					'已推荐到首页'
-				);
-				break;
-
-			case '1':
-				init.grid(grid, articleDS, config.columns.articles(), '所有文章列表' );
-				break;
-
 			case '2':
 				init.grid(grid, introDS, config.columns.intro(destroyIntro, applyIntro), '介绍信息列表');
 				break;
