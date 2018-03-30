@@ -27,58 +27,41 @@
   overflow: auto;
 }
 
-.tab-strip-item {
+.tab-strip .tab-strip-item {
   height: calc(100% - 90px);
   overflow: auto;
 }
 
-.tab-strip-item .left-wrapper {
+.tab-strip .tab-strip-item:nth-child(2) .wrapper {
+  height: 100%;
+}
+
+.tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container {
   width: 10%;
   height: 100%;
   float: left;
-}
-
-.tab-strip-item .right-wrapper {
-  float: right;
-  width: 89.5%;
-  height: 100%;
-}
-
-.tab-strip-item .split-home-container ul {
   text-align: center;
 }
 
-.tab-strip-item .split-home-container ul li {
+.tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container li {
   height: 45px;
   line-height: 45px;
   border-bottom: 2px #e3e3e3 solid;
   cursor: pointer;
 }
 
-.tab-strip-item .split-home-container ul li:last-child {
+.tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container li:last-child {
   border-bottom: none;
 }
 
-.tab-strip-item .split-home-container ul .selected {
+.tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container .selected {
   background-color: #e3e3e3;
 }
 
-.tab-strip-item .split-home-container .right-container {
+.tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container .right-container {
+  float: right;
+  width: 90%;
+  height: 100%;
   padding-left: 12px;
-}
-
-.home-container .grid {
-  min-height: 500px;
-}
-
-.home-container .home-toolbar {
-  padding: 5px 10px;
-  margin: 8px 0;
   box-sizing: border-box;
-  border: solid 1px #ccc;
-  background-color: #F5F5F5;
-}
-
-.home-container .home-toolbar .k-button {
-  margin-right: 8px;
 }

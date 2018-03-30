@@ -78,7 +78,7 @@ define(["init","config"], function(init, config) {
 	// }
 
 	// 初始化spliter
-	var spliter = $("#spliterHome").kendoSplitter({
+	var spliter = $(".tab-strip-item").eq(0).find(".wrapper").eq(0).kendoSplitter({
 		panes: [
 			{ collapsible: true, size: '200px' },
 			{ collapsible: false }
@@ -286,7 +286,7 @@ define(["init","config"], function(init, config) {
 
 	
 	// 左侧菜单切换
-	$("#spliterHome>ul>li").each(function(index, item) {
+	$(".tab-strip-item").eq(0).find("ul > li").each(function(index, item) {
 		$(item).on('click', function(e) {
 			$('.selected').removeClass('selected');
 			$(this).addClass('selected');

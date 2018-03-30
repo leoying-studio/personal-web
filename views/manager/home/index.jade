@@ -1,15 +1,15 @@
 div.tab-strip-item
-  div#spliterHome.split-home-container.height-full
+  div.wrapper.clearfix
     ul.left-container
-      //- li(type=0) 推荐
-      //- li(type=1) 文章
       li(type=2) 介绍
       li(type=3) 专题
     div.right-container
-      div#home.home-container
-          div#homeToolBar.home-toolbar
-            span.btn-wrapper
-              button.k-button.k-primary 新增
-            select.select
-          div#homeGrid.grid
+      div.tool-bar
+        span.btn-wrapper
+          button.k-button.k-primary 新增
+        select.select
+      div.grid
+      div.special-wrapper
+        div.tool-bar
+        div#grid
 include ./form.jade
