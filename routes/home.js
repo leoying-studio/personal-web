@@ -31,28 +31,6 @@ router.get('/recommended/data', function (req, res) {
     });
 });
 
-// 取消推荐
-router.post('/recommend/delete', function (req, res) {
-    ArticleModel.findOne({ _id: req.body.articleId }, function (err, article) {
-        ArticleModel.update({
-            _id: req.body.articleId
-        }, {
-                $set: { recommend: false }
-            }, function (err, state) {
-                if (err) {
-                    return res.send({
-                        status: false,
-                        message: "取消推荐失败"
-                    });
-                }
-                res.send({
-                    status: true,
-                    message: "ok"
-                });
-            });
-    });
-});
-
 router.post("/footer/set", function (req, res) {
     var body = req.body;
     var background = req.body;
@@ -136,16 +114,37 @@ router.post("/intro/apply", function(req, res) {
                         msg: "应用异常"
                     });
                 }
-
                 res.send({
                     status: true,
                     msg: "ok"
                 });
-                
             });
         }
     });
 });
+
+// 消灭这条推荐数据
+router.post("/intro/destory", function(req, res) {
+    IntroModel.remove({_id: req.body.id}, function(err, state) {
+        if (err) {
+            return res.send({
+                status: false,
+                msg: "删除异常" 
+            });
+        } 
+        if (state.result.n > 0) {
+            res.send({
+                status: true,
+                msg: "删除成功!"
+            });
+        } else {
+            res.send({
+                status: false,
+                msg: "删除失败!"
+            });
+        }
+    });
+}); 
 
 router.get("/intro/data", function (req, res) {
     IntroModel.find({}, function (err, intros) {
@@ -182,6 +181,47 @@ router.post("/special/themes/submit", function(req, res) {
     });
 });
 
+// 获取专题详情内容, 查询所有
+router.get("/special/themes/data", function(req, res) {
+    SpecialModel.find({_id: req.body.id}).lean().then(function(doc) {
+        res.send({
+            status: true,
+            data: doc.themes,
+            msg: "ok"
+        });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            data: err,
+            msg: "查询异常"
+        });
+    });
+});
+
+// 后端管理接口, 分页查询
+router.get("/special/data", function(req, res) {
+    var query = req.query;
+    var currentPage = query.page;
+    var pageSize = req.query.pageSize;
+    var params = {currentPage, pageSize};
+    if (!pageSize) {
+        params.pageSize = 4;
+        params.currentPage = 1;
+    }
+    // 如果没传参，就去查询最后的四条数据
+    SpecialModel.findPaging(params, {}).then(function(d) {
+        res.send({
+            status: true,
+            data: d
+        });
+    }).catch(function(e) {
+        res.send({
+            status: false,
+            msg: "查询异常"
+        });
+    });
+});
+
 // 设置主题
 router.post("/special/submit", function(req, res) {
     var body = req.body;
@@ -190,13 +230,19 @@ router.post("/special/submit", function(req, res) {
     // 首页展示
     var homeFigure = body.homeFigure;
     var headline = body.headline;
-    Validator([
+    var validate = Validator([
         {mode: "required", value: title, message: "标题不能为空"},
         {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
     ]);
+    if(!validate.status) {
+        res.send({
+            status: false,
+            msg: validate.msg
+        });
+    }
     // 接口存在id就进行添加
     if (!_id) {
-        SpecialModel.insert({title, homeFigure, headline}, function(err, doc) {
+        SpecialModel.create({title, homeFigure, headline}, function(err, doc) {
             if (err) {
                 return res.send({
                     message: "设置异常",
@@ -204,9 +250,14 @@ router.post("/special/submit", function(req, res) {
                 });
             }
             res.send({
-                message: "设置成功",
-                status: doc
+                message: "添加成功",
+                status: true
             });
+        }).catch(function(e) {
+            res.send({
+                status: false,
+                msg: "新增异常"
+            })
         });
     } else {
         // 更新

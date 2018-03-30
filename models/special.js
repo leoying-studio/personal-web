@@ -13,6 +13,7 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.plugin(DBSuper.regNav);
-
+Scheam.plugin(DBSuper.regFind);
 var User = mongoose.model('special ', Scheam);
+
 module.exports = User;

@@ -1,41 +1,23 @@
 define(["init","config"], function(init, config) {
 	var types = 0;
 	//  初始化推荐文章
-	var recommendedDS = {
-		transport: {
-			read: {
-				url: "/recommended/data",
-				dataType: 'json',
-				type: "get",
-			},
-			parameterMap: function(option, operation) {
-				return option;
-			}
-		},
-		batch: true,
-		schema: {
-			data: 'data'
-		}
-	};
+	// var recommendedDS = {
+	// 	transport: {
+	// 		read: {
+	// 			url: "/recommended/data",
+	// 			dataType: 'json',
+	// 			type: "get",
+	// 		},
+	// 		parameterMap: function(option, operation) {
+	// 			return option;
+	// 		}
+	// 	},
+	// 	batch: true,
+	// 	schema: {
+	// 		data: 'data'
+	// 	}
+	// };
 	
-	// 初始化所有文章列表
-	var articleDS = {
-		transport: {
-			read: {
-				url: "/article/data/all",
-				dataType: 'json',
-				type: "get",
-			},
-			parameterMap: function(option, operation) {
-				return option;
-			}
-		},
-		batch: true,
-		schema: {
-			data: 'data'
-		}
-	};
-
 	// 介绍信息
 	var introDS = {
 		transport: {
@@ -55,27 +37,45 @@ define(["init","config"], function(init, config) {
 	};
 
 
-	// 取消首页推荐
-	function cancelRecommend(e) {
-		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-		if(window.confirm("确定取消关注?")) {
-			$.ajax({
-				url: "/recommend/delete",
-				data: {articleId: dataItem._id},
+	var specialDS = {
+		transport: {
+			read: {
+				url: "/special/data",
 				dataType: 'json',
-				type: 'post',
-				success: function(data) {
-					if (!data.status) {
-						return alert('取消失败');
-					}
-					$('#recommendedGrid').data("kendoGrid").dataSource.read();
-				},
-				error: function() {
-					alert("取消失败");
-				}
-			});
+				type: "get",
+			},
+			parameterMap: function(option, operation) {
+				return option;
+			}
+		},
+		batch: true,
+		schema: {
+			data: 'data'
 		}
-	}
+	};
+
+
+	// 取消首页推荐
+	// function cancelRecommend(e) {
+	// 	var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+	// 	if(window.confirm("确定取消关注?")) {
+	// 		$.ajax({
+	// 			url: "/recommend/delete",
+	// 			data: {articleId: dataItem._id},
+	// 			dataType: 'json',
+	// 			type: 'post',
+	// 			success: function(data) {
+	// 				if (!data.status) {
+	// 					return alert('取消失败');
+	// 				}
+	// 				$('#recommendedGrid').data("kendoGrid").dataSource.read();
+	// 			},
+	// 			error: function() {
+	// 				alert("取消失败");
+	// 			}
+	// 		});
+	// 	}
+	// }
 
 	// 初始化spliter
 	var spliter = $("#spliterHome").kendoSplitter({
@@ -92,7 +92,6 @@ define(["init","config"], function(init, config) {
 	// 接口请求列表项目
 	var request = {
 		setIntro: function(params) {
-			debugger;
 			var loading = init.loading();
 			$.ajax({
 				url: "/intro/submit",
@@ -116,15 +115,22 @@ define(["init","config"], function(init, config) {
 				}
 			})	
 		},
-		destroyIntro: function() {
+		destroyIntro: function(id) {
 		   if (window.confirm('确定删除吗?')) {
 			  $.ajax({
-				 url: "",
+				 url: "/intro/destory",
 				 dataType:"json",
-				 data: {},
-				 type: "",
-				 success: function() {},
-				 error: function() {}
+				 data: {
+					id: id
+				 },
+				 type: "post",
+				 success: function(res) {
+					$("#homeGrid").data("kendoGrid").dataSource.read();
+					alert("success");
+				 },
+				 error: function() {
+					alert("请求失败");
+				 }
 			  });
 		   }
 		},
@@ -147,25 +153,95 @@ define(["init","config"], function(init, config) {
 				   }
 				});
 			 }
+		},
+		submitSpecial: function(params, succ) {
+			$.ajax({
+				url: "/special/submit",
+				data:{
+					title: params.title,
+					headline: params.headline,
+					homeFigure: params.homeFigure
+				},
+				dataType: "json",
+				type: "post",
+				success: succ,
+				error: function() {
+					alert("请求错误");
+				}
+			});
+		},
+		getNewSpecial: function(succ) {
+			$.ajax({
+				url: "/special/data",
+				dataType: "json",
+				type: "get",
+				success: succ,
+				error: function() {
+					alert("请求错误");
+				}
+			});
 		}
 	};
 
-	$("#introFormSet button").click(function() {
+	function getParams(el) {
 		var params = {};
-		$("#introFormSet > .form-item").each(function(index, item) {
-			if (index == $("#introFormSet > .form-item").length - 1) return;
+		el.each(function(index, item) {
+			if (index === el.length - 1) return;
 			var key = $(item).children().eq(1).attr("name");
 			var value = $(item).children().eq(1).val();
 			params[key] = value;
 		});
+		return params;
+	}
 
+	$("#introFormSet button").click(function() {
+		var params = getParams($("#introFormSet > .form-item"));
 		request.setIntro(params);
 	});
 
+	// 添加专题信息
+	$("#specialFormAdd button").click(function() {
+		var params = getParams($("#specialFormAdd > .form-item"));
+		request.submitSpecial(params, function(res) {
+			if (res.status) {
+				alert("添加成功");
+			} else {
+				alert("添加失败");
+			}
+		});
+	});
+
+	// 应用
 	var applyIntro = function(e) {
-		debugger;
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		request.introApply(dataItem._id);
+	}
+
+	// 消灭
+	var destroyIntro = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		request.destroyIntro(dataItem._id);
+	}
+
+	// 获取最新的主题
+	var getNewSpecial = function() {
+		request.getNewSpecial(function(res) {
+			debugger;
+			if (res.status) {
+				var select = $("#homeToolBar .select").eq(0);
+				select.empty();
+				var str = "";
+				$(res.data).each(function(index, item) {
+					str += "<option>"+item.title+"</option>";
+				});
+				var newSelect = $("<select class='select'></select>").append(str);
+				select.after(newSelect);
+				select.next().kendoDropDownList({});
+				select.remove();
+			} else {
+				alert("获取最新主题失败!");
+			}
+		});
 	}
 
 	$("#homeToolBar button").click(function() {
@@ -178,6 +254,7 @@ define(["init","config"], function(init, config) {
 				init.window($("#introFormSet"), "设置介绍信息", "400px")
 				break;
 			case '3':
+				init.window($("#specialFormAdd"), "添加专题信息", "400px")
 				break;
 		 }
 	});
@@ -198,15 +275,16 @@ define(["init","config"], function(init, config) {
 				break;
 
 			case '2':
-				init.grid(grid, introDS, config.columns.intro(null, applyIntro), '介绍信息列表');
+				init.grid(grid, introDS, config.columns.intro(destroyIntro, applyIntro), '介绍信息列表');
 				break;
 			case '3':
-				// configTheme();
+				init.grid(grid, specialDS, config.columns.special(), '专题项');
+				getNewSpecial();
+				break;
 		}
 	}
 
 	
-
 	// 左侧菜单切换
 	$("#spliterHome>ul>li").each(function(index, item) {
 		$(item).on('click', function(e) {
@@ -216,6 +294,7 @@ define(["init","config"], function(init, config) {
 			loadGrid(type);
 		});
 	});
+
 
 
 	// define(function() {

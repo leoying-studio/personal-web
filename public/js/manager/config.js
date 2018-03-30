@@ -94,6 +94,23 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
         ];
         return intro;
     }
+    
+    columns.special = function(destroy, edit) {
+        var func = function() {};
+        var special = [
+            {field: "title", title: "标题"},
+            {field: "headline", title: "字幕"},
+            {field: "homeFigure", title: "说明"},
+            {field: "serverTime", title: "添加时间"},
+            {
+                title:'操作', command: [
+                    {text: "删除", click: destroy || func},
+                    {text: '编辑', click: edit || func}
+                ]
+            }
+        ];
+        return special;
+    }
 
     // editor
     var editor = {
