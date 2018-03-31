@@ -1,0 +1,18 @@
+div.module-page
+    div.tool-bar
+        span.btn-wrapper
+            button.k-button.k-primary 新增  
+    div.grid-box.clearfix
+        div.grid
+        form(action="/intro/set" id="introFormSet" method="post")
+            div.k-content.form-item
+                label 标题
+                input(type='text' class='k-textbox' name='title')
+            div.k-content.form-item
+                label 字幕
+                input(type='text' class='k-textbox' name='caption')
+            div.k-content.form-item
+                label 说明
+                textarea(name='description')
+            div.k-content.form-item
+                button.k-button.k-primary(type="button" model=0) 提交

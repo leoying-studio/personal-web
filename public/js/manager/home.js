@@ -1,84 +1,67 @@
 define(["init","config"], function(init, config) {
-	var types = 0;
-	//  初始化推荐文章
-	// var recommendedDS = {
-	// 	transport: {
-	// 		read: {
-	// 			url: "/recommended/data",
-	// 			dataType: 'json',
-	// 			type: "get",
-	// 		},
-	// 		parameterMap: function(option, operation) {
-	// 			return option;
-	// 		}
-	// 	},
-	// 	batch: true,
-	// 	schema: {
-	// 		data: 'data'
-	// 	}
-	// };
+	var types = 0,
+	theme_id = null,
+	intro_id = null;
+	tab = $(".tab-strip-item:first"),
+	rightContainer = tab.find(".right-container").eq(0),
+	modulePages = rightContainer.find(".module-page"),
+	introGrid = modulePages.eq(0).find(".grid:first");
 	
-	// 介绍信息
-	var introDS = {
-		transport: {
-			read: {
-				url: "/intro/data",
-				dataType: 'json',
-				type: "get",
+	var dataSource = {
+		intro: {
+			transport: {
+				read: {
+					url: "/intro/data",
+					dataType: 'json',
+					type: "get",
+				},
+				parameterMap: function(option, operation) {
+					return option;
+				}
 			},
-			parameterMap: function(option, operation) {
-				return option;
+			batch: true,
+			schema: {
+				data: 'data'
 			}
 		},
-		batch: true,
-		schema: {
-			data: 'data'
-		}
-	};
-
-
-	var specialDS = {
-		transport: {
-			read: {
-				url: "/special/data",
-				dataType: 'json',
-				type: "get",
+		special: {
+			transport: {
+				read: {
+					url: "/special/data",
+					dataType: 'json',
+					type: "get",
+				},
+				parameterMap: function(option, operation) {
+					return option;
+				}
 			},
-			parameterMap: function(option, operation) {
-				return option;
+			batch: true,
+			schema: {
+				data: 'data'
 			}
 		},
-		batch: true,
-		schema: {
-			data: 'data'
+		themes: {
+			transport: {
+				read: {
+					url: "/special/themes/data",
+					dataType: 'json',
+					type: "get",
+				},
+				parameterMap: function(option, operation) {
+					return option;
+				}
+			},
+			batch: true,
+			schema: {
+				data: 'data'
+			}
 		}
 	};
+	
 
-
-	// 取消首页推荐
-	// function cancelRecommend(e) {
-	// 	var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-	// 	if(window.confirm("确定取消关注?")) {
-	// 		$.ajax({
-	// 			url: "/recommend/delete",
-	// 			data: {articleId: dataItem._id},
-	// 			dataType: 'json',
-	// 			type: 'post',
-	// 			success: function(data) {
-	// 				if (!data.status) {
-	// 					return alert('取消失败');
-	// 				}
-	// 				$('#recommendedGrid').data("kendoGrid").dataSource.read();
-	// 			},
-	// 			error: function() {
-	// 				alert("取消失败");
-	// 			}
-	// 		});
-	// 	}
-	// }
 
 	// 初始化spliter
-	var spliter = $(".tab-strip-item").eq(0).find(".wrapper").eq(0).kendoSplitter({
+	var spliter = tab.find(".wrapper").eq(0).kendoSplitter({
 		panes: [
 			{ collapsible: true, size: '200px' },
 			{ collapsible: false }
@@ -94,14 +77,16 @@ define(["init","config"], function(init, config) {
 				data:{
 					title: params.title,
 					caption: params.caption,
-					description: params.description
+					description: params.description,
+					id: params.id
 				},
 				dataType: 'json',
 				type: 'post',
 				success: function(res) {
 					loading.close();
-					if (res.data.status) {
-						$("#homeGrid").data("kendoGrid").dataSource.read();
+					if (res.status) {
+						introGrid.data("kendoGrid").dataSource.read();
+						clearParams($("#introFormSet"));
 					} else {
 						init.dialog("添加失败")
 					}
@@ -121,7 +106,7 @@ define(["init","config"], function(init, config) {
 				 },
 				 type: "post",
 				 success: function(res) {
-					$("#homeGrid").data("kendoGrid").dataSource.read();
+					introGrid.data("kendoGrid").dataSource.read();
 					alert("success");
 				 },
 				 error: function() {
@@ -190,21 +175,46 @@ define(["init","config"], function(init, config) {
 		return params;
 	}
 
-	$(".tab-strip-item:first .right-container button").eq(0).click(function() {
+	function setParams(el, values) {
+		el.each(function(index, item) {
+			var widget = $(item).children().eq(1);
+			var key = widget.attr("name");
+			for (var val in values) {
+				if (val === key &&　widget[0].tagName === 'INPUT') {
+					widget.val(values[val]);
+				} else if (val === key &&　widget[0].tagName === "TEXTAREA" ) {
+					widget.text(values[val]);
+				}
+			}
+		});
+	}
+
+	function clearParams(el) {
+		// 清空文本输入内容
+		var c = el.find(".form-item > input").val("");
+		el.find(".form-item > textarea").text("");
+		el.find(".form-item > button").attr("model", 0);
+	}
+
+	$("#introFormSet > .form-item button").eq(0).click(function() {
 		var params = getParams($("#introFormSet > .form-item"));
+		if ($(this).attr("model") == 1) {
+			params.id = intro_id;
+		} 
 		request.setIntro(params);
 	});
-
+	
 	// 添加专题信息
-	$("#specialFormAdd button").click(function() {
-		var params = getParams($("#specialFormAdd > .form-item"));
+	$("#specialForm button").eq(0).click(function() {
+		debugger;
+		var params = getParams($("#specialForm > .form-item"));
 		request.submitSpecial(params, function(res) {
 			if (res.status) {
 				alert("添加成功");
 			} else {
 				alert("添加失败");
 			}
-		});
+		});	
 	});
 
 	// 应用
@@ -219,11 +229,18 @@ define(["init","config"], function(init, config) {
 		request.destroyIntro(dataItem._id);
 	}
 
+	var editIntro = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		intro_id = dataItem._id;
+		setParams($("#introFormSet > .form-item"), dataItem);
+		$("#introFormSet > .form-item > button").eq(0).attr("model", 1);
+	}
+
 	// 获取最新的主题
 	var getNewSpecial = function() {
 		request.getNewSpecial(function(res) {
 			if (res.status) {
-				var select =  $(".tab-strip-item:first").find(".select:first");
+				var select =  tab.find(".select:first");
 				select.empty();
 				var str = "";
 				$(res.data).each(function(index, item) {
@@ -233,90 +250,47 @@ define(["init","config"], function(init, config) {
 				select.after(newSelect);
 				select.next().kendoDropDownList({});
 				select.remove();
+				var grid = modulePages.eq(1).find(".grid:eq(1)");
+				if (res.data.length > 0) {
+					init.grid(grid, dataSource.themes, config.columns.themes(), "主题列表")
+				} else {
+					grid.text("暂无数据!")
+					.css({"text-align": "center"});
+				}
 			} else {
 				alert("获取最新主题失败!");
 			}
 		});
 	}
 
-	$(".tab-strip-item:first .right-container .tool-bar:first button").eq(0).click(function() {
-		 switch(type) {
-			 case '0':
-				 break;
-			case '1':
-				break;
-			case '2':
-				init.window($("#introFormSet"), "设置介绍信息", "400px")
-				break;
-			case '3':
-				init.window($("#specialFormAdd"), "添加专题信息", "400px")
-				break;
-		 }
-	});
 
-	var loadGrid = function(type) {
-		var grid = $(".tab-strip-item:first").find(".grid").eq(0);
+	var loadFirstGrid = function(grid) {
+		init.grid(introGrid, dataSource.intro, config.columns.intro(destroyIntro, applyIntro, editIntro), '介绍信息列表');
+	}
+	loadFirstGrid();
+
+	var loadModule = function(type) {
 		switch(type) {
 			case '2':
-				init.grid(grid, introDS, config.columns.intro(destroyIntro, applyIntro), '介绍信息列表');
+				modulePages.show().not(":eq(0)").hide();
 				break;
 			case '3':
-				init.grid(grid, specialDS, config.columns.special(), '专题项');
+				modulePages.show().not(":eq(1)").hide();
+				var grid = modulePages.eq(1).find(".grid:eq(0)");
+				init.grid(grid, dataSource.special, config.columns.special(), '专题项');
 				getNewSpecial();
 				break;
 		}
 	}
 
-	
 	// 左侧菜单切换
 	$(".tab-strip-item").eq(0).find("ul > li").each(function(index, item) {
 		$(item).on('click', function(e) {
 			$('.selected').removeClass('selected');
 			$(this).addClass('selected');
 			type = $(this).attr('type');
-			loadGrid(type);
+			loadModule(type);
 		});
 	});
-
-
-
-	// define(function() {
-	// 	var ds = {
-	// 		transport: {
-	// 			read: {
-	// 				url: "/home/recommended/data",
-	// 				dataType: 'json',
-	// 				type: "get",
-	// 			},
-	// 			parameterMap: function(option, operation) {
-	// 				return option;
-	// 			}
-	// 		},
-	// 		batch: true,
-	// 		schema: {
-	// 			data: 'data'
-	// 		}
-	// 	};
-	// 	init.grid($("#articleGrid"), ds, config.columns.articles() );
-	// }); 
-	// // 初始化intro 
-	// var introDs = {
-	// 	transport: {
-	// 		read: {
-	// 			url: "/nav/data",
-	// 			dataType: 'json',
-	// 			type: "get",
-	// 		},
-	// 		parameterMap: function(option, operation) {
-	// 			return option;
-	// 		}
-	// 	},
-	// 	batch: true,
-	// 	schema: {
-	// 		data: 'data',
-	// 		total: 'total',
-	// 	}
-	// };
-	// init.grid($("#recommendGrid"));
 
 });

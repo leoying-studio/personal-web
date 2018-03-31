@@ -4,38 +4,7 @@ div.tab-strip-item
       li(type=2) 介绍
       li(type=3) 专题
     div.right-container
-      div.tool-bar
-        span.btn-wrapper
-          button.k-button.k-primary 新增  
-      div.grid-box.clearfix
-        div.grid
-        form(action="/intro/set" id="introFormSet" method="post")
-          div.k-content.form-item
-            label 标题
-            input(type='text' class='k-textbox' name='title')
-          div.k-content.form-item
-            label 字幕
-            input(type='text' class='k-textbox' name='caption')
-          div.k-content.form-item
-            label 说明
-            textarea(name='description')
-          div.k-content.form-item
-            button.k-button.k-primary(type="button") 设置
-      div.special-wrapper
-        div.tool-bar
-          span.select-text 主题选择:
-          select.select
-        div.grid-box.clearfix
-          div.grid xx
-          form(action="/intro/set" id="specialFormAdd" method="post" class="special-form")
-            div.k-content.form-item
-              label 标题
-              input(type='text' class='k-textbox' name='title')
-            div.k-content.form-item
-              label 字幕
-              input(type='text' class='k-textbox' name='headline')
-            div.k-content.form-item
-              label 首页展示图
-              input(name='homeFigure' class='k-textbox')
-            div.k-content.form-item
-              button.k-button.k-primary(type="button") 设置
+      include ./intro.jade
+      include ./special.jade
+
+     

@@ -54,23 +54,45 @@ router.post("/intro/submit", function (req, res) {
     var title = body.title
     var caption = body.caption;
     var description = body.description;
-    IntroModel.create({
-        title,
-        caption,
-        description
-    }, function (err, doc) {
-        if (err) {
-            return reset.send({
+    var _id = body.id;
+    if (!_id) {
+        IntroModel.create({
+            title,
+            caption,
+            description
+        }, function (err, doc) {
+            if (err) {
+                return res.send({
+                    message: "设置失败",
+                    status: false
+                })
+            }
+            res.send({
+                message: "success",
+                status: true,
+                data: doc
+            });
+        }).catch(function(e) {
+            res.send({
                 message: "设置失败",
                 status: false
-            })
-        }
-        res.send({
-            message: "success",
-            status: true,
-            data: doc
+            });
         });
-    });
+    } else {
+        IntroModel.update({_id}, {$set: {title, caption, description}}, function(err, doc) {
+            if (err) {
+                return res.send({
+                    message: "更新失败",
+                    status: false
+                })
+            }
+            res.send({
+                message: "更新成功",
+                status: true,
+                data: doc
+            });
+        })
+    }
 });
 
 // intro  引用
@@ -217,6 +239,7 @@ router.get("/special/data", function(req, res) {
     }).catch(function(e) {
         res.send({
             status: false,
+            data: [],
             msg: "查询异常"
         });
     });
@@ -235,7 +258,7 @@ router.post("/special/submit", function(req, res) {
         {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
     ]);
     if(!validate.status) {
-        res.send({
+        return res.send({
             status: false,
             msg: validate.msg
         });

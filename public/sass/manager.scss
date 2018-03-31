@@ -24,51 +24,33 @@
     left: 0;
     bottom: 0;
     right: 0;
-    overflow: auto;
   .tab-strip-item {
-    height: calc(100% - 95px);
-    overflow: auto;
+    height: calc(100% - 90px);
     &:nth-child(2) {
         .wrapper {
-            height: 100%;
+            height: calc(100% - 10px);
             .right-container {
                 width: 90%;
                 height: 100%;
                 padding:0 12px;
                 box-sizing: border-box;
-                .tool-bar {
-                    padding: 5px 10px;
-                    margin: 8px 0;
-                    box-sizing: border-box;
-                    border: solid 1px #ccc;
-                    background-color: #F5F5F5;
-                    .select-text {
-                        padding:0  8px;
-                    }
-                }
-                & > .grid-box {
-                    .grid {
-                        width: 50%;
-                        min-height: 400px;
-                        float: left;
-                        box-sizing: border-box;
-                    }
-                    form {
-                        width: 50%;
-                        float: left;
-                        box-sizing: border-box;
-                    }
-                }
-                .special-wrapper {
-                    padding: 8px 0;
+                .module-page:nth-child(1) {
                     .tool-bar {
-
+                        padding: 5px 10px;
+                        margin: 8px 0;
+                        box-sizing: border-box;
+                        border: solid 1px #ccc;
+                        background-color: #F5F5F5;
+                        .select-text {
+                            padding:0  8px;
+                        }
                     }
-                    .grid-box {
-                        height: 400px;
+                    & >.grid-box {
                         .grid {
                             width: 50%;
+                            min-height: 400px;
                             float: left;
+                            box-sizing: border-box;
                         }
                         form {
                             width: 50%;
@@ -76,8 +58,53 @@
                             box-sizing: border-box;
                         }
                     }
-                   
                 }
+                .module-page:nth-child(2) {
+                    .tool-bar {
+                        padding: 5px 10px;
+                        margin: 8px 0;
+                        box-sizing: border-box;
+                        border: solid 1px #ccc;
+                        background-color: #F5F5F5;
+                        .select-text {
+                            padding:0  8px;
+                        }
+                    }
+                    & >.grid-box {
+                        .grid {
+                            width: 50%;
+                            min-height: 400px;
+                            float: left;
+                            box-sizing: border-box;
+                        }
+                        form {
+                            width: 50%;
+                            float: left;
+                            box-sizing: border-box;
+                        }
+                    }
+                    .special-wrapper {
+                        padding: 8px 0;
+                        .tool-bar {
+                            
+                        }
+                        .grid-box {
+                            height: 400px;
+                            .grid {
+                                width: 50%;
+                                float: left;
+                                box-sizing: border-box;
+                            }
+                            form {
+                                width: 50%;
+                                float: left;
+                                box-sizing: border-box;
+                            }
+                        }
+                       
+                    }
+                }
+              
             }
             .left-container {
                 width: 10%;

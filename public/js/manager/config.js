@@ -78,7 +78,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
     }
 
     // 介绍信息
-    columns.intro = function(destroy, apply) {
+    columns.intro = function(destroy, apply, edit) {
         var func = function() {};
         var intro = [
             {field: "title", title: "标题"},
@@ -88,7 +88,8 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             {
                 title:'操作', command: [
                     {text: "删除", click: destroy || func},
-                    {text: '应用', click: apply || func}
+                    {text: '应用', click: apply || func},
+                    {text: "编辑", click: edit || func},
                 ]
             }
         ];
@@ -111,7 +112,19 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
         ];
         return special;
     }
-
+    columns.themes = function(destroy, edit) {
+        var func = function() {};
+        var themes = [
+            {field: "presentation", title: "描述"},
+            {field: "photo", title: "照片"},
+            {
+                title:'操作', command: [
+                    {text: "删除", click: destroy || func},
+                    {text: '编辑', click: edit || func}
+                ]
+            }
+        ];
+    }
     // editor
     var editor = {
         tools: [
