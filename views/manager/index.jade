@@ -17,22 +17,15 @@ html
     script(src="/lib/kendo/kendo.all.min.js")
     script(src="/lib/require/require.js" data-main="./../../js/main")
   body
-    include ./header.jade
-    //- include ./nav.jade
+    //- include ./header.jade
     div#tabStrip.tab-strip
       ul
-        li 首页
-        li 导航
-      div.tab-strip-item
-        include ./home.jade
-      div.tab-strip-item.clearfix
-        div.left-wrapper#left-wrapper
-          include ./tree.jade
-        div.right-wrapper
-          div#toolbar
-          div#grid.right-content
-        include ./form.jade
-    span#notification
+        li 主页
+        li 分类文章
+      include ./home/index.jade
+      include ./nav/index.jade
+    include ./../common/dialog.jade
+    include ./../common/loading.jade
   - if(error)
     include ./../common/error.jade
   - else if(success)

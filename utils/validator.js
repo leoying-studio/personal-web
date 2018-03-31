@@ -50,7 +50,6 @@ Validator.len = function(value, min, max) {
 	if (typeof value === "string") {
 		value = Validator.trim(value);
 	}
-	
 	min = min || 0;
 	max = max || Infinity;
 	return value.length >= min && value.length <= max;

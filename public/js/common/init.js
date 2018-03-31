@@ -1,10 +1,9 @@
 
-
 define([
     'require',
 ], function(require) {
-     function grid(dataSource, columns) {
-        var grid = $("#grid");
+     function grid(el, dataSource, columns, toolbar) {
+        var grid = el || $("#grid");
         if (grid.data("kendoGrid")) {
             grid.data("kendoGrid").destroy();
             grid.empty();
@@ -23,6 +22,7 @@ define([
             filterable: true,
             refresh: true, 
             editable: 'inline',  
+            toolbar: toolbar || false,
             pageable: {
                 input: true,
                 numeric: false,
@@ -146,10 +146,32 @@ define([
         return notification;
     }
 
+    // 弹窗模型
+    function dialog(title, content) {
+        var dialog = $('#dialog').kendoDialog({
+            title: title,
+            width: "400px",
+            content: "<p>"+content || title +"<p>"
+        });
+        return dialog;
+    }
+
+    // loading
+    function loading() {
+        $("#loading").show(0);
+        return {
+            close: function() {
+                $("#loading").hide();
+            }
+        };
+    }
+
      return {
          grid: grid,
          window: window,
          editor: editor,
-         notification: notification
+         notification: notification,
+         dialog: dialog,
+         loading: loading
      };
 });

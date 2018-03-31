@@ -1,4 +1,3 @@
-
 .header {
     height: 90px;
     line-height: 90px;
@@ -18,6 +17,7 @@
         }
     }
 }
+
 .tab-strip{
     position: absolute;
     top: 90px;
@@ -25,21 +25,78 @@
     bottom: 0;
     right: 0;
     overflow: auto;
-}
-
-// tab-strip
-.tab-strip-item {
-    height: calc(100% - 90px);
+  .tab-strip-item {
+    height: calc(100% - 95px);
     overflow: auto;
-    .left-wrapper{
-        width: 10%;
-        height: 100%;
-        float: left;
-    }
-    .right-wrapper {
-        float: right;
-        width: 89.5%;
-        height: 100%;
-    }
-}
+    &:nth-child(2) {
+        .wrapper {
+            height: 100%;
+            .right-container {
+                width: 90%;
+                height: 100%;
+                padding:0 12px;
+                box-sizing: border-box;
+                .tool-bar {
+                    padding: 5px 10px;
+                    margin: 8px 0;
+                    box-sizing: border-box;
+                    border: solid 1px #ccc;
+                    background-color: #F5F5F5;
+                    .select-text {
+                        padding:0  8px;
+                    }
+                }
+                & > .grid-box {
+                    .grid {
+                        width: 50%;
+                        min-height: 400px;
+                        float: left;
+                        box-sizing: border-box;
+                    }
+                    form {
+                        width: 50%;
+                        float: left;
+                        box-sizing: border-box;
+                    }
+                }
+                .special-wrapper {
+                    padding: 8px 0;
+                    .tool-bar {
 
+                    }
+                    .grid-box {
+                        height: 400px;
+                        .grid {
+                            width: 50%;
+                            float: left;
+                        }
+                        form {
+                            width: 50%;
+                            float: left;
+                            box-sizing: border-box;
+                        }
+                    }
+                   
+                }
+            }
+            .left-container {
+                width: 10%;
+                height: 100%;
+                text-align: center;
+                .selected {
+                    background-color: #e3e3e3;
+                }
+                li {
+                    height: 45px;
+                    line-height: 45px;
+                    border-bottom: 2px #e3e3e3 solid;
+                    cursor: pointer;
+                    &:last-child {
+                        border-bottom: none;
+                    }
+            }
+        }
+    }
+  }
+}
+}

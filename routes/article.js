@@ -93,6 +93,18 @@ router.get("/data",function(req, res)　{
 	});
 }); 
 
+//查询所有文章列表
+router.get("/data/all", function(req, res) {
+	var currentPage = req.query.page;
+	ArticleModel.findPaging({currentPage}, {})
+	.then(function(collections) {
+		res.send({
+			status: true,
+			data: collections
+		});
+	});
+});
+
 // 删除
 router.post("/delete", function(req, res) {
 	var body = req.body;
@@ -170,6 +182,7 @@ router.post("/update", function(req, res) {
 		return res.redirect("/manager");
 	});
 });
+
 
 router.get("/detail/view", function(req, res) {
 	var body = req.body;

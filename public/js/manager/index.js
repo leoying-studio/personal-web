@@ -39,7 +39,7 @@ define([
                         total: 'total',
                     }
                 };
-                grid = init.grid(ds, config.columns.categories(null, editNav));
+                grid = init.grid(null, ds, config.columns.categories(null, editNav));
                 break;
 
                 case '1':
@@ -62,7 +62,7 @@ define([
                             total: 'total',
                         }
                     };
-                    grid = init.grid(ds, config.columns.categories(null, editCategory));
+                    grid = init.grid(null, ds, config.columns.categories(null, editCategory));
                     break;
 
                 case '2':
@@ -86,7 +86,7 @@ define([
                             total: 'total',
                         }
                     };
-                    init.grid(ds, config.columns.articles(destroyArticle, editArticle));
+                    init.grid(null, ds, config.columns.articles(destroyArticle, editArticle));
                     break;
             }
         }
@@ -202,4 +202,7 @@ define([
             }
         }
     });
+
+
+
 });

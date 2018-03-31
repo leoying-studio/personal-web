@@ -1,26 +1,46 @@
 define(['require', 'utils', 'init'], function (require, utils, init) {
     var columns = {};
 
+    var articles = [
+        { field: "title", title: "标题", width: '200px' },
+        { field: 'description', title: '文章说明' },
+        { field: 'img', title: '图片地址', width: '100px' },
+        { field: 'navId', title: '导航id', width: '100px' },
+        { field: 'serverTime', title: '发布时间', width: '250px' },
+    ]
     // article
     columns.articles = function (destroy, edit) {
-        var articles = [
-            { field: "title", title: "标题", width: '100px' },
-            { field: 'description', title: '文章说明' },
-            { field: 'img', title: '图片地址', width: '100px' },
-            { field: 'navId', title: '导航id', width: '100px' },
-            { field: 'serverTime', title: '发布时间' },
-            {
-                title: '操作', command: [
-                    {
-                        text: '删除', click: destroy || new Function()
-                    },
-                    {
-                        text: '编辑', click: edit || new Function()
-                    }
-                ]
-            }
-        ]
-        return articles;
+        var newArticles = articles.concat(
+            [
+                {
+                    title: '操作', width: '200px', command: [
+                        {
+                            text: '删除', click: destroy || new Function()
+                        },
+                        {
+                            text: '编辑', click: edit || new Function()
+                        }
+                    ]
+                }
+            ]
+        );
+        return newArticles;
+    }
+
+    // 文章推荐
+    columns.homeRecommend = function (cancel) {
+        var newArticles = articles.concat(
+            [
+                {
+                    title: '操作', width: '200px', command: [
+                        {
+                            text: '取消推荐', click: cancel || new Function()
+                        }
+                    ]
+                }
+            ]
+        );
+        return newArticles;
     }
 
     // 类别
@@ -55,6 +75,41 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             }
         ]
         return navs;
+    }
+
+    // 介绍信息
+    columns.intro = function(destroy, apply) {
+        var func = function() {};
+        var intro = [
+            {field: "title", title: "标题"},
+            {field: "caption", title: "字幕"},
+            {field: "description", title: "说明"},
+            {field: "serverTime", title: "添加时间"},
+            {
+                title:'操作', command: [
+                    {text: "删除", click: destroy || func},
+                    {text: '应用', click: apply || func}
+                ]
+            }
+        ];
+        return intro;
+    }
+    
+    columns.special = function(destroy, edit) {
+        var func = function() {};
+        var special = [
+            {field: "title", title: "标题"},
+            {field: "headline", title: "字幕"},
+            {field: "homeFigure", title: "说明"},
+            {field: "serverTime", title: "添加时间"},
+            {
+                title:'操作', command: [
+                    {text: "删除", click: destroy || func},
+                    {text: '编辑', click: edit || func}
+                ]
+            }
+        ];
+        return special;
     }
 
     // editor
