@@ -22,15 +22,12 @@ div.module-page.hide
                 select.select
             div.grid-box.clearfix
                 div.grid
-                form(action="/intro/set" id="themesForm" method="post" class="special-form")
+                form( id="themesForm" method="post" class="special-form")
                     div.k-content.form-item
-                        label 标题
-                        input(type='text' class='k-textbox' name='title')
+                        label 描述
+                        textarea(class='k-textbox' name='presentation')
                     div.k-content.form-item
-                        label 字幕
-                        input(type='text' class='k-textbox' name='headline')
+                        label 照片
+                        input(name='photo' class='k-textbox')
                     div.k-content.form-item
-                        label 首页展示图
-                        input(name='homeFigure' class='k-textbox')
-                    div.k-content.form-item
-                        button.k-button.k-primary(type="button") 设置
+                        button.k-button.k-primary(type="button" model=0) 提交

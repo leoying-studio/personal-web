@@ -124,6 +124,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
                 ]
             }
         ];
+        return themes;
     }
     // editor
     var editor = {

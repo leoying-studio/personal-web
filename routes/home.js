@@ -205,7 +205,7 @@ router.post("/special/themes/submit", function(req, res) {
 
 // 获取专题详情内容, 查询所有
 router.get("/special/themes/data", function(req, res) {
-    SpecialModel.find({_id: req.body.id}).lean().then(function(doc) {
+    SpecialModel.findOne({_id: req.query.id}).lean().then(function(doc) {
         res.send({
             status: true,
             data: doc.themes,
@@ -230,11 +230,12 @@ router.get("/special/data", function(req, res) {
         params.pageSize = 4;
         params.currentPage = 1;
     }
+
     // 如果没传参，就去查询最后的四条数据
-    SpecialModel.findPaging(params, {}).then(function(d) {
+    SpecialModel.findPaging(params, {}).then(function(collections) {
         res.send({
             status: true,
-            data: d
+            data: collections
         });
     }).catch(function(e) {
         res.send({

@@ -1,7 +1,7 @@
 define(["init","config"], function(init, config) {
 	var types = 0,
 	theme_id = null,
-	intro_id = null;
+	intro_id = null,
 	tab = $(".tab-strip-item:first"),
 	rightContainer = tab.find(".right-container").eq(0),
 	modulePages = rightContainer.find(".module-page"),
@@ -48,6 +48,7 @@ define(["init","config"], function(init, config) {
 					type: "get",
 				},
 				parameterMap: function(option, operation) {
+					option.id = theme_id;
 					return option;
 				}
 			},
@@ -107,7 +108,6 @@ define(["init","config"], function(init, config) {
 				 type: "post",
 				 success: function(res) {
 					introGrid.data("kendoGrid").dataSource.read();
-					alert("success");
 				 },
 				 error: function() {
 					alert("请求失败");
@@ -161,6 +161,18 @@ define(["init","config"], function(init, config) {
 					alert("请求错误");
 				}
 			});
+		},
+		submitTheme:function(params, succ) {
+			$.ajax({
+				url: "/special/themes/submit",
+				dataType: "json",
+				type: "post",
+				data: params,
+				success: succ,
+				error: function(err) {
+					alert("请求错误!");
+				}
+			})
 		}
 	};
 
@@ -206,7 +218,6 @@ define(["init","config"], function(init, config) {
 	
 	// 添加专题信息
 	$("#specialForm button").eq(0).click(function() {
-		debugger;
 		var params = getParams($("#specialForm > .form-item"));
 		request.submitSpecial(params, function(res) {
 			if (res.status) {
@@ -217,6 +228,21 @@ define(["init","config"], function(init, config) {
 		});	
 	});
 
+	$("#themesForm button:first").click(function() {
+		var params = getParams($("#themesForm > .form-item"));
+		params.id = theme_id;
+		request.submitTheme(params, function(res) {
+			if (res.status) {
+				alert("添加成功");
+			} else {
+				alert("添加失败");
+			}
+		});	
+	});
+
+	/**
+	 * intro 模块, crud
+	 */
 	// 应用
 	var applyIntro = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
@@ -229,11 +255,22 @@ define(["init","config"], function(init, config) {
 		request.destroyIntro(dataItem._id);
 	}
 
+	// 编辑
 	var editIntro = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		intro_id = dataItem._id;
 		setParams($("#introFormSet > .form-item"), dataItem);
 		$("#introFormSet > .form-item > button").eq(0).attr("model", 1);
+	}
+
+	/**
+	 * 专题模块
+	 */
+	// 编辑
+	var editSpecial = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		setParams($("#specialForm > .form-item"), dataItem);
+		$("##specialForm > .form-item > button").eq(0).attr("model", 1);
 	}
 
 	// 获取最新的主题
@@ -244,13 +281,21 @@ define(["init","config"], function(init, config) {
 				select.empty();
 				var str = "";
 				$(res.data).each(function(index, item) {
-					str += "<option>"+item.title+"</option>";
+					str += "<option value='"+item._id+"'>"+item.title+"</option>";
 				});
 				var newSelect = $("<select class='select'></select>").append(str);
 				select.after(newSelect);
-				select.next().kendoDropDownList({});
-				select.remove();
 				var grid = modulePages.eq(1).find(".grid:eq(1)");
+				var dropDown = select.next().kendoDropDownList({
+					change: function(e) {
+					   theme_id = dropDown.value();
+					   grid.data("kendoGrid").dataSource.read();
+					}
+				});
+				select.remove();
+				var dropDown = dropDown.data("kendoDropDownList");
+				dropDown.select(0);
+				theme_id = res.data[0]._id;
 				if (res.data.length > 0) {
 					init.grid(grid, dataSource.themes, config.columns.themes(), "主题列表")
 				} else {
@@ -260,7 +305,7 @@ define(["init","config"], function(init, config) {
 			} else {
 				alert("获取最新主题失败!");
 			}
-		});
+		});	
 	}
 
 
@@ -277,7 +322,7 @@ define(["init","config"], function(init, config) {
 			case '3':
 				modulePages.show().not(":eq(1)").hide();
 				var grid = modulePages.eq(1).find(".grid:eq(0)");
-				init.grid(grid, dataSource.special, config.columns.special(), '专题项');
+				init.grid(grid, dataSource.special, config.columns.special(null, editSpecial), '专题项');
 				getNewSpecial();
 				break;
 		}
