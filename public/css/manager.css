@@ -54,14 +54,14 @@
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(1) > .grid-box .grid {
-  width: 50%;
+  width: 65%;
   min-height: 400px;
   float: left;
   box-sizing: border-box;
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(1) > .grid-box form {
-  width: 50%;
+  width: 35%;
   float: left;
   box-sizing: border-box;
 }
@@ -79,14 +79,14 @@
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(2) > .grid-box .grid {
-  width: 50%;
+  width: 65%;
   min-height: 400px;
   float: left;
   box-sizing: border-box;
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(2) > .grid-box form {
-  width: 50%;
+  width: 35%;
   float: left;
   box-sizing: border-box;
 }
@@ -100,13 +100,13 @@
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(2) .special-wrapper .grid-box .grid {
-  width: 50%;
+  width: 65%;
   float: left;
   box-sizing: border-box;
 }
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(2) .special-wrapper .grid-box form {
-  width: 50%;
+  width: 35%;
   float: left;
   box-sizing: border-box;
 }

@@ -5,6 +5,7 @@ var FooterModel = require("./../models/footer");
 var IntroModel = require("./../models/intro");
 var Validator = require("./../utils/validator");
 var ArticleModel = require("./../models/article");
+var ArticleProxy = require("./../proxy/article");
 var SpecialModel = require("./../models/special");
 var Validator = require("./../utils/validator");
 
@@ -188,19 +189,34 @@ router.post("/special/themes/submit", function(req, res) {
     var id = body.id;
     var photo = body.photo;
     var presentation = body.presentation;
-    // 添加到内嵌文档
-    SpecialModel.update({_id: id}, {$push: {themes: {presentation, photo}}}, function(err, doc) {
-        if (err) {
-            return  reset.send({
-                message: "添加失败",
-                status: false
+    if (!id) {
+        SpecialModel.create({photo, presentation}, function(err, state) {
+            if(err) {
+                return res.send({
+                    status: false,
+                    message: "添加异常!"
+                });
+            } 
+            res.send({
+                status: true,
+                msg: "新增成功!"
             });
-        }
-        res.send({
-            status: true,
-            data: doc
         });
-    });
+    }else {
+         // 添加到内嵌文档
+        SpecialModel.update({_id: id}, {$push: {themes: {presentation, photo}}}, function(err, doc) {
+            if (err) {
+                return res.send({
+                    message: "添加失败",
+                    status: false
+                });
+            }
+            res.send({
+                status: true,
+                data: doc
+            });
+        });
+    }
 });
 
 // 获取专题详情内容, 查询所有
@@ -298,6 +314,67 @@ router.post("/special/submit", function(req, res) {
             });
         }); 
     }
+});
+
+// 获取时光轴
+router.get("/timeline/data", function(req, res, next) {
+    var body = req.body;
+    var pageSize = body.pageSize;
+    var currentPage = body.currentPage;
+    ArticleProxy.getTimeline().then(function(data) {
+        res.send({
+            status: false,
+            data
+        });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            data: [],
+            msg: err.msg
+        });
+    });
+});
+
+// 删除主题
+router.post("/special/destory", function(req, res) {
+     var id = req.body.id;
+     SpecialModel.remove({_id: id}, function(err, state) {
+         if (err) {
+             return res.send({
+                state: false
+             });
+         }
+         res.send({
+             status: true,
+             msg: "删除成功!"
+         })
+     });
+});
+
+router.post("/special/themes/destory", function(req, res) {
+    var body = req.body;
+    var specialId = body.specialId;
+    var themeId = body.themeId;
+    SpecialModel.findOne({_id: specialId}, function(err, doc) {
+        if(err) {
+            return res.send({
+                status: false,
+                msg: "查询错误"
+            })
+        }
+        doc.remove({"themes._id":themeId}, function(err, state) {
+            if (err) {
+                return res.send({
+                    status: false,
+                    msg: "删除错误"
+                });
+            }
+            res.send({
+                status: false,
+                msg: "删除成功!"
+            });
+        });
+    });
 });
 
 module.exports = router;

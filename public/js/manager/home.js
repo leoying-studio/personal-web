@@ -1,7 +1,7 @@
 define(["init","config"], function(init, config) {
-	var types = 0,
-	theme_id = null,
+	var theme_id = null,
 	intro_id = null,
+	special_id = null,
 	tab = $(".tab-strip-item:first"),
 	rightContainer = tab.find(".right-container").eq(0),
 	modulePages = rightContainer.find(".module-page"),
@@ -79,7 +79,6 @@ define(["init","config"], function(init, config) {
 					title: params.title,
 					caption: params.caption,
 					description: params.description,
-					id: params.id
 				},
 				dataType: 'json',
 				type: 'post',
@@ -141,7 +140,8 @@ define(["init","config"], function(init, config) {
 				data:{
 					title: params.title,
 					headline: params.headline,
-					homeFigure: params.homeFigure
+					homeFigure: params.homeFigure,
+					id: special_id
 				},
 				dataType: "json",
 				type: "post",
@@ -173,6 +173,30 @@ define(["init","config"], function(init, config) {
 					alert("请求错误!");
 				}
 			})
+		},
+		destorySpecial: function(id, succ) {
+			$.ajax({
+				url: "/special/destory",
+				dataType: "json",
+				type: "post",
+				data: {id:id},
+				success: succ,
+				error: function(err) {
+					alert("请求错误!");
+				}
+			})
+		},
+		destoryTheme: function(params, succ) {
+			$.ajax({
+				url: "/special/destory",
+				dataType: "json",
+				type: "post",
+				data: params,
+				success: succ,
+				error: function(err) {
+					alert("请求错误!");
+				}
+			})
 		}
 	};
 
@@ -192,19 +216,17 @@ define(["init","config"], function(init, config) {
 			var widget = $(item).children().eq(1);
 			var key = widget.attr("name");
 			for (var val in values) {
-				if (val === key &&　widget[0].tagName === 'INPUT') {
+				if (val === key) {
 					widget.val(values[val]);
-				} else if (val === key &&　widget[0].tagName === "TEXTAREA" ) {
-					widget.text(values[val]);
-				}
+				} 
 			}
 		});
 	}
 
 	function clearParams(el) {
 		// 清空文本输入内容
-		var c = el.find(".form-item > input").val("");
-		el.find(".form-item > textarea").text("");
+		el.find(".form-item > input").val("");
+		el.find(".form-item > textarea").val("");
 		el.find(".form-item > button").attr("model", 0);
 	}
 
@@ -220,10 +242,13 @@ define(["init","config"], function(init, config) {
 	$("#specialForm button").eq(0).click(function() {
 		var params = getParams($("#specialForm > .form-item"));
 		request.submitSpecial(params, function(res) {
+			special_id = null;
 			if (res.status) {
-				alert("添加成功");
+				modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
+				clearParams($("#specialForm"));
+				alert("保存成功");
 			} else {
-				alert("添加失败");
+				alert("保存失败");
 			}
 		});	
 	});
@@ -232,10 +257,13 @@ define(["init","config"], function(init, config) {
 		var params = getParams($("#themesForm > .form-item"));
 		params.id = theme_id;
 		request.submitTheme(params, function(res) {
+			theme_id = null;
 			if (res.status) {
-				alert("添加成功");
+				modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
+				clearParams($("#themeForm"));
+				alert("保存成功");
 			} else {
-				alert("添加失败");
+				alert("保存成功");
 			}
 		});	
 	});
@@ -269,8 +297,22 @@ define(["init","config"], function(init, config) {
 	// 编辑
 	var editSpecial = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		special_id = dataItem._id;
 		setParams($("#specialForm > .form-item"), dataItem);
-		$("##specialForm > .form-item > button").eq(0).attr("model", 1);
+		$("#specialForm > .form-item > button").eq(0).attr("model", 1);
+	}
+
+	var destorySpecial = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		if(confirm("确定删除专题吗? 该操作会清除当前专题下的主题项!"))
+		request.destorySpecial(dataItem._id, function(res){
+			if (res.status) {
+				modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
+				getNewSpecial();
+			} else {
+				alert("删除主题失败");
+			}
+		});
 	}
 
 	// 获取最新的主题
@@ -297,7 +339,7 @@ define(["init","config"], function(init, config) {
 				dropDown.select(0);
 				theme_id = res.data[0]._id;
 				if (res.data.length > 0) {
-					init.grid(grid, dataSource.themes, config.columns.themes(), "主题列表")
+					init.grid(grid, dataSource.themes, config.columns.themes(null, editTheme), "主题列表")
 				} else {
 					grid.text("暂无数据!")
 					.css({"text-align": "center"});
@@ -308,12 +350,45 @@ define(["init","config"], function(init, config) {
 		});	
 	}
 
+	// 编辑主题
+	var editTheme = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		theme_id = dataItem._id;
+		setParams($("#themesForm > .form-item"), dataItem);
+	}
 
-	var loadFirstGrid = function(grid) {
+	var destoryTheme = function(e) {
+		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
+		request.destoryTheme({themeId:dataItem.id, specialId: special_id}, function(res) {
+			if (res.status) {
+				modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
+			} else {
+				alert("删除失败!");
+			}
+		});
+	}
+
+	// // 修改主题
+	// var editTheme = function(e) {
+	// 	var params = getParams($("#themesForm .form-item"));
+	// 	params.id = theme_id;
+	// 	request.submitTheme(params, function(res) {
+	// 		theme_id = null;
+	// 		if (res.status) {
+	// 			clearParams($("#themeForm"));
+	// 			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
+	// 			alert("保存成功!");
+	// 		} else {
+	// 			alert("保存失败!");
+	// 		}
+	// 	});
+	// }
+
+	var loadFirstGrid = function() {
 		init.grid(introGrid, dataSource.intro, config.columns.intro(destroyIntro, applyIntro, editIntro), '介绍信息列表');
 	}
 	loadFirstGrid();
-
+	
 	var loadModule = function(type) {
 		switch(type) {
 			case '2':
@@ -322,7 +397,7 @@ define(["init","config"], function(init, config) {
 			case '3':
 				modulePages.show().not(":eq(1)").hide();
 				var grid = modulePages.eq(1).find(".grid:eq(0)");
-				init.grid(grid, dataSource.special, config.columns.special(null, editSpecial), '专题项');
+				init.grid(grid, dataSource.special, config.columns.special(destorySpecial, editSpecial), '专题项');
 				getNewSpecial();
 				break;
 		}
