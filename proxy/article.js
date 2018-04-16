@@ -52,7 +52,8 @@ exports.list = function(conditions , currentPage, callback) {
 	});
 }
 
-exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}) {
+exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditions = {}) {
+	var that = this;
 	return new Promise(function(resolve, rejcet) {
 		ArticleModel.count({}, function(err, count) {
 			if (err) {
@@ -65,9 +66,24 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}) {
 					rejcet(e);
 				});
 			} else if (count > 100 && count < 1000) {
-				ArticleModel.find()
+				var nextMonth = conditions.month == 12 ?　1 : conditions.month + 1;
+				var nextYear = conditions.month == 12 ? year + 1 : conditions.year;
+				var queryConditions = {
+					'createdAt': {
+						$gt: new Date(conditions.year, conditions.month), 
+						$lt: new Date(conditions.year, conditions.nextMonth)
+					}
+				};
+				ArticleModel.find(queryConditions, function(err, collections) {
+					 var newData = [...collections]; 
+					 if (newData < params.pageSize) {
+						 that.getTimeline({params: 1, currentPage: params.pageSize - collections.length}, {year: nextYear, month: nextMonth});
+					 } else {
+						 resolve(newData);
+					 }
+				});
 			} else {
-
+				
 			}
 		}).catch(function(err) {
 			rejcet(err);
