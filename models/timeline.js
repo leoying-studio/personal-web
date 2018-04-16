@@ -5,7 +5,8 @@ var Scheam = new mongoose.Schema({
 	 descrption:{type: 'string'},
 	 articleId: {type: 'string'},
 	 categoryId:{type: 'string'},
-	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
+	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
+	 createdAt: {default: new Date(), type: Date}
 });
 
 var TimeLine = mongoose.model('timeline', Scheam);

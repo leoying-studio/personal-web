@@ -6,7 +6,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
         { field: 'description', title: '文章说明' },
         { field: 'img', title: '图片地址', width: '100px' },
         { field: 'navId', title: '导航id', width: '100px' },
-        { field: 'serverTime', title: '发布时间', width: '250px' },
+        { field: 'createdTime', title: '发布时间', width: '250px' },
     ]
     // article
     columns.articles = function (destroy, edit) {
@@ -84,7 +84,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             {field: "title", title: "标题"},
             {field: "caption", title: "字幕"},
             {field: "description", title: "说明"},
-            {field: "serverTime", title: "添加时间"},
+            {field: "createdTime", title: "添加时间"},
             {
                 title:'操作', command: [
                     {text: "删除", click: destroy || func},
@@ -102,7 +102,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             {field: "title", title: "标题"},
             {field: "headline", title: "字幕"},
             {field: "homeFigure", title: "说明"},
-            {field: "serverTime", title: "添加时间"},
+            {field: "createdTime", title: "添加时间"},
             {
                 title:'操作', command: [
                     {text: "删除", click: destroy || func},

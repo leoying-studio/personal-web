@@ -6,7 +6,8 @@ var Scheam = new mongoose.Schema({
 	 caption:{type: 'string'},
 	 description:{type: 'string'},
 	 apply:{type: Boolean, default: false},
-	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
+	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
+	 createdAt: {default: new Date(), type: Date}
 });
 
 var Intro = mongoose.model('intro', Scheam);

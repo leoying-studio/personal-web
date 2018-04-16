@@ -2,7 +2,7 @@ var ArticleModel = require("./../models/article");
 
 exports.getAll = function(callback) {
     var navs = ArticleModel.getNavs();
-    var recommend = ArticleModel.find({}).sort({"serverTime": 1}).limit(7);
+    var recommend = ArticleModel.find({}).sort({"createdTime": 1}).limit(7);
     return Promise.all([navs, recommend]).then(function(values, state) {
         callback({
             navs: values[0],
@@ -14,9 +14,9 @@ exports.getAll = function(callback) {
 exports.getBanners = function(callback) {
     ArticleModel.find({
         recommend: true
-    }).sort({"serverTime": 1}).limit(7).lean().then(function(data) {
+    }).sort({"createdTime": 1}).limit(7).lean().then(function(data) {
         if (data.length === 0) {
-            ArticleModel.find({}).sort({"serverTime": 1}).limit(7).lean().then(function(data) {
+            ArticleModel.find({}).sort({"createdTime": 1}).limit(7).lean().then(function(data) {
                 callback(data);
             });
         } 

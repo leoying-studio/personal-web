@@ -319,6 +319,7 @@ router.post("/special/submit", function(req, res) {
 // 获取时光轴
 router.get("/timeline/data", function(req, res, next) {
     var body = req.body;
+    body = Object.keys(body).length > 0 ? body : req.query;
     var pageSize = body.pageSize;
     var currentPage = body.currentPage;
     ArticleProxy.getTimeline().then(function(data) {

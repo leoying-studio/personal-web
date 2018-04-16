@@ -1,5 +1,40 @@
 var ArticleModel = require("./../models/article");
 var CommentModel = require("./../models/comment");
+var formateData = function(collections) {
+	var articles = collections.map(function(doc, index) {
+		var createdTime = doc.createdTime;
+		var date = new Date(createdTime);
+		var year = date.getFullYear();
+		var month = date.getMonth() + 1;
+		doc.year = year;
+		doc.month = month;
+		return doc; 
+	});
+	var timelines = [{
+		year: collections[0].year,
+		month: collections[0].month,
+		events: []
+	}];
+	collections.forEach(function(doc, index) {
+		timelines.forEach(function(line, idx) {
+			if (line.year == doc.year && line.month == doc.month) {
+				line.events.push(doc);
+			} else {
+				var exist = timelines.some(function(timeline) {
+					return timeline.year == doc.year && timeline.month == doc.month;
+				});
+				if (!exist) {
+					timelines.push({
+						year: doc.year,
+						month: doc.month,
+						events: [doc]
+					});
+				}
+			}	
+		});	
+	});
+	return timelines;
+}
 
 exports.list = function(conditions , currentPage, callback) {
 	var articles = ArticleModel.findPaging({currentPage}, conditions );
@@ -23,47 +58,17 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}) {
 			if (err) {
 				return rejcet(err);
 			}
-			ArticleModel.findPaging(params, {}).then(function(collections) {
-				collections = collections.map(function(doc, index) {
-					var serverTime = doc.serverTime;
-					var date = new Date(serverTime);
-					var year = date.getFullYear();
-					var month = date.getMonth() + 1;
-					doc.year = year;
-					doc.month = month;
-					return doc; 
+			if (count < 100) {
+				ArticleModel.findPaging(params, {}).then(function(collections) {
+					resolve(formateData(collections));
+				}).catch(function(e) {
+					rejcet(e);
 				});
-				if (count < 3) {
-					resolve(collections);
-				} else {
-					var timelines = [{
-						year: collections[0].year,
-						month: collections[0].month,
-						events: []
-					}];
-					collections.forEach(function(doc, index) {
-						timelines.forEach(function(line, idx) {
-							if (line.year == doc.year && line.month == doc.month) {
-								line.events.push(doc);
-							} else {
-								var exist = timelines.some(function(timeline) {
-									return timeline.year == doc.year && timeline.month == doc.month;
-								});
-								if (!exist) {
-									timelines.push({
-										year: doc.year,
-										month: doc.month,
-										events: [doc]
-									});
-								}
-							}	
-						});	
-					});
-					resolve(timelines);
-				}	
-			}).catch(function(err) {
-				rejcet(err);
-			});
+			} else if (count > 100 && count < 1000) {
+				ArticleModel.find()
+			} else {
+
+			}
 		}).catch(function(err) {
 			rejcet(err);
 		});

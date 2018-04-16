@@ -6,21 +6,23 @@ var Utils = require("./../utils/index");
 var Scheam = new mongoose.Schema({
 	title: String,
 	description: String,
-	img: { type: "string" },
-	navId: { type: "string" },
+	img: String,
+	navId: String,
 	articleId: String,
-	serverTime: { type: String, default: Utils.getTime(new Date(), "s") },
+	createdTime: { type: String, default: Utils.getTime(new Date(), "s") },
+	updateTime: {type: String, default: Utils.getTime(new Date(), 's')},
+	createdAt: {type: Date, default: new Date()},
+	updateAt: {type: Date, default: new Date()},
 	categoriesId: [
-		{ id: { type: 'string' } }
+		{ id: String }
 	],
 	recommend: {type: Boolean, default: false},
 	recommendImg: String,
-	content: {type: String}
+	content: String
 });
 
 Scheam.plugin(DBSuper.regNav);
 Scheam.plugin(DBSuper.regFind);
-
 
 var Article = mongoose.model('article', Scheam);
 module.exports = Article;

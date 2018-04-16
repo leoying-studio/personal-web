@@ -1,4 +1,4 @@
-var mongoose=require('../db').mongoose;
+var mongoose = require('../db').mongoose;
 var Utils = require("./../utils/index");
 var DBSuper = require("./super");
 // 定义映射的集合结构模型
@@ -8,7 +8,8 @@ var Scheam = new mongoose.Schema({
 	 password:{type: 'string'},
 	 passAgain:{type: 'string'},
 	 email: {type: 'string'},
-	 serverTime: { type: String, default: Utils.getTime(new Date(), "s")}
+	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
+	 createdAt: {type: Date, default: new Date()}
 });
 
 Scheam.plugin(DBSuper.regNav);
