@@ -4,7 +4,7 @@ div.module-page.hide
             button.k-button.k-primary 新增  
     div.grid-box.clearfix
         div.grid
-        form(action="/intro/set" id="specialForm" method="post")
+        form(action="/intro/set" id="specialForm" method="post" class="panel")
             div.k-content.form-item
                 label 首页标题
                 input(type='text' class='k-textbox' name='title')
@@ -22,7 +22,7 @@ div.module-page.hide
                 select.select
             div.grid-box.clearfix
                 div.grid
-                form( id="themesForm" method="post" class="special-form")
+                form( id="themesForm" method="post" class="special-form" class="panel")
                     div.k-content.form-item
                         label 描述
                         textarea(class='k-textbox' name='presentation')

@@ -47,14 +47,15 @@
                     }
                     & >.grid-box {
                         .grid {
-                            width: 65%;
+                            width: 64%;
                             min-height: 400px;
                             float: left;
                             box-sizing: border-box;
                         }
                         form {
                             width: 35%;
-                            float: left;
+                            float: right;
+                            min-height: 400px;
                             box-sizing: border-box;
                         }
                     }
@@ -72,32 +73,34 @@
                     }
                     & >.grid-box {
                         .grid {
-                            width: 65%;
+                            width: 64%;
                             min-height: 400px;
-                            float: left;
+                            float: right;
                             box-sizing: border-box;
                         }
                         form {
                             width: 35%;
+                            min-height: 400px;
                             float: left;
                             box-sizing: border-box;
                         }
                     }
                     .special-wrapper {
-                        padding: 8px 0;
+                        padding: 8px 0; 
                         .tool-bar {
                             
                         }
                         .grid-box {
                             height: 400px;
                             .grid {
-                                width: 65%;
+                                width: 64%;
                                 float: left;
                                 box-sizing: border-box;
                             }
                             form {
                                 width: 35%;
-                                float: left;
+                                min-height: 400px;
+                                float: right;
                                 box-sizing: border-box;
                             }
                         }
