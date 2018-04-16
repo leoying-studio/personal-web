@@ -104,10 +104,8 @@
                                 box-sizing: border-box;
                             }
                         }
-                       
                     }
                 }
-              
             }
             .left-container {
                 width: 10%;
@@ -127,6 +125,28 @@
             }
         }
     }
+  }
+  &:nth-child(3) {
+      .wrapper {
+        height: calc(100% - 10px);
+        padding: 10px;
+        box-sizing: border-box;
+        .left-container {
+            width: 10%;
+            height: 100%;
+            padding:12px;;
+            box-sizing: border-box;
+        }
+        .right-container {
+            width: 90%;
+            height: 100%;
+            padding:12px;
+            box-sizing: border-box;
+            .grid {
+                height: 400px;
+            }
+        }
+      }
   }
 }
 }

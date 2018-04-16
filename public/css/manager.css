@@ -134,3 +134,27 @@
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .left-container li:last-child {
   border-bottom: none;
 }
+
+.tab-strip .tab-strip-item:nth-child(3) .wrapper {
+  height: calc(100% - 10px);
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.tab-strip .tab-strip-item:nth-child(3) .wrapper .left-container {
+  width: 10%;
+  height: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.tab-strip .tab-strip-item:nth-child(3) .wrapper .right-container {
+  width: 90%;
+  height: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+}
+
+.tab-strip .tab-strip-item:nth-child(3) .wrapper .right-container .grid {
+  height: 400px;
+}

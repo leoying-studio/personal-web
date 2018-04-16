@@ -1,6 +1,9 @@
 var ArticleModel = require("./../models/article");
 var CommentModel = require("./../models/comment");
 var formateData = function(collections) {
+	if (collections.length === 0) {
+		return collections;
+	}
 	var articles = collections.map(function(doc, index) {
 		var createdTime = doc.createdTime;
 		var date = new Date(createdTime);
@@ -65,25 +68,25 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 				}).catch(function(e) {
 					rejcet(e);
 				});
-			} else if (count > 100 && count < 1000) {
+			} else {
 				var nextMonth = conditions.month == 12 ?　1 : conditions.month + 1;
 				var nextYear = conditions.month == 12 ? year + 1 : conditions.year;
 				var queryConditions = {
 					'createdAt': {
 						$gt: new Date(conditions.year, conditions.month), 
-						$lt: new Date(conditions.year, conditions.nextMonth)
+						$lt: new Date(conditions.nextYear, conditions.nextMonth)
 					}
 				};
-				ArticleModel.find(queryConditions, function(err, collections) {
-					 var newData = [...collections]; 
-					 if (newData < params.pageSize) {
-						 that.getTimeline({params: 1, currentPage: params.pageSize - collections.length}, {year: nextYear, month: nextMonth});
-					 } else {
-						 resolve(newData);
-					 }
+				ArticleModel.count(queryConditions, function(count) {
+					ArticleModel.findPaging(params, queryConditions).then(function() {
+						var collData = [].concat(collections); 
+						if (collData.length < params.pageSize) {
+							that.getTimeline({currentPage: 1, currentPage: params.pageSize - collections.length}, {year: nextYear, month: nextMonth});
+						} else {
+							resolve(formateData(collData));
+						}
+				   });
 				});
-			} else {
-				
 			}
 		}).catch(function(err) {
 			rejcet(err);

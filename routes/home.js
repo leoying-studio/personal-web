@@ -325,14 +325,14 @@ router.get("/timeline/data", function(req, res, next) {
     ArticleProxy.getTimeline({currentPage: params.currentPage, pageSize: params.pageSize}, {year: params.year, month: params.month})
     .then(function(data) {
         res.send({
-            status: false,
+            status: true,
             data
         });
     }).catch(function(err) {
         res.send({
             status: false,
             data: [],
-            msg: err.msg
+            msg: err.message
         });
     });
 });

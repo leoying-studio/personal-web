@@ -11,11 +11,23 @@ define([
     var grid = null;
     var categories = null;
     var panelItem = null;
+    var tabStrip = $('.tab-strip-item:eq(1)');
+    var rightBar = tabStrip.find(".right-container:eq(0)");
+    var gridView = rightBar.find(".grid:eq(0)");
+    var toolbar = rightBar.find(".toolbar:eq(0)");
+    var leftBar = tabStrip.find(".left-container:eq(0)");
+    var panel = leftBar.find("#panelWrapper");
     // 导航菜单
     $("#navMenu").kendoMenu({});
-
+    // 初始化spliter
+	var spliter = tabStrip.find(".wrapper").eq(0).kendoSplitter({
+		panes: [
+			{ collapsible: true, size: '200px' },
+			{ collapsible: false }
+		]
+	});
     // 左侧panel, 查询
-    $("#panelWrapper").kendoPanelBar({
+    panel.kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
             panelItem = $(e.item);
@@ -39,7 +51,7 @@ define([
                         total: 'total',
                     }
                 };
-                grid = init.grid(null, ds, config.columns.categories(null, editNav));
+                grid = init.grid(gridView, ds, config.columns.categories(null, editNav));
                 break;
 
                 case '1':
@@ -62,7 +74,7 @@ define([
                             total: 'total',
                         }
                     };
-                    grid = init.grid(null, ds, config.columns.categories(null, editCategory));
+                    grid = init.grid(gridView, ds, config.columns.categories(null, editCategory));
                     break;
 
                 case '2':
@@ -86,7 +98,7 @@ define([
                             total: 'total',
                         }
                     };
-                    init.grid(null, ds, config.columns.articles(destroyArticle, editArticle));
+                    init.grid(gridView, ds, config.columns.articles(destroyArticle, editArticle));
                     break;
             }
         }
@@ -147,7 +159,7 @@ define([
                     articleId: dataItem._id,
                 },
                 success: function(data) {
-                    $('#grid').data("kendoGrid").dataSource.read();
+                    gridView.data("kendoGrid").dataSource.read();
                 },
                 error: function(data) { 
                     alert(data.msg);
@@ -174,7 +186,7 @@ define([
     }
     
     // toobar 栏
-    $("#toolbar").kendoToolBar({
+    toolbar.kendoToolBar({
         items: [
             {type: "button", text: "添加", id: "add"},
             {type: "button", text: "刷新", id: "refresh" }
@@ -198,7 +210,8 @@ define([
                         break;
                 }
             } else {
-                $('#grid').data("kendoGrid").dataSource.read();
+                debugger;
+                gridView.data("kendoGrid").dataSource.read();
             }
         }
     });
