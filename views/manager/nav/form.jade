@@ -1,4 +1,4 @@
-form(action="/article/submit" method='post' id="articleForm" class="hide")
+form(action="/article/submit" method='post' id="articleForm")
   div.k-content.form-item
     label 文章标题
     input(type='text' class='k-textbox' name='title')
@@ -26,7 +26,7 @@ form(action="/article/submit" method='post' id="articleForm" class="hide")
   div.k-content.form-item
     button(class='k-button k-default' type='submit') 添加
     //- 文章更新的表单
-form(id="articleUpdateForm" action="/article/update" method="post").hide
+form(id="articleUpdateForm" action="/article/update" method="post")
   div.k-content.form-item
     label 文章标题
     input(type='text' class='k-textbox' name='title')

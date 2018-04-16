@@ -104,6 +104,75 @@ define([
         }
     });
 
+    var request = {
+        addNav: function(name, succ) {
+            $.ajax({
+                url: '/nav/submit',
+                type: 'post',
+                dataType: 'json',
+                success: succ,
+                error: function(e) {
+                    alert('添加导航失败');
+                }
+            })
+        },
+        updateNav: function(name, succ) {
+            $.ajax({
+                url: '/nav/update',
+                type: 'post',
+                dataType: 'json',
+                success: succ,
+                error: function() {
+                    alert('编辑导航失败!');
+                }
+            })
+        },
+        addCatgory: function(name) {
+            $.ajax({
+                url: '/nav/category/add',
+                type: 'post',
+                dataType: 'json',
+                success: succ,
+                error: function() {
+                    alert('请求错误!');
+                }
+            })
+        },
+        updateCategory: function(params, succ) {
+            $.ajax({
+                url: '/nav/categoies/update',
+                type: 'post',
+                data: params,
+                success: succ,
+                error: function() {
+                    alert('请求错误');
+                }
+            })
+        },
+        addArticle: function(params, succ) {
+            $.ajax({
+                url: '/article/submit',
+                type: 'post',
+                data: params,
+                success: succ,
+                error: function() {
+                    alert('请求错误');
+                }
+            })
+        },
+        updateArticle: function(params, succ) {
+            $.ajax({
+                url: '/article/update',
+                type: 'post',
+                data: params,
+                success: succ,
+                error: function() {
+                    alert('请求错误');
+                }
+            })
+        }
+    };
+
     // 获取文章分类
     var getArticleCategory = function (el, categories) {
         var categoryStr = "";
