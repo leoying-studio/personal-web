@@ -30,17 +30,22 @@ router.post("/submit", function(req, res) {
             status: false
         });
     }
-    new Nav({ name, categories }).save(function (err, nav) {
+    new NavModel({ name, categories }).save(function (err, nav) {
         if (err) {
            return res.send({
                message: "未知错误",
                status: false
            });
         } 
-        return res.send({
+        res.send({
             status: true,
             data: nav
         });
+    }).catch(function(e) {
+        res.send({
+            status: false,
+            msg: e.message
+        })
     });
 });
 

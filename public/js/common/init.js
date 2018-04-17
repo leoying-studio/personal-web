@@ -49,6 +49,11 @@ define([
                     "Close"
                 ]
         }).data("kendoWindow").center().open();   
+        return {
+            close: function() {
+                el.data("kendoWindow").close();
+            }
+        };
      }
     
      function editor(el) {    

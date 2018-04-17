@@ -1,3 +1,4 @@
+
 define([
     'require',
     'init',
@@ -17,6 +18,7 @@ define([
     var toolbar = rightBar.find(".toolbar:eq(0)");
     var leftBar = tabStrip.find(".left-container:eq(0)");
     var panel = leftBar.find("#panelWrapper");
+    var window = null;
     // 导航菜单
     $("#navMenu").kendoMenu({});
     // 初始化spliter
@@ -98,18 +100,19 @@ define([
                             total: 'total',
                         }
                     };
-                    init.grid(gridView, ds, config.columns.articles(destroyArticle, editArticle));
+                    grid = init.grid(gridView, ds, config.columns.articles(destroyArticle, editArticle));
                     break;
             }
         }
     });
 
     var request = {
-        addNav: function(name, succ) {
+        addNav: function(params, succ) {
             $.ajax({
                 url: '/nav/submit',
                 type: 'post',
                 dataType: 'json',
+                data: params,
                 success: succ,
                 error: function(e) {
                     alert('添加导航失败');
@@ -172,6 +175,47 @@ define([
             })
         }
     };
+    
+    // 更新article
+    rightBar.find('#articleUpdateForm button:eq(0)').click(function() {
+        // request.updateArticle();
+    });
+
+    rightBar.find('#articleForm button:eq(0)').click(function() {
+        // request.addArticle();
+    });
+
+    rightBar.find('#categoryForm button:eq(0)').click(function() {
+
+    });
+
+    rightBar.find('#categoryUpdateForm button:eq(0)').click(function() {
+
+    });
+
+    rightBar.find('#navForm button:eq(0)').click(function() {
+        var params = getParams($(this).parent().siblings().andSelf());
+        request.addNav(params, function(res) {
+            if (res.status) {
+                gridView.data("kendoGrid").dataSource.read();
+                window.close();
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        });
+    });
+
+    function getParams(el) {
+		var params = {};
+		el.each(function(index, item) {
+			if (index === el.length - 1) return;
+			var key = $(item).children().eq(1).attr("name");
+			var value = $(item).children().eq(1).val();
+			params[key] = value;
+		});
+		return params;
+	}
 
     // 获取文章分类
     var getArticleCategory = function (el, categories) {
@@ -264,22 +308,21 @@ define([
             if (e.id == "add") {
                 switch(panelItemType) {
                     case '0':
-                        init.window($("#navForm"));
+                        window = init.window($("#navForm"));
                         break;
     
                     case '1':
                         $("#categoryForm #categoryNavId").val(navId);
-                        init.window($("#categoryForm"));
+                        window = init.window($("#categoryForm"));
                         break;
     
                     case '2':
                         getArticleCategory($("#articleForm #categories"), $(panelItem).siblings().andSelf());
                         $("#navIdInput").val(navId);
-                        init.window($("#articleForm"), "添加文章", "900px");
+                        window = init.window($("#articleForm"), "添加文章", "900px");
                         break;
                 }
             } else {
-                debugger;
                 gridView.data("kendoGrid").dataSource.read();
             }
         }
