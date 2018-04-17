@@ -63,6 +63,7 @@ router.get("/categories/data", function(req, res) {
 router.get("/data", function(req, res) {
     NavModel.find({}).lean().then(function(nav) {
         res.send({
+            status: true,
             data: nav,
             total: nav.length
         });

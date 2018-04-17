@@ -17,7 +17,8 @@ define([
     var gridView = rightBar.find(".grid:eq(0)");
     var toolbar = rightBar.find(".toolbar:eq(0)");
     var leftBar = tabStrip.find(".left-container:eq(0)");
-    var panel = leftBar.find("#panelWrapper");
+    var treeView = leftBar.find("#panelWrapper");
+    var panelView = leftBar.find("#panelWrapper");
     var window = null;
     // 导航菜单
     $("#navMenu").kendoMenu({});
@@ -29,7 +30,7 @@ define([
 		]
 	});
     // 左侧panel, 查询
-    panel.kendoPanelBar({
+    var panelInstance = panelView.kendoPanelBar({
         expandMode: "multiple",
         select: function (e) {
             panelItem = $(e.item);
@@ -134,6 +135,17 @@ define([
                     alert('添加导航失败');
                 }
             })
+        },
+        getNavs: function(succ) {
+           $.ajax({
+               url: '/nav/data',
+               type: 'get',
+               dataType: 'json',
+               success: succ,
+               error: function() {
+                   alert('请求失败!');
+               }
+           })     
         }
     };
     
@@ -169,10 +181,40 @@ define([
     rightBar.find('#navForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
         request.submit(request.url.addNav, params, function(res) {
-            // 刷新导航
-            
+            // 同步添加到导航
+            var panelBar = panelInstance.kendoPanelBar().data("kendoPanelBar")
+            panelBar.append({
+                text: params.name
+            },  panelBar.select());
+            var getItem = function(target) {
+                var itemIndexes = target.val().split(/[.,]/),
+                rootItem = panelBar.element.children("li").eq(itemIndexes[0]);
+                return itemIndexes.length > 1 ? rootItem.find(".k-group > .k-item").eq(itemIndexes[1]) : rootItem;
+            }
+            var inserted = panelView.children(":last-child");
+            panelBar.select(getItem(inserted));
+            panelBar.append({
+                text: params.name
+            },  panelBar.select());
         });
     });
+
+    // 初始化导航
+    // request.getNavs(function(res) {
+    //      if (res.status) {
+    //          init.treeView(treeView, res.data, function(e, uid) {
+    //             var parent = $(e.node).parent();
+    //             $(e.node).siblings().andSelf().each(function(index, item) {
+    //                 var dataUid = $(item).attr('data-uid');
+    //                 if (uid == dataUid) {
+    //                     navId = $(item)._id;
+    //                 }
+    //             });
+    //          }, function() {
+                 
+    //          });
+    //      }
+    // });
 
     function getParams(el) {
 		var params = {};

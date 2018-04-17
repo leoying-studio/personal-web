@@ -34,21 +34,28 @@ define([
         return grid;
      }
 
-     function treeView(el, ds) {
+     function treeView(el, ds, expand) {
         var inline = new kendo.data.HierarchicalDataSource({
             data: ds,
             schema: {
                 model: {
-                    children: "",
-                    model: {
-                        children: ''
-                    }
+                    children: "categories"
                 }
             }
         });
          if (el.data('kendoTreeView')) {
-         
+            el.data('kendoTreeView').destroy();
          }
+         el.kendoTreeView({
+            dataSource: inline,
+            dataTextField: ["name"],
+            expand: function(e) {
+                if (expand) {
+                    var uid = e.node.attributes['data-uid'].value;
+                    expand(e, uid);
+                }
+            }
+        });
      }
 
      function window(el, title, width) {
@@ -189,6 +196,7 @@ define([
     }
 
      return {
+         treeView: treeView,
          grid: grid,
          window: window,
          editor: editor,
