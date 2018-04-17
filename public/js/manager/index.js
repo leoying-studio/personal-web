@@ -107,70 +107,31 @@ define([
     });
 
     var request = {
-        addNav: function(params, succ) {
+        url: {
+            addNav: '/nav/submit',
+            updateNav: '/nav/update',
+            addCatgory: '/nav/category/add',
+            updateCategory: '/nav/categoies/update',
+            addArticle: '/article/submit',
+            updateArticle: '/article/update'
+        },
+        submit: function(url, params, succ) {
             $.ajax({
-                url: '/nav/submit',
+                url: url,
                 type: 'post',
                 dataType: 'json',
                 data: params,
-                success: succ,
+                success: function(res) {
+                    if (res.status) {
+                        gridView.data("kendoGrid").dataSource.read();
+                        window.close();
+                        succ();
+                    } else {
+                        alert("提交失败");
+                    }
+                },
                 error: function(e) {
                     alert('添加导航失败');
-                }
-            })
-        },
-        updateNav: function(name, succ) {
-            $.ajax({
-                url: '/nav/update',
-                type: 'post',
-                dataType: 'json',
-                success: succ,
-                error: function() {
-                    alert('编辑导航失败!');
-                }
-            })
-        },
-        addCatgory: function(name, succ) {
-            $.ajax({
-                url: '/nav/category/add',
-                type: 'post',
-                dataType: 'json',
-                success: succ,
-                error: function() {
-                    alert('请求错误!');
-                }
-            })
-        },
-        updateCategory: function(params, succ) {
-            $.ajax({
-                url: '/nav/categoies/update',
-                type: 'post',
-                data: params,
-                success: succ,
-                error: function() {
-                    alert('请求错误');
-                }
-            })
-        },
-        addArticle: function(params, succ) {
-            $.ajax({
-                url: '/article/submit',
-                type: 'post',
-                data: params,
-                success: succ,
-                error: function() {
-                    alert('请求错误');
-                }
-            })
-        },
-        updateArticle: function(params, succ) {
-            $.ajax({
-                url: '/article/update',
-                type: 'post',
-                data: params,
-                success: succ,
-                error: function() {
-                    alert('请求错误');
                 }
             })
         }
@@ -179,66 +140,37 @@ define([
     // 更新article
     rightBar.find('#articleUpdateForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
-        request.updateArticle(params, function(res) {
-            if (res.status) {
-                gridView.data("kendoGrid").dataSource.read();
-                window.close();
-                alert("添加成功");
-            } else {
-                alert("添加失败");
-            }
+        request.submit(request.url.updateArticle, params, function(res) {
+            
         });
     });
 
     rightBar.find('#articleForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
-        request.addArticle(params, function(res) {
-            if (res.status) {
-                gridView.data("kendoGrid").dataSource.read();
-                window.close();
-                alert("添加成功");
-            } else {
-                alert("添加失败");
-            }
+        request.submit(request.url.addArticle, params, function(res) {
+           
         });
     });
 
     rightBar.find('#categoryForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().andSelf());
-        request.addCatgory(params, function(res) {
-            if (res.status) {
-                gridView.data("kendoGrid").dataSource.read();
-                window.close();
-                alert("添加成功");
-            } else {
-                alert("添加失败");
-            }
+        request.submit(request.url.addCatgory, params, function(res) {
+         
         });
     });
 
     rightBar.find('#categoryUpdateForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
-        request.updateCategory(params, function(res) {
-            if (res.status) {
-                gridView.data("kendoGrid").dataSource.read();
-                window.close();
-                alert("添加成功");
-            } else {
-                alert("添加失败");
-            }
+        request.submit(request.url.updateCategory, params, function(res) {
+         
         });
     });
 
     rightBar.find('#navForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
-        request.addNav(params, function(res) {
-            if (res.status) {
-                gridView.data("kendoGrid").dataSource.read();
-                window.close();
-                alert("添加成功");
-            } else {
-                alert("添加失败");
-            }
+        request.submit(request.url.addNav, params, function(res) {
+            // 刷新导航
+            
         });
     });
 
@@ -363,5 +295,4 @@ define([
             }
         }
     });
-
 });

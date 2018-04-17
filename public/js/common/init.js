@@ -34,6 +34,23 @@ define([
         return grid;
      }
 
+     function treeView(el, ds) {
+        var inline = new kendo.data.HierarchicalDataSource({
+            data: ds,
+            schema: {
+                model: {
+                    children: "",
+                    model: {
+                        children: ''
+                    }
+                }
+            }
+        });
+         if (el.data('kendoTreeView')) {
+         
+         }
+     }
+
      function window(el, title, width) {
         if (el.data('kendoWindow')) {
             return el.data("kendoWindow").center().open();   
