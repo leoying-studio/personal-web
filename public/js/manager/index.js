@@ -130,7 +130,7 @@ define([
                 }
             })
         },
-        addCatgory: function(name) {
+        addCatgory: function(name, succ) {
             $.ajax({
                 url: '/nav/category/add',
                 type: 'post',
@@ -178,19 +178,55 @@ define([
     
     // 更新article
     rightBar.find('#articleUpdateForm button:eq(0)').click(function() {
-        // request.updateArticle();
+        var params = getParams($(this).parent().siblings().andSelf());
+        request.updateArticle(params, function(res) {
+            if (res.status) {
+                gridView.data("kendoGrid").dataSource.read();
+                window.close();
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        });
     });
 
     rightBar.find('#articleForm button:eq(0)').click(function() {
-        // request.addArticle();
+        var params = getParams($(this).parent().siblings().andSelf());
+        request.addArticle(params, function(res) {
+            if (res.status) {
+                gridView.data("kendoGrid").dataSource.read();
+                window.close();
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        });
     });
 
     rightBar.find('#categoryForm button:eq(0)').click(function() {
-
+        var params = getParams($(this).parent().andSelf());
+        request.addCatgory(params, function(res) {
+            if (res.status) {
+                gridView.data("kendoGrid").dataSource.read();
+                window.close();
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        });
     });
 
     rightBar.find('#categoryUpdateForm button:eq(0)').click(function() {
-
+        var params = getParams($(this).parent().siblings().andSelf());
+        request.updateCategory(params, function(res) {
+            if (res.status) {
+                gridView.data("kendoGrid").dataSource.read();
+                window.close();
+                alert("添加成功");
+            } else {
+                alert("添加失败");
+            }
+        });
     });
 
     rightBar.find('#navForm button:eq(0)').click(function() {

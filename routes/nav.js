@@ -79,7 +79,7 @@ router.post('/category/add', function(req, res) {
         {mode: "required", message: "导航id不能为空", value: navId}
     ]);
     if (!validate.status) {
-        res.send({
+        return res.send({
             message: validate.message,
             status: false
         });
