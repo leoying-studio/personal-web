@@ -43,7 +43,10 @@ function Validator(validateList = []) {
 }
 
 Validator.trim = function(value) {
-	return value = value.replace(/\s/g, "");
+	if (typeof value === 'string') {
+		return value = value.replace(/\s/g, "");
+	}
+	return value;
 }
 
 Validator.len = function(value, min, max) {
@@ -62,7 +65,7 @@ Validator.email = function(value) {
 
 Validator.required = function(value) {
 	value = Validator.trim(value);
-	return !(value === "" || typeof value == 'undefined');
+	return !(value === "" || typeof value == 'undefined' || value.length == 0);
 }
 
 Validator.contrast = function(value, reducedValue) {

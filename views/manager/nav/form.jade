@@ -11,13 +11,12 @@ form(action="/article/submit" method='post' id="articleForm")
   div.k-content.form-item
     label 导航标识
     input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navIdInput")
-  div.k-content.form-item
+  div.k-content.form-item(checkbox-item='true')
     label 所属分类
-    span#categories
-  div.k-content.form-item
+  div.k-content.form-item(checkbox-item='true')
     label(for="" ) 首页推荐
-    input(type="checkbox" )
-  div.k-content.form-item.form-check
+    input(type="checkbox" name="recommend")
+  div.k-content.form-item
     label(for="" ) 推荐图片
     input(type="text" class="k-textbox" name="recommendImg")    
   div.k-content.form-item
@@ -39,12 +38,11 @@ form(id="articleUpdateForm" action="/article/update" method="post")
   div.k-content.form-item
     label 导航标识
     input(type='text' class='k-textbox' readonly='readonly' name='navId' id="navIdInput")
-  div.k-content.form-item
+  div.k-content.form-item(checkbox-item='true')
     label 所属分类
-    span#categories
-  div.k-content.form-item
+  div.k-content.form-item(checkbox-item='true')
     label(for="" ) 首页推荐
-    input(type="checkbox" )
+    input(type="checkbox" name="recommend")
   div.k-content.form-item.form-check
     label(for="" ) 推荐图片
     input(type="text" class="k-textbox" name="recommendImg")    

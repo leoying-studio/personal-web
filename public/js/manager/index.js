@@ -19,7 +19,8 @@ define([
     var leftBar = tabStrip.find(".left-container:eq(0)");
     var treeView = leftBar.find("#panelWrapper");
     var panelView = leftBar.find("#panelWrapper");
-    var window = null;
+    var kendoWindow = null;
+    var editor = null;
     // 导航菜单
     $("#navMenu").kendoMenu({});
     // 初始化spliter
@@ -97,7 +98,7 @@ define([
                         },
                         batch: true,
                         schema: {
-                            data: 'articles',
+                            data: 'data',
                             total: 'total',
                         }
                     };
@@ -125,14 +126,14 @@ define([
                 success: function(res) {
                     if (res.status) {
                         gridView.data("kendoGrid").dataSource.read();
-                        window.close();
+                        kendoWindow.close();
                         succ(res);
                     } else {
                         alert("提交失败");
                     }
                 },
                 error: function(e) {
-                    alert('添加导航失败');
+                    alert('添加失败');
                 }
             })
         },
@@ -152,15 +153,22 @@ define([
     // 更新article
     rightBar.find('#articleUpdateForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
+        params.recommend = params.recommend.length ? true : false;
+        params.content = editor.value();
         request.submit(request.url.updateArticle, params, function(res) {
-            
+            if (res.status) {
+                alert('更新完成!');
+            } else {
+                alert(res.msg);
+            }
         });
     });
 
     rightBar.find('#articleForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
+        params.recommend = params.recommend.length ? true : false;
         request.submit(request.url.addArticle, params, function(res) {
-           
+            
         });
     });
 
@@ -240,32 +248,52 @@ define([
     function getParams(el) {
 		var params = {};
 		el.each(function(index, item) {
-			if (index === el.length - 1) return;
-			var key = $(item).children().eq(1).attr("name");
-			var value = $(item).children().eq(1).val();
-			params[key] = value;
+            if (index === el.length - 1) return;
+            if ($(item).attr('checkbox-item')) {
+                var widgets = $(item).children(":not(:first-child)");
+                var categoies = [];
+                widgets.each(function(index, widget) {
+                    if ($(widget).is(':checked')) {
+                        if ($(widget).val()) {
+                            categoies.push($(widget).val());
+                        } else {
+                            categoies.push(true);
+                        }
+                    }
+                });
+                if (widgets.length > 0) {
+                    params[widgets.eq(0).attr('name')] = categoies;
+                }
+            } else {
+                var key = $(item).children().eq(1).attr("name");
+                var value = $(item).children().eq(1).val();
+                if (key) {
+                    params[key] = value;
+                }
+            }
 		});
 		return params;
 	}
 
     // 获取文章分类
     var getArticleCategory = function (el, categories) {
+        el.html("<label>首页推荐</label>");
         var categoryStr = "";
         $.each(categories, function(index, item) {
             var item = $(item);
             var id = item.attr("category-id");
             var value = item.text();
-            categoryStr += "<input type='checkbox' name='categoriesId[]' value=" + id + ">"
+            categoryStr += "<input type='checkbox' name='categoriesId' value=" + id + ">"
             + value;
         });
-        el.html(categoryStr);
+        el.append(categoryStr);
     }
 
     // 编辑文章
     function editArticle(e) {
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         // 设置编辑器的value值
-        var editor = init.editor($("#articleUpdateEditor"));
+        editor = init.editor($("#articleUpdateEditor"));
         editor.value(dataItem.content || "")
         $("#articleUpdateForm").children().each(function(index, child) {
             var widget = $(child).children().eq(1);
@@ -277,9 +305,10 @@ define([
             widget.val(value);
         });
         // 编辑的时候先去获取文章类别
-        getArticleCategory($("#articleUpdateForm #categories"), $(panelItem).siblings().andSelf());
+        var checkItem = $("#articleUpdateForm .form-item:eq(4)");
+        getArticleCategory(checkItem, $(panelItem).siblings().andSelf());
         // 根据对比设置选中
-        $("#articleUpdateForm #categories").children().each(function(oIndex, cate) {
+        checkItem.children().each(function(oIndex, cate) {
             var id = $(cate).attr("value");
             dataItem.categoriesId.forEach(function(cateItem, index) {
                 if (id == cateItem.id) {
@@ -287,8 +316,10 @@ define([
                 }
             });
         });
+
+        $("#articleUpdateForm").children().eq(5).children(":last-child").attr('checked', dataItem.recommend);
         $("#articleUpdateForm #articleId").val(dataItem._id);
-        init.window($("#articleUpdateForm"), "文章项编辑", "800px");
+        kendoWindow = init.window($("#articleUpdateForm"), "文章项编辑", "800px");
     }
 
     // 删除文章
@@ -339,18 +370,18 @@ define([
             if (e.id == "add") {
                 switch(panelItemType) {
                     case '0':
-                        window = init.window($("#navForm"));
+                        kendoWindow = init.window($("#navForm"));
                         break;
     
                     case '1':
                         $("#categoryForm #categoryNavId").val(navId);
-                        window = init.window($("#categoryForm"));
+                        kendoWindow = init.window($("#categoryForm"));
                         break;
     
                     case '2':
-                        getArticleCategory($("#articleForm #categories"), $(panelItem).siblings().andSelf());
+                        getArticleCategory($("#articleForm .form-item:eq(4)"), $(panelItem).siblings().andSelf());
                         $("#navIdInput").val(navId);
-                        window = init.window($("#articleForm"), "添加文章", "900px");
+                        kendoWindow = init.window($("#articleForm"), "添加文章", "900px");
                         break;
                 }
             } else {

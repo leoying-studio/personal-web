@@ -27,8 +27,10 @@ router.post("/submit", function(req, res) {
 		{mode: "len", type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: categoriesId}
 	]);
 	if (!validate.status) {
-		req.flash("error", validate.message);
-		return res.redirect("/manager");
+		return res.send({
+			status: false,
+			msg: validate.message
+		});
 	}
 	categoriesId = categoriesId.map(function(id) {
 		return {id};
@@ -46,13 +48,17 @@ router.post("/submit", function(req, res) {
 		content
 	};
     new ArticleModel(fields).save(function(err, article) {
-		if (!err) {
-			 // 插入成功
-			req.flash("success", "添加文章列表成功!");
-			return res.redirect("/manager");
+		if (err) {
+			 return res.send({
+				status: false,
+				msg: '添加文章失败'
+			});
 		}
-		req.flash("error", "添加文章列表失败!");
-		res.redirect("/manager");
+		res.send({
+			status: true,
+			data: article,
+			msg: '添加成功'
+		});
 	});
 });
 
@@ -89,7 +95,10 @@ router.get("/data",function(req, res)　{
 		'categoriesId.id': categoryId,
 	};
 	ArticleProxy.list(conditions, currentPage, function(data) {
-		res.send(data);
+		res.send({
+			status: true,
+			data: data.articles
+		});
 	});
 }); 
 
@@ -149,14 +158,17 @@ router.post("/update", function(req, res) {
 	var recommendImg = body.recommendImg || "";
 	var articleId = body.articleId;
 	var validate = Validator([
+		{mode: "required",value:categoriesId, message: "请至少选择一个分类", type: Array},
 		{mode: "required", value: title, message: "标题不能为空"},
 		{mode: "required", value: img, message: "缩略图不能为空"},
 		{mode: "required", value: description, message: "文章说明不能为空"},
 		{mode: "required, len", value: content, message: "文章内容不能少于十个字", conditions: {min: 10}}
 	]);
 	if (!validate.status) {
-		req.flash("error", validate.message);
-		return res.redirect("/manager");
+		return res.send({
+			status: false,
+			msg: validate.message
+		})
 	}
 	categoriesId = categoriesId.map(function(category) {
 		return {id: category}
@@ -175,11 +187,16 @@ router.post("/update", function(req, res) {
 		}
 	}, function(err , state) {
 		if (state.n > 0) {
-			req.flash("success", "更新成功");
+			res.send({
+				status: true,
+				msg: '更新成功'
+			})
 		} else {
-			req.flash("success", "更新失败");
+			res.send({
+				status: false,
+				msg: err.message
+			})
 		}
-		return res.redirect("/manager");
 	});
 });
 
