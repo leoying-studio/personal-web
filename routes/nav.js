@@ -111,20 +111,27 @@ router.post("/categoies/update", function(req, res) {
         {mode: "required", message: "导航id不能为空", value: categoryId}
     ]);
     if (!validate.status) {
-       req.flash("error", validate.message);
-       return res.redirect("/manager");
+        return res.send({
+            status: false,
+            msg: validate.message
+        });
     }
     NavModel.update({
         'categories._id': categoryId
     }, {
         $set : {"categories.$.name": name }
-    }, function(err, doc) {
+    }, function(err, state) {
         if (err) {
-            req.flash("error", "更新失败");
-        } else {
-            req.flash("success", "更新成功");
-        }
-        return res.redirect("/manager");
+            return res.send({
+                status: false,
+                msg: "更新失败"
+            });
+        }   
+        res.send({
+            status: true,
+            data: state,
+            msg: '更新成功'
+        });
     });
 });
 

@@ -55,7 +55,7 @@ define([
                         total: 'total',
                     }
                 };
-                grid = init.grid(gridView, ds, config.columns.categories(null, editNav));
+                grid = init.grid(gridView, ds, config.columns.navs(null, editNav));
                 break;
 
                 case '1':
@@ -349,7 +349,7 @@ define([
         // 把当前行的值操作dom
         $("#categoryUpdateForm #categoryUpdateInput").val(dataItem.name);
         $("#categoryUpdateForm #categoryIdUpdateInput").val(dataItem._id);
-        init.window($("#categoryUpdateForm"));
+        kendoWindow = init.window($("#categoryUpdateForm"));
     }
 
     // 更新导航
@@ -357,7 +357,7 @@ define([
         var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
         $("#navUpdateForm").find("input").eq(0).val(dataItem.name);
         $("#navUpdateForm").find("input").eq(1).val(dataItem._id);
-        init.window($("#navUpdateForm"));
+        kendoWindow = init.window($("#navUpdateForm"));
     }
     
     // toobar 栏

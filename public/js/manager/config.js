@@ -50,9 +50,9 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             { field: '_id', title: 'id' },
             {
                 title: '操作', command: [
-                    {
-                        text: '删除', click: destroy || new Function()
-                    },
+                    // {
+                    //     text: '删除', click: destroy || new Function()
+                    // },
                     {
                         text: '编辑', click: edit || new Function()
                     }
@@ -69,7 +69,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             { field: '_id', title: 'id' },
             {
                 title: '操作', command: [
-                    { name: 'destroy', text: '删除', click: destroy || new Function},
+                    // { name: 'destroy', text: '删除', click: destroy || new Function},
                     { name: 'edit', text: '编辑', click: edit || new Function},
                 ]
             }
