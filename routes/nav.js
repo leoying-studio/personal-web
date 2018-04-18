@@ -20,7 +20,7 @@ router.post("/submit", function(req, res) {
     }
     // 设置导航
     try {
-        categories = categories.split(",");
+        categories = categories.split(/,|，/g);
         categories = categories.map(function (item) {
             return { name: item }
         });
@@ -76,7 +76,7 @@ router.post('/category/add', function(req, res) {
     var navId = body.navId;
     var name = body.name;
     var validate = Validator([
-        {mode: "required", message: "导航名称不能为空", value: name},
+        {mode: "required", message: "类别名称不能为空", value: name},
         {mode: "required", message: "导航id不能为空", value: navId}
     ]);
     if (!validate.status) {
@@ -148,13 +148,18 @@ router.post("/update", function(req, res) {
         req.flash("error","参数验证错误");
         return res.redirect("/manager");
 	}
-	NavModel.update({_id: navId}, {$set: {name}}, function(err, doc) {
+	NavModel.update({_id: navId}, {$set: {name}}, function(err, state) {
 		if (err) {
-            req.flash("error", "导航更新失败");
-		} else {
-            req.flash('success', "导航更新成功");
-        }
-        res.redirect("/manager");
+           return res.send({
+               status: false,
+               msg: "更新导航失败"
+           });
+        } 
+        res.send({
+            status: true,
+            data: state,
+            msg: "导航更新成功"
+        });
 	})
 });
 

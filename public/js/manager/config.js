@@ -70,7 +70,7 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
             {
                 title: '操作', command: [
                     // { name: 'destroy', text: '删除', click: destroy || new Function},
-                    { name: 'edit', text: '编辑', click: edit || new Function},
+                    {text: '编辑', click: edit || new Function},
                 ]
             }
         ]

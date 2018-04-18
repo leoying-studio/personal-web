@@ -88,8 +88,7 @@ router.get("/data",function(req, res)　{
 	var query = req.query;
 	var navId = query.navId;
 	var categoryId = query.categoryId;
-	var currentPage = Number(query.skip);
-	var page = req.query.page;
+	var currentPage = query.page;
 	var conditions = {
 		 navId,
 		'categoriesId.id': categoryId,
@@ -97,7 +96,8 @@ router.get("/data",function(req, res)　{
 	ArticleProxy.list(conditions, currentPage, function(data) {
 		res.send({
 			status: true,
-			data: data.articles
+			data: data.articles,
+			total: data.total
 		});
 	});
 }); 

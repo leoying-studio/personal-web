@@ -17,7 +17,6 @@ define([
     var gridView = rightBar.find(".grid:eq(0)");
     var toolbar = rightBar.find(".toolbar:eq(0)");
     var leftBar = tabStrip.find(".left-container:eq(0)");
-    var treeView = leftBar.find("#panelWrapper");
     var panelView = leftBar.find("#panelWrapper");
     var kendoWindow = null;
     var editor = null;
@@ -150,6 +149,17 @@ define([
         }
     };
     
+    rightBar.find("#navUpdateForm button:eq(0)").click(function() {
+        var params = getParams($(this).parent().siblings().andSelf());
+        request.submit(request.url.updateNav, params, function(res) {
+            if (res.status) {
+                alert('更新完成!');
+            } else {
+                alert(res.msg);
+            }
+        });
+    });
+
     // 更新article
     rightBar.find('#articleUpdateForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
@@ -173,16 +183,22 @@ define([
     });
 
     rightBar.find('#categoryForm button:eq(0)').click(function() {
-        var params = getParams($(this).parent().andSelf());
+        var params = getParams($(this).parent().siblings().andSelf());
         request.submit(request.url.addCatgory, params, function(res) {
-         
+            if (res.status) {
+                clearParams($("#categoryForm").children());
+                alert("添加成功!");
+            }
         });
     });
 
     rightBar.find('#categoryUpdateForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
         request.submit(request.url.updateCategory, params, function(res) {
-         
+            if (res.status) {
+                clearParams($("#categoryForm").children());
+                alert("更新成功!");
+            }
         });
     });
 
@@ -190,7 +206,7 @@ define([
         var params = getParams($(this).parent().siblings().andSelf());
         var categories = [];
         try {
-            categories = params.categories.split(",");
+            categories = params.categories.split(/,|，/g);
         } catch(e) {
             alert("类别格式添加错误");
             return;
@@ -216,7 +232,7 @@ define([
                     },  panelBar.select());
                 });
                 lastChild.find("li").each(function(item, index) {
-                   item.attr({
+                   $(item).attr({
                        'panel-item-type': 2,
                        'category-id': item._id,
                        'nav-id': res.data._id
@@ -231,7 +247,7 @@ define([
     // 初始化导航
     // request.getNavs(function(res) {
     //      if (res.status) {
-    //          init.treeView(treeView, res.data, function(e, uid) {
+    //          init.panelView(panelView, res.data, function(e, uid) {
     //             var parent = $(e.node).parent();
     //             $(e.node).siblings().andSelf().each(function(index, item) {
     //                 var dataUid = $(item).attr('data-uid');
@@ -273,6 +289,13 @@ define([
             }
 		});
 		return params;
+    }
+    
+    function clearParams(el) {
+		// 清空文本输入内容
+		el.find(".form-item > input").val("");
+		el.find(".form-item > textarea").val("");
+		// el.find(".form-item > button").attr("model", 0);
 	}
 
     // 获取文章分类
