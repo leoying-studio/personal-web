@@ -58,7 +58,7 @@ define([
                 break;
 
                 case '1':
-                    navId = panelItem.attr("navId");
+                    navId = panelItem.attr("nav-id");
                     var url = "/nav/categories/data?navId="+navId;
                     var ds = {
                         transport: {
@@ -81,7 +81,7 @@ define([
                     break;
 
                 case '2':
-                    categoryId = panelItem.attr("categoryId");
+                    categoryId = panelItem.attr("category-id");
                     navId = panelItem.attr("nav-id");
                     var url = "/article/data?navId="+navId + "&categoryId=" + categoryId;
                     var ds = {
@@ -136,9 +136,9 @@ define([
                 }
             })
         },
-        getNavs: function(succ) {
+        get: function(url, params, succ) {
            $.ajax({
-               url: '/nav/data',
+               url: url,
                type: 'get',
                dataType: 'json',
                success: succ,
@@ -180,6 +180,13 @@ define([
 
     rightBar.find('#navForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
+        var categories = [];
+        try {
+            categories = params.categories.split(",");
+        } catch(e) {
+            alert("类别格式添加错误");
+            return;
+        }
         request.submit(request.url.addNav, params, function(res) {
             if (res.status) {
                 // 同步添加到导航
@@ -195,11 +202,21 @@ define([
                 // 设置选中
                 panelBar.select(lastChild);
                 // append
-                panelBar.append({
-                    text: params.categories
-                },  panelBar.select());
+                categories.forEach(function(item, index) {
+                    panelBar.append({
+                        text: item
+                    },  panelBar.select());
+                });
+                lastChild.find("li").each(function(item, index) {
+                   item.attr({
+                       'panel-item-type': 2,
+                       'category-id': item._id,
+                       'nav-id': res.data._id
+                   }) 
+                });
+            }else {
+                alert("添加导航失败");
             }
-        
         });
     });
 
@@ -236,7 +253,7 @@ define([
         var categoryStr = "";
         $.each(categories, function(index, item) {
             var item = $(item);
-            var id = item.attr("categoryId");
+            var id = item.attr("category-id");
             var value = item.text();
             categoryStr += "<input type='checkbox' name='categoriesId[]' value=" + id + ">"
             + value;
