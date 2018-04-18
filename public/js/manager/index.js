@@ -186,15 +186,16 @@ define([
             panelBar.append({
                 text: params.name
             },  panelBar.select());
-            var getItem = function(target) {
-                var itemIndexes = target.val().split(/[.,]/),
-                rootItem = panelBar.element.children("li").eq(itemIndexes[0]);
-                return itemIndexes.length > 1 ? rootItem.find(".k-group > .k-item").eq(itemIndexes[1]) : rootItem;
-            }
-            var inserted = panelView.children(":last-child");
-            panelBar.select(getItem(inserted));
+            var lastChild = panelView.find(".outer-panel:eq(0)").children(":last-child");
+            lastChild.attr({
+                'panel-item-type': 1,
+                'navId': 0
+            });
+            // 设置选中
+            panelBar.select(lastChild);
+            // append
             panelBar.append({
-                text: params.name
+                text: params.categories
             },  panelBar.select());
         });
     });
