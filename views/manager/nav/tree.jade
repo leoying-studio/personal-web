@@ -2,7 +2,7 @@ ul#panelWrapper
     li(panel-item-type=0) 名称
       ul.outer-panel
         each nav,navIndex in navs
-          li(panel-item-type=1 navId="#{nav._id}").panel-item #{nav.name}
+          li(panel-item-type=1 nav-id="#{nav._id}").panel-item #{nav.name}
             ul.inner-panel
               each category in nav.categories
-                li.category-item(navId="#{nav._id}" categoryId="#{category._id}" panel-item-type=2) #{category.name}   
+                li.category-item(nav-id="#{nav._id}" categoryId="#{category._id}" panel-item-type=2) #{category.name}   

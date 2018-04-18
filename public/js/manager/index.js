@@ -82,7 +82,7 @@ define([
 
                 case '2':
                     categoryId = panelItem.attr("categoryId");
-                    navId = panelItem.attr("navId");
+                    navId = panelItem.attr("nav-id");
                     var url = "/article/data?navId="+navId + "&categoryId=" + categoryId;
                     var ds = {
                         transport: {
@@ -126,7 +126,7 @@ define([
                     if (res.status) {
                         gridView.data("kendoGrid").dataSource.read();
                         window.close();
-                        succ();
+                        succ(res);
                     } else {
                         alert("提交失败");
                     }
@@ -181,22 +181,25 @@ define([
     rightBar.find('#navForm button:eq(0)').click(function() {
         var params = getParams($(this).parent().siblings().andSelf());
         request.submit(request.url.addNav, params, function(res) {
-            // 同步添加到导航
-            var panelBar = panelInstance.kendoPanelBar().data("kendoPanelBar")
-            panelBar.append({
-                text: params.name
-            },  panelBar.select());
-            var lastChild = panelView.find(".outer-panel:eq(0)").children(":last-child");
-            lastChild.attr({
-                'panel-item-type': 1,
-                'navId': 0
-            });
-            // 设置选中
-            panelBar.select(lastChild);
-            // append
-            panelBar.append({
-                text: params.categories
-            },  panelBar.select());
+            if (res.status) {
+                // 同步添加到导航
+                var panelBar = panelInstance.kendoPanelBar().data("kendoPanelBar")
+                panelBar.append({
+                    text: params.name
+                },  panelBar.select());
+                var lastChild = panelView.find(".outer-panel:eq(0)").children(":last-child");
+                lastChild.attr({
+                    'panel-item-type': 1,
+                    'nav-id': res.data._id
+                });
+                // 设置选中
+                panelBar.select(lastChild);
+                // append
+                panelBar.append({
+                    text: params.categories
+                },  panelBar.select());
+            }
+        
         });
     });
 
