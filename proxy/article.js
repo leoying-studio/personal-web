@@ -11,7 +11,7 @@ var formateData = function(collections) {
 		var month = date.getMonth() + 1;
 		doc.year = year;
 		doc.month = month;
-		return doc; 
+		return doc;         
 	});
 	var timelines = [{
 		year: collections[0].year,
@@ -56,38 +56,51 @@ exports.list = function(conditions , currentPage, callback) {
 }
 
 exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditions = {}) {
-	var that = this;
+	var that = this, pageSize = pageSize || 12;
 	return new Promise(function(resolve, rejcet) {
 		ArticleModel.count({}, function(err, count) {
 			if (err) {
 				return rejcet(err);
 			}
-			if (count < 100) {
-				ArticleModel.findPaging(params, {}).then(function(collections) {
-					resolve(formateData(collections));
-				}).catch(function(e) {
-					rejcet(e);
-				});
-			} else {
-				var nextMonth = conditions.month == 12 ?　1 : conditions.month + 1;
-				var nextYear = conditions.month == 12 ? year + 1 : conditions.year;
-				var queryConditions = {
+			var query = {};
+			if (conditions.year && conditions.month) {
+				var query = {
 					'createdAt': {
 						$gt: new Date(conditions.year, conditions.month), 
-						$lt: new Date(conditions.nextYear, conditions.nextMonth)
+						$lt: new Date(endYear, endMonth)
 					}
 				};
-				ArticleModel.count(queryConditions, function(count) {
-					ArticleModel.findPaging(params, queryConditions).then(function() {
-						var collData = [].concat(collections); 
-						if (collData.length < params.pageSize) {
-							that.getTimeline({currentPage: 1, currentPage: params.pageSize - collections.length}, {year: nextYear, month: nextMonth});
-						} else {
-							resolve(formateData(collData));
-						}
-				   });
-				});
 			}
+			// 聚合分组查询
+			ArticleModel.aggregate([
+				{
+					$project: {
+						year: {$substr: ['$createdTime', 0, 4]},
+						month: {$substr: ['$createdTime', 5, 1]},
+						years: {$substr: ['$createdTime', 0, 6]},
+						description: '$description',
+						img: '$img'
+					}
+				},	
+				{
+					$match: query
+				},
+				{
+					$group: {
+						'_id': '$years',
+						count: {$sum: 1},
+						document: {$push: {'description': '$description', 'img': '$img'}},
+					}
+				},
+				{
+			
+				},
+				{
+					limit: 3
+				}
+			]).then(function(collections) {
+				resolve(collections);
+			});
 		}).catch(function(err) {
 			rejcet(err);
 		});

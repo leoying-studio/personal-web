@@ -11,8 +11,8 @@ var Scheam = new mongoose.Schema({
 	articleId: String,
 	createdTime: { type: String, default: Utils.getTime(new Date(), "s") },
 	updateTime: {type: String, default: Utils.getTime(new Date(), 's')},
-	createdAt: {type: Date, default: new Date()},
-	updateAt: {type: Date, default: new Date()},
+	createdAt: {type: Date, default: Date.now},
+	updateAt: {type: Date, default: Date.now},
 	categoriesId: [
 		{ id: String }
 	],
