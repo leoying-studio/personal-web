@@ -76,8 +76,8 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 				{
 					$project: {
 						year: {$substr: ['$createdTime', 0, 4]},
-						month: {$substr: ['$createdTime', 5, 1]},
-						years: {$substr: ['$createdTime', 0, 6]},
+						month: {$substr: ['$createdTime', 5, 2]},
+						years: {$substr: ['$createdTime', 0, 7]},
 						description: '$description',
 						img: '$img'
 					}
@@ -88,18 +88,18 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 				{
 					$group: {
 						'_id': '$years',
-						count: {$sum: 1},
+						number: {$sum: 1},
 						document: {$push: {'description': '$description', 'img': '$img'}},
 					}
 				},
 				{
-			
-				},
-				{
-					limit: 3
+					$limit: pageSize
 				}
 			]).then(function(collections) {
-				resolve(collections);
+				resolve({
+					count: count,
+					list: collections
+				});
 			});
 		}).catch(function(err) {
 			rejcet(err);

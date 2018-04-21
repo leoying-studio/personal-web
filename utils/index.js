@@ -16,6 +16,8 @@ var Utils = {
         var hour = date.getHours();
         var minutes = date.getMinutes();
         var second = date.getSeconds();
+        month = month < 10 ? '0' + month :　month;
+        day = day < 10 ? '0' + day :day;
         if (accuracy == "day" || accuracy == "d") {
             return year + "-" + month + "-" + day;
         }

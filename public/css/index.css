@@ -124,6 +124,7 @@
 .intro .wrapper .caption {
   width: 500px;
   float: left;
+  word-break: break-all;
 }
 
 .intro .wrapper .caption h2 {
@@ -147,6 +148,7 @@
 .intro .wrapper .show {
   float: right;
   width: 510px;
+  word-break: break-all;
 }
 
 .intro .wrapper .show h2 {

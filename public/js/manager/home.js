@@ -21,7 +21,7 @@ define(["init","config"], function(init, config) {
 			},
 			batch: true,
 			schema: {
-				data: 'data'
+				data: 'data',
 			}
 		},
 		special: {
@@ -79,6 +79,7 @@ define(["init","config"], function(init, config) {
 					title: params.title,
 					caption: params.caption,
 					description: params.description,
+					headLine: params.headLine
 				},
 				dataType: 'json',
 				type: 'post',

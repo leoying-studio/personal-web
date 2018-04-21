@@ -6,10 +6,13 @@ div.module-page
         div.grid
         form(action="/intro/set" id="introFormSet" method="post" class="panel")
             div.k-content.form-item
-                label 标题
+                label 主标题
                 input(type='text' class='k-textbox' name='title')
             div.k-content.form-item
-                label 字幕
+                label 专题标题
+                input(type='text' class='k-textbox' name='headLine')
+            div.k-content.form-item
+                label 字幕    
                 input(type='text' class='k-textbox' name='caption')
             div.k-content.form-item
                 label 说明

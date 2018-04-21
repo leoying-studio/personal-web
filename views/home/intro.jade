@@ -1,16 +1,11 @@
 div.wrapper.clearfix
     div.caption
-        h3 欢迎到我的工作室
-        h2 数字工作室
-        p  以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。 以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。以景托情，寓情于景，在景情的交融中构成一种凄凉悲苦的意境。
+        h3 #{intro.title}
+        h2 #{intro.caption}
+        p #{intro.description}
     div.show
-        h2 一张照片，一种经历
+        h2 #{intro.headLine}
         div.wrapper
-            span
-                img(src="/images/company-img-1.jpg", alt="")
-            span
-                img(src="/images/company-img-2.jpg", alt="")
-            span
-                img(src="/images/company-img-3.jpg", alt="")
-            span
-                img(src="/images/company-img-4.jpg", alt="")        
+            each spe in special
+                span
+                    img(src="#{spe.homeFigure}", alt="")

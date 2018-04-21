@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var HomeProxy = require("./../proxy/home");
 var FooterModel = require("./../models/footer");
-var IntroModel = require("./../models/intro");
+var IntroModel = require("./../models/intro");  
 var Validator = require("./../utils/validator");
 var ArticleModel = require("./../models/article");
 var ArticleProxy = require("./../proxy/article");
@@ -10,27 +10,41 @@ var SpecialModel = require("./../models/special");
 var Validator = require("./../utils/validator");
 
 router.get("/", function (req, res) {
-    HomeProxy.getAll(function (data) {
+    var navs = ArticleModel.getNavs().lean();
+    var recommend = ArticleModel.findPaging({}, {recommend: true});
+    var intro = HomeProxy.getIntro();
+    var special = SpecialModel.find({}).limit(4).lean();
+    var timeline = ArticleProxy.getTimeline();
+    Promise.all([navs, recommend, intro, special, timeline]).then(function(values) {
+        var data = {
+            navs: values[0],
+            banners: values[1],
+            intro: values[2] || {},
+            special: values[3],
+            timeline: values[4]
+        };
         res.render("index", data);
-    });
+    }).catch(function() {
+        throw new Error("错误");
+    })
 });
 
 /* GET home page. */
 router.get('/manager', function (req, res) {
-    HomeProxy.getAll(function (data) {
-        res.render("manager", data);
+    ArticleModel.getNavs().lean().then(function(data) {
+        res.render("manager", {navs: data});
     });
 });
 
 // 获取已推荐的数据
-router.get('/recommended/data', function (req, res) {
-    HomeProxy.getBanners(function (data) {
-        res.send({
-            status: false,
-            data
-        });
-    });
-});
+// router.get('', function (req, res) {
+//     HomeProxy.getBanners(function (data) {
+//         res.send({
+//             status: false,
+//             data
+//         });
+//     });
+// });
 
 router.post("/footer/set", function (req, res) {
     var body = req.body;
@@ -54,13 +68,15 @@ router.post("/intro/submit", function (req, res) {
     var body = req.body;
     var title = body.title
     var caption = body.caption;
+    var headLine = body.headLine;
     var description = body.description;
     var _id = body.id;
     if (!_id) {
         IntroModel.create({
             title,
             caption,
-            description
+            description,
+            headLine
         }, function (err, doc) {
             if (err) {
                 return res.send({
@@ -80,7 +96,7 @@ router.post("/intro/submit", function (req, res) {
             });
         });
     } else {
-        IntroModel.update({_id}, {$set: {title, caption, description}}, function(err, doc) {
+        IntroModel.update({_id}, {$set: {title, caption,headLine,description}}, function(err, doc) {
             if (err) {
                 return res.send({
                     message: "更新失败",
@@ -170,17 +186,17 @@ router.post("/intro/destory", function(req, res) {
 }); 
 
 router.get("/intro/data", function (req, res) {
-    IntroModel.find({}, function (err, intros) {
-        if (err) {
-            return res.send({
-                status: false
-            });
-        }
+    HomeProxy.getIntro({}).then(function(collections) {
         res.send({
             status: true,
-            data: intros
+            data: collections
         });
-    });
+    }).catch(function(e) {
+        res.send({
+            status: false,
+            msg: e.message
+        });
+    }) 
 });
 
 // 添加主题内容

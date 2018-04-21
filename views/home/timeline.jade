@@ -1,14 +1,8 @@
 div.wrapper
       h3 时光轴
-      div.line
-        div.content
-          h2 2011
-          p  这里是内容
-      div.line
-        div.content
-          h2 2012
-          p  这里是内容
-      div.line
-        div.content
-          h2 2013
-          p  这里是内容
+      each time in timeline.list
+        div.line
+          div.content
+            h2 #{time._id}
+            if time.document.length > 0 
+            p #{time.document[0].description}
