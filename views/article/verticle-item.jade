@@ -1,10 +1,8 @@
-- var articles = data.articles;
-- var params = data.params;
 each article in articles
- div.article-verticle-item(navId="#{article.navId}" articleId="#{article._id}" categoryId="#{params.categoryId}")
-   img.icon(src="#{article.img}", alt="")
-   div.content
-     h2.title
-      a #{article.title}
-     p.time #{article.createdTime}  
-     p.description #{article.description}
+  div.article-verticle-item(navId="#{article.navId}" articleId="#{article._id}" categoryId="#{params.categoryId}")
+    img.icon(src="#{article.img}", alt="")
+    div.content
+      h2.title
+        a(href="/detail/view/#{article._id}") #{article.title}
+      p.time #{article.createdTime}  
+      p.description #{article.description}

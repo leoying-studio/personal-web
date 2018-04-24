@@ -7,8 +7,8 @@ header.header
       each nav in navs
        - var categories = JSON.stringify(nav.categories);
        li.nav-item
-        a(href="#" ).nav-name #{nav.name}
+        a(href="#").nav-name #{nav.name}
         ul.categories-wrapper
          each category in nav.categories
           li
-           a.category-menu(href="#" navId="#{nav._id}" categoryId="#{category._id}") #{category.name}
+           a.category-menu(href="/article/view/#{nav._id}/#{category._id}/1" navId="#{nav._id}" categoryId="#{category._id}") #{category.name}

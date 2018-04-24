@@ -201,7 +201,7 @@ router.post("/update", function(req, res) {
 });
 
 
-router.get("/detail/view", function(req, res) {
+router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	var body = req.body;
 	var articleId = body.articleId;
 	var currentPage = body.currentPage;

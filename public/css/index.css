@@ -238,6 +238,7 @@
 
 .timeline .wrapper .line:nth-child(even) .content {
   margin-left: 100px;
+  text-align: right;
   word-break: break-all;
   text-align: left;
 }
