@@ -2,8 +2,8 @@ extend ../layout
 block content
  div.container
   div.article-detail-wrapper
-   - var content = data.article_detail.content || "";
-   - var title = data.article_detail.title || "";
+   - var content = detail.content || "";
+   - var title = detail.title || "";
     article.content
      h1.title #{title}
      p.publish-info 

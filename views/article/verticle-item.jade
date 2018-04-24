@@ -3,6 +3,6 @@ each article in articles
     img.icon(src="#{article.img}", alt="")
     div.content
       h2.title
-        a(href="/detail/view/#{article._id}") #{article.title}
+        a(href="/article/detail/view/#{article._id}/1") #{article.title}
       p.time #{article.createdTime}  
       p.description #{article.description}
