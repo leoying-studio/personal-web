@@ -1,4 +1,4 @@
-@import './mixin.scss';
+@import './common/mixin.scss';
 .header {
     height: 90px;
     line-height: 90px;
@@ -40,18 +40,7 @@
                        @include tool-bar;
                     }
                     & >.grid-box {
-                        .grid {
-                            width: 64%;
-                            min-height: 400px;
-                            float: left;
-                            box-sizing: border-box;
-                        }
-                        form {
-                            width: 35%;
-                            float: right;
-                            min-height: 400px;
-                            box-sizing: border-box;
-                        }
+                        @include grid-box;
                     }
                 }
                 .module-page:nth-child(2) {

@@ -99,8 +99,8 @@ define(['require', 'utils', 'init'], function (require, utils, init) {
     columns.special = function(destroy, edit) {
         var func = function() {};
         var special = [
-            {field: "title", title: "标题"},
-            {field: "headline", title: "字幕"},
+            // {field: "title", title: "标题"},
+            {field: "headline", title: "标题"},
             {field: "homeFigure", title: "说明"},
             {field: "createdTime", title: "添加时间"},
             {

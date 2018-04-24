@@ -1,4 +1,4 @@
-@import "./var.scss";
+@import "./common/var.scss";
 // header  开始
 .header {
     width: 100%;
@@ -226,19 +226,12 @@
 			}
 			&:nth-child(odd) {
 				.content {
-					// position: absolute;
-					margin-left: -350px;
-					text-align: right;
-					word-break: break-all;
-					text-align: left;
+					@include timeline-content(-350px);
 				}
 			}
 			&:nth-child(even) {
 				.content {
-					// position: absolute;
-					margin-left:  100px;
-					word-break: break-all;
-					text-align: left;
+					@include timeline-content(100px);
 				}
 			}
 			h2 {

@@ -1,4 +1,4 @@
-@import "./var.scss";
+@import "./common/var.scss";
 @mixin reg-login-form {
 	width: 400px;
 	position: absolute;
@@ -54,3 +54,10 @@
 		padding:0  8px;
 	}
 }
+
+@mixin timeline-content($distance) {
+	margin-left: $distance;
+	text-align: right;
+	word-break: break-all;
+	text-align: left;
+}	
