@@ -10,7 +10,7 @@
   top: 0;
   left: 0;
   z-index: 999;
-  background: #ffffff;
+  background: white;
   box-shadow: 0 0 1px 0px #e4e4e4;
 }
 
@@ -119,6 +119,7 @@
   box-sizing: border-box;
   padding: 100px 100px;
   font-weight: bold;
+  color: #555555;
 }
 
 .intro .wrapper .caption {
@@ -136,7 +137,6 @@
 .intro .wrapper .caption h3 {
   font-size: 32px;
   margin-bottom: 30px;
-  color: #555555;
 }
 
 .intro .wrapper .caption p {
@@ -154,7 +154,6 @@
 .intro .wrapper .show h2 {
   font-size: 32px;
   margin-bottom: 30px;
-  color: #555555;
 }
 
 .intro .wrapper .show .wrapper {
