@@ -200,6 +200,16 @@
   text-align: center;
 }
 
+.timeline .wrapper .current-time {
+  width: 100px;
+  margin: 40px auto;
+  padding: 8px 0;
+  text-align: center;
+  background-color: #66AF33;
+  color: white;
+  border-radius: 40px;
+}
+
 .timeline .wrapper .line {
   width: 6px;
   margin: 0 auto;
@@ -225,12 +235,16 @@
   width: 400px;
   left: -500px;
   text-align: right;
+  word-break: break-all;
+  text-align: left;
 }
 
 .timeline .wrapper .line:nth-of-type(even) .content {
   position: absolute;
   width: 400px;
   left: 100px;
+  word-break: break-all;
+  text-align: left;
 }
 
 .timeline .wrapper .line h2 {

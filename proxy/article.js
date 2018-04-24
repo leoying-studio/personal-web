@@ -75,9 +75,9 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 			ArticleModel.aggregate([
 				{
 					$project: {
-						year: {$substr: ['$createdTime', 0, 4]},
-						month: {$substr: ['$createdTime', 5, 2]},
-						years: {$substr: ['$createdTime', 0, 7]},
+						year: {$substr: ['$createdAt', 0, 4]},
+						month: {$substr: ['$createdAt', 5, 2]},
+						years: {$substr: ['$createdAt', 0, 7]},
 						description: '$description',
 						img: '$img'
 					}

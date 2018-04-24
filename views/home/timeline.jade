@@ -1,8 +1,18 @@
+- var list = timeline.list;
 div.wrapper
-      h3 时光轴
-      each time in timeline.list
-        div.line
-          div.content
-            h2 #{time._id}
-            if time.document.length > 0 
-            p #{time.document[0].description}
+  h3 时光轴
+  if list.length < 12
+  each time in list
+    div.current-time #{time._id}月
+    each doc in time.document
+      div.line
+        div.content
+          img(src="#{doc.img}")
+          p #{doc.description}
+  //- else
+  //- each time in list
+  //- div.line
+  //-   div.content
+  //-     h2 #{time._id}
+  //-     if time.document.length > 0 
+  //-     p #{time.document[0].description}
