@@ -103,13 +103,13 @@ $(document).ready(function() {
 
 
     // 进入文章详情页面
-    $(".article-verticle-item").click(function() {
-        debugger;
-        var navId = $(this).attr("navId");
-        var categoryId = $(this).attr("categoryId");
-        var articleId = $(this).attr("articleId");
-         window.location.href=window.location.origin+"/article/article_detail/view/"+articleId+"/1";
-    });
+    // $(".article-verticle-item").click(function() {
+    //     debugger;
+    //     var navId = $(this).attr("navId");
+    //     var categoryId = $(this).attr("categoryId");
+    //     var articleId = $(this).attr("articleId");
+    //      window.location.href=window.location.origin+"/article/article/view/"+articleId+"/1";
+    // });
      
     $("#articleContent").html($("#articleContent").text());
     $("#articleContent").html($("#articleContent").text());
