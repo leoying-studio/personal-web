@@ -8,7 +8,7 @@ var Scheam = new mongoose.Schema({
 	content:{type: 'string'},
 	detailId: {type: 'string'},
 	createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	createdAt: {default: new Date(), type: Date}
+	createdAt: {default: Date.now, type: Date}
 });
 
 Scheam.plugin(DBSuper.regFind);

@@ -7,7 +7,7 @@ var Scheam = new mongoose.Schema({
 		 {name: String}
 	 ],
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: new Date(), type: Date}
+	 createdAt: {default: Date.now, type: Date}
 });
 
 Scheam.set('toJSON', { getters: true, virtuals: false });
