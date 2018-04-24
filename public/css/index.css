@@ -252,6 +252,11 @@
   padding-bottom: 12px;
 }
 
+.timeline .wrapper .line .content img {
+  display: block;
+  width: 200px;
+}
+
 .timeline .wrapper .line .content p {
   color: #b7b7b7;
   font-size: 13px;

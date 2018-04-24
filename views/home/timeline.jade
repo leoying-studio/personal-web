@@ -9,10 +9,10 @@ div.wrapper
         div.content
           img(src="#{doc.img}")
           p #{doc.description}
-  else
-  each time in list
-    div.line
-      div.content
-        h2 #{time._id}
-        if time.document.length > 0 
-        p #{time.document[0].description}
+  //- else
+  //- each time in list
+  //-   div.line
+  //-     div.content
+  //-       h2 #{time._id}
+  //-     if time.document.length > 0 
+  //-       p #{time.document[0].description}
