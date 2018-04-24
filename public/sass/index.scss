@@ -226,7 +226,7 @@
 				left: -4.5px;
 				background: #fff;
 			}
-			&:nth-of-type(odd) {
+			&:nth-child(odd) {
 				.content {
 					position: absolute;
 					width: 400px;
@@ -236,7 +236,7 @@
 					text-align: left;
 				}
 			}
-			&:nth-of-type(even) {
+			&:nth-child(even) {
 				.content {
 					position: absolute;
 					width: 400px;

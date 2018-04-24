@@ -230,7 +230,7 @@
   background: #fff;
 }
 
-.timeline .wrapper .line:nth-of-type(odd) .content {
+.timeline .wrapper .line:nth-child(odd) .content {
   position: absolute;
   width: 400px;
   left: -500px;
@@ -239,7 +239,7 @@
   text-align: left;
 }
 
-.timeline .wrapper .line:nth-of-type(even) .content {
+.timeline .wrapper .line:nth-child(even) .content {
   position: absolute;
   width: 400px;
   left: 100px;
