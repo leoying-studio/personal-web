@@ -214,7 +214,7 @@
   width: 6px;
   margin: 0 auto;
   background: #fff;
-  height: 100px;
+  min-height: 100px;
   position: relative;
 }
 
@@ -231,18 +231,14 @@
 }
 
 .timeline .wrapper .line:nth-child(odd) .content {
-  position: absolute;
-  width: 400px;
-  left: -500px;
+  margin-left: -350px;
   text-align: right;
   word-break: break-all;
   text-align: left;
 }
 
 .timeline .wrapper .line:nth-child(even) .content {
-  position: absolute;
-  width: 400px;
-  left: 100px;
+  margin-left: 100px;
   word-break: break-all;
   text-align: left;
 }
@@ -252,14 +248,19 @@
   padding-bottom: 12px;
 }
 
+.timeline .wrapper .line .content {
+  width: 250px;
+}
+
 .timeline .wrapper .line .content img {
   display: block;
-  width: 200px;
+  width: 100%;
 }
 
 .timeline .wrapper .line .content p {
   color: #b7b7b7;
   font-size: 13px;
+  line-height: 18px;
   font-family: 'Montserrat', sans-serif;
 }
 

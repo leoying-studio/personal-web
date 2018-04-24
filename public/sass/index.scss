@@ -213,7 +213,7 @@
 			width: 6px;
 			margin: 0 auto;
 			background: #fff;
-			height: 100px;
+			min-height: 100px;
 			position: relative;
 			&::after  {
 				display: block;
@@ -228,9 +228,8 @@
 			}
 			&:nth-child(odd) {
 				.content {
-					position: absolute;
-					width: 400px;
-					left: -500px;
+					// position: absolute;
+					margin-left: -350px;
 					text-align: right;
 					word-break: break-all;
 					text-align: left;
@@ -238,9 +237,8 @@
 			}
 			&:nth-child(even) {
 				.content {
-					position: absolute;
-					width: 400px;
-					left:  100px;
+					// position: absolute;
+					margin-left:  100px;
 					word-break: break-all;
 					text-align: left;
 				}
@@ -250,13 +248,15 @@
 				padding-bottom: 12px;
 			}
 			.content {
+				width: 250px;
 				img {
 					display: block;
-					width: 200px;
+					width: 100%;
 				}
 				p {
 					color: #b7b7b7;
 					font-size: 13px;
+					line-height: 18px;
 					font-family: 'Montserrat', sans-serif;
 				}
 			}
