@@ -112,6 +112,5 @@ $(document).ready(function() {
     // });
      
     $("#articleContent").html($("#articleContent").text());
-    $("#articleContent").html($("#articleContent").text());
 
 });
