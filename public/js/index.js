@@ -1,19 +1,11 @@
 $(document).ready(function() {
-
-     // 返回到首页   
-     $("#homePage").click(function() {
-        window.location.href = location.origin;
-     });
-
-     // 分类选择
-    //  $('.category-menu').click(function() {
-    //      var navId = $(this).attr('navid');
-    //      var categoryId = $(this).attr('categoryId');
-    //      window.location.href=window.location.origin+"/article/view/"+navId+"/"+categoryId+"/1";
-    //  });
-
+    var bannerItem = $("#bannerPanel").find(".banner-item");
+    var header = $("#header");
+    var nav = header.children("nav:eq(0)");
+    var homeFont = nav.find(".nav-item:eq(0) > a");
+    var homeIcon = header.find('h1:eq(0)');
      // banner 轮播
-     $('.banner-item :not(:first)').hide();
+     bannerItem.not(":first").hide();
      var bannerIndex = 0;
      setInterval(function() {
          bannerIndex+= 1;
@@ -22,7 +14,13 @@ $(document).ready(function() {
          }
          $(".banner-item").eq(bannerIndex).fadeIn(800).siblings().fadeOut(800);
      }, 3000);
-     
+
+      // 返回到首页   
+     $([homeFont, homeIcon]).each(function(index, item) {
+         $(item).click(function() {
+            window.location.href = location.origin;
+         });
+     });
 
      var inited = false;
      // 分页初始化
@@ -100,16 +98,6 @@ $(document).ready(function() {
          }) ;   
      });
 
-
-
-    // 进入文章详情页面
-    // $(".article-verticle-item").click(function() {
-    //     debugger;
-    //     var navId = $(this).attr("navId");
-    //     var categoryId = $(this).attr("categoryId");
-    //     var articleId = $(this).attr("articleId");
-    //      window.location.href=window.location.origin+"/article/article/view/"+articleId+"/1";
-    // });
      
     $("#articleContent").html($("#articleContent").text());
 

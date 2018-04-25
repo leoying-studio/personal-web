@@ -7,6 +7,11 @@ var Scheam = new mongoose.Schema({
 	 caption:{type: 'string'},
 	 headLine: String,
 	 description:{type: 'string'},
+	//  special: [
+	// 	 {photo: String, themes: [
+	// 		 {p: String}
+	// 	 ]}
+	//  ],
 	 apply:{type: Boolean, default: false},
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
 	 createdAt: {default: Date.now, type: Date}

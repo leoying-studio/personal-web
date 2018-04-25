@@ -88,7 +88,7 @@
 		// 	}
 		// }
 		ul {
-			// width: 400%;
+			// width: 600%;
 			// -webkit-animation: play 17s ease-in-out infinite 2s;    
 			li {
 				width: 100%;
@@ -262,9 +262,16 @@
   background:#404040 url("./../images/contact-bg.jpg") no-repeat center center;
   background-size: cover;
   background-attachment: fixed;
-  color: #fff;
+  min-height: 600px;
+  color: white;
   .wrapper {
-    min-height: 600px;
+	 position: fixed;
+	 width: 100%;
+	 height: 80px;
+	 line-height: 80px;
+	 bottom: 0;
+	 text-align: center;
+	 background-color: rgba(0,0,0,.5);
   }
 }
 

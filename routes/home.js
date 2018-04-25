@@ -282,12 +282,12 @@ router.get("/special/data", function(req, res) {
 router.post("/special/submit", function(req, res) {
     var body = req.body;
     var _id = body.id;
-    var title = body.title;
+    // var title = body.title;
     // 首页展示
     var homeFigure = body.homeFigure;
     var headline = body.headline;
     var validate = Validator([
-        {mode: "required", value: title, message: "标题不能为空"},
+        {mode: "required", value: headline, message: "标题不能为空"},
         {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
     ]);
     if(!validate.status) {
@@ -298,7 +298,7 @@ router.post("/special/submit", function(req, res) {
     }
     // 接口存在id就进行添加
     if (!_id) {
-        SpecialModel.create({title, homeFigure, headline}, function(err, doc) {
+        SpecialModel.create({ homeFigure, headline}, function(err, doc) {
             if (err) {
                 return res.send({
                     message: "设置异常",
@@ -317,7 +317,7 @@ router.post("/special/submit", function(req, res) {
         });
     } else {
         // 更新
-        SpecialModel.update({_id}, {$set: {title, homeFigure, headline}}, function(err, doc) {
+        SpecialModel.update({_id}, {$set: {homeFigure, headline}}, function(err, doc) {
             if (err) {
                 return res.send({
                     message: "更新异常",
