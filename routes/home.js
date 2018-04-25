@@ -12,7 +12,7 @@ var Validator = require("./../utils/validator");
 router.get("/", function (req, res) {
     var navs = ArticleModel.getNavs().lean();
     var recommend = ArticleModel.findPaging({}, {recommend: true});
-    var intro = HomeProxy.getIntro();
+    var intro = HomeProxy.getIntro();   
     var special = SpecialModel.find({}).limit(4).lean();
     var timeline = ArticleProxy.getTimeline();
     Promise.all([navs, recommend, intro, special, timeline]).then(function(values) {

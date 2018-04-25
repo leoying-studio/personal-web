@@ -20,8 +20,9 @@ $(document).ready(function() {
          if (bannerIndex >= $('.banner-item').length) {
              bannerIndex = 0;
          }
-         $(".banner-item").eq(bannerIndex).fadeIn(800).siblings().fadeOut(800);
-     }, 3000);
+         var current = $(".banner-item").eq(bannerIndex).siblings().hide(100).fadeIn(500);
+        //  siblings().fadeOut(500);
+     }, 5000);
      
 
      var inited = false;
