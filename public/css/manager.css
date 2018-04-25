@@ -62,8 +62,8 @@
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(1) > .grid-box form {
   width: 35%;
-  float: right;
   min-height: 400px;
+  float: right;
   box-sizing: border-box;
 }
 
@@ -103,6 +103,7 @@
 
 .tab-strip .tab-strip-item:nth-child(2) .wrapper .right-container .module-page:nth-child(2) .special-wrapper .grid-box .grid {
   width: 64%;
+  min-height: 400px;
   float: left;
   box-sizing: border-box;
 }

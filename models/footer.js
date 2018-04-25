@@ -6,7 +6,7 @@ var Scheam = new mongoose.Schema({
 	 title: {type: 'string'},
 	 descrption: {type: 'string'},
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: new Date(), type: Date}
+	 createdAt: {default: Date.now, type: Date}
 });
 
 var Footer = mongoose.model('footer', Scheam);

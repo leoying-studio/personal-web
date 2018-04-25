@@ -9,7 +9,7 @@ var Scheam = new mongoose.Schema({
 	 passAgain:{type: 'string'},
 	 email: {type: 'string'},
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {type: Date, default: new Date()}
+	 createdAt: {type: Date, default: Date.now}
 });
 
 Scheam.plugin(DBSuper.regNav);

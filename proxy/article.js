@@ -1,43 +1,43 @@
 var ArticleModel = require("./../models/article");
 var CommentModel = require("./../models/comment");
-var formateData = function(collections) {
-	if (collections.length === 0) {
-		return collections;
-	}
-	var articles = collections.map(function(doc, index) {
-		var createdTime = doc.createdTime;
-		var date = new Date(createdTime);
-		var year = date.getFullYear();
-		var month = date.getMonth() + 1;
-		doc.year = year;
-		doc.month = month;
-		return doc;         
-	});
-	var timelines = [{
-		year: collections[0].year,
-		month: collections[0].month,
-		events: []
-	}];
-	collections.forEach(function(doc, index) {
-		timelines.forEach(function(line, idx) {
-			if (line.year == doc.year && line.month == doc.month) {
-				line.events.push(doc);
-			} else {
-				var exist = timelines.some(function(timeline) {
-					return timeline.year == doc.year && timeline.month == doc.month;
-				});
-				if (!exist) {
-					timelines.push({
-						year: doc.year,
-						month: doc.month,
-						events: [doc]
-					});
-				}
-			}	
-		});	
-	});
-	return timelines;
-}
+// var formateData = function(collections) {
+// 	if (collections.length === 0) {
+// 		return collections;
+// 	}
+// 	var articles = collections.map(function(doc, index) {
+// 		var createdTime = doc.createdTime;
+// 		var date = new Date(createdTime);
+// 		var year = date.getFullYear();
+// 		var month = date.getMonth() + 1;
+// 		doc.year = year;
+// 		doc.month = month;
+// 		return doc;         
+// 	});
+// 	var timelines = [{
+// 		year: collections[0].year,
+// 		month: collections[0].month,
+// 		events: []
+// 	}];
+// 	collections.forEach(function(doc, index) {
+// 		timelines.forEach(function(line, idx) {
+// 			if (line.year == doc.year && line.month == doc.month) {
+// 				line.events.push(doc);
+// 			} else {
+// 				var exist = timelines.some(function(timeline) {
+// 					return timeline.year == doc.year && timeline.month == doc.month;
+// 				});
+// 				if (!exist) {
+// 					timelines.push({
+// 						year: doc.year,
+// 						month: doc.month,
+// 						events: [doc]
+// 					});
+// 				}
+// 			}	
+// 		});	
+// 	});
+// 	return timelines;
+// }
 
 exports.list = function(conditions , currentPage, callback) {
 	var articles = ArticleModel.findPaging({currentPage}, conditions );
@@ -75,9 +75,9 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 			ArticleModel.aggregate([
 				{
 					$project: {
-						year: {$substr: ['$createdTime', 0, 4]},
-						month: {$substr: ['$createdTime', 5, 2]},
-						years: {$substr: ['$createdTime', 0, 7]},
+						year: {$substr: ['$createdAt', 0, 4]},
+						month: {$substr: ['$createdAt', 5, 2]},
+						years: {$substr: ['$createdAt', 0, 7]},
 						description: '$description',
 						img: '$img'
 					}
@@ -110,10 +110,10 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 exports.detail =  function(conditions, currentPage, callback) {
 	var detail = ArticleModel.findOne(conditions);
 	var comments = CommentModel.findPaging({currentPage}, conditions);
-	var total = CommentModel.count(conditions);
+	var total = CommentModel.count(conditions);	
 	Promise.all([detail, comments, total]).then(function(collections) {
 		callback({
-			detail: collections[0],
+			detail: collections[0] || {},
 			comments: {
 				list: collections[1],
 				total: collections[2]

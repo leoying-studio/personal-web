@@ -8,7 +8,6 @@ var Scheam = new mongoose.Schema({
 	description: String,
 	img: String,
 	navId: String,
-	articleId: String,
 	createdTime: { type: String, default: Utils.getTime(new Date(), "s") },
 	updateTime: {type: String, default: Utils.getTime(new Date(), 's')},
 	createdAt: {type: Date, default: Date.now},

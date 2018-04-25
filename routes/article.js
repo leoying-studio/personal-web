@@ -110,7 +110,7 @@ router.get("/data/all", function(req, res) {
 		res.send({
 			status: true,
 			data: collections
-		});
+		});	
 	});
 });
 
@@ -201,16 +201,19 @@ router.post("/update", function(req, res) {
 });
 
 
-router.get("/detail/view", function(req, res) {
-	var body = req.body;
-	var articleId = body.articleId;
-	var currentPage = body.currentPage;
-	ArticleProxy.detail({articleId}, currentPage, function(data) {
-		data.params = {
-			articleId,
-			currentPage
-		};
-		res.render("detail", data);
+router.get("/detail/view/:articleId/:currentPage", function(req, res) {
+	var params = req.params;
+	var articleId = params.articleId;
+	var currentPage = params.currentPage;
+	ArticleModel.getNavs().lean().then(function(navs) {
+		ArticleProxy.detail({_id: articleId}, currentPage, function(data) {
+			data.params = {
+				articleId,
+				currentPage
+			};
+			data.navs = navs;
+			res.render("detail", data);
+		});
 	});
 });
 

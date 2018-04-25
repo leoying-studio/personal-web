@@ -9,7 +9,7 @@ var Scheam = new mongoose.Schema({
 	 description:{type: 'string'},
 	 apply:{type: Boolean, default: false},
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: new Date(), type: Date}
+	 createdAt: {default: Date.now, type: Date}
 });
 Scheam.plugin(DBSuper.regFind);
 var Intro = mongoose.model('intro', Scheam);

@@ -9,7 +9,7 @@ var Scheam = new mongoose.Schema({
 		 {presentation: String, photo: String}
 	 ],
 	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: new Date(), type: Date}
+	 createdAt: {default: Date.now, type: Date}
 });
 
 Scheam.plugin(DBSuper.regNav);

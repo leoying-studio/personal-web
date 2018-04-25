@@ -100,4 +100,9 @@ hr {
 
 input, select {
   vertical-align: middle;
+  outline: none;
+}
+
+ul {
+  list-style: none;
 }

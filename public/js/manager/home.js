@@ -324,7 +324,7 @@ define(["init","config"], function(init, config) {
 				select.empty();
 				var str = "";
 				$(res.data).each(function(index, item) {
-					str += "<option value='"+item._id+"'>"+item.title+"</option>";
+					str += "<option value='"+item._id+"'>"+item.headline+"</option>";
 				});
 				var newSelect = $("<select class='select'></select>").append(str);
 				select.after(newSelect);

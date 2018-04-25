@@ -1,20 +1,16 @@
-- var comments = data.comments.comments;
-- var commentTotal = data.comments.total;
-- var article_detail = data.article_detail;
-//- - var navId = article_detail.navId;
-//- - var categoryId = article_detail.categoryId;
-- var articleId = data.params.articleId;
-- var currentPage = data.params.currentPage;
+- var list = comments.list;
+- var articleId = params.articleId;
+- var currentPage = params.currentPage;
 article.comment
   header.comment-header
    textarea.comment-input(placeholder="说说你的看法......" id="commentContent")
    div.publish-wrapper
-    button.btn.btn-primary(detailId="#{article_detail._id}" id="publishCommentBtn") 发布
+    button.btn.btn-primary(detailId="#{detail._id}" id="publishCommentBtn") 发布
   section.comment-content
-  - each comment in comments
+   each comment in list
      article.comment-content-item
       h2.user #{comment.username}
        span.publish-time 48分钟前
       p.content #{comment.content}
   footer.comment-footer
-    div(total="#{commentTotal}"  articleId="#{articleId}" currentPage="#{currentPage}")#commentPaging.paging
+    div(total="#{comments.total}"  articleId="#{articleId}" currentPage="#{currentPage}")#commentPaging.paging
