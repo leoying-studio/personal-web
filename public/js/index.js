@@ -67,7 +67,7 @@ $(document).ready(function() {
 
     //  //发表文章详情页的评论
      $("#publishCommentBtn").click(function() {
-         var detailId = $(this).attr('detailId');
+         var articleId = $(this).attr('articleId');
         $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){ 
               var country = remote_ip_info["country"];
               var province = remote_ip_info["province"];  
@@ -77,7 +77,7 @@ $(document).ready(function() {
               var params = {
                   username, 
                   content,
-                  detailId
+                  articleId
               };
               debugger;
               $.ajax({

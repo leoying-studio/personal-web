@@ -5,7 +5,7 @@ article.comment
   header.comment-header
    textarea.comment-input(placeholder="说说你的看法......" id="commentContent")
    div.publish-wrapper
-    button.btn.btn-primary(detailId="#{detail._id}" id="publishCommentBtn") 发布
+    button.btn.btn-primary(articleId="#{params.articleId}" id="publishCommentBtn") 发布
   section.comment-content
    each comment in list
      article.comment-content-item
