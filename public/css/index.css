@@ -37,7 +37,7 @@
 
 .header nav .nav-item a {
   display: block;
-  width: 120px;
+  padding: 0 20px;
   font-weight: bold;
   color: #404040;
   text-decoration: none;
@@ -116,80 +116,83 @@
 
 /* intro */
 .intro {
-  box-sizing: border-box;
-  padding: 100px 100px;
-  font-weight: bold;
   color: #555555;
 }
 
-.intro .wrapper .caption {
-  width: 500px;
+.intro > .wrapper {
+  width: 1000px;
+  margin: 0 auto;
+  padding: 80px 0;
+  font-weight: bold;
+}
+
+.intro > .wrapper .caption {
+  width: 58%;
   float: left;
   word-break: break-all;
 }
 
-.intro .wrapper .caption h2 {
+.intro > .wrapper .caption h2 {
   margin-bottom: 50px;
   font-size: 36px;
   color: #66AF33;
 }
 
-.intro .wrapper .caption h3 {
+.intro > .wrapper .caption h3 {
   font-size: 32px;
   margin-bottom: 30px;
 }
 
-.intro .wrapper .caption p {
+.intro > .wrapper .caption p {
   color: rgba(85, 85, 85, 0.8);
   line-height: 24px;
   font-size: 16px;
 }
 
-.intro .wrapper .show {
+.intro > .wrapper .show {
   float: right;
-  width: 510px;
+  width: 41%;
   word-break: break-all;
 }
 
-.intro .wrapper .show h2 {
+.intro > .wrapper .show h2 {
   font-size: 32px;
   margin-bottom: 30px;
 }
 
-.intro .wrapper .show .wrapper {
+.intro > .wrapper .show .wrapper {
   font-size: 0;
   width: 100%;
 }
 
-.intro .wrapper .show .wrapper span {
+.intro > .wrapper .show .wrapper span {
   display: inline-block;
-  width: 250px;
+  width: 164.5px;
 }
 
-.intro .wrapper .show .wrapper > :nth-child(odd) {
+.intro > .wrapper .show .wrapper > :nth-child(odd) {
   padding-right: 10px;
 }
 
-.intro .wrapper .show .wrapper > span {
+.intro > .wrapper .show .wrapper > span {
   padding-bottom: 10px;
 }
 
-.intro .wrapper .show .wrapper > span img {
+.intro > .wrapper .show .wrapper > span img {
   display: block;
-  width: 100%;
 }
 
 /*intro  E*/
 /*timeline S*/
 .timeline {
   background: #404040;
-  padding: 80px 0;
-  color: #fff;
 }
 
 .timeline .wrapper {
   width: 80%;
   margin: 0 auto;
+  padding: 80px 0;
+  color: #fff;
 }
 
 .timeline .wrapper h3 {
@@ -213,11 +216,11 @@
   width: 6px;
   margin: 0 auto;
   background: #fff;
-  min-height: 100px;
+  height: 250px;
   position: relative;
 }
 
-.timeline .wrapper .line::after {
+.timeline .wrapper .line::before {
   display: block;
   content: "";
   width: 15px;
@@ -225,8 +228,20 @@
   border-radius: 100%;
   position: absolute;
   top: -10px;
-  left: -4.5px;
+  left: -4.6px;
   background: #fff;
+}
+
+.timeline .wrapper .line:after {
+  display: block;
+  content: "";
+  width: 6px;
+  height: 0;
+  position: absolute;
+  top: 4px;
+  left: 0px;
+  border-radius: 5px;
+  transition: height 1s ease-in-out;
 }
 
 .timeline .wrapper .line:nth-child(odd) .content {
@@ -250,6 +265,12 @@
 
 .timeline .wrapper .line .content {
   width: 250px;
+  padding: 12px 15px;
+  opacity: 0;
+  background: white;
+  border-radius: 5px;
+  border: #ccc solid 1px;
+  transition: all 1.2s ease-in-out;
 }
 
 .timeline .wrapper .line .content img {
@@ -262,6 +283,21 @@
   font-size: 13px;
   line-height: 18px;
   font-family: 'Montserrat', sans-serif;
+}
+
+.timeline .wrapper .line .content-left {
+  opacity: 1;
+  transform: translateX(15px);
+}
+
+.timeline .wrapper .line .content-right {
+  opacity: 1;
+  transform: translateX(-15px);
+}
+
+.timeline .wrapper .line-progress:after {
+  height: 100%;
+  background: rgba(29, 238, 39, 0.8);
 }
 
 /*timeline E*/

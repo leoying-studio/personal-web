@@ -31,7 +31,7 @@
 			text-align: center;
 			a {
 				display: block;
-				width:120px;
+				padding: 0 20px;
 				font-weight: bold;
 				color: #404040;
 				text-decoration: none;
@@ -127,13 +127,14 @@
 
 /* intro */
  .intro {
-    box-sizing: border-box;
-	padding: 100px 100px;
-	font-weight: bold;
 	color: $dark-grey;
-	.wrapper {
+	& > .wrapper {
+		width: 1000px;
+		margin: 0 auto;
+		padding: 80px 0;
+		font-weight: bold;
 		.caption {
-			width: 500px;
+			width: 58%;
 			float: left;
 			word-break: break-all;
 			h2 {
@@ -153,7 +154,7 @@
 		}
 		.show{
 			float: right;
-			width: 510px;
+			width: 41%;
 			word-break: break-all;
 			h2 {
 				font-size: 32px;
@@ -164,7 +165,7 @@
 				width: 100%;
 				span{
 					display: inline-block;
-					width: 250px;
+					width: 164.5px;
 				}
 				&>:nth-child(odd) {
 					padding-right: 10px;
@@ -173,7 +174,6 @@
 					padding-bottom: 10px;
 					img {
 						display: block;
-						width: 100%;
 					}
 				}
 			}
@@ -188,11 +188,11 @@
 /*timeline S*/
 .timeline {
     background: #404040;
-    padding: 80px 0;
-	color: #fff;
 	.wrapper {
 		width: 80%;
 		margin: 0 auto;
+		padding: 80px 0;
+		color: #fff;
 		h3 {
 			font-weight: bold;
 			font-size: 24px;
@@ -212,9 +212,9 @@
 			width: 6px;
 			margin: 0 auto;
 			background: #fff;
-			min-height: 100px;
+			height: 250px;
 			position: relative;
-			&::after  {
+			&::before  {
 				display: block;
 				content: "";
 				width: 15px;
@@ -222,8 +222,19 @@
 				border-radius:100%;
 				position: absolute;
 				top: -10px;
-				left: -4.5px;
+				left: -4.6px;
 				background: #fff;
+			}
+			&:after{
+				display: block;
+				content: "";
+				width: 6px;
+				height: 0;
+				position: absolute;
+				top: 4px;
+				left: 0px;
+				border-radius: 5px;
+				transition: height 1s ease-in-out;
 			}
 			&:nth-child(odd) {
 				.content {
@@ -241,6 +252,12 @@
 			}
 			.content {
 				width: 250px;
+				padding: 12px 15px;
+				opacity: 0;
+				background: white;
+				border-radius: 5px;
+				border: #ccc solid 1px;
+				transition: all 1.2s ease-in-out;
 				img {
 					display: block;
 					width: 100%;
@@ -251,6 +268,21 @@
 					line-height: 18px;
 					font-family: 'Montserrat', sans-serif;
 				}
+			}
+			.content-left {
+				opacity: 1;
+				transform: translateX(15px);
+			}
+
+			.content-right {
+				opacity: 1;
+				transform: translateX(-15px);
+			}
+		}
+		.line-progress {
+			&:after {
+				height: 100%;
+				background: rgba(29, 238, 39, .8);
 			}
 		}
 	}

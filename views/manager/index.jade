@@ -13,9 +13,7 @@ html
     //- link(rel='stylesheet', href='/css/reset.css')
     //- link(rel='stylesheet', href='/css/common.css')
     //- link(rel='stylesheet', href='/css/manager.css')
-    script(src="/lib/jquery/jquery.min.js")
-    script(src="/lib/kendo/kendo.all.min.js")
-    script(src="/lib/require/require.js" data-main="./../../js/main")
+
   body
     //- include ./header.jade
     div#tabStrip.tab-strip
@@ -30,3 +28,6 @@ html
     include ./../common/error.jade
   - else if(success)
     include ./../common/success.jade
+  script(src="/lib/jquery/jquery.min.js")
+  script(src="/lib/kendo/kendo.all.min.js")
+  script(src="/lib/require/require.js" data-main="./../../js/main")

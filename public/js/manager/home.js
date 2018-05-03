@@ -79,7 +79,8 @@ define(["init","config"], function(init, config) {
 					title: params.title,
 					caption: params.caption,
 					description: params.description,
-					headLine: params.headLine
+					headLine: params.headLine,
+					id: params.id
 				},
 				dataType: 'json',
 				type: 'post',

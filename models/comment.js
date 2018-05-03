@@ -6,7 +6,7 @@ var DBSuper = require("./super");
 var Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
-	detailId: {type: 'string'},
+	articleId: {type: 'string'},
 	createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
 	createdAt: {default: Date.now, type: Date}
 });

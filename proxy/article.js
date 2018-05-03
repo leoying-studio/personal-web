@@ -79,7 +79,8 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 						month: {$substr: ['$createdAt', 5, 2]},
 						years: {$substr: ['$createdAt', 0, 7]},
 						description: '$description',
-						img: '$img'
+						img: '$img',
+						articleId: '$_id'
 					}
 				},	
 				{
@@ -89,7 +90,7 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 					$group: {
 						'_id': '$years',
 						number: {$sum: 1},
-						document: {$push: {'description': '$description', 'img': '$img'}},
+						document: {$push: {'description': '$description', 'img': '$img', 'articleId':'$articleId'}},
 					}
 				},
 				{
@@ -108,7 +109,7 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 }
 
 exports.detail =  function(conditions, currentPage, callback) {
-	var detail = ArticleModel.findOne(conditions);
+	var detail = ArticleModel.findOne({_id: conditions.articleId});
 	var comments = CommentModel.findPaging({currentPage}, conditions);
 	var total = CommentModel.count(conditions);	
 	Promise.all([detail, comments, total]).then(function(collections) {

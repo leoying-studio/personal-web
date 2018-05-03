@@ -7,7 +7,8 @@ div.wrapper
     each doc in time.document
       div.line
         div.content
-          img(src="#{doc.img}")
+          a(href="/article/detail/view/#{doc.articleId}/1")
+            img(src="#{doc.img}")
           p #{doc.description}
   //- else
   //- each time in list

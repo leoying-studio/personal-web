@@ -4,15 +4,21 @@ $(document).ready(function() {
     var nav = header.children("nav:eq(0)");
     var homeFont = nav.find(".nav-item:eq(0) > a");
     var homeIcon = header.find('h1:eq(0)');
+    var timelineView = $(".timeline:eq(0)");
+    var lines = timelineView.find(".line");
+    var contentViews = timelineView.find(".content");
+    var commentSection = $(".article-detail-wrapper:eq(0)").find(".comment-content:eq(0)"); 
+    var lineIndex = 0;
+    var previousTop = 0;
+    var bannerIndex = 0;
      // banner 轮播
      bannerItem.not(":first").hide();
-     var bannerIndex = 0;
      setInterval(function() {
-         bannerIndex+= 1;
          if (bannerIndex >= $('.banner-item').length) {
              bannerIndex = 0;
          }
-         $(".banner-item").eq(bannerIndex).fadeIn(800).siblings().fadeOut(800);
+         $(".banner-item").eq(bannerIndex).fadeIn(200).siblings().fadeOut(300);
+         bannerIndex+= 1;
      }, 3000);
 
       // 返回到首页   
@@ -44,6 +50,29 @@ $(document).ready(function() {
         });
      }
 
+    if (timelineView.length) {
+        $(window).scroll(function(event) {
+            var top = $(window).scrollTop();
+            var lineTop = timelineView[0].offsetTop;
+            var height = timelineView.find(".line:eq(0)").height();
+            if (top >=　lineTop) {
+                if (lineIndex <= lines.length - 1 &&　top - previousTop >= height) {
+                    previousTop = top;
+                    if (lineIndex % 2 === 0) {
+                        // 单数
+                        contentViews.eq(lineIndex).addClass("content-left");
+                    } else {
+                        contentViews.eq(lineIndex).addClass("content-right");
+                    }
+                    lines.eq(lineIndex).addClass("line-progress");
+                    lineIndex += 1
+                }
+            }
+        });
+    }
+    
+
+
     //  // 评论页面分页初始化
      var commentPaging = $("#commentPaging");
      if (commentPaging[0]) {
@@ -59,11 +88,23 @@ $(document).ready(function() {
             slideSpeed: 600, // 缓动速度。单位毫秒 
             callback: function(no) { // 回调函数 
                 if (inited)
-                window.location.href = window.location.origin+"/article/article/view/"+articleId+"/"+no;
+                window.location.href = window.location.origin+"/article/detail/view/"+articleId+"/"+no;
                 inited = true;
             }
         });
      }
+
+    var appendComment = function(comment) {
+         commentSection.append(
+             "<article class='comment-content-item'>"
+                +
+                    "<h2 class='user'>"+comment.user+"<span>"+48+"分钟前</span>"+"</h2>"
+                                + 
+                        "<p class='content'>"+ comment.content +"</p>"
+                +
+             "</article>"
+         );
+    }
 
     //  //发表文章详情页的评论
      $("#publishCommentBtn").click(function() {
@@ -79,13 +120,14 @@ $(document).ready(function() {
                   content,
                   articleId
               };
-              debugger;
+  
               $.ajax({
                  url: '/article/comment/submit',
                  data: params,
                  type:'post',
                  success: function(res) {
                    if (res.status) {
+                       appendComment(res.data);
                        alert("评论成功");
                    } else {
                        alert(res.msg);
@@ -98,6 +140,7 @@ $(document).ready(function() {
          }) ;   
      });
 
+   
      
     $("#articleContent").html($("#articleContent").text());
 

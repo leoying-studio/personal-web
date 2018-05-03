@@ -2,7 +2,8 @@ div.banner-panel#bannerPanel
   ul.clearfix
    each banner in banners
     li.banner-item 
-     img(src="#{banner.recommendImg || banner.img}", alt="")
+     a(href="#")
+      img(src="#{banner.recommendImg || banner.img}", alt="")
      div.content
        h2 #{banner.title}
        h3 #{banner.caption}

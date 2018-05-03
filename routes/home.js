@@ -15,7 +15,9 @@ router.get("/", function (req, res) {
     var intro = HomeProxy.getIntro();   
     var special = SpecialModel.find({}).limit(4).lean();
     var timeline = ArticleProxy.getTimeline();
-    Promise.all([navs, recommend, intro, special, timeline]).then( function (values) {
+    var getItems = [navs, recommend, intro, special, timeline];
+    Promise.all(getItems)
+    .then( function (values) {
         var data = {
             navs: values[0],
             banners: values[1],
@@ -65,6 +67,7 @@ router.post("/footer/set", function (req, res) {
 });
 
 router.post("/intro/submit", function (req, res) {
+    debugger;
     var body = req.body;
     var title = body.title
     var caption = body.caption;

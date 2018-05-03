@@ -1,4 +1,3 @@
-- var list = comments.list;
 - var articleId = params.articleId;
 - var currentPage = params.currentPage;
 article.comment
@@ -7,10 +6,6 @@ article.comment
    div.publish-wrapper
     button.btn.btn-primary(articleId="#{params.articleId}" id="publishCommentBtn") 发布
   section.comment-content
-   each comment in list
-     article.comment-content-item
-      h2.user #{comment.username}
-       span.publish-time 48分钟前
-      p.content #{comment.content}
+    include ./content-item.jade
   footer.comment-footer
-    div(total="#{comments.total}"  articleId="#{articleId}" currentPage="#{currentPage}")#commentPaging.paging
+    include ./footer-paging.jade

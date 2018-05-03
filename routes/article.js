@@ -206,7 +206,7 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	var articleId = params.articleId;
 	var currentPage = params.currentPage;
 	ArticleModel.getNavs().lean().then(function(navs) {
-		ArticleProxy.detail({_id: articleId}, currentPage, function(data) {
+		ArticleProxy.detail({articleId}, currentPage, function(data) {
 			data.params = {
 				articleId,
 				currentPage
@@ -236,15 +236,18 @@ router.post("/comment/submit", function (req, res) {
 		{mode: "required, len", value: content, message: "评论内容不能少于10个字符", conditions: {min: 10}}
 	]);
 	if (!validate.status) {
-		res.flash("error", validate.message);
-		return res.redirect("article/detail");
+		return res.send({
+			status: true,
+			message: validate.msg
+		});
 	}
 	var fields = {
 		username,
 		content,
 		articleId
 	};
-	new CommentModel(fields).save(function (err, comment) {
+
+	 	new CommentModel(fields).save(function (err, comment) {
 		if (err) {
 			return res.send({
 				status: false,
@@ -253,7 +256,7 @@ router.post("/comment/submit", function (req, res) {
 		}
 		res.send({
 			status: true,
-			data: {comment}
+			data: comment
 		});
 	});
 });

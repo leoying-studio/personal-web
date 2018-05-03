@@ -300,7 +300,7 @@ define([
 
     // 获取文章分类
     var getArticleCategory = function (el, categories) {
-        el.html("<label>首页推荐</label>");
+        el.html("<label>所属分类</label>");
         var categoryStr = "";
         $.each(categories, function(index, item) {
             var item = $(item);
