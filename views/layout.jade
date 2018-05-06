@@ -2,7 +2,7 @@ doctype html
 html
   head
     meta(charst='utf-8')
-    title = title
+    title 个人网
     block headContent
     link(rel="stylesheet", href="/lib/jquery/plugin/paging/paging.css")
     link(rel='stylesheet', href='/css/common.css')
@@ -12,11 +12,11 @@ html
     link(rel='stylesheet', href='/css/register.css')
     link(rel='stylesheet', href='/css/login.css')
     link(rel='stylesheet', href='/lib/font-awesome-4.7.0/css/font-awesome.min.css')
-   
+    script(src="/lib/require/require.js" data-main="/js/main-www")
   body
     include ./common/header.jade
     div.container
      block content
   script(src="/lib/jquery/jquery.min.js")
   script(src="/lib/jquery/plugin/paging/paging.min.js")
-  script(src="/js/index.js")
+  //- script(src="/js/index.js")

@@ -67,7 +67,6 @@ router.post("/footer/set", function (req, res) {
 });
 
 router.post("/intro/submit", function (req, res) {
-    debugger;
     var body = req.body;
     var title = body.title
     var caption = body.caption;

@@ -1,11 +1,12 @@
 extend ../layout
 block content
   div.article-detail-wrapper
-   - var content = detail.content || "";
-   - var title = detail.title || "";
-    article.content
-     h1.title #{title}
-     p.publish-info 
-      span.time 
-     p#articleContent.article-content #{content}
-   include ./comment.jade
+    section
+      article
+          div.content
+            h1.title #{detail.title}
+            p.publish-info 
+              span.time 
+            p#articleContent.article-content #{detail.content}
+    section
+      include ./comment.jade

@@ -5,6 +5,5 @@ module.exports = {
             return res.redirect('/user/login/view');
         }
         next();
-    },
-    
+    }
 }

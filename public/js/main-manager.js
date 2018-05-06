@@ -2,7 +2,7 @@ require.config({
      paths: {
          "manager": "./manager/index",
          "home": "manager/home",
-         "config": "./manager/config",
+         "config": "./common/config",
          "init": "./common/init",
          "utils": "./common/utils",
      },

@@ -110,6 +110,10 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 
 exports.detail =  function(conditions, currentPage, callback) {
 	var detail = ArticleModel.findOne({_id: conditions.articleId});
+	// content:{type: 'string'},
+	// articleId: {type: 'string'},
+	// createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
+	// createdAt: {default: Date.now, type: Date}
 	var comments = CommentModel.findPaging({currentPage}, conditions);
 	var total = CommentModel.count(conditions);	
 	Promise.all([detail, comments, total]).then(function(collections) {
@@ -120,7 +124,7 @@ exports.detail =  function(conditions, currentPage, callback) {
 				total: collections[2]
 			}
 		});
-	}).catch(function() {
+	}).catch(function(err) {
 		callback(err);
 	}); 
 }
