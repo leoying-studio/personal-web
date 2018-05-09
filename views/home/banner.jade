@@ -1,12 +1,12 @@
-div.banner-panel#bannerPanel
-  ul.clearfix
+div.flexslider#bannerPanel
+  ul.clearfix.slides
    each banner in banners
     li.banner-item 
-     a(href="#")
+     a(href="/article/detail/view/#{banner._id}/1")
       img(src="#{banner.recommendImg || banner.img}", alt="")
-     div.content
-       h2 #{banner.title}
-       h3 #{banner.caption}
-       p  #{banner.description}
+      div.content
+        h2 #{banner.title}
+        h3 #{banner.caption}
+        p  #{banner.description}
 
       

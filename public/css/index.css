@@ -69,24 +69,28 @@
 }
 
 /*banner  开始*/
-.banner .banner-panel {
+.banner .flexslider {
   width: 100%;
   height: 564px;
   overflow: hidden;
 }
 
-.banner .banner-panel ul li {
+.banner .flexslider ul li {
   width: 100%;
   float: left;
+}
+
+.banner .flexslider ul li a {
+  display: block;
   position: relative;
 }
 
-.banner .banner-panel ul li img {
+.banner .flexslider ul li a img {
   display: block;
   width: 100%;
 }
 
-.banner .banner-panel ul li .content {
+.banner .flexslider ul li a .content {
   width: 1000px;
   position: absolute;
   top: 120px;
@@ -97,17 +101,17 @@
   color: #fff;
 }
 
-.banner .banner-panel ul li .content h2 {
+.banner .flexslider ul li a .content h2 {
   font-size: 36px;
   margin-bottom: 40px;
 }
 
-.banner .banner-panel ul li .content h3 {
+.banner .flexslider ul li a .content h3 {
   font-size: 30px;
   margin-bottom: 40px;
 }
 
-.banner .banner-panel ul li .content p {
+.banner .flexslider ul li a .content p {
   font-size: 18px;
   line-height: 1.7;
 }

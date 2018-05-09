@@ -1,6 +1,7 @@
 define([
-    'require'
-], function(require) {
+    'require',
+    'jquery'
+], function(require, $) {
      var inited = false;
      // 分页初始化
      var articlePaging = $("#articlePaging");

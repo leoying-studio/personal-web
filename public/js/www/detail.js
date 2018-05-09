@@ -1,6 +1,7 @@
 define([
     'require',
-], function(require) {
+    'jquery'
+], function(require, $) {
     var commentSection = $(".article-detail-wrapper:eq(0)").find(".comment-content:eq(0)"); 
     var inited = false;
      //  // 评论页面分页初始化

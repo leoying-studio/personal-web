@@ -3,7 +3,10 @@ require.config({
     paths: {
         "index": "index",
         "article": "article",
-        "detail": "detail"
+        "detail": "detail",
+        "jquery": "./../../lib/jquery/jquery.min",
+        "jquery.flexslider": "./../../lib/jquery/plugin/jquery.flexslider",
+        "jquery.paging": "./../../lib/jquery/plugin/paging/paging.min"
     },
     shim: {
         "index": {
@@ -11,6 +14,8 @@ require.config({
                 "css!./../../css/index.css",
             ]
         }, 
+        "jquery.flexslider": ['jquery'],
+        "jquery.paging": ['jquery'],
         "article": {
             deps: [
                 "css!/css/article.css",
@@ -24,12 +29,13 @@ require.config({
     },
     map: {
         '*': {
-            css: './../lib/require/css.min.js'
+            css: './../../lib/require/css.min.js'
         }
     }
 });
 
 
-require(["index", "article", "detail"], function() {
+require(["jquery","jquery.flexslider","jquery.paging","index", "article", "detail"], function($) {
 
 });
+
