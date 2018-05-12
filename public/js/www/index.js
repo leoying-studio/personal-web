@@ -15,16 +15,6 @@ define([
     var previousTop = 0;
     var bannerIndex = 0;
      // banner 轮播
-    //  bannerItem.not(":first").hide();
-    //  setInterval(function() {
-    //      if (bannerIndex >= $('.banner-item').length) {
-    //          bannerIndex = 0;
-    //      }
-    //      $(".banner-item").eq(bannerIndex).fadeIn(200).siblings().fadeOut(300);
-    //      bannerIndex+= 1;
-    //  }, 3000);
-
-    //  $(".flexslider").hide();
      $('.flexslider').flexslider({
         directionNav: true,
         pauseOnAction: false

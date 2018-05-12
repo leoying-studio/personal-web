@@ -15,7 +15,7 @@ require.config({
             ]
         }, 
         "jquery.flexslider": ['jquery'],
-        "jquery.paging": ['jquery'],
+        "jquery.paging": ['jquery', "css!./../../lib/jquery/plugin/paging/paging.css"],
         "article": {
             deps: [
                 "css!/css/article.css",
@@ -29,13 +29,15 @@ require.config({
     },
     map: {
         '*': {
-            css: './../../lib/require/css.min.js'
+            css: './../../lib/require/css.min'
         }
     }
 });
 
 
-require(["jquery","jquery.flexslider","jquery.paging","index", "article", "detail"], function($) {
+require(["jquery", "jquery.paging", "jquery.flexslider"], function($) {
+     require(["index", "article", "detail", ], function() {
 
+     });
 });
 
