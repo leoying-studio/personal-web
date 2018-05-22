@@ -35,7 +35,6 @@ router.post("/submit", function(req, res) {
 	categoriesId = categoriesId.map(function(id) {
 		return {id};
 	});
-
 	// 开始插入数据
 	var fields = {
 		title,
@@ -246,8 +245,7 @@ router.post("/comment/submit", function (req, res) {
 		content,
 		articleId
 	};
-
-	 	new CommentModel(fields).save(function (err, comment) {
+	new CommentModel(fields).save(function (err, comment) {
 		if (err) {
 			return res.send({
 				status: false,

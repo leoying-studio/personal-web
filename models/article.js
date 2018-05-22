@@ -8,10 +8,10 @@ var Scheam = new mongoose.Schema({
 	description: String,
 	img: String,
 	navId: String,
-	createdTime: { type: String, default: Utils.getTime(new Date(), "s") },
-	updateTime: {type: String, default: Utils.getTime(new Date(), 's')},
+	createdTime: { type: String, default: Utils.time.get() },
+	updateTime: {type: String, default:  Utils.time.get()},
 	createdAt: {type: Date, default: Date.now},
-	updateAt: {type: Date, default: Date.now},
+	updateAt: {type: Date,  default: Date.now},
 	categoriesId: [
 		{ id: String }
 	],
@@ -22,6 +22,13 @@ var Scheam = new mongoose.Schema({
 
 Scheam.plugin(DBSuper.regNav);
 Scheam.plugin(DBSuper.regFind);
+
+Scheam.pre('save', function(next) {
+	var now = new Date();
+  	this.updateAt = now;
+  	next();
+});
+
 
 var Article = mongoose.model('article', Scheam);
 module.exports = Article;

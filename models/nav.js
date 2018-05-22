@@ -6,11 +6,18 @@ var Scheam = new mongoose.Schema({
 	 categories: [
 		 {name: String}
 	 ],
-	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: Date.now, type: Date}
+	 createdTime: { type: String, default: Utils.time.get() },
+	 updateTime: {type: String, default:  Utils.time.get()},
+	 createdAt: {type: Date, default: Utils.time.difference()},
+	 updateAt: {type: Date,  default: Utils.time.difference()},
 });
 
 Scheam.set('toJSON', { getters: true, virtuals: false });
+Scheam.pre('save', function(next) {
+	var now = new Date();
+  	this.updateAt = now;
+  	next();
+});
 
 var Nav = mongoose.model('Nav', Scheam);
 module.exports = Nav;

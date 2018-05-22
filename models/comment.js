@@ -7,12 +7,19 @@ var Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
 	articleId: {type: 'string'},
-	createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	createdAt: {default: Date.now, type: Date}
+	createdTime: { type: String, default: Utils.time.get() },
+	createdAt: {type: Date, default: Date.now},
 });
 
 Scheam.plugin(DBSuper.regFind);
 Scheam.plugin(DBSuper.regNav);
+
+Scheam.pre('save', function(next) {
+	var now = new Date();
+  	this.updateAt = now;
+  	next();
+});
+
 var Comment = mongoose.model('comment', Scheam);
 
 module.exports = Comment;

@@ -8,9 +8,17 @@ var Scheam = new mongoose.Schema({
 	 headLine: String,
 	 description:{type: 'string'},
 	 apply:{type: Boolean, default: false},
-	 createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	 createdAt: {default: Date.now, type: Date}
+	 createdTime: { type: String, default: Utils.time.get() },
+	 updateTime: {type: String, default:  Utils.time.get()},
+	 createdAt: {type: Date, default: Date.now},
+	 updateAt: {type: Date,  default: Date.now},
 });
 Scheam.plugin(DBSuper.regFind);
+Scheam.pre('save', function(next) {
+	var now = new Date();
+  	this.updateAt = now;
+  	next();
+});
+
 var Intro = mongoose.model('intro', Scheam);
 module.exports = Intro;

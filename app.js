@@ -70,7 +70,7 @@ app.use(function (req, res, next) {
   next();
 });
 
-// app.use(global_middleware.login);
+app.use(global_middleware.login);
 
 app.use('/', home);
 app.use("/user", user);
