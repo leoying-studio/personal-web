@@ -1,7 +1,8 @@
 define([
     'require',
-    'jquery'
-], function(require, $) {
+    'jquery',
+    'invok'
+], function(require, $, invok) {
     var commentSection = $(".article-detail-wrapper:eq(0)").find(".comment-content:eq(0)"); 
     var inited = false;
      //  // 评论页面分页初始化
@@ -50,21 +51,21 @@ define([
                   content,
                   articleId
               };
-  
               $.ajax({
                  url: '/article/comment/submit',
                  data: params,
                  type:'post',
                  success: function(res) {
                    if (res.status) {
+                       $("#commentContent").val('');
                        appendComment(res.data);
-                       alert("评论成功");
+                       invok.message.success(res.message);
                    } else {
-                       alert(res.msg);
+                       invok.message.error(res.message);
                    }
                  },
                  error: function() {
-                     alert("提交失败");
+                    invok.message.success('请求错误');
                  }
               });
          }) ;   

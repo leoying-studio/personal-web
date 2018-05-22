@@ -237,7 +237,7 @@ router.post("/comment/submit", function (req, res) {
 	if (!validate.status) {
 		return res.send({
 			status: false,
-			message: validate.msg
+			message: validate.message
 		});
 	}
 	var fields = {

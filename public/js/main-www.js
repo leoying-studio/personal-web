@@ -1,6 +1,7 @@
 require.config({
     baseUrl: "/js/www/",
     paths: {
+        "invok": "./../common/invok",
         "index": "index",
         "article": "article",
         "detail": "detail",
@@ -35,8 +36,8 @@ require.config({
 });
 
 
-require(["jquery", "jquery.paging", "jquery.flexslider"], function($) {
-     require(["index", "article", "detail", ], function() {
+require(["jquery", "jquery.paging", "jquery.flexslider", ], function($) {
+     require(["index", "article", "detail", "invok"], function() {
 
      });
 });

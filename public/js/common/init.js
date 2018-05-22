@@ -140,41 +140,6 @@ define([
          return editor;
      }
 
-    // 信息提示
-    function notification(type) {
-        var temp = {};
-        type = type || 'success'
-        switch(type) {
-            case 'success':
-                temp = {
-                    type: type,
-                    template:  $("#successNotification").html()
-                }
-                break;
-
-            case 'error':
-                temp = {
-                    type: type,
-                    template: $("#errorNotification").html()
-                }
-                break;
-        }
-        var notification = $("#notification").kendoNotification({
-            position: {
-                pinned: true,
-                top: 30,
-                right: 30
-            },
-            autoHideAfter: 0,
-            stacking: "down",
-            templates: [temp]
-        }).data("kendoNotification");
-        setTimeout(function() {
-            notification.hide();
-        }, 3000)
-        return notification;
-    }
-
     // 弹窗模型
     function dialog(title, content) {
         var dialog = $('#dialog').kendoDialog({
@@ -185,23 +150,12 @@ define([
         return dialog;
     }
 
-    // loading
-    function loading() {
-        $("#loading").show(0);
-        return {
-            close: function() {
-                $("#loading").hide();
-            }
-        };
-    }
 
-     return {
-         treeView: treeView,
-         grid: grid,
-         window: window,
-         editor: editor,
-         notification: notification,
-         dialog: dialog,
-         loading: loading
-     };
+    return {
+        treeView: treeView,
+        grid: grid,
+        window: window,
+        editor: editor,
+        dialog: dialog,
+    };
 });

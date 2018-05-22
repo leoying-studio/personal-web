@@ -4,7 +4,7 @@ var CommentModel = require("./../models/comment");
 // 	if (collections.length === 0) {
 // 		return collections;
 // 	}
-// 	var articles = collections.map(function(doc, index) {
+// 	var articles = collections.map(function(doc, index) {	
 // 		var createdTime = doc.createdTime;
 // 		var date = new Date(createdTime);
 // 		var year = date.getFullYear();
@@ -120,11 +120,11 @@ exports.detail =  function(conditions, currentPage, callback) {
 				if (diff < 1) {
 					diffStr = "刚刚";
 				} else if(diff < 60) {
-					diffStr = parseInt(diff) + '分钟前';
+					diffStr = Math.floor(diff) + '分钟前';
 				} else if (diff > 60 && diff < 24 * 60) {
-					diffStr = parseInt(diff / 60) + '小时前';
+					diffStr = Math.floor(diff / 60) + '小时前';
 				} else if (diff >= 24 * 60 && diff < 24 * 60 * 7) {
-					diffStr = parseInt(diff / 24 / 60) + '天前';
+					diffStr = Math.floor(diff / 24 / 60) + '天前';
 				} else {
 					diffStr = item.createdTime
 				}

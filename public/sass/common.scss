@@ -1,3 +1,5 @@
+@import './common/var.scss';
+
 .clearfix {
 	zoom: 1;
 }
@@ -11,7 +13,7 @@
 }
 
 .hide {
-	display: none;
+   display: none;
 }
 
 .btn {
@@ -40,47 +42,38 @@ html {
 	}
  }
 
-.notification {
-	width: 300px;
-	height: 100px;
-	padding: 10px 20px;
-	font-size: 22px;
-	color: white;
-	img {
-		float: left;
-		margin-top: 30px;
-		margin-right: 12px;
-		width: 40px;
-	}
-	h3 {
-		margin: 30px 0 10px 0;
-		font-weight: normal;
-	}
-
-	p {
-		font-size: 16px;
-	}
+ .message {
+	 width: 300px;
+	 position: fixed;
+	 top: -100px;
+	 left: 50%;
+	 margin-left: -150px;
+	 border-radius: 5px;
+	 padding: 10px;
+	 z-index: 999;
+	 font-size: 16px;
+	 color: white;
+	 transition: transform .3s ease-in-out;
  }
 
- .success-bg {
-	background-color: #4cae4c;
+ .message span:first-child {
+	 margin-right: 10px;
  }
 
- .error-bg {
-	background-color: red;
+ .message-success{
+	transform: translateY(150px);
+	background-color: $success
+ }
+
+ .message-error{
+	transform: translateY(150px);
+	background-color: $error;
  }
 
  .white {
 	 background-color: white;
  }
 
-.height-full {
-	height:100%;
-}
-
-.screen-full {
-	width: 100%;
-}
 
 /* 表单通用样式 */
 form {
@@ -100,75 +93,8 @@ form {
 	}
 }
 
-// loading
-.loading{
-	position: fixed;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 99999;
-	background: rgba(0,0,0,.3);
-	.inner {
-			position: absolute;
-			top: 50%;
-			width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            margin: 0 auto;
-            margin-top:-40px;
-            position: relative;
-            border:5px solid lightgreen;
-            -webkit-animation: turn 2s linear infinite;
-
-		& > span{
-			display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: lightgreen;
-            position: absolute;
-            left: 50%;
-            margin-top: -15px;
-            margin-left: -15px;
-            -webkit-animation: changeBgColor 2s linear infinite;
-
-			&:nth-child(2){
-				-webkit-animation-delay:0.13s;
-			}
-			&:nth-child(3){
-				-webkit-animation-delay:0.26s;
-			}
-			&:nth-child(4){
-				-webkit-animation-delay:0.39s;
-			}
-			&:nth-child(5){
-				-webkit-animation-delay:0.52s;
-			}
-		}
-	}
-	@-webkit-keyframes changeBgColor{
-		0%{
-			background: lightgreen;
-		}
-		100%{
-			background: lightblue;
-		}
-	}
-	@-webkit-keyframes turn{
-		0%{
-			-webkit-transform: rotate(0deg);
-			border-color: lightgreen;
-		}
-		100%{
-			-webkit-transform: rotate(360deg);
-			border-color: lightblue;
-		}
-	}
-}
-
 .panel {
-  border: #ccc 1px solid;
-  box-shadow: 0 0 1px 2px #f5f5f5;
-  border-radius: 5px;
+	border: #ccc 1px solid;
+	box-shadow: 0 0 1px 2px #f5f5f5;
+	border-radius: 5px;
 }
