@@ -2,5 +2,5 @@
 each comment in list
     article.comment-content-item
         h2.user #{comment.username}
-            span.publish-time 48分钟前
+            span.publish-time #{comment.timeDiff}
         p.content #{comment.content}

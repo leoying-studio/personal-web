@@ -110,13 +110,31 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 
 exports.detail =  function(conditions, currentPage, callback) {
 	var detail = ArticleModel.findOne({_id: conditions.articleId});
-	// content:{type: 'string'},
-	// articleId: {type: 'string'},
-	// createdTime: { type: String, default: Utils.getTime(new Date(), "s")},
-	// createdAt: {default: Date.now, type: Date}
 	var comments = CommentModel.findPaging({currentPage}, conditions);
 	var total = CommentModel.count(conditions);	
 	Promise.all([detail, comments, total]).then(function(collections) {
+		if (collections[1].length) {
+			collections[1] = collections[1].map(function(item) {
+				var diff = (new Date() - new Date(item.createdAt)) / 1000 / 60;
+				var diffStr = "";
+				if (diff < 1) {
+					diffStr = "刚刚";
+				} else if(diff < 60) {
+					diffStr = parseInt(diff) + '分钟前';
+				} else if (diff > 60 && diff < 24 * 60) {
+					diffStr = parseInt(diff / 60) + '小时前';
+				} else if (diff >= 24 * 60 && diff < 24 * 60 * 7) {
+					diffStr = parseInt(diff / 24 / 60) + '天前';
+				} else {
+					diffStr = item.createdTime
+				}
+				return {
+					username: item.username,
+					content: item.content,
+					timeDiff: diffStr
+				};
+			});
+		}
 		callback({
 			detail: collections[0] || {},
 			comments: {

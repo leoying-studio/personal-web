@@ -18,6 +18,8 @@ var Scheam = new mongoose.Schema({
 	recommend: {type: Boolean, default: false},
 	recommendImg: String,
 	content: String
+}, {
+	timestamps: {createdAt: 'createdAt', updatedAt: 'updateAt'}
 });
 
 Scheam.plugin(DBSuper.regNav);

@@ -28,7 +28,7 @@ define([
          commentSection.prepend(
              "<article class='comment-content-item'>"
                 +
-                    "<h2 class='user'>"+comment.username+"<span>"+48+"分钟前</span>"+"</h2>"
+                    "<h2 class='user'>"+comment.username+"<span class='publish-time'>刚刚</span>"+"</h2>"
                                 + 
                         "<p class='content'>"+ comment.content +"</p>"
                 +
@@ -69,7 +69,5 @@ define([
               });
          }) ;   
      });
-    
      $("#articleContent").html($("#articleContent").text());
-
 });

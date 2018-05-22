@@ -5,9 +5,9 @@ var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
 
 router.get('/login/view', function(req, res) {
-	UsersModel.getNavs(function(navs) {
+    UsersModel.getNavs().then(function(navs) {
         res.render("login", {
-			data: navs
+			navs: navs
 		});
     });
 });
@@ -15,7 +15,7 @@ router.get('/login/view', function(req, res) {
 router.get('/register/view', function(req, res) {
 	UsersModel.getNavs(function(navs) {
         res.render("register", {
-			data: navs
+			navs: navs
 		});
     })
 });
