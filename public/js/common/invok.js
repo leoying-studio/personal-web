@@ -1,5 +1,6 @@
 define([
 	'require',
+	
 ], function(require) {
 	function message_success(content, delay) {
 		var message = $('#message');

@@ -1,4 +1,4 @@
-define(["init", "config", "invok", "request"], function(init, config, invok, request) {
+define(["init", "config", "invok", "request",], function(init, config, invok, request) {
 	var theme_id = null,
 	intro_id = null,
 	special_id = null,

@@ -3,7 +3,7 @@ define([
     'require',
     'init',
     'config',
-], function (require, init, config) {
+], function (init, config) {
     var panelItemType = 0;
     var navId = null;
     var categoriesId = [];
@@ -21,6 +21,7 @@ define([
     var kendoWindow = null;
     var editor = null;
     // 导航菜单
+
     $("#navMenu").kendoMenu({});
     // 初始化spliter
 	var spliter = tabStrip.find(".wrapper").eq(0).kendoSplitter({
