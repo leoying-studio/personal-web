@@ -6,6 +6,7 @@ require.config({
          "init": "./common/init",
          'invok': './common/invok',
          "utils": "./common/utils",
+         'request': "./common/request"
      },
      shim: {
          "manager": {

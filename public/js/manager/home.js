@@ -1,4 +1,4 @@
-define(["init","config", "invok"], function(init, config, invok) {
+define(["init", "config", "invok", "request"], function(init, config, invok, request) {
 	var theme_id = null,
 	intro_id = null,
 	special_id = null,
@@ -6,7 +6,6 @@ define(["init","config", "invok"], function(init, config, invok) {
 	rightContainer = tab.find(".right-container").eq(0),
 	modulePages = rightContainer.find(".module-page"),
 	introGrid = modulePages.eq(0).find(".grid:first");
-	
 
 	var dataSource = {
 		intro: {
@@ -60,8 +59,6 @@ define(["init","config", "invok"], function(init, config, invok) {
 		}
 	};
 	
-
-
 	// 初始化spliter
 	var spliter = tab.find(".wrapper").eq(0).kendoSplitter({
 		panes: [
@@ -70,99 +67,9 @@ define(["init","config", "invok"], function(init, config, invok) {
 		]
 	});
 
+	
 	// 接口请求列表项目
-	var request = {
-		setIntro: function(params) {
-			$.ajax({
-				url: "/intro/submit",
-				data:{
-					title: params.title,
-					caption: params.caption,
-					description: params.description,
-					headLine: params.headLine,
-					id: params.id
-				},
-				dataType: 'json',
-				type: 'post',
-				success: function(res) {
-					if (res.status) {
-						invok.message.success(res.message);
-						introGrid.data("kendoGrid").dataSource.read();
-						clearParams($("#introFormSet"));
-					} else {
-						invok.message.success(res.message);
-					}
-				},
-				error: function() {
-					invok.message.success('请求错误');
-				}
-			})	
-		},
-		destroyIntro: function(id) {
-		   if (window.confirm('确定删除吗?')) {
-			  $.ajax({
-				 url: "/intro/destory",
-				 dataType:"json",
-				 data: {
-					id: id
-				 },
-				 type: "post",
-				 success: function(res) {
-					introGrid.data("kendoGrid").dataSource.read();
-				 },
-				 error: function() {
-					alert("请求失败");
-				 }
-			  });
-		   }
-		},
-		introApply: function(id) {
-			if (window.confirm('确定应用该介绍吗?')) {
-				$.ajax({
-				   url: "/intro/apply",
-				   dataType:"json",
-				   data: {id:id},
-				   type: "post",
-				   success: function(res) {
-					  if (res.status) {
-						 
-					  }
-
-				   },
-				   error: function() {
-
-				   }
-				});
-			 }
-		},
-		submitSpecial: function(params, succ) {
-			$.ajax({
-				url: "/special/submit",
-				data:{
-					title: params.title,
-					headline: params.headline,
-					homeFigure: params.homeFigure,
-					id: special_id
-				},
-				dataType: "json",
-				type: "post",
-				success: succ,
-				error: function() {
-					alert("请求错误");
-				}
-			});
-		},
-		getNewSpecial: function(succ) {
-			$.ajax({
-				url: "/special/data",
-				dataType: "json",
-				type: "get",
-				success: succ,
-				error: function() {
-					alert("请求错误");
-				}
-			});
-		},
+	var request1 = {
 		submitTheme:function(params, succ) {
 			$.ajax({
 				url: "/special/themes/submit",
@@ -175,30 +82,6 @@ define(["init","config", "invok"], function(init, config, invok) {
 				}
 			})
 		},
-		destorySpecial: function(id, succ) {
-			$.ajax({
-				url: "/special/destory",
-				dataType: "json",
-				type: "post",
-				data: {id:id},
-				success: succ,
-				error: function(err) {
-					alert("请求错误!");
-				}
-			})
-		},
-		destoryTheme: function(params, succ) {
-			$.ajax({
-				url: "/special/destory",
-				dataType: "json",
-				type: "post",
-				data: params,
-				success: succ,
-				error: function(err) {
-					alert("请求错误!");
-				}
-			})
-		}
 	};
 
 	function getParams(el) {
@@ -236,52 +119,53 @@ define(["init","config", "invok"], function(init, config, invok) {
 		if ($(this).attr("model") == 1) {
 			params.id = intro_id;
 		} 
-		request.setIntro(params);
+		request.post('/intro/submit', params)
+		.then(function(res)	{
+			introGrid.data("kendoGrid").dataSource.read();
+			clearParams($("#introFormSet"));
+		});
 	});
 	
 	// 添加专题信息
 	$("#specialForm button").eq(0).click(function() {
 		var params = getParams($("#specialForm > .form-item"));
-		request.submitSpecial(params, function(res) {
+		request.post('/special/submit', params)
+		.then(function(res) {
 			special_id = null;
-			if (res.status) {
-				modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
-				clearParams($("#specialForm"));
-				alert("保存成功");
-			} else {
-				alert("保存失败");
-			}
-		});	
+			modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
+			clearParams($("#specialForm"));
+		});
 	});
 
 	$("#themesForm button:first").click(function() {
 		var params = getParams($("#themesForm > .form-item"));
 		params.id = theme_id;
-		request.submitTheme(params, function(res) {
+		request.post('/special/themes/submit', params)
+		.then(function(res) {
 			theme_id = null;
+			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
 			if (res.status) {
-				modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
 				clearParams($("#themeForm"));
-				alert("保存成功");
-			} else {
-				alert("保存成功");
-			}
-		});	
+			}	
+		})
 	});
-
 	/**
 	 * intro 模块, crud
 	 */
 	// 应用
 	var applyIntro = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-		request.introApply(dataItem._id);
+		if (window.confirm('确定应用该介绍吗?')) {
+			request.post('/intro/apply', {id: dataItem._id});
+		}
 	}
 
 	// 消灭
 	var destroyIntro = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-		request.destroyIntro(dataItem._id);
+		if (window.confirm('确定删除吗?')) {
+			request.post("/intro/destory", {id: dataItem._id});
+		}
 	}
 
 	// 编辑
@@ -305,20 +189,16 @@ define(["init","config", "invok"], function(init, config, invok) {
 
 	var destorySpecial = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-		if(confirm("确定删除专题吗? 该操作会清除当前专题下的主题项!"))
-		request.destorySpecial(dataItem._id, function(res){
-			if (res.status) {
+		if(confirm("确定删除专题吗? 该操作会清除当前专题下的主题项!")) {
+			request.post('/special/destory', {id: dataItem._id}).then(function(res) {
 				modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
-				getNewSpecial();
-			} else {
-				alert("删除主题失败");
-			}
-		});
+			});
+		}
 	}
 
 	// 获取最新的主题
 	var getNewSpecial = function() {
-		request.getNewSpecial(function(res) {
+		request.get('/special/data').then(function(res) {
 			if (res.status) {
 				var select =  tab.find(".select:first");
 				select.empty();
@@ -345,10 +225,9 @@ define(["init","config", "invok"], function(init, config, invok) {
 					grid.text("暂无数据!")
 					.css({"text-align": "center"});
 				}
-			} else {
-				alert("获取最新主题失败!");
-			}
-		});	
+			} 
+		});
+
 	}
 
 	// 编辑主题
@@ -360,12 +239,9 @@ define(["init","config", "invok"], function(init, config, invok) {
 
 	var destoryTheme = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
-		request.destoryTheme({themeId:dataItem.id, specialId: special_id}, function(res) {
-			if (res.status) {
-				modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
-			} else {
-				alert("删除失败!");
-			}
+		request.post("/special/destory", {themeId:dataItem.id, specialId: special_id})
+		.then(function(res) {
+			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
 		});
 	}
 
@@ -385,11 +261,8 @@ define(["init","config", "invok"], function(init, config, invok) {
 	// 	});
 	// }
 
-	var loadFirstGrid = function() {
-		init.grid(introGrid, dataSource.intro, config.columns.intro(destroyIntro, applyIntro, editIntro), '介绍信息列表');
-	}
-	loadFirstGrid();
-	
+	init.grid(introGrid, dataSource.intro, config.columns.intro(destroyIntro, applyIntro, editIntro), '介绍信息列表');
+
 	var loadModule = function(type) {
 		switch(type) {
 			case '2':

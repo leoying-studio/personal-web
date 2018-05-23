@@ -7,7 +7,7 @@ define([
 		.prev().removeClass('fa-times-circle').addClass('fa-check-circle-o');
 		setTimeout(function() {
 			message.show().removeClass('message-success');
-		}, 1500);
+		}, delay || 1500);
     }
 
     function message_error(content, delay) {
@@ -16,7 +16,7 @@ define([
 		.children('.content:first').text(content).prev().removeClass('fa-check-circle-o').addClass('fa-times-circle')
 		setTimeout(function() {
 			message.show().removeClass('message-error');
-		}, 2000);
+		}, delay || 2000);
     }
 
 	return {
