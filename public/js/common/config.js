@@ -1,6 +1,5 @@
 define(['require', 'utils', 'init'], function (require, utils, init) {
     var columns = {};
-
     var articles = [
         { field: "title", title: "标题", width: '200px' },
         { field: 'description', title: '文章说明' },

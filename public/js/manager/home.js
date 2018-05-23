@@ -7,6 +7,19 @@ define(["init", "config", "invok", "request"], function(init, config, invok, req
 	modulePages = rightContainer.find(".module-page"),
 	introGrid = modulePages.eq(0).find(".grid:first");
 
+	/**
+	 * 初始化kendo tabstrip
+	 */
+	var spliter = tab.find(".wrapper").eq(0).kendoSplitter({
+		panes: [
+			{ collapsible: true, size: '200px' },
+			{ collapsible: false }
+		]
+	});
+
+	/**
+	 * kendo GET Request config
+	 */
 	var dataSource = {
 		intro: {
 			transport: {
@@ -58,101 +71,12 @@ define(["init", "config", "invok", "request"], function(init, config, invok, req
 			}
 		}
 	};
-	
-	// 初始化spliter
-	var spliter = tab.find(".wrapper").eq(0).kendoSplitter({
-		panes: [
-			{ collapsible: true, size: '200px' },
-			{ collapsible: false }
-		]
-	});
 
-	
-	// 接口请求列表项目
-	var request1 = {
-		submitTheme:function(params, succ) {
-			$.ajax({
-				url: "/special/themes/submit",
-				dataType: "json",
-				type: "post",
-				data: params,
-				success: succ,
-				error: function(err) {
-					alert("请求错误!");
-				}
-			})
-		},
-	};
 
-	function getParams(el) {
-		var params = {};
-		el.each(function(index, item) {
-			if (index === el.length - 1) return;
-			var key = $(item).children().eq(1).attr("name");
-			var value = $(item).children().eq(1).val();
-			params[key] = value;
-		});
-		return params;
-	}
-
-	function setParams(el, values) {
-		el.each(function(index, item) {
-			var widget = $(item).children().eq(1);
-			var key = widget.attr("name");
-			for (var val in values) {
-				if (val === key) {
-					widget.val(values[val]);
-				} 
-			}
-		});
-	}
-
-	function clearParams(el) {
-		// 清空文本输入内容
-		el.find(".form-item > input").val("");
-		el.find(".form-item > textarea").val("");
-		el.find(".form-item > button").attr("model", 0);
-	}
-
-	$("#introFormSet > .form-item button").eq(0).click(function() {
-		var params = getParams($("#introFormSet > .form-item"));
-		if ($(this).attr("model") == 1) {
-			params.id = intro_id;
-		} 
-		request.post('/intro/submit', params)
-		.then(function(res)	{
-			introGrid.data("kendoGrid").dataSource.read();
-			clearParams($("#introFormSet"));
-		});
-	});
-	
-	// 添加专题信息
-	$("#specialForm button").eq(0).click(function() {
-		var params = getParams($("#specialForm > .form-item"));
-		request.post('/special/submit', params)
-		.then(function(res) {
-			special_id = null;
-			modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
-			clearParams($("#specialForm"));
-		});
-	});
-
-	$("#themesForm button:first").click(function() {
-		var params = getParams($("#themesForm > .form-item"));
-		params.id = theme_id;
-		request.post('/special/themes/submit', params)
-		.then(function(res) {
-			theme_id = null;
-			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
-			if (res.status) {
-				clearParams($("#themeForm"));
-			}	
-		})
-	});
 	/**
-	 * intro 模块, crud
+	 * CRUD方法
 	 */
-	// 应用
+
 	var applyIntro = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		if (window.confirm('确定应用该介绍吗?')) {
@@ -179,7 +103,6 @@ define(["init", "config", "invok", "request"], function(init, config, invok, req
 	/**
 	 * 专题模块
 	 */
-	// 编辑
 	var editSpecial = function(e) {
 		var dataItem = this.dataItem($(e.currentTarget).closest("tr"));
 		special_id = dataItem._id;
@@ -245,23 +168,43 @@ define(["init", "config", "invok", "request"], function(init, config, invok, req
 		});
 	}
 
-	// // 修改主题
-	// var editTheme = function(e) {
-	// 	var params = getParams($("#themesForm .form-item"));
-	// 	params.id = theme_id;
-	// 	request.submitTheme(params, function(res) {
-	// 		theme_id = null;
-	// 		if (res.status) {
-	// 			clearParams($("#themeForm"));
-	// 			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
-	// 			alert("保存成功!");
-	// 		} else {
-	// 			alert("保存失败!");
-	// 		}
-	// 	});
-	// }
-
+	//  初始化grid
 	init.grid(introGrid, dataSource.intro, config.columns.intro(destroyIntro, applyIntro, editIntro), '介绍信息列表');
+
+	
+
+	/**
+	 * 业务参数获取公用方法
+	 */
+	function getParams(el) {
+		var params = {};
+		el.each(function(index, item) {
+			if (index === el.length - 1) return;
+			var key = $(item).children().eq(1).attr("name");
+			var value = $(item).children().eq(1).val();
+			params[key] = value;
+		});
+		return params;
+	}
+
+	function setParams(el, values) {
+		el.each(function(index, item) {
+			var widget = $(item).children().eq(1);
+			var key = widget.attr("name");
+			for (var val in values) {
+				if (val === key) {
+					widget.val(values[val]);
+				} 
+			}
+		});
+	}
+
+	function clearParams(el) {
+		// 清空文本输入内容
+		el.find(".form-item > input").val("");
+		el.find(".form-item > textarea").val("");
+		el.find(".form-item > button").attr("model", 0);
+	}
 
 	var loadModule = function(type) {
 		switch(type) {
@@ -276,6 +219,46 @@ define(["init", "config", "invok", "request"], function(init, config, invok, req
 				break;
 		}
 	}
+
+
+	/**
+	 * 事件执行
+	 */
+	$("#introFormSet > .form-item button").eq(0).click(function() {
+		var params = getParams($("#introFormSet > .form-item"));
+		if ($(this).attr("model") == 1) {
+			params.id = intro_id;
+		} 
+		request.post('/intro/submit', params)
+		.then(function(res)	{
+			introGrid.data("kendoGrid").dataSource.read();
+			clearParams($("#introFormSet"));
+		});
+	});
+	
+	// 添加专题信息
+	$("#specialForm button").eq(0).click(function() {
+		var params = getParams($("#specialForm > .form-item"));
+		request.post('/special/submit', params)
+		.then(function(res) {
+			special_id = null;
+			modulePages.eq(1).find(".grid:first").data("kendoGrid").dataSource.read();
+			clearParams($("#specialForm"));
+		});
+	});
+
+	$("#themesForm button:first").click(function() {
+		var params = getParams($("#themesForm > .form-item"));
+		params.id = theme_id;
+		request.post('/special/themes/submit', params)
+		.then(function(res) {
+			theme_id = null;
+			modulePages.eq(1).find(".grid:eq(1)").data("kendoGrid").dataSource.read();
+			if (res.status) {
+				clearParams($("#themeForm"));
+			}	
+		})
+	});
 
 	// 左侧菜单切换
 	$(".tab-strip-item").eq(0).find("ul > li").each(function(index, item) {

@@ -297,7 +297,7 @@ router.post("/special/submit", function(req, res) {
     if(!validate.status) {
         return res.send({
             status: false,
-            msg: validate.msg
+            message: validate.message
         });
     }
     // 接口存在id就进行添加
@@ -305,7 +305,7 @@ router.post("/special/submit", function(req, res) {
         SpecialModel.create({ homeFigure, headline}, function(err, doc) {
             if (err) {
                 return res.send({
-                    message: "设置异常",
+                    message: "添加异常",
                     status: false
                 });
             }
