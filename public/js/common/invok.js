@@ -1,5 +1,3 @@
-
-
 define([
 	'require',
 ], function(require) {

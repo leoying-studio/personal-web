@@ -4,6 +4,7 @@ require.config({
          "home": "manager/home",
          "config": "./common/config",
          "init": "./common/init",
+         'invok': './common/invok',
          "utils": "./common/utils",
      },
      shim: {
@@ -12,6 +13,7 @@ require.config({
                 "css!./../css/reset.css",
                 "css!./../css/common.css",
                 "css!./../css/manager.css",
+                "css!./../lib/font-awesome-4.7.0/css/font-awesome.min.css"
             ],
          }
      },
@@ -30,17 +32,4 @@ require(["manager", "home", "init"], function(manager, home, init) {
             }
         }
     });
-    if ($("#errorNotification").length > 0) {
-        var notification = init.notification('error');
-        notification.show({
-            title: $("#errorNotification").attr("message"),
-            message: "发生错误了"
-        }, "error");
-    } else if ($("#successNotification").length > 0) {
-        var notification = init.notification('success');
-        notification.show({
-            title: $("#successNotification").attr("message"),
-            message: "已完成此操作"
-        }, "success");
-    }
 });

@@ -140,22 +140,11 @@ define([
          return editor;
      }
 
-    // 弹窗模型
-    function dialog(title, content) {
-        var dialog = $('#dialog').kendoDialog({
-            title: title,
-            width: "400px",
-            content: "<p>"+content || title +"<p>"
-        });
-        return dialog;
-    }
-
 
     return {
         treeView: treeView,
         grid: grid,
         window: window,
         editor: editor,
-        dialog: dialog,
     };
 });

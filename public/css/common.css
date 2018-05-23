@@ -51,7 +51,6 @@ html body .container {
   margin-left: -150px;
   border-radius: 5px;
   padding: 10px;
-  overflow: hidden;
   z-index: 999;
   font-size: 16px;
   color: white;

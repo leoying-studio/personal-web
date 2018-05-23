@@ -82,18 +82,20 @@ router.post("/intro/submit", function (req, res) {
         }, function (err, doc) {
             if (err) {
                 return res.send({
-                    message: "设置失败",
+                    message: "创建失败",
+                    errMsg: err.message,
                     status: false
-                })
+                });
             }
             res.send({
-                message: "success",
+                message: "创建成功",
                 status: true,
                 data: doc
             });
-        }).catch(function(e) {
+        }).catch(function(err) {
             res.send({
-                message: "设置失败",
+                message: "创建异常",
+                errMsg: err.message,
                 status: false
             });
         });

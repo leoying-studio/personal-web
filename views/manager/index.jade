@@ -15,19 +15,13 @@ html
     //- link(rel='stylesheet', href='/css/manager.css')
 
   body
-    //- include ./header.jade
+    include ./../common/message.jade
     div#tabStrip.tab-strip
       ul
         li 主页
         li 分类文章
       include ./home/index.jade
       include ./nav/index.jade
-    include ./../common/dialog.jade
-    include ./../common/loading.jade
-  - if(error)
-    include ./../common/error.jade
-  - else if(success)
-    include ./../common/success.jade
   script(src="/lib/jquery/jquery.min.js")
   script(src="/lib/kendo/kendo.all.min.js")
   script(src="/lib/require/require.js" data-main="./../../js/main-manager")

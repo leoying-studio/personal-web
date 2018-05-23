@@ -249,12 +249,13 @@ router.post("/comment/submit", function (req, res) {
 		if (err) {
 			return res.send({
 				status: false,
-				message: "添加失败"
+				message: "评论失败"
 			});
 		}
 		res.send({
 			status: true,
-			data: comment
+			data: comment,
+			message: '评论成功'
 		});
 	});
 });

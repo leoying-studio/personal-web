@@ -1,4 +1,4 @@
-define(["init","config"], function(init, config) {
+define(["init","config", "invok"], function(init, config, invok) {
 	var theme_id = null,
 	intro_id = null,
 	special_id = null,
@@ -7,6 +7,7 @@ define(["init","config"], function(init, config) {
 	modulePages = rightContainer.find(".module-page"),
 	introGrid = modulePages.eq(0).find(".grid:first");
 	
+
 	var dataSource = {
 		intro: {
 			transport: {
@@ -72,7 +73,6 @@ define(["init","config"], function(init, config) {
 	// 接口请求列表项目
 	var request = {
 		setIntro: function(params) {
-			var loading = init.loading();
 			$.ajax({
 				url: "/intro/submit",
 				data:{
@@ -85,16 +85,16 @@ define(["init","config"], function(init, config) {
 				dataType: 'json',
 				type: 'post',
 				success: function(res) {
-					loading.close();
 					if (res.status) {
+						invok.message.success(res.message);
 						introGrid.data("kendoGrid").dataSource.read();
 						clearParams($("#introFormSet"));
 					} else {
-						init.dialog("添加失败")
+						invok.message.success(res.message);
 					}
 				},
 				error: function() {
-					init.dialog("请求发生错误!")
+					invok.message.success('请求错误');
 				}
 			})	
 		},
@@ -118,7 +118,6 @@ define(["init","config"], function(init, config) {
 		},
 		introApply: function(id) {
 			if (window.confirm('确定应用该介绍吗?')) {
-				var laoding = init.loading();
 				$.ajax({
 				   url: "/intro/apply",
 				   dataType:"json",
@@ -126,12 +125,12 @@ define(["init","config"], function(init, config) {
 				   type: "post",
 				   success: function(res) {
 					  if (res.status) {
-						return laoding.close();
+						 
 					  }
-					  init.dialog("应用失败");
+
 				   },
 				   error: function() {
-					  init.dialog("应用失败!");
+
 				   }
 				});
 			 }
