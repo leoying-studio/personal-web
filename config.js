@@ -1,12 +1,12 @@
 module.exports={
     "ip":"localhost",
     "db":"blog",
-    "port":27017,
+    "port":12345,
     "session": {
         secret: 'myblog',
         key: 'myblog',
         maxAge: 720000
     },
-    mongodb: 'mongodb://localhost:27017/blog',
-    baseUrl: 'http://localhost:80'
+    mongodb: 'mongodb://localhost:12345/blog',
+    baseUrl: 'http://localhost:3002'
 };
