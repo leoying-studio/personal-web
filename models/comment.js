@@ -1,5 +1,5 @@
 var mongoose=require('../db').mongoose;
-var mongoScheam = mongoose,Scheam;
+var ObjectId = mongoose.Schema.ObjectId;
 var Utils = require("./../utils/index");
 var DBSuper = require("./super");
 
@@ -7,7 +7,7 @@ var DBSuper = require("./super");
 var Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
-	articleId: {type: mongoScheam.Types.ObjectId},
+	articleId: {type: ObjectId},
 	createdTime: { type: String, default: Utils.time.get() },
 	createdAt: {type: Date, default: Date.now},
 });
