@@ -264,23 +264,19 @@ router.get("/intro/themes/data", function(req, res) {
     var body = req.body;
     var currentPage = body.currentPage;
     var pageSize = body.pageSize;
-    var _id = body.id;
-    IntroModel.findPaging({currentPage, pageSize}, {_id}).then(function(doc) {
-        res.send({
-            status: true,
-            data
-        });
-    }).catch(function(err) {
-        res.send({
-            status: false,
-            data: [],
-            message: err.message
+    var _id = body.id || '5b04c091df142d1904478183';
+    IntroModel.findOne({_id}, function(err, doc) {
+        doc.findPaging({currentPage, pageSize}, {}).then(function(data) {
+            res.send({
+                status: true,
+                data
+            });
         });
     });
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/", function(req, res) {
+router.get("/intro/themes/item", function(req, res) {
 
 });
 
