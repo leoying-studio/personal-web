@@ -1,4 +1,5 @@
 var mongoose = require('../db').mongoose;
+var mongoScheam = mongoose,Scheam;
 var DBSuper = require('./super');
 var Utils = require("./../utils/index");
 
@@ -13,7 +14,7 @@ var Scheam = new mongoose.Schema({
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
 	categoriesId: [
-		{ categoryId: ObjectId }
+		{ categoryId: { type: mongoScheam.Types.ObjectId, refs: 'Nav'}}
 	],
 	recommend: {type: Boolean, default: false},
 	recommendImg: String,

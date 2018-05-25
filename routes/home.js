@@ -117,55 +117,16 @@ router.post("/intro/save", function (req, res) {
     }
 });
 
-// intro  应用信息
-// router.post("/intro/apply", function(req, res) {
-//     IntroModel.findOne({apply: true}, function(err, doc) {
-//         if (err) {
-//             return res.send({
-//                 status: false,
-//                 msg: "查询异常"
-//             });
-//         }
-//         if (doc) {
-//             var _id =  doc.toJSON()._id;
-//             var id = _id.toJSON();
-//             IntroModel.update({_id: id}, {$set: {apply: false}}, function(err, doc) {
-//                 if (err) {
-//                     return res.send({
-//                         status: false,
-//                         msg: "应用异常"
-//                     });
-//                 }
-//                 IntroModel.update({_id: req.body.id}, {apply: true}, function(err, state) {
-//                     if (err || state.n == 0) {
-//                         return res.send({
-//                             status: false,
-//                             msg: "应用异常"
-//                         });
-//                     }
-//                     res.send({
-//                         status: true,
-//                         data: doc,
-//                         msg: "ok"
-//                     });
-//                 });
-//             });
-//         } else {
-//             IntroModel.update({_id: req.body.id}, {apply: true}, function(err, state) {
-//                 if (err || state.n == 0) {
-//                     return res.send({
-//                         status: false,
-//                         msg: "应用异常"
-//                     });
-//                 }
-//                 res.send({
-//                     status: true,
-//                     msg: "ok"
-//                 });
-//             });
-//         }
-//     });
-// });
+/**
+ * 应用介绍信息
+ */
+router.post("/intro/apply", function(req, res) {
+    // 查询并更新
+    IntroModel.findOneAndUpdate({apply: true}, {$set: {apply: false}}, function(err, doc) {
+         
+    });
+});
+
 
 // 消灭这条推荐数据
 router.post("/intro/destory", function(req, res) {
@@ -216,38 +177,30 @@ router.post("/intro/themes/save", function(req, res) {
     var body = req.body;
     var _id = body.introId;
     var topicMap = body.topicMap;
+    var fields = {
+        $push: topicMap,
+        map: []
+    };
     if (_id) {
-        IntroModel.update({_id}, {$push: {topMap} }, function(err, doc) {
-            if (err) {
-                return res.send({
-                    message: "添加失败",
-                    status: false,
-                    errMsg: err.message
-                });
-            }
-            res.send({
-                status: true,
-                data: doc
-            });
-        });
-    } else {
-        IntroModel.update({_id}, {$push: {
-            topMap,
-            map: []
-        }}, function(err, doc) {
-            if (err) {
-                return res.send({
-                    message: "添加失败",
-                    status: false,
-                    errMsg: err.message
-                });
-            }
-            res.send({
-                status: true,
-                data: doc
-            });
-        });
+        fields = {
+            $set: {
+                topicMap
+            } 
+        }
     }
+    IntroModel.update({_id}, fields, function(err, doc) {
+        if (err) {
+            return res.send({
+                message: "添加失败",
+                status: false,
+                errMsg: err.message
+            });
+        }
+        res.send({
+            status: true,
+            data: doc
+        });
+    });
 });
 
 // 根据首页themeId进行添加主题项内容
@@ -258,37 +211,36 @@ router.post("/intro/themes/item/save", function(req, res) {
     var discriptiveGraph = body.discriptiveGraph;
     var presentation = body.presentation;
     var fields = {
-        discriptiveGraph,
-        presentation
-    };
-    if (!themeId) {
-        IntroModel.update({_id: introId}, {$push: {map: fields}},  function(err, state) {
-            if(err) {
-                return res.send({
-                    status: false,
-                    message: "添加异常!"
-                });
-            } 
-            res.send({
-                status: true,
-                msg: "新增成功!"
-            });
-        });
-    }else {
-         // 添加到内嵌文档
-        IntroModel.update({"themes._id": themeId}, {$set: fields}, function(err, doc) {
-            if (err) {
-                return res.send({
-                    message: "添加失败",
-                    status: false
-                });
+        $push: {
+            map: {
+                discriptiveGraph,
+                presentation
             }
-            res.send({
-                status: true,
-                data: doc
-            });
-        });
+        }
+    };
+    if (themeId) {
+        fields = {
+            $set: {
+                map: {
+                    discriptiveGraph,
+                    presentation
+                }
+            }
+        };
     }
+    IntroModel.update({_id: introId}, fields,  function(err, state) {
+        if(err) {
+            return res.send({
+                status: false,
+                message: themeId ? '更新错误' : '新增错误'
+            });
+        } 
+        res.send({
+            status: true,
+            msg: themeId ? '更新成功' : '新增成功'
+        });
+    });
+    
 });
 
 // 获取专题详情内容, 查询所有
@@ -409,7 +361,6 @@ router.get("/timeline/data", function(req, res, next) {
         });
     });
 });
-
 
 // 删除主题
 router.post("/special/destory", function(req, res) {
