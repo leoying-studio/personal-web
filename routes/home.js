@@ -27,6 +27,7 @@ router.get("/", function (req, res) {
     })
 });
 
+
 /* GET home page. */
 router.get('/manager', function (req, res) {
     ArticleModel.getNavs().lean().then(function(data) {
@@ -35,29 +36,11 @@ router.get('/manager', function (req, res) {
 });
 
 
-// router.post("/footer/set", function (req, res) {
-//     var body = req.body;
-//     var background = req.body;
-//     var title = body.title;
-//     var description = body.title;
-//     // 提交数据
-//     new FooterModel({
-//         background, title, descrption
-//     }).save((err, footer) => {
-//         if (err) {
-//             req.flash("error", "页脚设置失败");
-//         } else {
-//             req.flash("success", "页脚设置成功");
-//         }
-//         res.redirect("/");
-//     });
-// });
 
 
 /**
  * 设置首页介绍信息
  */
-
 router.post("/intro/save", function (req, res) {
     var body = req.body;
     var title = body.title
@@ -122,11 +105,44 @@ router.post("/intro/save", function (req, res) {
  */
 router.post("/intro/apply", function(req, res) {
     // 查询并更新
-    IntroModel.findOneAndUpdate({apply: true}, {$set: {apply: false}}, function(err, doc) {
-         
+    IntroModel.update({apply: true}, {$set: {apply: false}}, function(err, state) {
+         if (err) {
+             return res.send({
+                status: false,
+                message: "数据更新异常",
+                errMsg: err.message
+             });
+         }
+         if (state.n > 0) {
+             // 引用当前介绍信息
+            IntroModel.update({_id: req.body.id}, {$set: {apply: true}}, function(err, state) {
+                if (err) {
+                    return res.send({
+                        status: false,
+                        message: "数据更新异常",
+                        errMsg: err.message
+                     });
+                }
+                if (state.n === 0) {
+                    return res.send({
+                        status: false,
+                        message: "数据更新失败"
+                    });
+                }
+                res.send({
+                    status: true,
+                    data: state,
+                    message: "应用该介绍信息成功"
+                });
+            });
+         } else {
+             return res.send({
+                 status: false,
+                 message: "删除失败"
+             });
+         }
     });
 });
-
 
 // 消灭这条推荐数据
 router.post("/intro/destory", function(req, res) {
@@ -134,20 +150,19 @@ router.post("/intro/destory", function(req, res) {
         if (err) {
             return res.send({
                 status: false,
-                message: "删除异常" 
+                message: "数据执行错误" 
             });
         } 
-        if (state.result.n > 0) {
-            res.send({
-                status: true,
-                message: "删除成功!"
-            });
-        } else {
-            res.send({
+        if (state.result.n === 0) {
+            return res.send({
                 status: false,
                 message: "删除失败!"
             });
-        }
+        } 
+        res.send({
+            status: true,
+            message: "删除成功!"
+        });
     });
 }); 
 
@@ -175,7 +190,7 @@ router.get("/intro/data", function (req, res) {
  //根据 introId添加主题
 router.post("/intro/themes/save", function(req, res) {
     var body = req.body;
-    var _id = body.introId;
+    var _id = body.id;
     var topicMap = body.topicMap;
     var fields = {
         $push: topicMap,
@@ -213,8 +228,10 @@ router.post("/intro/themes/item/save", function(req, res) {
     var fields = {
         $push: {
             map: {
-                discriptiveGraph,
-                presentation
+                theme: {
+                    discriptiveGraph,
+                    presentation
+                }
             }
         }
     };
@@ -222,8 +239,10 @@ router.post("/intro/themes/item/save", function(req, res) {
         fields = {
             $set: {
                 map: {
-                    discriptiveGraph,
-                    presentation
+                   theme: {
+                        discriptiveGraph,
+                        presentation
+                   }
                 }
             }
         };
@@ -240,25 +259,14 @@ router.post("/intro/themes/item/save", function(req, res) {
             msg: themeId ? '更新成功' : '新增成功'
         });
     });
+});
+
+
+// 根据当前的introId获取下面的主题
+router.get("/intro/themes/data", function(req, res) {
     
 });
 
-// 获取专题详情内容, 查询所有
-// router.get("/special/themes/data", function(req, res) {
-//     SpecialModel.findOne({_id: req.query.id}).lean().then(function(doc) {
-//         res.send({
-//             status: true,
-//             data: doc.themes,
-//             msg: "ok"
-//         });
-//     }).catch(function(err) {
-//         res.send({
-//             status: false,
-//             data: err,
-//             msg: "查询异常"
-//         });
-//     });
-// });
 
 // 后端管理接口, 分页查询
 // router.get("/special/data", function(req, res) {
@@ -286,60 +294,6 @@ router.post("/intro/themes/item/save", function(req, res) {
 //     });
 // });
 
-
-// 设置主题
-// router.post("intro/themes/add", function(req, res) {
-//     var body = req.body;
-//     var _id = body.id;
-//     // var title = body.title;
-//     // 首页展示
-//     var homeFigure = body.homeFigure;
-//     var headline = body.headline;
-//     var validate = Validator([
-//         {mode: "required", value: headline, message: "标题不能为空"},
-//         {mode: "required", value: homeFigure, message: "首页展示图不能为空"},
-//     ]);
-//     if(!validate.status) {
-//         return res.send({
-//             status: false,
-//             message: validate.message
-//         });
-//     }
-//     // 接口存在id就进行添加
-//     if (!_id) {
-//         SpecialModel.create({ homeFigure, headline}, function(err, doc) {
-//             if (err) {
-//                 return res.send({
-//                     message: "添加异常",
-//                     status: false
-//                 });
-//             }
-//             res.send({
-//                 message: "添加成功",
-//                 status: true
-//             });
-//         }).catch(function(e) {
-//             res.send({
-//                 status: false,
-//                 msg: "新增异常"
-//             })
-//         });
-//     } else {
-//         // 更新
-//         SpecialModel.update({_id}, {$set: {homeFigure, headline}}, function(err, doc) {
-//             if (err) {
-//                 return res.send({
-//                     message: "更新异常",
-//                     status: false
-//                 });
-//             }
-//             res.send({
-//                 message: "更新成功",
-//                 status: doc
-//             });
-//         }); 
-//     }
-// });
 
 // 获取时光轴
 router.get("/timeline/data", function(req, res, next) {
