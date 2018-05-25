@@ -35,9 +35,6 @@ router.get('/manager', function (req, res) {
     });
 });
 
-
-
-
 /**
  * 设置首页介绍信息
  */
@@ -262,11 +259,30 @@ router.post("/intro/themes/item/save", function(req, res) {
 });
 
 
-// 根据当前的introId获取下面的主题
+// 根据当前的introId获取下面的主题列表
 router.get("/intro/themes/data", function(req, res) {
-    
+    var body = req.body;
+    var currentPage = body.currentPage;
+    var pageSize = body.pageSize;
+    var _id = body.id;
+    IntroModel.findPaging({currentPage, pageSize}, {_id}).then(function(doc) {
+        res.send({
+            status: true,
+            data
+        });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            data: [],
+            message: err.message
+        });
+    });
 });
 
+// 根据introId 和 themeId 来查询主题详情
+router.get("/intro/themes/", function(req, res) {
+
+});
 
 // 后端管理接口, 分页查询
 // router.get("/special/data", function(req, res) {
