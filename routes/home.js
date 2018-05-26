@@ -262,49 +262,51 @@ router.post("/intro/themes/item/save", function(req, res) {
 // 根据当前的introId获取下面的主题列表
 router.get("/intro/themes/data", function(req, res) {
     var body = req.body;
-    var currentPage = body.currentPage;
-    var pageSize = body.pageSize;
-    var _id = body.id || '5b04c091df142d1904478183';
-    IntroModel.findOne({_id}, function(err, doc) {
-        doc.findPaging({currentPage, pageSize}, {}).then(function(data) {
-            res.send({
-                status: true,
-                data
-            });
+    var currentPage = body.currentPage || 1;
+    var start = (currentPage - 1) * 4;
+    var end = currentPage * 4;
+    IntroModel.findOne({_id}).populate('themes', {slice: [start, end]})
+    .then(function(data) {
+        res.send({
+            status: true,
+            data
         });
-    });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            message: "系统执行异常",
+            errMsg: err.message
+        });
+    }); 
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/item", function(req, res) {
-
+router.get("/intro/themes/map/data", function(req, res) {
+    var body = req.body;
+    var _id = body.introId;
+    var themeId = body.themeId;
+    var params = null;
+    if (body.pagination && body.pageSize) {
+        params = {
+            pagination,
+            pageSize
+        };
+    }
+    HomeProxy.getThemeMap({
+        _id, "themes._id": themeId
+    }, params).then(function(data) {
+        res.send({
+            status: true,
+            data
+        });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            message: "系统执行异常",
+            errMsg: err.message
+        });
+    });
 });
-
-// 后端管理接口, 分页查询
-// router.get("/special/data", function(req, res) {
-//     var query = req.query;
-//     var currentPage = query.page;
-//     var pageSize = req.query.pageSize;
-//     var params = {currentPage, pageSize};
-//     if (!pageSize) {
-//         params.pageSize = 4;
-//         params.currentPage = 1;
-//     }
-
-//     // 如果没传参，就去查询最后的四条数据
-//     SpecialModel.findPaging(params, {}).then(function(collections) {
-//         res.send({
-//             status: true,
-//             data: collections
-//         });
-//     }).catch(function(e) {
-//         res.send({
-//             status: false,
-//             data: [],
-//             msg: "查询异常"
-//         });
-//     });
-// });
 
 
 // 获取时光轴
@@ -329,43 +331,41 @@ router.get("/timeline/data", function(req, res, next) {
 });
 
 // 删除主题
-router.post("/special/destory", function(req, res) {
-     var id = req.body.id;
-     SpecialModel.remove({_id: id}, function(err, state) {
-         if (err) {
-             return res.send({
-                state: false
-             });
-         }
-         res.send({
-             status: true,
-             msg: "删除成功!"
-         })
+router.post("/intro/themes/destory", function(req, res) {
+     var body = req.body;
+     var themeId = body.themeId;
+     var _id = body.introId;
+     IntroModel.findOne({_id, "themes._id": themeId}).remove(function(err, state) {
+        res.send({
+            status: true,
+            message: "删除成功"
+        });
+     }).catch(function(err) {
+        res.send({
+            status: false,
+            errMsg: err.message,
+            message: "系统执行异常"
+        });
      });
 });
 
-router.post("/special/themes/destory", function(req, res) {
+
+router.post("/intro/theme/map/destory", function(req, res) {
     var body = req.body;
-    var specialId = body.specialId;
+    var introId = body.introId;
     var themeId = body.themeId;
-    SpecialModel.findOne({_id: specialId}, function(err, doc) {
-        if(err) {
-            return res.send({
-                status: false,
-                msg: "查询错误"
-            })
-        }
-        doc.remove({"themes._id":themeId}, function(err, state) {
-            if (err) {
-                return res.send({
-                    status: false,
-                    msg: "删除错误"
-                });
-            }
-            res.send({
-                status: false,
-                msg: "删除成功!"
-            });
+    var mapId = body.mapId;
+    IntroModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
+    .remove(function(err, state) {
+        res.send({
+            status: true,
+            message: "删除成功"
+        });
+    }).catch(function(err) {
+        res.send({
+            status: false,
+            errMsg: err.message,
+            message: "系统执行异常"
         });
     });
 });
