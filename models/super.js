@@ -1,17 +1,16 @@
-var NavModel = require('./nav');
+var Categories = require('./categories');
 
-exports.regFind = function (schema) {
-    schema.statics.findPaging = function (params = {}, conditions = {}) {
-        var currentPage = Number(params.currentPage || 1);
-        var pageSize = Number(params.pageSize || 10);
-        return this.find(conditions).sort({ 'createdAt': -1 })
-            .skip((currentPage - 1) * pageSize)
-            .limit(pageSize).lean();
-    }
+// 分页查询
+exports.queryPaging = function (params = {}, conditions = {}) {
+    var currentPage = Number(params.currentPage || 1);
+    var pageSize = Number(params.pageSize || 10);
+    return this.find(conditions).sort({ 'createdAt': -1 })
+        .skip((currentPage - 1) * pageSize)
+        .limit(pageSize).lean();
 }
 
-exports.regNav = function(schema) {
-    schema.statics.getNavs = function (cb) {
-        return NavModel.find({}).lean(cb);
-    }
+
+//　分类信息查询查询
+exports.getCategories = function() {
+    return Categories.find({}).lean(cb);
 }

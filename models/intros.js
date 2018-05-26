@@ -1,6 +1,6 @@
 var mongoose=require('../db').mongoose;
 var Utils = require("./../utils/index");
-var DBSuper = require("./super");
+var Super = require("./super");
 
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
@@ -47,5 +47,5 @@ Scheam.pre('save', function(next) {
   	next();
 });
 
-var Intro = mongoose.model('intro', Scheam);
+var Intro = mongoose.model('intros', Scheam);
 module.exports = Intro;

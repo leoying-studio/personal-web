@@ -1,7 +1,7 @@
 var mongoose=require('../db').mongoose;
 var ObjectId = mongoose.Schema.ObjectId;
 var Utils = require("./../utils/index");
-var DBSuper = require("./super");
+var Super = require("./super");
 
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
@@ -21,6 +21,6 @@ Scheam.pre('save', function(next) {
   	next();
 });
 
-var Comment = mongoose.model('comment', Scheam);
+var Comment = mongoose.model('comments', Scheam);
 
 module.exports = Comment;

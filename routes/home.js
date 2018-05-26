@@ -5,8 +5,9 @@ var IntroModel = require("./../models/intro");
 var Validator = require("./../utils/validator");
 var ArticleModel = require("./../models/article");
 var ArticleProxy = require("./../proxy/article");
+var Throw = require("./../middleware/throw");
 
-router.get("/", function (req, res) {
+router.get("/", Throw.abnormal, function (req, res, next) {
     var navs = ArticleModel.getNavs().lean();
     var recommend = ArticleModel.findPaging({}, {recommend: true});
     var intro = HomeProxy.getIntro();   
@@ -22,23 +23,21 @@ router.get("/", function (req, res) {
             timeline: values[4]
         };
         res.render("index", data);
-    }).catch(function() {
-        throw new Error("错误");
-    })
+    }).catch(next);
 });
 
 
 /* GET home page. */
-router.get('/manager', function (req, res) {
+router.get('/manager',Throw.abnormal, function (req, res, next) {
     ArticleModel.getNavs().lean().then(function(data) {
         res.render("manager", {navs: data});
-    });
+    }).catch(next);
 });
 
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save", function (req, res) {
+router.post("/intro/save", Throw.abnormal, function (req, res, next) {
     var body = req.body;
     var title = body.title
     var slogan = body.slogan;
@@ -72,13 +71,7 @@ router.post("/intro/save", function (req, res) {
                 status: true,
                 data: doc
             });
-        }).catch(function(err) {
-            res.send({
-                message: "数据执行异常",
-                errMsg: err.message,
-                status: false
-            });
-        });
+        }).catch(next);
     } else {
         delete fields.themes;
         IntroModel.update({_id}, {$set: fields}, function(err, doc) {
@@ -93,14 +86,14 @@ router.post("/intro/save", function (req, res) {
                 status: true,
                 data: doc
             });
-        })
+        }).catch(next);
     }
 });
 
 /**
  * 应用介绍信息
  */
-router.post("/intro/apply", function(req, res) {
+router.post("/intro/apply", Throw.abnormal, function(req, res, next) {
     // 查询并更新
     IntroModel.update({apply: true}, {$set: {apply: false}}, function(err, state) {
          if (err) {
@@ -131,7 +124,7 @@ router.post("/intro/apply", function(req, res) {
                     data: state,
                     message: "应用该介绍信息成功"
                 });
-            });
+            }).catch(next)
          } else {
              return res.send({
                  status: false,
@@ -142,7 +135,7 @@ router.post("/intro/apply", function(req, res) {
 });
 
 // 消灭这条推荐数据
-router.post("/intro/destory", function(req, res) {
+router.post("/intro/destory", Throw.abnormal, function(req, res, next) {
     IntroModel.remove({_id: req.body.id}, function(err, state) {
         if (err) {
             return res.send({
@@ -160,23 +153,18 @@ router.post("/intro/destory", function(req, res) {
             status: true,
             message: "删除成功!"
         });
-    });
+    }).catch(next);
 }); 
 
 
 // 获取intro 所有内容项
-router.get("/intro/data", function (req, res) {
+router.get("/intro/data", Throw.abnormal, function (req, res, next) {
     HomeProxy.getIntro({}).then(function(collections) {
         res.send({
             status: true,
             data: collections
         });
-    }).catch(function(e) {
-        res.send({
-            status: false,
-            msg: e.message
-        });
-    }) 
+    }).catch(next)
 });
 
 
@@ -185,7 +173,7 @@ router.get("/intro/data", function (req, res) {
  */
 
  //根据 introId添加主题
-router.post("/intro/themes/save", function(req, res) {
+router.post("/intro/themes/save",Throw.abnormal, function(req, res, next) {
     var body = req.body;
     var _id = body.id;
     var topicMap = body.topicMap;
@@ -212,11 +200,11 @@ router.post("/intro/themes/save", function(req, res) {
             status: true,
             data: doc
         });
-    });
+    }).catch(next);
 });
 
 // 根据首页themeId进行添加主题项内容
-router.post("/intro/themes/item/save", function(req, res) {
+router.post("/intro/themes/item/save",Throw.abnormal, function(req, res, next) {
     var body = req.body;
     var introId = body.introId;
     var themeId = body.themeId;
@@ -255,12 +243,12 @@ router.post("/intro/themes/item/save", function(req, res) {
             status: true,
             msg: themeId ? '更新成功' : '新增成功'
         });
-    });
+    }).catch(next);
 });
 
 
 // 根据当前的introId获取下面的主题列表
-router.get("/intro/themes/data", function(req, res) {
+router.get("/intro/themes/data", Throw.abnormal, function(req, res, next) {
     var body = req.body;
     var currentPage = body.currentPage || 1;
     var start = (currentPage - 1) * 4;
@@ -271,17 +259,11 @@ router.get("/intro/themes/data", function(req, res) {
             status: true,
             data
         });
-    }).catch(function(err) {
-        res.send({
-            status: false,
-            message: "系统执行异常",
-            errMsg: err.message
-        });
-    }); 
+    }).catch(next);
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/map/data", function(req, res) {
+router.get("/intro/themes/map/data",Throw.abnormal, function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;
@@ -299,18 +281,12 @@ router.get("/intro/themes/map/data", function(req, res) {
             status: true,
             data
         });
-    }).catch(function(err) {
-        res.send({
-            status: false,
-            message: "系统执行异常",
-            errMsg: err.message
-        });
-    });
+    }).catch(next);
 });
 
 
 // 获取时光轴
-router.get("/timeline/data", function(req, res, next) {
+router.get("/timeline/data",Throw.abnormal, function(req, res, next) {
     var body = req.body;
     var params = Object.keys(body).length > 0 ? body : req.query;
     var pageSize = body.pageSize;
@@ -321,17 +297,11 @@ router.get("/timeline/data", function(req, res, next) {
             status: true,
             data
         });
-    }).catch(function(err) {
-        res.send({
-            status: false,
-            data: [],
-            msg: err.message
-        });
-    });
+    }).catch(next);
 });
 
 // 删除主题
-router.post("/intro/themes/destory", function(req, res) {
+router.post("/intro/themes/destory", Throw.abnormal, function(req, res, next) {
      var body = req.body;
      var themeId = body.themeId;
      var _id = body.introId;
@@ -340,17 +310,10 @@ router.post("/intro/themes/destory", function(req, res) {
             status: true,
             message: "删除成功"
         });
-     }).catch(function(err) {
-        res.send({
-            status: false,
-            errMsg: err.message,
-            message: "系统执行异常"
-        });
-     });
+     }).catch(next);
 });
 
-
-router.post("/intro/theme/map/destory", function(req, res) {
+router.post("/intro/theme/map/destory", function(req, res, next) {
     var body = req.body;
     var introId = body.introId;
     var themeId = body.themeId;
@@ -361,13 +324,7 @@ router.post("/intro/theme/map/destory", function(req, res) {
             status: true,
             message: "删除成功"
         });
-    }).catch(function(err) {
-        res.send({
-            status: false,
-            errMsg: err.message,
-            message: "系统执行异常"
-        });
-    });
+    }).catch(next);
 });
 
 module.exports = router;

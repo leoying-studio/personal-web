@@ -6,9 +6,10 @@ var CommentModel = require("./../models/comment");
 var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
 var ArticleProxy = require("./../proxy/article");
+var Throw = require("./../middleware/throw");
 
 // 新增
-router.post("/submit", function(req, res) {
+router.post("/submit",Throw.abnormal, function(req, res, next) {
 	var body = req.body;
 	var title = body.title;
 	var img = body.img;
@@ -58,7 +59,7 @@ router.post("/submit", function(req, res) {
 			data: article,
 			msg: '添加成功'
 		});
-	});
+	}).catch(next);
 });
 
 // 查询
@@ -83,7 +84,7 @@ router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 }); 
 
 // ajax查询文章列表
-router.get("/data",function(req, res)　{
+router.get("/data",Throw.abnormal, function(req, res, next)　{
 	var query = req.query;
 	var navId = query.navId;
 	var categoryId = query.categoryId;
@@ -98,7 +99,7 @@ router.get("/data",function(req, res)　{
 			data: data.articles,
 			total: data.total
 		});
-	});
+	}).catch(next);
 }); 
 
 //查询所有文章列表
@@ -114,7 +115,7 @@ router.get("/data/all", function(req, res) {
 });
 
 // 删除
-router.post("/delete", function(req, res) {
+router.post("/delete", Throw.abnormal, function(req, res, next) {
 	var body = req.body;
 	var articleId = body.articleId;
 
@@ -137,16 +138,11 @@ router.post("/delete", function(req, res) {
 				message: "删除错误"
 			});
 		}
-	}).catch(e => {
-		res.send({
-			status: false,
-			message: "出现异常"
-		});
-	});
+	}).catch(next);
 }); 
 
 // 修改
-router.post("/update", function(req, res) {
+router.post("/update",Throw.abnormal, function(req, res, next) {
 	var body = req.body;
 	var title = body.title;
 	var img = body.img;
@@ -196,7 +192,7 @@ router.post("/update", function(req, res) {
 				msg: err.message
 			})
 		}
-	});
+	}).catch(next);
 });
 
 
@@ -216,16 +212,16 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	});
 });
 
-router.get("/comments", function(req, res) {
+router.get("/comments", Throw.abnormal, function(req, res) {
 	var body = req.body;
 	var articleId = body.articleId;
 	var currentPage = body.skip;
 	CommentModel.findPaging({articleId}, {currentPage}).then(function(collections) {
 		res.send(collections);
-	});
+	}).catch(next);
 });	
 
-router.post("/comment/submit", function (req, res) {
+router.post("/comment/submit", Throw.abnormal, function (req, res, next) {
 	var body = req.body;
 	var username = body.username;
 	var content = body.content;
@@ -257,7 +253,7 @@ router.post("/comment/submit", function (req, res) {
 			data: comment,
 			message: '评论成功'
 		});
-	});
+	}).catch(next);
 });
 
 module.exports = router;

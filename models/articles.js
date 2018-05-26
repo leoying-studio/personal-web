@@ -1,6 +1,6 @@
 var mongoose = require('../db').mongoose;
 var ObjectId = mongoose.Schema.ObjectId;
-var DBSuper = require('./super');
+var Super = require('./super');
 var Utils = require("./../utils/index");
 
 // 定义映射的集合结构模型
@@ -23,8 +23,8 @@ var Scheam = new mongoose.Schema({
 	timestamps: {createdAt: 'createdAt', updatedAt: 'updateAt'}
 });
 
-Scheam.plugin(DBSuper.regNav);
-Scheam.plugin(DBSuper.regFind);
+Scheam.plugin(Super.regNav);
+Scheam.plugin(Super.regFind);
 
 Scheam.pre('save', function(next) {
 	var now = new Date();
@@ -33,5 +33,5 @@ Scheam.pre('save', function(next) {
 });
 
 
-var Article = mongoose.model('article', Scheam);
+var Article = mongoose.model('articles', Scheam);
 module.exports = Article;

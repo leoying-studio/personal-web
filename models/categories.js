@@ -3,7 +3,7 @@ var Utils = require("./../utils/index");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
 	 name: String,
-	 categories: [
+	 children: [
 		 {name: String}
 	 ],
 	 createdTime: { type: String, default: Utils.time.get() },
@@ -13,11 +13,12 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.set('toJSON', { getters: true, virtuals: false });
+
 Scheam.pre('save', function(next) {
 	var now = new Date();
   	this.updateAt = now;
   	next();
 });
 
-var Nav = mongoose.model('Nav', Scheam);
+var Nav = mongoose.model('categories', Scheam);
 module.exports = Nav;

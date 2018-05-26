@@ -3,6 +3,7 @@ var router = express.Router();
 var UsersModel = require("./../models/users");
 var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
+var Throw = require("./../middleware/throw");
 
 router.get('/login/view', function(req, res) {
     UsersModel.getNavs().then(function(navs) {
@@ -46,7 +47,7 @@ router.post("/login/submit", function(req, res) {
 router.post("/register/submit", function(req, res) {
 	var body = req.body;
     var username = body.username;
-    var nickName = body.nickName;
+    var nickName = body.nickName || "";
     var password = body.password;
     var passAgain = body.passAgain;
     var email = body.email;
@@ -67,21 +68,21 @@ router.post("/register/submit", function(req, res) {
             return res.redirect("/user/reigster/view");
         }
         // 开始注册
-        new UsersModel({
+        UsersModel.create({
             username,
             password,
-            nickName: nickName || "",
+            nickName,
             passAgain,
             email,
-        }).save((err) => {
+        }, function(err) {
             if (err) {
                 req.flash("error", "注册失败");
             } else {
                 req.flash("success", "注册成功");
             }
             res.redirect("/user/reigster/view");
-        })
-    });
+        }).catch(next);
+    }).catch(next);
 });
 
 module.exports = router;
