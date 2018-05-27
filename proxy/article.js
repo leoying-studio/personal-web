@@ -1,10 +1,10 @@
-var ArticleModel = require("./../models/article");
-var CommentModel = require("./../models/comment");
+var ArticlesModel = require("./../models/articles");
+var CommentsModel = require("./../models/comments");
 
 exports.list = function(conditions , currentPage, callback) {
-	var articles = ArticleModel.findPaging({currentPage}, conditions );
-	var navs =  ArticleModel.getNavs();
-	var count = ArticleModel.count(conditions);
+	var articles = ArticlesModel.queryPaging({currentPage}, conditions );
+	var navs =  ArticlesModel.getCategories();
+	var count = ArticlesModel.count(conditions);
 	Promise.all([navs, articles, count])
 	.then(function(collections) {
 		callback({
@@ -20,7 +20,7 @@ exports.list = function(conditions , currentPage, callback) {
 exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditions = {}) {
 	var that = this, pageSize = pageSize || 12;
 	return new Promise(function(resolve, rejcet) {
-		ArticleModel.count({}, function(err, count) {
+		ArticlesModel.count({}, function(err, count) {
 			if (err) {
 				return rejcet(err);
 			}
@@ -34,7 +34,7 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 				};
 			}
 			// 聚合分组查询
-			ArticleModel.aggregate([
+			ArticlesModel.aggregate([
 				{
 					$project: {
 						year: {$substr: ['$createdAt', 0, 4]},
@@ -71,9 +71,9 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 }
 
 exports.detail =  function(conditions, currentPage, callback) {
-	var detail = ArticleModel.findOne({_id: conditions.articleId});
-	var comments = CommentModel.findPaging({currentPage}, conditions);
-	var total = CommentModel.count(conditions);	
+	var detail = ArticlesModel.findOne({_id: conditions.articleId});
+	var comments = CommentsModel.queryPaging({currentPage}, conditions);
+	var total = CommentsModel.count(conditions);	
 	Promise.all([detail, comments, total]).then(function(collections) {
 		if (collections[1].length) {
 			collections[1] = collections[1].map(function(item) {

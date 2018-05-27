@@ -3,20 +3,19 @@ var router = express.Router();
 var UsersModel = require("./../models/users");
 var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
-var Throw = require("./../middleware/throw");
 
 router.get('/login/view', function(req, res) {
-    UsersModel.getNavs().then(function(navs) {
+    UsersModel.getCategories().then(function(collections) {
         res.render("login", {
-			navs: navs
+			navs: collections
 		});
     });
 });
 
 router.get('/register/view', function(req, res) {
-	UsersModel.getNavs(function(navs) {
+	UsersModel.getCategories(function(collections) {
         res.render("register", {
-			navs: navs
+			navs: collections
 		});
     })
 });
@@ -30,7 +29,7 @@ router.post("/login/submit", function(req, res) {
         password
 	}, function(err, doc) {
         if (err) {
-           return res.redirect("/user/login/view");
+           return next(err);
         }
         if (doc) {
 			req.session.user = username;
@@ -81,8 +80,8 @@ router.post("/register/submit", function(req, res) {
                 req.flash("success", "注册成功");
             }
             res.redirect("/user/reigster/view");
-        }).catch(next);
-    }).catch(next);
+        });
+    });
 });
 
 module.exports = router;

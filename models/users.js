@@ -1,25 +1,27 @@
 var mongoose = require('../db').mongoose;
 var Utils = require("./../utils/index");
-var DBSuper = require("./super");
+var Super = require("./super");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
-	 username:{type: 'string'},
-	 nickName:{type: 'string', default: '暂无'},
-	 password:{type: 'string'},
-	 passAgain:{type: 'string'},
-	 email: {type: 'string'},
+	 username:{type: String},
+	 nickName:{type: String, default: '暂无'},
+	 password:{type: String},
+	 passAgain:{type: String},
+	 email: {type: String},
 	 createdTime: { type: String, default: Utils.time.get() },
 	 updateTime: {type: String, default:  Utils.time.get()},
 	 createdAt: {type: Date, default: Date.now},
 	 updateAt: {type: Date,  default: Date.now},
 });
 
-Scheam.plugin(DBSuper.regNav);
+Scheam.plugin(Super.getCategories);
+Scheam.set('toJSON', { getters: true, virtuals: false });
 Scheam.pre('save', function(next) {
 	var now = new Date();
   	this.updateAt = now;
   	next();
 });
 
-var User = mongoose.model('users', Scheam);
-module.exports = User;
+var Users = mongoose.model('users', Scheam);
+
+module.exports = Users;

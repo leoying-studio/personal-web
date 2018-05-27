@@ -1,15 +1,15 @@
 var express = require('express');
 var router = express.Router();
 var HomeProxy = require("./../proxy/home");
-var IntroModel = require("./../models/intro");  
+var IntrosModel = require("./../models/intros");  
 var Validator = require("./../utils/validator");
-var ArticleModel = require("./../models/article");
+var ArticlesModel = require("./../models/articles");
 var ArticleProxy = require("./../proxy/article");
-var Throw = require("./../middleware/throw");
 
-router.get("/", Throw.abnormal, function (req, res, next) {
-    var navs = ArticleModel.getNavs().lean();
-    var recommend = ArticleModel.findPaging({}, {recommend: true});
+
+router.get("/", function (req, res, next) {
+    var navs = ArticlesModel.getCategories().lean();
+    var recommend = ArticlesModel.queryPaging({}, {recommend: true});
     var intro = HomeProxy.getIntro();   
     var timeline = ArticleProxy.getTimeline();
     var getItems = [navs, recommend, intro, special, timeline];
@@ -28,8 +28,8 @@ router.get("/", Throw.abnormal, function (req, res, next) {
 
 
 /* GET home page. */
-router.get('/manager',Throw.abnormal, function (req, res, next) {
-    ArticleModel.getNavs().lean().then(function(data) {
+router.get('/manager', function (req, res, next) {
+    ArticlesModel.getCategories().lean().then(function(data) {
         res.render("manager", {navs: data});
     }).catch(next);
 });
@@ -37,7 +37,7 @@ router.get('/manager',Throw.abnormal, function (req, res, next) {
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save", Throw.abnormal, function (req, res, next) {
+router.post("/intro/save",function (req, res, next) {
     var body = req.body;
     var title = body.title
     var slogan = body.slogan;
@@ -58,34 +58,21 @@ router.post("/intro/save", Throw.abnormal, function (req, res, next) {
         themes: []
     };
     if (!_id) {
-        IntroModel.create(fields, function (err, doc) {
+        IntrosModel.create(fields, function (err, doc) {
             if (err) {
-                return res.send({
-                    message: "添加失败",
-                    errMsg: err.message,
-                    status: false
-                });
+                return next();
             }
-            res.send({
-                message: "创建成功",
-                status: true,
-                data: doc
-            });
+            req.body.data = doc;
+            next();
         }).catch(next);
     } else {
         delete fields.themes;
-        IntroModel.update({_id}, {$set: fields}, function(err, doc) {
+        IntrosModel.update({_id}, {$set: fields}, function(err, doc) {
             if (err) {
-                return res.send({
-                    message: "更新失败",
-                    status: false
-                })
+               return next();
             }
-            res.send({
-                message: "更新成功",
-                status: true,
-                data: doc
-            });
+            req.body.data = doc;
+            next();
         }).catch(next);
     }
 });
@@ -93,19 +80,15 @@ router.post("/intro/save", Throw.abnormal, function (req, res, next) {
 /**
  * 应用介绍信息
  */
-router.post("/intro/apply", Throw.abnormal, function(req, res, next) {
+router.post("/intro/apply", function(req, res, next) {
     // 查询并更新
-    IntroModel.update({apply: true}, {$set: {apply: false}}, function(err, state) {
+    IntrosModel.update({apply: true}, {$set: {apply: false}}, function(err, state) {
          if (err) {
-             return res.send({
-                status: false,
-                message: "数据更新异常",
-                errMsg: err.message
-             });
+            return next();
          }
          if (state.n > 0) {
              // 引用当前介绍信息
-            IntroModel.update({_id: req.body.id}, {$set: {apply: true}}, function(err, state) {
+            IntrosModel.update({_id: req.body.id}, {$set: {apply: true}}, function(err, state) {
                 if (err) {
                     return res.send({
                         status: false,
@@ -135,13 +118,10 @@ router.post("/intro/apply", Throw.abnormal, function(req, res, next) {
 });
 
 // 消灭这条推荐数据
-router.post("/intro/destory", Throw.abnormal, function(req, res, next) {
-    IntroModel.remove({_id: req.body.id}, function(err, state) {
+router.post("/intro/destory", function(req, res, next) {
+    IntrosModel.remove({_id: req.body.id}, function(err, state) {
         if (err) {
-            return res.send({
-                status: false,
-                message: "数据执行错误" 
-            });
+           return next();
         } 
         if (state.result.n === 0) {
             return res.send({
@@ -149,16 +129,14 @@ router.post("/intro/destory", Throw.abnormal, function(req, res, next) {
                 message: "删除失败!"
             });
         } 
-        res.send({
-            status: true,
-            message: "删除成功!"
-        });
+       req.body.data = {};
+       next();
     }).catch(next);
 }); 
 
 
 // 获取intro 所有内容项
-router.get("/intro/data", Throw.abnormal, function (req, res, next) {
+router.get("/intro/data", function (req, res, next) {
     HomeProxy.getIntro({}).then(function(collections) {
         res.send({
             status: true,
@@ -173,7 +151,7 @@ router.get("/intro/data", Throw.abnormal, function (req, res, next) {
  */
 
  //根据 introId添加主题
-router.post("/intro/themes/save",Throw.abnormal, function(req, res, next) {
+router.post("/intro/themes/save", function(req, res, next) {
     var body = req.body;
     var _id = body.id;
     var topicMap = body.topicMap;
@@ -188,23 +166,17 @@ router.post("/intro/themes/save",Throw.abnormal, function(req, res, next) {
             } 
         }
     }
-    IntroModel.update({_id}, fields, function(err, doc) {
+    IntrosModel.update({_id}, fields, function(err, doc) {
         if (err) {
-            return res.send({
-                message: "添加失败",
-                status: false,
-                errMsg: err.message
-            });
+           return next();
         }
-        res.send({
-            status: true,
-            data: doc
-        });
+        req.body.data = doc;
+        next();
     }).catch(next);
 });
 
 // 根据首页themeId进行添加主题项内容
-router.post("/intro/themes/item/save",Throw.abnormal, function(req, res, next) {
+router.post("/intro/themes/item/save", function(req, res, next) {
     var body = req.body;
     var introId = body.introId;
     var themeId = body.themeId;
@@ -232,12 +204,10 @@ router.post("/intro/themes/item/save",Throw.abnormal, function(req, res, next) {
             }
         };
     }
-    IntroModel.update({_id: introId}, fields,  function(err, state) {
+    IntrosModel.update({_id: introId}, fields,  function(err, state) {
         if(err) {
-            return res.send({
-                status: false,
-                message: themeId ? '更新错误' : '新增错误'
-            });
+            req.body.message = themeId ? '更新错误' : '新增错误';
+            return next();
         } 
         res.send({
             status: true,
@@ -248,22 +218,20 @@ router.post("/intro/themes/item/save",Throw.abnormal, function(req, res, next) {
 
 
 // 根据当前的introId获取下面的主题列表
-router.get("/intro/themes/data", Throw.abnormal, function(req, res, next) {
+router.get("/intro/themes/data", function(req, res, next) {
     var body = req.body;
     var currentPage = body.currentPage || 1;
     var start = (currentPage - 1) * 4;
     var end = currentPage * 4;
-    IntroModel.findOne({_id}).populate('themes', {slice: [start, end]})
+    IntrosModel.findOne({_id}).populate('themes', {slice: [start, end]})
     .then(function(data) {
-        res.send({
-            status: true,
-            data
-        });
+        req.bod.data = data;
+        next();
     }).catch(next);
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/map/data",Throw.abnormal, function(req, res, next) {
+router.get("/intro/themes/map/data", function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;
@@ -286,7 +254,7 @@ router.get("/intro/themes/map/data",Throw.abnormal, function(req, res, next) {
 
 
 // 获取时光轴
-router.get("/timeline/data",Throw.abnormal, function(req, res, next) {
+router.get("/timeline/data", function(req, res, next) {
     var body = req.body;
     var params = Object.keys(body).length > 0 ? body : req.query;
     var pageSize = body.pageSize;
@@ -301,11 +269,11 @@ router.get("/timeline/data",Throw.abnormal, function(req, res, next) {
 });
 
 // 删除主题
-router.post("/intro/themes/destory", Throw.abnormal, function(req, res, next) {
+router.post("/intro/themes/destory", function(req, res, next) {
      var body = req.body;
      var themeId = body.themeId;
      var _id = body.introId;
-     IntroModel.findOne({_id, "themes._id": themeId}).remove(function(err, state) {
+     IntrosModel.findOne({_id, "themes._id": themeId}).remove(function(err, state) {
         res.send({
             status: true,
             message: "删除成功"
@@ -318,7 +286,7 @@ router.post("/intro/theme/map/destory", function(req, res, next) {
     var introId = body.introId;
     var themeId = body.themeId;
     var mapId = body.mapId;
-    IntroModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
+    IntrosModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
     .remove(function(err, state) {
         res.send({
             status: true,

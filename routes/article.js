@@ -1,82 +1,72 @@
 var express = require('express');
 var router = express.Router();
-var ArticleModel = require("./../models/article");
-var NavModel = require("./../models/nav");
-var CommentModel = require("./../models/comment");
+var ArticlesModel = require("./../models/articles");
+var CommentsModel = require("./../models/comments");
 var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
 var ArticleProxy = require("./../proxy/article");
-var Throw = require("./../middleware/throw");
 
 // 新增
-router.post("/submit",Throw.abnormal, function(req, res, next) {
+router.post("/submit", function(req, res, next) {
 	var body = req.body;
 	var title = body.title;
 	var img = body.img;
 	var description = body.description;
-	var navId = body.navId;		
+	var categoryId = body.categoryId;		
 	var recommend = body.recommend || false;
-	var categoriesId = body["categoriesId"] || [];
+	var childrenId = body["childrenId"] || [];
 	var content = body.content;
 	var recommendImg = body.recommendImg || "";
-	if (typeof categoriesId == "string") {
-		categoriesId = categoriesId.split(",");
+	if (typeof childrenId === "string") {
+		childrenId = childrenId.split(",");
 	}
 	var validate = Validator([
 		{mode: "required", value: title, message: "标题不能为空"},
 		{mode: "required, len", conditions: {min: 10}, value: content, message: "文章内容不能少于十个字符"},
-		{mode: "len", type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: categoriesId}
+		{mode: "len", type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: childrenId}
 	]);
 	if (!validate.status) {
-		return res.send({
-			status: false,
-			msg: validate.message
-		});
+		req.body.message = validate.message;
+		return next();
 	}
-	categoriesId = categoriesId.map(function(id) {
+	childrenId = childrenId.map(function(id) {
 		return {id};
 	});
 	// 开始插入数据
 	var fields = {
 		title,
 		img,
-		navId,
-		categoriesId,
+		categoryId,
+		childrenId,
 		description,
 		recommend,
 		recommendImg,
 		content
 	};
-    new ArticleModel(fields).save(function(err, article) {
+    new ArticlesModel(fields).save(function(err, doc) {
 		if (err) {
-			 return res.send({
-				status: false,
-				msg: '添加文章失败'
-			});
+			return next(err);
 		}
-		res.send({
-			status: true,
-			data: article,
-			msg: '添加成功'
-		});
+		req.body.data = doc;
+		next();
 	}).catch(next);
 });
 
 // 查询
 router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 	var params = req.params;
-	var navId = params.navId;
 	var categoryId = params.categoryId;
+	var childId = params.childId;
 	var currentPage = params.currentPage;
 	var page = req.query.page;
 	var conditions = {
-		 navId,
-		'categoriesId.id': categoryId,
+		categoryId,
+		'childrenId.id': childId,
 	};
 	ArticleProxy.list(conditions, currentPage, function(data) {
 		data.params = {
-			navId,
 			categoryId,
+			childId,
  			currentPage,
 		};
 		res.render("article/index", data);
@@ -84,14 +74,14 @@ router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 }); 
 
 // ajax查询文章列表
-router.get("/data",Throw.abnormal, function(req, res, next)　{
+router.get("/data", function(req, res, next)　{
 	var query = req.query;
-	var navId = query.navId;
 	var categoryId = query.categoryId;
+	var childId = query.childId;
 	var currentPage = query.page;
 	var conditions = {
-		 navId,
-		'categoriesId.id': categoryId,
+		 categoryId,
+		'childrenId.id': childId,
 	};
 	ArticleProxy.list(conditions, currentPage, function(data) {
 		res.send({
@@ -105,7 +95,7 @@ router.get("/data",Throw.abnormal, function(req, res, next)　{
 //查询所有文章列表
 router.get("/data/all", function(req, res) {
 	var currentPage = req.query.page;
-	ArticleModel.findPaging({currentPage}, {})
+	ArticlesModel.queryPaging({currentPage}, {})
 	.then(function(collections) {
 		res.send({
 			status: true,
@@ -115,13 +105,13 @@ router.get("/data/all", function(req, res) {
 });
 
 // 删除
-router.post("/delete", Throw.abnormal, function(req, res, next) {
+router.post("/delete", function(req, res, next) {
 	var body = req.body;
 	var articleId = body.articleId;
 
 	// 清除关联数据
 	Promise.all([
-		ArticleModel.remove({_id: articleId}),
+		ArticlesModel.remove({_id: articleId}),
 		CommentModel.remove({articleId}),
 	]).then( values => {
 		var state = values.every(function(item) {
@@ -142,7 +132,7 @@ router.post("/delete", Throw.abnormal, function(req, res, next) {
 }); 
 
 // 修改
-router.post("/update",Throw.abnormal, function(req, res, next) {
+router.post("/update", function(req, res, next) {
 	var body = req.body;
 	var title = body.title;
 	var img = body.img;
@@ -160,15 +150,13 @@ router.post("/update",Throw.abnormal, function(req, res, next) {
 		{mode: "required, len", value: content, message: "文章内容不能少于十个字", conditions: {min: 10}}
 	]);
 	if (!validate.status) {
-		return res.send({
-			status: false,
-			msg: validate.message
-		})
+		req.body.message = validate.message;
+		return next();
 	}
 	categoriesId = categoriesId.map(function(category) {
 		return {id: category}
 	});
-    ArticleModel.update({
+    ArticlesModel.update({
 		_id:articleId
 	}, {
 		$set: {
@@ -200,7 +188,7 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	var params = req.params;
 	var articleId = params.articleId;
 	var currentPage = params.currentPage;
-	ArticleModel.getNavs().lean().then(function(navs) {
+	ArticlesModel.getCategories().lean().then(function(navs) {
 		ArticleProxy.detail({articleId}, currentPage, function(data) {
 			data.params = {
 				articleId,
@@ -212,16 +200,16 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	});
 });
 
-router.get("/comments", Throw.abnormal, function(req, res) {
+router.get("/comments", function(req, res) {
 	var body = req.body;
 	var articleId = body.articleId;
 	var currentPage = body.skip;
-	CommentModel.findPaging({articleId}, {currentPage}).then(function(collections) {
+	CommentModel.queryPaging({articleId}, {currentPage}).then(function(collections) {
 		res.send(collections);
 	}).catch(next);
 });	
 
-router.post("/comment/submit", Throw.abnormal, function (req, res, next) {
+router.post("/comment/submit", function (req, res, next) {
 	var body = req.body;
 	var username = body.username;
 	var content = body.content;
@@ -241,18 +229,15 @@ router.post("/comment/submit", Throw.abnormal, function (req, res, next) {
 		content,
 		articleId
 	};
-	new CommentModel(fields).save(function (err, comment) {
+	new CommentModel(fields).save(function (err, doc) {
 		if (err) {
-			return res.send({
-				status: false,
-				message: "评论失败"
-			});
+			return next();
 		}
-		res.send({
-			status: true,
+		req.body = {
 			data: comment,
 			message: '评论成功'
-		});
+		}
+		next();
 	}).catch(next);
 });
 

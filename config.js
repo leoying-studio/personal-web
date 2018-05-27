@@ -7,6 +7,7 @@ module.exports={
         key: 'myblog',
         maxAge: 720000
     },
+    nodePort: 3002,
     mongodb: 'mongodb://localhost:12345/blog',
     baseUrl: 'http://localhost:3002'
 };

@@ -245,7 +245,7 @@ define([
     });
 
     // 初始化导航
-    // request.getNavs(function(res) {
+    // request.getCategories(function(res) {
     //      if (res.status) {
     //          init.panelView(panelView, res.data, function(e, uid) {
     //             var parent = $(e.node).parent();

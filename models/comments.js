@@ -12,15 +12,15 @@ var Scheam = new mongoose.Schema({
 	createdAt: {type: Date, default: Date.now},
 });
 
-Scheam.plugin(DBSuper.regFind);
-Scheam.plugin(DBSuper.regNav);
+Scheam.plugin(Super.queryPaging);
+Scheam.plugin(Super.getCategories);
 
 Scheam.pre('save', function(next) {
 	var now = new Date();
   	this.updateAt = now;
   	next();
 });
-
+Scheam.set('toJSON', { getters: true, virtuals: false });
 var Comment = mongoose.model('comments', Scheam);
 
 module.exports = Comment;

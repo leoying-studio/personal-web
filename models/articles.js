@@ -7,24 +7,31 @@ var Utils = require("./../utils/index");
 var Scheam = new mongoose.Schema({
 	title: String,
 	description: String,
-	img: String,
-	navId: String,
+	// 配图, 说明图
+	illustration: String,
+	// 类别Id
+	categoryId: ObjectId,
 	createdTime: { type: String, default: Utils.time.get() },
 	updateTime: {type: String, default:  Utils.time.get()},
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
-	categoriesId: [
-		{ categoryId: { type:ObjectId }}
+	// 子类Id
+	childrenId: [
+		{ id: ObjectId}
 	],
+	// 是否作为首页推荐
 	recommend: {type: Boolean, default: false},
-	recommendImg: String,
+	// 首页推荐图
+	recommendFigure: String,
+	// 文章内容
 	content: String
 }, {
 	timestamps: {createdAt: 'createdAt', updatedAt: 'updateAt'}
 });
 
-Scheam.plugin(Super.regNav);
-Scheam.plugin(Super.regFind);
+Scheam.set('toJSON', { getters: true, virtuals: false });
+Scheam.plugin(Super.queryPaging);
+Scheam.plugin(Super.getCategories);
 
 Scheam.pre('save', function(next) {
 	var now = new Date();
@@ -33,5 +40,5 @@ Scheam.pre('save', function(next) {
 });
 
 
-var Article = mongoose.model('articles', Scheam);
-module.exports = Article;
+var Articles = mongoose.model('articles', Scheam);
+module.exports = Articles;

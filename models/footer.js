@@ -10,6 +10,6 @@ var Scheam = new mongoose.Schema({
 	 createdAt: {type: Date, default: Date.now},
 	 updateAt: {type: Date,  default: Date.now},
 });
-
+Scheam.set('toJSON', { getters: true, virtuals: false });
 var Footer = mongoose.model('footer', Scheam);
 module.exports = Footer;

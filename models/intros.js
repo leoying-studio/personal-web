@@ -39,13 +39,13 @@ var Scheam = new mongoose.Schema({
 });	
 
 
-Scheam.plugin(DBSuper.regFind);
+Scheam.plugin(Super.getCategories);
 
 Scheam.pre('save', function(next) {
 	var now = new Date();
   	this.updateAt = now;
   	next();
 });
-
-var Intro = mongoose.model('intros', Scheam);
-module.exports = Intro;
+Scheam.set('toJSON', { getters: true, virtuals: false });
+var Intros = mongoose.model('intros', Scheam);
+module.exports = Intros;

@@ -20,5 +20,6 @@ Scheam.pre('save', function(next) {
   	next();
 });
 
-var Nav = mongoose.model('categories', Scheam);
-module.exports = Nav;
+var Categories = mongoose.model('categories', Scheam);
+
+module.exports = Categories;

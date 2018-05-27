@@ -9,7 +9,8 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 var app = express();
-var global_middleware = require('./middleware/check');
+var middlewareCheck = require('./middleware/check');
+var Throw = require('./middleware/throw');
 // 自定义引入
 // var connect = require('connect')
 var sassMiddleware = require('node-sass-middleware');
@@ -25,7 +26,7 @@ app.use(express.static(path.join(__dirname, "/public")))
 
 
 var user = require('./routes/user');
-var nav = require('./routes/nav');
+var categories = require('./routes/categories');
 var home = require('./routes/home');
 var article = require('./routes/article');
 // var detail = require('./routes/detail');
@@ -70,38 +71,36 @@ app.use(function (req, res, next) {
   next();
 });
 
-app.use(global_middleware.login);
+
+// app.use(middleware.login);
 
 app.use('/', home);
 app.use("/user", user);
-app.use("/nav", nav);
+app.use("/categories", categories);
 app.use("/article", article);
-// app.use("/article/detail", detail);
+
+// 自定义中间件抛出消息
+app.use(Throw.abnormal);
+app.use(Throw.message.success);
+app.use(Throw.message.error);
+
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
+// app.use(function(req, res, next) {
+//   var err = new Error('Not Found');
+//   err.status = 404;
+//   next(err);
+// });
 
 // error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});
-
-// app.use(session({
-//     secret:"users-session-signature",
-//     store:new MongoStore({
-//        mongooseConnection:db.dbConnection
-//     })
-// }));
-
+// app.use(function(err, req, res, next) {
+//   // set locals, only providing error in development
+//   res.locals.message = err.message;
+//   res.locals.error = req.app.get('env') === 'development' ? err : {};
+//   // render the error page
+//   res.status(err.status || 500);
+//   res.render('error');
+// });
 
 module.exports = app;
