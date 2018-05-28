@@ -33,7 +33,7 @@ router.post("/submit", function(req, res, next) {
 		return {id};
 	});
 	// 开始插入数据
-	var fields = {
+	var models = {
 		title,
 		img,
 		categoryId,
@@ -43,9 +43,9 @@ router.post("/submit", function(req, res, next) {
 		recommendImg,
 		content
 	};
-    new ArticlesModel(fields).save(function(err, doc) {
+    new ArticlesModel(models).save(function(err, doc) {
 		if (err) {
-			return next(err);
+			return next();
 		}
 		req.body.data = doc;
 		next();
@@ -65,7 +65,7 @@ router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 	ArticlesProxy.list(conditions, pagination, true)
 	.then(function(data) {
 		var body = {
-			categries: data[0],
+			categories: data[0],
 			total: data[1],
 			childId,
 			pagination
@@ -84,51 +84,30 @@ router.get("/data", function(req, res, next)　{
 		 categoryId,
 		'childrenId.id': childId,
 	};
-	ArticlesProxy.list(conditions, currentPage, function(data) {
-		res.send({
-			status: true,
-			data: data.articles,
-			total: data.total
-		});
+	ArticlesProxy.list(conditions, currentPage, function(collections) {
+		req.body.data = {
+			data: collections[0],
+			total: collections[1]
+		};
+		next();
 	}).catch(next);
 }); 
 
-//查询所有文章列表
-router.get("/data/all", function(req, res) {
-	var currentPage = req.query.page;
-	ArticlesModel.queryPaging({currentPage}, {})
-	.then(function(collections) {
-		res.send({
-			status: true,
-			data: collections
-		});	
-	});
-});
 
 // 删除
 router.post("/delete", function(req, res, next) {
 	var body = req.body;
 	var articleId = body.articleId;
-
 	// 清除关联数据
 	Promise.all([
-		ArticlesModel.remove({_id: articleId}),
-		CommentModel.remove({articleId}),
-	]).then( values => {
-		var state = values.every(function(item) {
-			return item.result.ok == 1;
-		});
-		if (state) {
-			res.send({
-				status: true,
-				message: "success"
-			});
-		} else {
-			res.send({
-				status: false,
-				message: "删除错误"
-			});
-		}
+		ArticlesModel.findOneAndRemove({_id: articleId}),
+		CommentModel.findOneAndRemove({articleId}),
+	]).then( collections => {
+		req.body.data = {
+			article: collections[0],
+			comment: collections[1]
+		};
+		next();
 	}).catch(next);
 }); 
 
@@ -157,9 +136,7 @@ router.post("/update", function(req, res, next) {
 	categoriesId = categoriesId.map(function(category) {
 		return {id: category}
 	});
-    ArticlesModel.update({
-		_id:articleId
-	}, {
+    ArticlesModel.findByIdAndUpdate( articleId ,{
 		$set: {
 			title,
 			img,
@@ -169,18 +146,12 @@ router.post("/update", function(req, res, next) {
 			content,
 			recommendImg
 		}
-	}, function(err , state) {
-		if (state.n > 0) {
-			res.send({
-				status: true,
-				msg: '更新成功'
-			})
-		} else {
-			res.send({
-				status: false,
-				msg: err.message
-			})
+	}, function(err , doc) {
+		if (err) {
+			return next();
 		}
+		req.body.data = doc;
+		next();
 	}).catch(next);
 });
 
@@ -196,6 +167,9 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 				currentPage
 			};
 			data.navs = navs;
+			var body = {
+
+			};
 			res.render("detail", data);
 		});
 	});
