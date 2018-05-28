@@ -2,7 +2,9 @@ var mongoose=require('../db').mongoose;
 var Utils = require("./../utils/index");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
+	 // 一级分类名称
 	 name: String,
+	 // 二级分类
 	 children: [
 		 {name: String}
 	 ],

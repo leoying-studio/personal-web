@@ -7,6 +7,7 @@ var Super = require("./super");
 var Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
+	// 文章的id
 	articleId: {type: ObjectId},
 	createdTime: { type: String, default: Utils.time.get() },
 	createdAt: {type: Date, default: Date.now},

@@ -1,7 +1,7 @@
 var IntrosModel = require("./../models/intros");
 
 // 获取介绍信息
-exports.getIntro = function(params) {
+exports.getIntros = function(params) {
     if (params) {
         return IntroModels.queryPaging(params);
     } else {

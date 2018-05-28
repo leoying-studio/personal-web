@@ -4,7 +4,7 @@ var ArticlesModel = require("./../models/articles");
 var CommentsModel = require("./../models/comments");
 var Utils = require("./../utils");
 var Validator = require("./../utils/validator");
-var ArticleProxy = require("./../proxy/article");
+var ArticlesProxy = require("./../proxy/articles");
 
 // 新增
 router.post("/submit", function(req, res, next) {
@@ -57,19 +57,20 @@ router.get("/view/:navId/:categoryId/:currentPage",function(req, res)　{
 	var params = req.params;
 	var categoryId = params.categoryId;
 	var childId = params.childId;
-	var currentPage = params.currentPage;
-	var page = req.query.page;
+	var pagination = params.pagination;
 	var conditions = {
 		categoryId,
 		'childrenId.id': childId,
 	};
-	ArticleProxy.list(conditions, currentPage, function(data) {
-		data.params = {
-			categoryId,
+	ArticlesProxy.list(conditions, pagination, true)
+	.then(function(data) {
+		var body = {
+			categries: data[0],
+			total: data[1],
 			childId,
- 			currentPage,
+			pagination
 		};
-		res.render("article/index", data);
+		res.render("article/index", body);
 	});
 }); 
 
@@ -83,7 +84,7 @@ router.get("/data", function(req, res, next)　{
 		 categoryId,
 		'childrenId.id': childId,
 	};
-	ArticleProxy.list(conditions, currentPage, function(data) {
+	ArticlesProxy.list(conditions, currentPage, function(data) {
 		res.send({
 			status: true,
 			data: data.articles,
@@ -189,7 +190,7 @@ router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	var articleId = params.articleId;
 	var currentPage = params.currentPage;
 	ArticlesModel.getCategories().lean().then(function(navs) {
-		ArticleProxy.detail({articleId}, currentPage, function(data) {
+		ArticlesProxy.detail({articleId}, currentPage, function(data) {
 			data.params = {
 				articleId,
 				currentPage

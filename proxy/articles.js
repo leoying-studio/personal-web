@@ -1,34 +1,32 @@
 var ArticlesModel = require("./../models/articles");
 var CommentsModel = require("./../models/comments");
 
-exports.list = function(conditions , currentPage, callback) {
+exports.list = function(conditions, currentPage, render) {
 	var articles = ArticlesModel.queryPaging({currentPage}, conditions );
-	var navs =  ArticlesModel.getCategories();
 	var count = ArticlesModel.count(conditions);
-	Promise.all([navs, articles, count])
-	.then(function(collections) {
-		callback({
-			navs: collections[0],
-			articles: collections[1],
-			total: collections[2]
-		});
-	}).catch(function(err) {
-		callback(err);
-	});
+	if (!render) {
+		return Promise.all([articles, count]);
+	}
+	var categories =  ArticlesModel.getCategories();
+	return Promise.all([categories, articles, count]);
 }
 
-exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditions = {}) {
-	var that = this, pageSize = pageSize || 12;
+exports.getTimeline = function(params, conditions) {
+	var that = this;
 	return new Promise(function(resolve, rejcet) {
-		ArticlesModel.count({}, function(err, count) {
+		ArticlesModel.count({}, function(err, total) {
 			if (err) {
 				return rejcet(err);
 			}
 			var query = {};
-			if (conditions.year && conditions.month) {
-				var query = {
+			if (conditions) {
+				var year = conditions.year;
+				var month = conditions.month;
+				var endYear = month < 12 ? year : year + 1;
+				var endMonth = month < 12 ? month + 1 : 1;
+				query = {
 					'createdAt': {
-						$gt: new Date(conditions.year, conditions.month), 
+						$gt: new Date(year, month), 
 						$lt: new Date(endYear, endMonth)
 					}
 				};
@@ -39,9 +37,9 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 					$project: {
 						year: {$substr: ['$createdAt', 0, 4]},
 						month: {$substr: ['$createdAt', 5, 2]},
-						years: {$substr: ['$createdAt', 0, 7]},
+						time: {$substr: ['$createdAt', 0, 7]},
 						description: '$description',
-						img: '$img',
+						illustration: '$illustration',
 						articleId: '$_id'
 					}
 				},	
@@ -50,18 +48,15 @@ exports.getTimeline = function(params = {currentPage: 1, pageSize: 12}, conditio
 				},
 				{
 					$group: {
-						'_id': '$years',
+						'_id': '$time',
 						number: {$sum: 1},
-						document: {$push: {'description': '$description', 'img': '$img', 'articleId':'$articleId'}},
+						document: { $push: {'description': '$description', 'illustration': '$illustration', 'articleId':'$articleId'}},
 					}
-				},
-				{
-					$limit: pageSize
 				}
 			]).then(function(collections) {
 				resolve({
-					count: count,
-					list: collections
+					total,
+					collections
 				});
 			});
 		}).catch(function(err) {

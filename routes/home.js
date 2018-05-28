@@ -4,14 +4,14 @@ var HomeProxy = require("./../proxy/home");
 var IntrosModel = require("./../models/intros");  
 var Validator = require("./../utils/validator");
 var ArticlesModel = require("./../models/articles");
-var ArticleProxy = require("./../proxy/article");
-
+var ArticlesProxy = require("./../proxy/articles");
 
 router.get("/", function (req, res, next) {
-    var navs = ArticlesModel.getCategories().lean();
+    var categories = ArticlesModel.getCategories();
     var recommend = ArticlesModel.queryPaging({}, {recommend: true});
-    var intro = HomeProxy.getIntro();   
-    var timeline = ArticleProxy.getTimeline();
+    // 获取最新的一条信息
+    var intro = HomeProxy.getIntros();   
+    var timeline = ArticlesProxy.getTimeline();
     var getItems = [navs, recommend, intro, special, timeline];
     Promise.all(getItems)
     .then( function (values) {
@@ -29,7 +29,7 @@ router.get("/", function (req, res, next) {
 
 /* GET home page. */
 router.get('/manager', function (req, res, next) {
-    ArticlesModel.getCategories().lean().then(function(data) {
+    ArticlesModel.getCategories().then(function(data) {
         res.render("manager", {navs: data});
     }).catch(next);
 });
