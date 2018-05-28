@@ -105,7 +105,7 @@ router.post("/delete", function(req, res, next) {
 	]).then( collections => {
 		req.body.data = {
 			article: collections[0],
-			comment: collections[1]
+			comments: collections[1]
 		};
 		next();
 	}).catch(next);
@@ -159,16 +159,20 @@ router.post("/update", function(req, res, next) {
 router.get("/detail/view/:articleId/:currentPage", function(req, res) {
 	var params = req.params;
 	var articleId = params.articleId;
-	var currentPage = params.currentPage;
-	ArticlesModel.getCategories().lean().then(function(navs) {
-		ArticlesProxy.detail({articleId}, currentPage, function(data) {
+	var pagination = params.pagination;
+	ArticlesModel.getCategories().then(function(categories) {
+		ArticlesProxy.detail({articleId}, pagination, function(data) {
 			data.params = {
 				articleId,
-				currentPage
+				pagination
 			};
 			data.navs = navs;
 			var body = {
-
+				data,
+				params: {
+					articleId,
+					pagination
+				}
 			};
 			res.render("detail", data);
 		});
@@ -179,12 +183,12 @@ router.get("/comments", function(req, res) {
 	var body = req.body;
 	var articleId = body.articleId;
 	var currentPage = body.skip;
-	CommentModel.queryPaging({articleId}, {currentPage}).then(function(collections) {
+	CommentsModel.queryPaging({articleId}, {currentPage}).then(function(collections) {
 		res.send(collections);
 	}).catch(next);
 });	
 
-router.post("/comment/submit", function (req, res, next) {
+router.post("/comment/add", function (req, res, next) {
 	var body = req.body;
 	var username = body.username;
 	var content = body.content;
@@ -199,12 +203,12 @@ router.post("/comment/submit", function (req, res, next) {
 			message: validate.message
 		});
 	}
-	var fields = {
+	var models = {
 		username,
 		content,
 		articleId
 	};
-	new CommentModel(fields).save(function (err, doc) {
+	new CommentsModel(models).save(function (err, doc) {
 		if (err) {
 			return next();
 		}

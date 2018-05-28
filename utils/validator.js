@@ -12,7 +12,10 @@ function Validator(validateList = []) {
 					message: "参数不是期望类型"
 				};
 			}
-			var modes = modeStr.split(",");
+			var modes = modeStr;
+			if (typeof modelStr === "string") {
+				modes = modeStr.split(",");
+			}
 			for (var mode of modes) {
 				mode = Validator.trim(mode);
 				if (mode === "contrast") {
