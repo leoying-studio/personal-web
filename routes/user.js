@@ -7,7 +7,7 @@ var Validator = require("./../utils/validator");
 router.get('/login/view', function(req, res) {
     UsersModel.getCategories().then(function(collections) {
         res.render("login", {
-			navs: collections
+			categories: collections
 		});
     });
 });
@@ -15,7 +15,7 @@ router.get('/login/view', function(req, res) {
 router.get('/register/view', function(req, res) {
 	UsersModel.getCategories(function(collections) {
         res.render("register", {
-			navs: collections
+			categories: collections
 		});
     })
 });

@@ -12,14 +12,13 @@ router.get("/", function (req, res, next) {
     // 获取最新的一条信息
     var intro = HomeProxy.getIntros();   
     var timeline = ArticlesProxy.getTimeline();
-    var getItems = [navs, recommend, intro, special, timeline];
+    var getItems = [categories, recommend, intro, timeline];
     Promise.all(getItems)
     .then( function (values) {
         var data = {
-            navs: values[0],
-            banners: values[1],
+            categories: values[0],
+            recommends: values[1],
             intro: values[2] || {},
-            special: values[3],
             timeline: values[4]
         };
         res.render("index", data);
@@ -30,10 +29,9 @@ router.get("/", function (req, res, next) {
 /* GET home page. */
 router.get('/manager', function (req, res, next) {
     ArticlesModel.getCategories().then(function(data) {
-        res.render("manager", {navs: data});
+        res.render("manager", {categories: data});
     }).catch(next);
 });
-
 /**
  * 设置首页介绍信息
  */
@@ -55,15 +53,18 @@ router.post("/intro/save",function (req, res, next) {
         slogan,
         intro,
         headline,
+        apply: true,
         themes: []
     };
     if (!_id) {
-        IntrosModel.create(fields, function (err, doc) {
-            if (err) {
-                return next();
-            }
-            req.body.data = doc;
-            next();
+        HomeProxy.applyIntro().then(function() {
+            IntrosModel.create(fields, function (err, doc) {
+                if (err) {
+                    return next();
+                }
+                req.body.data = doc;
+                next();
+            }).catch(next);
         }).catch(next);
     } else {
         delete fields.themes;
@@ -82,39 +83,13 @@ router.post("/intro/save",function (req, res, next) {
  */
 router.post("/intro/apply", function(req, res, next) {
     // 查询并更新
-    IntrosModel.update({apply: true}, {$set: {apply: false}}, function(err, state) {
-         if (err) {
-            return next();
-         }
-         if (state.n > 0) {
-             // 引用当前介绍信息
-            IntrosModel.update({_id: req.body.id}, {$set: {apply: true}}, function(err, state) {
-                if (err) {
-                    return res.send({
-                        status: false,
-                        message: "数据更新异常",
-                        errMsg: err.message
-                     });
-                }
-                if (state.n === 0) {
-                    return res.send({
-                        status: false,
-                        message: "数据更新失败"
-                    });
-                }
-                res.send({
-                    status: true,
-                    data: state,
-                    message: "应用该介绍信息成功"
-                });
-            }).catch(next)
-         } else {
-             return res.send({
-                 status: false,
-                 message: "删除失败"
-             });
-         }
-    });
+    HomeProxy.applyIntro(req.body.id).then(function(r) {
+        res.body = {
+            message: r.message,
+            data: {}
+        };
+        next();
+    }).catch(next)
 });
 
 // 消灭这条推荐数据

@@ -35,7 +35,7 @@ router.post("/save", function(req, res, next) {
 
 // 分类查询
 router.get("/category/data", function(req, res, next) {
-    CategoriesModel.find({_id: req.query.navId}).lean().then(function(categories) {
+    CategoriesModel.find({_id: req.query.categoryId}).then(function(categories) {
         req.body.data = {
             data: categories[0].children,
             total: categories[0].children.length
@@ -46,7 +46,7 @@ router.get("/category/data", function(req, res, next) {
 
 // 查询导航列表
 router.get("/data",  function(req, res, next) {
-    CategoriesModel.find({}).lean().then(function(categoies) {
+    CategoriesModel.find({}).then(function(categoies) {
         req.body.data = {
             data: categoies,
             total: categories.length
@@ -68,7 +68,7 @@ router.post('/category/add', function(req, res, next) {
         req.body.message = validate.message;
         return next();
     }
-    CategoriesModel.update({_id: navId},{$push: {children: {name}}}, function(err, category) {
+    CategoriesModel.update({_id},{$push: {children: {name}}}, function(err, category) {
         if (err) {
             return next();
         }
@@ -94,7 +94,7 @@ router.post("/categoies/update", function(req, res, next) {
     CategoriesModel.findOneAndUpdate({
         'children._id': categoryId
     }, {
-        $set : {"categories.$.name": name }
+        $set : {"categories.name": name }
     }, function(err, doc) {
         if (err) {
             return next();
@@ -104,23 +104,24 @@ router.post("/categoies/update", function(req, res, next) {
     }).catch(next);
 });
 
-// 更新导航信息
+// 更新分类信息
 router.post("/update", function(req, res, next) {
 	var body = req.body;
-	var navId = body.navId;
+	var _id = body.categoryId;
 	var name = body.name;
 	var validator = Validator([
-	   {mode: "required", value: name, message: "导航名称不能为空"},
-	   {mode: "required", value: navId, message: "导航id不能为空"}
+	   {mode: ["required"], value: name, message: "导航名称不能为空"},
+	   {mode: ["required"], value: categoryId, message: "类别Id不能为空"}
 	]);
 	if (!validator.status) {
-        return next(new Error('参数验证错误'));
+        req.body.message = validator.message;
+        return next();
 	}
-	CategoriesModel.update({_id: navId}, {$set: {name}}, function(err, state) {
+	CategoriesModel.findOneAndUpdate({_id}, {$set: {name}}, function(err, doc) {
 		if (err) {
            return next();
         } 
-        req.body = {message: "更新成功!", data: {}};
+        req.body = {message: "分类信息更新成功!", data: doc};
         next();
 	}).catch(next)
 });

@@ -21,9 +21,9 @@ router.post("/submit", function(req, res, next) {
 		childrenId = childrenId.split(",");
 	}
 	var validate = Validator([
-		{mode: "required", value: title, message: "标题不能为空"},
-		{mode: "required, len", conditions: {min: 10}, value: content, message: "文章内容不能少于十个字符"},
-		{mode: "len", type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: childrenId}
+		{mode: ["required"], value: title, message: "标题不能为空"},
+		{mode: ["required", "len"], conditions: {min: 10}, value: content, message: "文章内容不能少于十个字符"},
+		{mode: ["len"], type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: childrenId}
 	]);
 	if (!validate.status) {
 		req.body.message = validate.message;
@@ -127,7 +127,7 @@ router.post("/update", function(req, res, next) {
 		{mode: "required", value: title, message: "标题不能为空"},
 		{mode: "required", value: img, message: "缩略图不能为空"},
 		{mode: "required", value: description, message: "文章说明不能为空"},
-		{mode: "required, len", value: content, message: "文章内容不能少于十个字", conditions: {min: 10}}
+		{mode: ["required", "len"], value: content, message: "文章内容不能少于十个字", conditions: {min: 10}}
 	]);
 	if (!validate.status) {
 		req.body.message = validate.message;
@@ -195,7 +195,7 @@ router.post("/comment/add", function (req, res, next) {
 	var articleId = body.articleId;
 	var validate = Validator([
 		{mode: "required", value: username, message: "用户名不能为空"},
-		{mode: "required, len", value: content, message: "评论内容不能少于10个字符", conditions: {min: 10}}
+		{mode: ["required", "len"], value: content, message: "评论内容不能少于10个字符", conditions: {min: 10}}
 	]);
 	if (!validate.status) {
 		return res.send({
@@ -208,7 +208,7 @@ router.post("/comment/add", function (req, res, next) {
 		content,
 		articleId
 	};
-	new CommentsModel(models).save(function (err, doc) {
+	CommentsModel.create(models, function(err, doc) {
 		if (err) {
 			return next();
 		}
