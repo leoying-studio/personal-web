@@ -22,8 +22,8 @@ router.post("/submit", function(req, res, next) {
 	}
 	var validate = Validator([
 		{mode: ["required"], value: title, message: "标题不能为空"},
-		{mode: ["required", "len"], conditions: {min: 10}, value: content, message: "文章内容不能少于十个字符"},
-		{mode: ["len"], type: Array, message: "请至少选择一个分类", conditions: {min: 1}, value: childrenId}
+		{mode: ["required", {min: 10}], value: content, message: "文章内容不能少于十个字符"},
+		{mode: [{min: 1}], type: Array, message: "请至少选择一个分类", value: childrenId}
 	]);
 	if (!validate.status) {
 		req.body.message = validate.message;
