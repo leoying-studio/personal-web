@@ -19,7 +19,7 @@ router.post("/add", Check.save, function(req, res, next) {
 });
 
 // 查询
-router.get("/view/:navId/:categoryId/:currentPage", Check.query, function(req, res)　{
+router.get("/view/:navId/:categoryId/:pagination", Check.query, function(req, res)　{
 	ArticlesProxy.list(conditions, pagination, true)
 	.then(function(data) {
 		var body = {

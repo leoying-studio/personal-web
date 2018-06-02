@@ -58,7 +58,7 @@ var _validate = {
  * 基础参数校验
  */
 
-var _baseValid = function(rules, ruleTypes) {
+var _typeValid = function(rules, ruleTypes) {
 	// 数组类型验证
 	if (_validate._type(ruleTypes, 'Function')) {
 		ruleTypes = [ruleTypes];
@@ -86,7 +86,7 @@ var _baseValid = function(rules, ruleTypes) {
  * @param {Array} rules 规则项
  * 验证规则项
  */
-var _typeValid = function(rules, value) {
+var _ruleValid = function(rules, value) {
 	// 规则验证
 	for (var rule of rules) {
 		// 对象验证
@@ -124,6 +124,32 @@ var _typeValid = function(rules, value) {
 	}
 }
 
+var _baseValid = function(value, name, ruleTypes) {
+	if (!name) {
+		return {
+			status: false,
+			message: '验证器的name属性不存在或者为空!'
+		}
+	}
+	if (!ruleTypes) {
+		return {
+			status: false,
+			message: '请指定'+name+'值类型!'
+		}
+	}
+	if (!_validate._required(value)) {
+		return {
+			status: false,
+			message: name + '值不存在'
+		}
+	}
+
+	return {
+		status: true,
+		message: 'ok'
+	}
+}
+
 function Validator(items = []) {
 	for (var item of items) {
 		// 验证项
@@ -135,28 +161,26 @@ function Validator(items = []) {
 		// 中文名
 		var name = item.name;
 
-		// 基础验证, 判断值是否存在
-		if (!_validate._required(value)) {
-			return {
-				status: false,
-				message: name + '值不存在'
-			}
+		// 规则器基本参数验证
+		var baseValid = _baseValid(value, name, ruleTypes);
+		if (!baseValid.status) {
+			return baseValid;
 		}
 
 		// 兼容转换规则
-		if(_validate._typeValid(rules, Object)) {
+		if(_validate._type(rules, Object)) {
 			rules = [rules];
 		}
 
 		// 进行基础校验
-		var baseValid = _baseValid(rules, ruleTypes)
-		if (!baseValid.status) {
-			return baseValid;
+		var typeValid = _typeValid(rules, ruleTypes)
+		if (!typeValid.status) {
+			return typeValid;
 		}
 		// 规则验证
 		var ruleValid = _ruleValid(rules, value);
 		if (!ruleValid.status) {
-			return baseValid;
+			return ruleValid;
 		}
 	}
 

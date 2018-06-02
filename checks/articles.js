@@ -49,8 +49,7 @@ exports.save = function(req, res, next) {
 	}
 	var validate = Validator(rules);
 	if (!validate.status) {
-		req.body.message = validate.message;
-		return next();
+		return res.send(validate);
     }
     req.body = {
         title: body.title,
@@ -88,7 +87,7 @@ exports.query = function(req, res, next) {
 	var validate = Validator(rules);
 	if (!validate) {
 		req.body.message = validate.message;
-		return next();
+		return validate.send(validate);
 	}
 	req.body = {
 		categoryId: params.categoryId,
@@ -114,8 +113,7 @@ exports.detail = function(req, res, next) {
 	];
 	var validate = Validator(rules);
 	if (!validate) {
-		req.body.message = validate.message;
-		return next();
+		return res.send(validate);
 	}
 	req.body = {
 		articleId: params.articleId,
@@ -147,8 +145,7 @@ exports.comments = function(req, res, next) {
 	];
 	var validate = Validator(rules);
 	if (!validate) {
-		req.body.message = validate.message;
-		return next();
+		return res.send(validate);
 	}
 	req.body = {
 		articleId: body.articleId,
