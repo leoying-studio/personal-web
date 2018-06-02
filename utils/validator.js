@@ -110,7 +110,7 @@ var _ruleValid = function(rules, value) {
 		try {
 			var v = _validate._type(value, String)
 			if (v) {
-				if (!_validate[v](value, value)) {
+				if (!_validate[v](value)) {
 					return {
 						status: false,
 						message: m

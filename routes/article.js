@@ -7,31 +7,7 @@ var Validator = require("./../utils/validator");
 var ArticlesProxy = require("./../proxy/articles");
 
 // 新增
-router.post("/submit", function(req, res, next) {
-	var body = req.body;
-	var title = body.title;
-	var img = body.img;
-	var description = body.description;
-	var categoryId = body.categoryId;		
-	var recommend = body.recommend || false;
-	var childrenId = body.childrenId;
-	var content = body.content;
-	var recommendImg = body.recommendImg || "";
-	if (typeof childrenId === "string") {
-		childrenId = childrenId.split(",");
-	}
-	var validate = Validator([
-		{rules: ["required"], value: title, message: "标题不能为空"},
-		{rules: ["required", {min: 10}], value: content, message: "文章内容不能少于十个字符"},
-		{rules: [{min: 1}], type: Array, message: "请至少选择一个分类", value: childrenId}
-	]);
-	if (!validate.status) {
-		req.body.message = validate.message;
-		return next();
-	}
-	childrenId = childrenId.map(function(id) {
-		return {id};
-	});
+router.post("/add", function(req, res, next) {
 	// 开始插入数据
 	var models = {
 		title,
