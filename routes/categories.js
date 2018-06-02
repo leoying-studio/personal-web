@@ -2,29 +2,10 @@ var express = require('express');
 var router = express.Router();
 var CategoriesModel = require("./../models/categories");
 var Utils = require("./../utils");
-var Validator = require("./../utils/validator");
+var Check = require("./../checks/categories");
 
-router.post("/save", function(req, res, next) {
-	var body = req.body;
-    var children = body.children;
-    var name = body.name;
-    var validate = Validator([
-        {mode:"required", message: "类别名称不能为空", value: name},
-        {mode: "required", message: "分类字段不存在", value: children}
-    ]);
-    if (!validate.status) {
-        req.body.message = validate.message;
-        return next();
-    }
-    // 设置导航
-    try {
-        children = children.split(/,|，/g).map(function(item) {
-            return { name: item }
-        });
-    } catch (err) {
-        next(err);
-    }
-    new CategoriesModel({ name, children }).save(function (err, categories) {
+router.post("/add", Check.save, function(req, res, next) {
+    CategoriesModel.create(req.body, function(err, doc) {
         if (err) {
             return next();
         } 
@@ -35,7 +16,7 @@ router.post("/save", function(req, res, next) {
 
 // 分类查询
 router.get("/category/data", function(req, res, next) {
-    CategoriesModel.find({_id: req.query.categoryId}).then(function(categories) {
+    CategoriesModel.find(req.body).then(function(categories) {
         req.body.data = {
             data: categories[0].children,
             total: categories[0].children.length
@@ -56,19 +37,8 @@ router.get("/data",  function(req, res, next) {
 });
 
 // 添加导航下的类别
-router.post('/category/add', function(req, res, next) {
-	var body = req.body;
-    var _id = body.id;
-    var name = body.name;
-    var validate = Validator([
-        {mode: "required", message: "类别名称不能为空", value: name},
-        {mode: "required", message: "类别id不能为空", value: _id}
-    ]);
-    if (!validate.status) {
-        req.body.message = validate.message;
-        return next();
-    }
-    CategoriesModel.update({_id},{$push: {children: {name}}}, function(err, category) {
+router.post('/children/add', Check.children, function(req, res, next) {
+    CategoriesModel.update(req.body,{$push: req.models}, function(err, category) {
         if (err) {
             return next();
         }
@@ -78,19 +48,7 @@ router.post('/category/add', function(req, res, next) {
 });
 
 // 更新导航下面的类别
-router.post("/categoies/update", function(req, res, next) {
-	var body = req.body;
-    // var navId = body.navId;
-    var categoryId = body.categoryId;
-    var name = body.name;
-    var validate = Validator([
-        {mode: "required", message: "导航名称不能为空", value: name},
-        {mode: "required", message: "导航id不能为空", value: categoryId}
-    ]);
-    if (!validate.status) {
-        req.body.message = validate.message;
-        return next();
-    }
+router.post("/children/update", Check.children, function(req, res, next) {
     CategoriesModel.findOneAndUpdate({
         'children._id': categoryId
     }, {
@@ -105,18 +63,7 @@ router.post("/categoies/update", function(req, res, next) {
 });
 
 // 更新分类信息
-router.post("/update", function(req, res, next) {
-	var body = req.body;
-	var _id = body.categoryId;
-	var name = body.name;
-	var validator = Validator([
-	   {mode: ["required"], value: name, message: "导航名称不能为空"},
-	   {mode: ["required"], value: categoryId, message: "类别Id不能为空"}
-	]);
-	if (!validator.status) {
-        req.body.message = validator.message;
-        return next();
-	}
+router.post("/update", Check.save, function(req, res, next) {
 	CategoriesModel.findOneAndUpdate({_id}, {$set: {name}}, function(err, doc) {
 		if (err) {
            return next();
