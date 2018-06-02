@@ -10,7 +10,7 @@ var _validate = {
 	
 	_min : function(value, max) {
 		if (typeof value === "string") {
-			value = Validator.trim(value);
+			value = this._trim(value);
 			return value.length >= min;
 		}
 		return value >= min;
@@ -18,7 +18,7 @@ var _validate = {
 	
 	_max : function(value, min) {
 		if (typeof value === "string") {
-			value = Validator.trim(value);
+			value = this._trim(value);
 			return value.length <= this.max;
 		}
 		return value <= min;
@@ -30,7 +30,7 @@ var _validate = {
 	},
 	
 	_required : function(value) {
-		value = Validator.trim(value);
+		value = this._trim(value);
 		return !(value === "" || typeof value == 'undefined' || value.length == 0);
 	},
 	
@@ -53,27 +53,12 @@ var _validate = {
 }
 
 /**
- * 
  * @param {Array} rules 校验规则
  * @param {ruleTypes} ruleTypes 值类型
  * 基础参数校验
  */
 
 var _baseValid = function(rules, ruleTypes) {
-	// 基础判断
-	if (!rules) {
-		return {
-			status: false,
-			message: '请传入验证规则'
-		};
-	}
-	// 类型判断
-	if (!_validate._type(rules, 'Array')) {
-		return {
-			status: false,
-			message: '期望验证规则是一个数组类型'
-		};
-	}
 	// 数组类型验证
 	if (_validate._type(ruleTypes, 'Function')) {
 		ruleTypes = [ruleTypes];
@@ -101,7 +86,7 @@ var _baseValid = function(rules, ruleTypes) {
  * @param {Array} rules 规则项
  * 验证规则项
  */
-var _ruleValid = function(rules, value) {
+var _typeValid = function(rules, value) {
 	// 规则验证
 	for (var rule of rules) {
 		// 对象验证
@@ -132,7 +117,6 @@ var _ruleValid = function(rules, value) {
 				message: '规则参数异常'
 			}
 		}
-		
 	}
 	return {
 		status: true,
@@ -143,13 +127,27 @@ var _ruleValid = function(rules, value) {
 function Validator(items = []) {
 	for (var item of items) {
 		// 验证项
-		var rules = item.rules;
+		var rules = item.rule || item.rules || [];
 		// 需要验证的值类型
 		var ruleTypes = item.type;
 		// 需要验证的值
 		var value = item.value;
 		// 中文名
 		var name = item.name;
+
+		// 基础验证, 判断值是否存在
+		if (!_validate._required(value)) {
+			return {
+				status: false,
+				message: name + '值不存在'
+			}
+		}
+
+		// 兼容转换规则
+		if(_validate._typeValid(rules, Object)) {
+			rules = [rules];
+		}
+
 		// 进行基础校验
 		var baseValid = _baseValid(rules, ruleTypes)
 		if (!baseValid.status) {
