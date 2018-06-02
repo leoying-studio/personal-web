@@ -9,17 +9,7 @@ var ArticlesProxy = require("./../proxy/articles");
 // 新增
 router.post("/add", function(req, res, next) {
 	// 开始插入数据
-	var models = {
-		title,
-		img,
-		categoryId,
-		childrenId,
-		description,
-		recommend,
-		recommendImg,
-		content
-	};
-    new ArticlesModel(models).save(function(err, doc) {
+    new ArticlesModel(req.body).save(function(err, doc) {
 		if (err) {
 			return next();
 		}

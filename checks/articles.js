@@ -1,15 +1,6 @@
 var Validator = require('./../utils/validator');
 
 exports.add = function(req, res, next) {
-    var body = req.body;
-	var title = body.title;
-	var img = body.img;
-	var description = body.description;
-	var categoryId = body.categoryId;		
-	var recommend = body.recommend || false;
-	var childrenId = body.childrenId;
-	var content = body.content;
-    var recommendImg = body.recommendImg;
     var validate = Validator([
 		{rules: [{rule: 'required'}], value: body.title, name: '标题'},
 		{
@@ -37,5 +28,15 @@ exports.add = function(req, res, next) {
 		req.body.message = validate.message;
 		return next();
     }
+    req.body = {
+        title: body.title,
+		img: body.img,
+		categoryId: body.categoryId,
+		childrenId: body.childrenId,
+		description: body.description,
+		recommend: body.recommend || false,
+		recommendImg: body.recommendImg || '',
+		content: body.content
+    };
     next();
 }
