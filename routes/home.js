@@ -2,9 +2,10 @@ var express = require('express');
 var router = express.Router();
 var HomeProxy = require("./../proxy/home");
 var IntrosModel = require("./../models/intros");  
-var Validator = require("./../utils/validator");
+var Checks = require("./../checks/home");
 var ArticlesModel = require("./../models/articles");
 var ArticlesProxy = require("./../proxy/articles");
+
 
 router.get("/", function (req, res, next) {
     var categories = ArticlesModel.getCategories();
@@ -32,33 +33,14 @@ router.get('/manager', function (req, res, next) {
         res.render("manager", {categories: data});
     }).catch(next);
 });
+
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save",function (req, res, next) {
-    var body = req.body;
-    var title = body.title
-    var slogan = body.slogan;
-    var headline = body.headline;
-    var intro = body.intro;
-    var _id = body.id;
-    var validate = Validator([
-        {mode: "required", value: title, message: '标题不能为空'},
-        {mode: "required", value: slogan, message: "提示标语不能为空"},
-        {mode: "required", value: intro, message: "介绍信息不能为空"},
-        {mode: "headline", value: headline, message: "主题标题不能为空"}
-    ]);
-    var fields = {
-        title,
-        slogan,
-        intro,
-        headline,
-        apply: true,
-        themes: []
-    };
-    if (!_id) {
+router.post("/intro/save", Checks.intro, function (req, res, next) {
+    if (!req.body.conditions._id) {
         HomeProxy.applyIntro().then(function() {
-            IntrosModel.create(fields, function (err, doc) {
+            IntrosModel.create(req.bod.models, function (err, doc) {
                 if (err) {
                     return next();
                 }
@@ -68,7 +50,7 @@ router.post("/intro/save",function (req, res, next) {
         }).catch(next);
     } else {
         delete fields.themes;
-        IntrosModel.update({_id}, {$set: fields}, function(err, doc) {
+        IntrosModel.update(req.body.conditions, {$set: req.body.models}, function(err, doc) {
             if (err) {
                return next();
             }
@@ -81,9 +63,9 @@ router.post("/intro/save",function (req, res, next) {
 /**
  * 应用介绍信息
  */
-router.post("/intro/apply", function(req, res, next) {
+router.post("/intro/apply", Checks.introId, function(req, res, next) {
     // 查询并更新
-    HomeProxy.applyIntro(req.body.id).then(function(r) {
+    HomeProxy.applyIntro(req.body).then(function(r) {
         res.body = {
             message: r.message,
             data: {}
@@ -93,8 +75,8 @@ router.post("/intro/apply", function(req, res, next) {
 });
 
 // 消灭这条推荐数据
-router.post("/intro/destory", function(req, res, next) {
-    IntrosModel.remove({_id: req.body.id}, function(err, state) {
+router.post("/intro/destory", Checks.introId, function(req, res, next) {
+    IntrosModel.remove(req.body, function(err, state) {
         if (err) {
            return next();
         } 
@@ -205,21 +187,10 @@ router.get("/intro/themes/data", function(req, res, next) {
     }).catch(next);
 });
 
+
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/map/data", function(req, res, next) {
-    var body = req.body;
-    var _id = body.introId;
-    var themeId = body.themeId;
-    var params = null;
-    if (body.pagination && body.pageSize) {
-        params = {
-            pagination,
-            pageSize
-        };
-    }
-    HomeProxy.getThemeMap({
-        _id, "themes._id": themeId
-    }, params).then(function(data) {
+router.get("/intro/themes/map/data", Checks.map, function(req, res, next) {
+    HomeProxy.getThemeMap(req.body.models, req.body.params).then(function(data) {
         res.send({
             status: true,
             data
@@ -256,12 +227,8 @@ router.post("/intro/themes/destory", function(req, res, next) {
      }).catch(next);
 });
 
-router.post("/intro/theme/map/destory", function(req, res, next) {
-    var body = req.body;
-    var introId = body.introId;
-    var themeId = body.themeId;
-    var mapId = body.mapId;
-    IntrosModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
+router.post("/intro/theme/map/destory", Checks.mapItem, function(req, res, next) {
+    IntrosModel.findOne(req.body)
     .remove(function(err, state) {
         res.send({
             status: true,

@@ -25,10 +25,10 @@ app.use(sassMiddleware({
 app.use(express.static(path.join(__dirname, "/public")))
 
 
-var user = require('./routes/user');
+var users = require('./routes/users');
 var categories = require('./routes/categories');
 var home = require('./routes/home');
-var article = require('./routes/article');
+var articles = require('./routes/articles');
 // var detail = require('./routes/detail');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
@@ -72,19 +72,19 @@ app.use(function (req, res, next) {
 });
 
 
-// app.use(middleware.login);
+
+
 
 app.use('/', home);
-app.use("/user", user);
+app.use("/users", users);
 app.use("/categories", categories);
-app.use("/article", article);
+app.use("/articles", articles);
+
 
 // 自定义中间件抛出消息
 app.use(Throw.abnormal);
 app.use(Throw.message.success);
 app.use(Throw.message.error);
-
-
 // catch 404 and forward to error handler
 // app.use(function(req, res, next) {
 //   var err = new Error('Not Found');
