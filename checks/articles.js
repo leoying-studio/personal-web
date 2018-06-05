@@ -1,7 +1,7 @@
 var Validator = require('./../utils/validator');
 
 exports.save = function(req, res, next) {
-	var body = req.body;
+	var body = !Object.keys(req.body) || !Object.keys(body.query) || Objbody.params;
 	var rules = [
 		{value: body.title, name: '标题'},
 		{
@@ -91,11 +91,32 @@ exports.query = function(req, res, next) {
 	}
 	req.body = {
 		categoryId: params.categoryId,
+		'childrenId.id': params.childId
 	};
 	req.params = {
 		childId: params.childId,
 		pagination: params.pagination
 	}
+	next();
+}
+
+
+exports.delete = function(req, res, next) {
+	var body = req.body;
+	var rules  = [
+		{
+			value: body.articleId,
+			type: String,
+			name: '文章Id'
+		}
+	];
+	var validate = Validator(rules);
+	if (!validate) {
+		return res.send(validate);
+	}
+	req.body = {
+		articleId: body.articleId
+	};
 	next();
 }
 

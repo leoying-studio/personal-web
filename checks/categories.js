@@ -1,6 +1,35 @@
 var Validator = require('./../utils/validator');
 
-exports.save = function(res, res, next) {
+exports.add = function(res, res, next) {
+    var body = req.body;
+    var rules = [
+		{
+			value: body.children,
+			type: Array,
+			name: '子类'
+        },
+        {
+			value: body.name,
+            type: String,
+            rule: {
+                min: 1,
+                max: 6
+            },
+			name: '类别名称'
+		}
+	];
+    var validate = Validator(rules);
+    if (!validate.status) {
+        return validate;
+    }
+    req.body = {
+        name: body.name,
+        children: body.children
+    };
+    next();
+}
+
+exports.update = function(res, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -28,7 +57,11 @@ exports.save = function(res, res, next) {
         return validate;
     }
     req.body = {
-        categoryId: body.categoryId,
+        _id: body.categoryId,
+        children: body.children
+    };
+    req.models = {
+        name: body.name,
         children: body.children
     };
     next();
@@ -65,6 +98,39 @@ exports.children = function(res, res, next) {
     next();
 }
 
+
+exports.updateChild = function(res, req, next) {
+    var body = req.body;
+    var rules = [
+		{
+			value: body.categoryId,
+			type: String,
+			name: '类别Id'
+        },
+        {
+            value: body.childId,
+			type: String,
+			name: '子类Id'
+        },
+        {
+            value: body.name,
+			type: String,
+			name: '子类名称'
+        }
+	];
+    var validate = Validator(rules);
+    if (!validate.status) {
+        return validate;
+    }
+    req.body = {
+        _id: body.categoryId,
+        'children.id': body.childId
+    };
+    req.models = {
+        'children.name': body.name
+    };
+    next();
+}
 
 exports.query = function(res, req, next) {
     var params = req.query;

@@ -2,24 +2,24 @@ var express = require('express');
 var router = express.Router();
 var CategoriesModel = require("./../models/categories");
 var Utils = require("./../utils");
-var Check = require("./../checks/categories");
+var Checks = require("./../Checks/categories");
 
-router.post("/add", Check.save, function(req, res, next) {
+router.post("/add", Checks.add, function(req, res, next) {
     CategoriesModel.create(req.body, function(err, doc) {
         if (err) {
             return next();
         } 
-        req.body.data = categories;
+        req.body.data = doc;
         next();
     }).catch(next);
 });
 
 // 分类查询
-router.get("/category/data", function(req, res, next) {
-    CategoriesModel.find(req.body).then(function(categories) {
+router.get("/category/data", Checks.query, function(req, res, next) {
+    CategoriesModel.find(req.body).then(function(collections) {
         req.body.data = {
-            data: categories[0].children,
-            total: categories[0].children.length
+            data: collections[0].children,
+            total: collections[0].children.length
         };
         next();
     }).catch(next); 
@@ -27,32 +27,30 @@ router.get("/category/data", function(req, res, next) {
 
 // 查询导航列表
 router.get("/data",  function(req, res, next) {
-    CategoriesModel.find({}).then(function(categoies) {
+    CategoriesModel.find({}).then(function(collections) {
         req.body.data = {
-            data: categoies,
-            total: categories.length
+            data: collections,
+            total: collections.length
         };
         next();
     }).catch(next);
 });
 
 // 添加导航下的类别
-router.post('/children/add', Check.children, function(req, res, next) {
-    CategoriesModel.update(req.body,{$push: req.models}, function(err, category) {
+router.post('/children/add', Checks.children, function(req, res, next) {
+    CategoriesModel.update(req.body, {$push: req.models}, function(err, doc) {
         if (err) {
             return next();
         }
-        req.body.data = category;
+        req.body.data = doc;
         next();
     }).catch(next);
 });
 
 // 更新导航下面的类别
-router.post("/children/update", Check.children, function(req, res, next) {
-    CategoriesModel.findOneAndUpdate({
-        'children._id': categoryId
-    }, {
-        $set : {"categories.name": name }
+router.post("/children/update", Checks.children, function(req, res, next) {
+    CategoriesModel.findOneAndUpdate(req.body, {
+        $set : req.models
     }, function(err, doc) {
         if (err) {
             return next();
@@ -62,9 +60,10 @@ router.post("/children/update", Check.children, function(req, res, next) {
     }).catch(next);
 });
 
+
 // 更新分类信息
-router.post("/update", Check.save, function(req, res, next) {
-	CategoriesModel.findOneAndUpdate({_id}, {$set: {name}}, function(err, doc) {
+router.post("/update", Checks.update, function(req, res, next) {
+	CategoriesModel.findOneAndUpdate(req.body, {$set: req.models}, function(err, doc) {
 		if (err) {
            return next();
         } 
