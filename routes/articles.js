@@ -3,7 +3,7 @@ var router = express.Router();
 var ArticlesModel = require("./../models/articles");
 var CommentsModel = require("./../models/comments");
 var Utils = require("./../utils");
-var Checks = require("./../Checks/articles");
+var Checks = require("./../checks/articles");
 var ArticlesProxy = require("./../proxy/articles");
 
 // 新增

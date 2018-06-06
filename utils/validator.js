@@ -42,11 +42,7 @@ var _validate = {
 		if (!type) {
 			return true;
 		}
-		if (typeof type === 'string') {
-			type = '[object '+type.name+']';
-		} else {
-			type = Object.prototype.toString.call(type);
-		}
+		type = '[object '+type.name+']';
 		return Object.prototype.toString.call(value) === type;
 	}
 	
@@ -58,22 +54,24 @@ var _validate = {
  * 基础参数校验
  */
 
-var _typeValid = function(rules, ruleTypes) {
+var _typeValid = function(value, rules, ruleTypes) {
 	// 数组类型验证
-	if (_validate._type(ruleTypes, 'Function')) {
+	if (_validate._type(ruleTypes, Function)) {
 		ruleTypes = [ruleTypes];
 	}
 	
 	// 类型验证
-	for (var i = 0; i < ruleTypes.length; i++) {
-		var status = _validate._type(item.value, ruleTypes[i]);
-		if (!status) {
-			return {
-				status: false,
-				message: name +'不是期望的数据类型'
-			};
-		}
+	var status = ruleTypes.every(function(type) {
+		return !_validate._type(value, type); 
+	});
+	// 如果数据类型均不符合
+	if (status) {
+		return {
+			status: false,
+			message: '不包含期望的数据类型'
+		};
 	}
+
 
 	return {
 		status: true,
@@ -173,8 +171,9 @@ function Validator(items = []) {
 		}
 
 		// 进行基础校验
-		var typeValid = _typeValid(rules, ruleTypes)
+		var typeValid = _typeValid(value, rules, ruleTypes)
 		if (!typeValid.status) {
+			typeValid.message = name + typeValid.message;
 			return typeValid;
 		}
 		// 规则验证

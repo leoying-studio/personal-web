@@ -1,9 +1,13 @@
 var Validator = require('./../utils/validator');
 
 exports.save = function(req, res, next) {
-	var body = !Object.keys(req.body) || !Object.keys(body.query) || Objbody.params;
+	var body = req.body;
 	var rules = [
-		{value: body.title, name: '标题'},
+		{
+			value: body.title, 
+			name: '标题', 
+			type: String
+		},
 		{
 			rule: {
 				rule: {min: 10, max: 3000},

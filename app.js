@@ -72,8 +72,17 @@ app.use(function (req, res, next) {
 });
 
 
-
-
+app.use(function(req, res, next) {
+  if (Object.keys(req.body).length) {
+      return next();
+  } else if (Object.keys(req.query).length) {
+      req.body = req.query;
+      return next();
+  } else {
+     req.body = req.params;
+     next();
+  }
+});
 
 app.use('/', home);
 app.use("/users", users);

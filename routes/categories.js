@@ -50,7 +50,7 @@ router.post('/children/add', Checks.children, function(req, res, next) {
 // 更新导航下面的类别
 router.post("/children/update", Checks.children, function(req, res, next) {
     CategoriesModel.findOneAndUpdate(req.body, {
-        $set : req.models
+        $set : req.models - h 
     }, function(err, doc) {
         if (err) {
             return next();
