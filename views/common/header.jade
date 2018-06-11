@@ -4,11 +4,10 @@ header.header#header
      ul.clearfix
       li.nav-item
         a(href="#" ) 首页
-      each nav in navs
-       - var categories = JSON.stringify(nav.categories);
+      each category in categories
        li.nav-item
-        a(href="#").nav-name #{nav.name}
+        a(href="#").nav-name #{category.name}
         ul.categories-wrapper
-         each category in nav.categories
+         each child in category.children
           li
-           a.category-menu(href="/article/view/#{nav._id}/#{category._id}/1" navId="#{nav._id}" categoryId="#{category._id}") #{category.name}
+           a.category-menu(href="/article/view/#{category._id}/#{children._id}/1" categoryId="#{category._id}" childId="#{child._id}") #{child.name}

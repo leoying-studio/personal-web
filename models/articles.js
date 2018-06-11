@@ -41,4 +41,5 @@ Scheam.pre('save', function(next) {
 
 
 var Articles = mongoose.model('articles', Scheam);
+console.log(Articles.getCategories);
 module.exports = Articles;

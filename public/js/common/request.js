@@ -1,7 +1,8 @@
 define([
 	'require',
-	'invok'
-], function(require, invok) {
+	'invok',
+	'jquery'
+], function(require, invok, $) {
 	var request = {
 		get: function(url, fn) {
 			return $.ajax({

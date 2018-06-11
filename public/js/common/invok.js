@@ -1,7 +1,7 @@
 define([
 	'require',
-	
-], function(require) {
+	'jquery'
+], function(require, $) {
 	function message_success(content, delay) {
 		var message = $('#message');
 		message.show().addClass('message-success').children('.content:first').text(content)

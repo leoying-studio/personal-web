@@ -3,17 +3,9 @@ html
   head
     meta(charst='utf-8')
     title = title
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.common.min.css')
-    link(rel='stylesheet', href='/lib/kendo/styles/kendo.bootstrap.min.css')
-    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.default.min.css')
-    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.dataviz.min.css')
-    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.min.css')
-    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.rtl.min.css')
-    //- link(rel='stylesheet', href='/lib/kendo/styles/kendo.default.mobile.min.css')
-    //- link(rel='stylesheet', href='/css/reset.css')
-    //- link(rel='stylesheet', href='/css/common.css')
-    //- link(rel='stylesheet', href='/css/manager.css')
-
+    link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+    link(rel='stylesheet', href='/css/common.css')
+    link(rel='stylesheet', href='/css/manager.css')
 
   body
     include ./../common/message.jade
@@ -21,9 +13,8 @@ html
       ul
         li 主页
         li 分类文章
-      include ./home/index.jade
-      include ./nav/index.jade
-  script(src="/lib/jquery/jquery.min.js")
-  script(src="/lib/kendo/kendo.all.min.js")
-  script(src="/lib/require/require.js" data-main="./../../js/main-manager")
+    div
+      //- include ./home/index.jade
+      //- include ./nav/index.jade
+
  
