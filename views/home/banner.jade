@@ -1,12 +1,11 @@
 div.flexslider#bannerPanel
   ul.clearfix.slides
-   each banner in banners
+   each recommend in recommends
     li.banner-item 
-     a(href="/article/detail/view/#{banner._id}/1")
-      img(src="#{banner.recommendImg || banner.img}", alt="")
+     a(href="/article/detail/view/#{recommend._id}/1")
+      img(src="#{recommend.recommendFigure}", alt="")
       div.content
-        h2 #{banner.title}
-        h3 #{banner.caption}
-        p  #{banner.description}
+        h2 #{recommend.title}
+        p  #{recommend.description}
 
       

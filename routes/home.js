@@ -19,8 +19,8 @@ router.get("/", function (req, res, next) {
         var data = {
             categories: values[0],
             recommends: values[1],
-            intro: values[2] || {},
-            timeline: values[4]
+            intro: values[2] || { },
+            timeline: values[3].collections
         };
         res.render("index", data);
     }).catch(next);

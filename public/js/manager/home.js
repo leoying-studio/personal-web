@@ -1,4 +1,4 @@
-define(["init", "config", "invok", "request",], function(init, config, invok, request) {
+define(["init", "config", "invok", "request", 'jquery'], function(init, config, invok, request, $) {
 	var theme_id = null,
 	intro_id = null,
 	special_id = null,
@@ -10,7 +10,8 @@ define(["init", "config", "invok", "request",], function(init, config, invok, re
 	/**
 	 * 初始化kendo tabstrip
 	 */
-	var spliter = tab.find(".wrapper").eq(0).kendoSplitter({
+	var tabWrapper = tab.find(".wrapper").eq(0);
+	var spliter = tabWrapper.kendoSplitter({
 		panes: [
 			{ collapsible: true, size: '200px' },
 			{ collapsible: false }

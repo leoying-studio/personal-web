@@ -1,8 +1,8 @@
 define([
-    'require',
     'init',
     'config',
-], function (init, config) {
+    'jquery'
+], function (init, config, $) {
     var panelItemType = 0;
     var navId = null;
     var categoriesId = [];
@@ -20,6 +20,14 @@ define([
     var kendoWindow = null;
     var editor = null;
     // 导航菜单
+
+    $("#tabStrip").kendoTabStrip({
+        animation:  {
+            open: {
+                effects: "fadeIn"
+            }
+        }
+    });
 
     $("#navMenu").kendoMenu({});
     // 初始化spliter

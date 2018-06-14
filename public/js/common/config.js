@@ -1,4 +1,4 @@
-define(['require', 'utils', 'init'], function (require, utils, init) {
+define(['require', 'utils', 'init', 'jquery'], function (require, utils, init, $) {
     var columns = {};
     var articles = [
         { field: "title", title: "标题", width: '200px' },

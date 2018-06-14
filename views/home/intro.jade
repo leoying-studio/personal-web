@@ -1,11 +1,11 @@
 div.wrapper.clearfix
     div.caption
         h3 #{intro.title}
-        h2 #{intro.caption}
-        p #{intro.description}
+        h2 #{intro.slogan}
+        p #{intro.intro}
     div.show
         h2 #{intro.headLine}
         div.wrapper
-            each spe in special
+            each theme in intro.themes || []
                 span
-                    img(src="#{spe.homeFigure}", alt="" width="164.5px" height="100px")
+                    img(src="#{theme.topicMap}", alt="" width="164.5px" height="100px")

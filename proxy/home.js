@@ -3,9 +3,9 @@ var IntrosModel = require("./../models/intros");
 // 获取介绍信息
 exports.getIntros = function (params) {
     if (params) {
-        return IntroModels.queryPaging(params);
+        return IntrosModel.queryPaging(params);
     } else {
-        return IntroModels.findOne({ apply: true }).lean();
+        return IntrosModel.findOne({ apply: true });
     }
 }
 

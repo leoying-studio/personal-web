@@ -1,8 +1,9 @@
 
 define([
     'require',
+    'jquery'
 ], function(require) {
-     function grid(el, dataSource, columns, toolbar) {
+     function grid(el, dataSource, columns, toolbar, $) {
         var grid = el || $("#grid");
         if (grid.data("kendoGrid")) {
             grid.data("kendoGrid").destroy();
