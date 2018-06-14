@@ -1,8 +1,0 @@
-ul#panelWrapper
-    li(panel-item-type=0) 名称
-      ul.outer-panel
-        each nav,navIndex in categories
-          li(panel-item-type=1 nav-id="#{nav._id}").panel-item #{nav.name}
-            ul.inner-panel
-              each category in nav.categories
-                li.category-item(nav-id="#{nav._id}" category-id="#{category._id}" panel-item-type=2) #{category.name}   

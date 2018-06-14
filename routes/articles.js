@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var ArticlesModel = require("./../models/articles");
+var ArticlesModel = require("../models/articles");
 var CommentsModel = require("./../models/comments");
 var Utils = require("./../utils");
 var Checks = require("./../checks/articles");

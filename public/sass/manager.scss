@@ -1,107 +1,23 @@
-@import './common/mixin.scss';
 .header {
-    height: 90px;
-    line-height: 90px;
-    background-color: #2A3F54;
-    .title {
-		float: left;
-        padding-left:50px;
-        font-size: 38px;
-        color: white;
-    }
-    .user {
-        span {
-            float: right;
-            font-size: 14px;
-            color: #eee;
-            padding: 0 12px;
-        }
-    }
+	height: 50px;
+	background-color: #3c8dbc;
+	& >.title {
+		width: 200px;
+		font-size: 20px;
+		color: white;
+		margin: 0;
+		height: 100%;
+		line-height: 50px;
+		text-align: center;	
+		background-color: #367fa9;
+	}
 }
 
-.tab-strip{
-    position: absolute;
-    top: 90px;
-    left: 0;
-    bottom: 0;
-    right: 0;
-  .tab-strip-item {
-    height: calc(100% - 90px);
-    &:nth-child(2) {
-        .wrapper {
-            height: calc(100% - 10px);
-            .right-container {
-                width: 90%;
-                height: 100%;
-                padding:0 12px;
-                box-sizing: border-box;
-                .module-page:nth-child(1) {
-                    .tool-bar {
-                       @include tool-bar;
-                    }
-                    & >.grid-box {
-                        @include grid-box;
-                    }
-                }
-                .module-page:nth-child(2) {
-                    .tool-bar {
-                        @include tool-bar;
-                    }
-                    & >.grid-box {
-                        @include grid-box;
-                    }
-                    .special-wrapper {
-                        padding: 8px 0; 
-                        .grid-box {
-                            height: 400px;
-                            @include grid-box;
-                        }
-                    }
-                }
-            }
-            .left-container {
-                width: 10%;
-                height: 100%;
-                text-align: center;
-                .selected {
-                    background-color: #e3e3e3;
-                }
-                li {
-                    height: 45px;
-                    line-height: 45px;
-                    border-bottom: 2px #e3e3e3 solid;
-                    cursor: pointer;
-                    &:last-child {
-                        border-bottom: none;
-                    }
-            }
-        }
-    }
-  }
-  &:nth-child(3) {
-      .wrapper {
-        height: calc(100% - 10px);
-        padding: 10px;
-        box-sizing: border-box;
-        .left-container {
-            width: 10%;
-            height: 100%;
-            padding:12px;;
-            box-sizing: border-box;
-        }
-        .right-container {
-            width: 90%;
-            height: 100%;
-            padding:12px;
-            box-sizing: border-box;
-            .grid {
-                height: 400px;
-            }
-            form { 
-                display: none;
-            }
-        }
-      }
-  }
-}
+/*左侧边栏展示*/
+.aside-bar {
+	position: fixed;
+	width: 200px;
+	top: 50px;
+	bottom: 0;
+	background-color: #222d32;
 }

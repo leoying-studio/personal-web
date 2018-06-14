@@ -6,7 +6,6 @@ var Checks = require("./../checks/home");
 var ArticlesModel = require("./../models/articles");
 var ArticlesProxy = require("./../proxy/articles");
 
-
 router.get("/", function (req, res, next) {
     var categories = ArticlesModel.getCategories();
     var recommend = ArticlesModel.queryPaging({}, {recommend: true});

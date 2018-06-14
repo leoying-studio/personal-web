@@ -1,6 +1,6 @@
 var Validator = require('./../utils/validator');
 
-exports.intro = function(res, res, next) {
+exports.intro = function(req, res, next) {
     var body = req.body;
     var title = body.title
     var slogan = body.slogan;
@@ -43,7 +43,7 @@ exports.intro = function(res, res, next) {
     
     var validate = Validator(rules);
     if (!validate.status) {
-        return validate;
+        return res.send(validate);
     }
     req.body = {
         models: {
@@ -62,7 +62,7 @@ exports.intro = function(res, res, next) {
 }
 
 
-exports.introId = function(res, res, next) {
+exports.introId = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -79,7 +79,7 @@ exports.introId = function(res, res, next) {
     next();
 }
 
-exports.children = function(res, res, next) {
+exports.children = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -111,7 +111,7 @@ exports.children = function(res, res, next) {
 }
 
 
-exports.query = function(res, req, next) {
+exports.query = function(req, res, next) {
     var params = req.query;
     var rules = [
 		{
@@ -130,7 +130,7 @@ exports.query = function(res, req, next) {
     next();
 }
 
-exports.map = function(res, req, next) {
+exports.map = function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;
@@ -164,7 +164,7 @@ exports.map = function(res, req, next) {
     next();
 }
 
-exports.mapItem = function(res, req, next) {
+exports.mapItem = function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;
