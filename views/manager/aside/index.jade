@@ -1,8 +1,15 @@
 
-ul.list-group#list-group 
-	li.list-group-item(data-toggle="collapse" data-parent="#list-group" aria-controls="a" aria-expanded="false" href="#a") 首页
-		ul#a
-			li 测试
-			li 测试二
-	li.list-group-item(data-toggle="collapse" data-parent="#list-group") 测试二
+ul.list-group#aside-inner 
+	li.list-group-item(data-toggle="collapse" data-parent="#list-group" aria-controls="a" aria-expanded="false" href="#home-option") 
+		a(href="#")
+			i.glyphicon.glyphicon-home
+			span 专题
+			i.glyphicon.glyphicon-menu-up.pull-right
+		ul.children-group#home-option
+			li
+				a(href="")
+					i.glyphicon.glyphicon-heart-empty
+					span 专题
+		
+	li.list-group-item(data-toggle="collapse" data-parent="#list-group") 类别
 		

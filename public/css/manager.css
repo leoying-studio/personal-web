@@ -22,4 +22,41 @@
   top: 50px;
   bottom: 0;
   background-color: #222d32;
+  color: white;
+  font-size: 14px;
+}
+
+.aside-bar .list-group-item {
+  border-radius: 0;
+  border: none;
+  background: #1e282c;
+}
+
+.aside-bar .list-group-item > a {
+  display: block;
+  width: 100%;
+  color: inherit;
+  font-size: inherit;
+  text-decoration: none;
+}
+
+.aside-bar .list-group-item > a > :first-child {
+  padding-right: 20px;
+}
+
+.aside-bar .list-group-item .children-group {
+  list-style: none;
+  padding-left: 5px;
+  background-color: #8aa4af;
+}
+
+.aside-bar .list-group-item .children-group a {
+  display: block;
+  color: inherit;
+  padding: 5px 5px 5px 15px;
+  text-decoration: none;
+}
+
+.aside-bar .list-group-item .children-group a > :first-child {
+  padding-right: 8px;
 }

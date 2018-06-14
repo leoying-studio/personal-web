@@ -1,3 +1,5 @@
+@import "./common/var.scss";
+
 .header {
 	height: 50px;
 	background-color: #3c8dbc;
@@ -20,4 +22,37 @@
 	top: 50px;
 	bottom: 0;
 	background-color: #222d32;
+	color: white;
+	font-size: 14px;
+	& .list-group-item {
+		border-radius:  0;
+		border: none;
+		background: #1e282c;
+		& > a {
+				display: block;
+				width: 100%;
+				color: inherit;
+				font-size: inherit;
+				text-decoration: none;
+			& >:first-child {
+				padding-right: 20px;
+			}
+		}
+		.children-group {
+			list-style: none;
+			padding-left: 5px;
+			background-color: #8aa4af;
+			a {
+				display: block;					
+				color: inherit;
+				padding: 5px 5px 5px 15px;
+				text-decoration: none;
+			
+				&>:first-child {
+					padding-right: 8px;
+
+				}
+			}
+		}
+	}
 }
