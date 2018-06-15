@@ -48,13 +48,14 @@
 .aside-bar .list-group-item .children-group {
   left: 0;
   right: 0;
-  z-index: 9;
+  font-size: 12px;
   list-style: none;
-  padding-left: 5px;
+  padding-left: 10px;
   background-color: #2c3b41;
 }
 
 .aside-bar .list-group-item .children-group a {
+  font-size: inherit;
   color: inherit;
   padding: 5px 5px 5px 15px;
   text-decoration: none;
@@ -62,4 +63,11 @@
 
 .aside-bar .list-group-item .children-group a > :first-child {
   padding-right: 8px;
+}
+
+/*中间的展示区*/
+.main {
+  margin-left: 200px;
+  margin-top: 50px;
+  padding: 0 10px;
 }

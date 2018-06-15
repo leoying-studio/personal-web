@@ -93,7 +93,7 @@ router.post("/intro/destory", Checks.introId, function(req, res, next) {
 
 // 获取intro 所有内容项
 router.get("/intro/data", function (req, res, next) {
-    HomeProxy.getIntro({}).then(function(collections) {
+    HomeProxy.getIntros({}).then(function(collections) {
         res.send({
             status: true,
             data: collections
