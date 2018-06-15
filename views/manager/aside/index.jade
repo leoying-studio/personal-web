@@ -1,15 +1,30 @@
 
 ul.list-group#aside-inner 
-	li.list-group-item(data-toggle="collapse" data-parent="#list-group" aria-controls="a" aria-expanded="false" href="#home-option") 
-		a(href="#")
+	li.list-group-item
+		a(data-toggle="collapse" data-parent="#list-group" aria-controls="a" aria-expanded="false" href="#home-config-menu").center-block.clearfix 
 			i.glyphicon.glyphicon-home
 			span 专题
 			i.glyphicon.glyphicon-menu-up.pull-right
-		ul.children-group#home-option
+		ul.children-group.collapsing#home-config-menu
 			li
-				a(href="")
+				a(href="").center-block
 					i.glyphicon.glyphicon-heart-empty
 					span 专题
-		
-	li.list-group-item(data-toggle="collapse" data-parent="#list-group") 类别
-		
+			li
+				a(href="").center-block
+					i.glyphicon.glyphicon-heart-empty
+					span 时光轴
+	li.list-group-item
+		a(data-toggle="collapse" data-parent="#list-group" aria-controls="a" aria-expanded="false" href="#categries-config-menu").center-block.clearfix
+			i.glyphicon.glyphicon-th-large
+			span 类别
+			i.glyphicon.glyphicon-menu-up.pull-right
+		ul.children-group.collapsing#categries-config-menu
+			li
+				a(href="").center-block
+					i.glyphicon.glyphicon-heart-empty
+					span 专题
+			li
+				a(href="").center-block
+					i.glyphicon.glyphicon-heart-empty
+					span 时光轴

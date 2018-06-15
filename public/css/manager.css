@@ -21,20 +21,21 @@
   width: 200px;
   top: 50px;
   bottom: 0;
+  overflow: auto;
   background-color: #222d32;
   color: white;
   font-size: 14px;
 }
 
 .aside-bar .list-group-item {
+  padding: 0;
   border-radius: 0;
   border: none;
   background: #1e282c;
 }
 
 .aside-bar .list-group-item > a {
-  display: block;
-  width: 100%;
+  padding: 10px 15px;
   color: inherit;
   font-size: inherit;
   text-decoration: none;
@@ -45,13 +46,15 @@
 }
 
 .aside-bar .list-group-item .children-group {
+  left: 0;
+  right: 0;
+  z-index: 9;
   list-style: none;
   padding-left: 5px;
-  background-color: #8aa4af;
+  background-color: #2c3b41;
 }
 
 .aside-bar .list-group-item .children-group a {
-  display: block;
   color: inherit;
   padding: 5px 5px 5px 15px;
   text-decoration: none;
