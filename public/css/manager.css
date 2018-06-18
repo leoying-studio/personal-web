@@ -101,10 +101,10 @@ a:hover {
   color: black;
 }
 
-.main #intro > form {
+.main #intro form {
   padding-top: 32px;
 }
 
-.main #intro > form > :last-child > :first-child {
+.main #intro form > :last-child > :first-child {
   margin-right: 12px;
 }

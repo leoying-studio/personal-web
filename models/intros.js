@@ -16,10 +16,10 @@ var Scheam = new mongoose.Schema({
 	 themes: [
 		 {
 			topicMap: String, // 主题图
+			// 内部专题项标题
+			headline: String,
 			map: [
 				{
-					// 内部专题项标题
-					headline: String,
 					theme: {
 						// 陈述
 						presentation: String,

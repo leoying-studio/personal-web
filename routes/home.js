@@ -108,13 +108,18 @@ router.get("/intro/data", function (req, res, next) {
  //根据 introId添加主题
 router.post("/intro/themes/save", function(req, res, next) {
     var body = req.body;
-    var _id = body.id;
+    var _id = body._id;
+    var themeId = body.themeId;
     var topicMap = body.topicMap;
     var fields = {
-        $push: topicMap,
-        map: []
+        $push: {
+            themes: {
+                map: [],
+                topicMap
+            }
+        }
     };
-    if (_id) {
+    if (themeId) {
         fields = {
             $set: {
                 topicMap
@@ -127,7 +132,7 @@ router.post("/intro/themes/save", function(req, res, next) {
         }
         req.body.data = doc;
         next();
-    }).catch(next);
+    })
 });
 
 // 根据首页themeId进行添加主题项内容

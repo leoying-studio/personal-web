@@ -4,7 +4,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	var breadcrumb = main.find('.breadcrumb');
 
 	// 业务常量
-	var crumbs = ['intro'];
+	var crumbs = ['intro', 'introForm'];
 
 	var themeEvents = {
 		'click .label[name=edit]': function(e, f, r) {
@@ -69,6 +69,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 					silent: true
 				})
 			}
+			$("#themeForm").attr('_id', r._id);
 			$("#intro").hide();
 			$('#theme').show();
 			insertCrumb('主题', 'theme');
@@ -77,7 +78,10 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	// 添加面包屑导航
 	var insertCrumb = function(name, tick) {
-		if (breadcrumb.find('a[tick='+tick+']').length) {
+		var currentCrubm = breadcrumb.find('a[tick='+tick+']');
+		if (currentCrubm.length) {
+			breadcrumb.find('.bread-active').removeClass('bread-active');
+			currentCrubm.addClass('bread-active');
 			return;
 		}
 		breadcrumb.children().last().children().removeClass('bread-active');
@@ -113,7 +117,8 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	}
 
 	$('#introNewly').click(function() {
-		$('#intro').children(":not(:last-child)").hide().last().parent().children().last().show();
+		$('#intro').hide();
+		$("#introForm").show();
 	});
 
 	$("#intro > form>:last-child>:last-child").click(function() {
@@ -146,8 +151,15 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	$('#themeForm button').click(function(e) {
 		 var params = api.getParams($('#themeForm'));
+		 var _id = $("#themeForm").attr('_id');
+		 params._id = _id;
 		 $.post('/intro/themes/save', params).then(function(res) {
-			 debugger;
+			 if (res.status) {
+				 api.message.success('保存成功');
+				 api.clearValues($('#themeForm'));
+			 } else {
+				api.message.error(res.message);
+			 }
 		 });
 	});
 });
