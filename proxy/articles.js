@@ -1,4 +1,4 @@
-var ArticlesModel = require("./../models/articles");
+var ArticlesModel = require("../models/articles");
 var CommentsModel = require("./../models/comments");
 
 exports.list = function(conditions, currentPage, render) {

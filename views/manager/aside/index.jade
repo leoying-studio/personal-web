@@ -1,0 +1,34 @@
+
+ul.list-group 
+	li.list-group-item
+		a(data-toggle="collapse" aria-expanded="false" href="#home-config-menu").center-block.clearfix 
+			i.glyphicon.glyphicon-home
+			span 首页
+			i(collapsing='true').glyphicon.glyphicon-menu-up.pull-right
+		ul.children-group.collapsing#home-config-menu
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-record
+					span 介绍
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-record
+					span 主题
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-record
+					span 留言板
+	li.list-group-item
+		a(data-toggle="collapse" aria-expanded="false" href="#categries-config-menu").center-block.clearfix
+			i.glyphicon.glyphicon-th-large
+			span 类别
+			i(collapsing='true').glyphicon.glyphicon-menu-up.pull-right
+		ul.children-group.collapsing#categries-config-menu
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-record
+					span 导航
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-record
+					span 二级

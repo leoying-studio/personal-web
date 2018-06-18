@@ -6,7 +6,6 @@ var Checks = require("./../checks/home");
 var ArticlesModel = require("./../models/articles");
 var ArticlesProxy = require("./../proxy/articles");
 
-
 router.get("/", function (req, res, next) {
     var categories = ArticlesModel.getCategories();
     var recommend = ArticlesModel.queryPaging({}, {recommend: true});
@@ -40,23 +39,22 @@ router.get('/manager', function (req, res, next) {
 router.post("/intro/save", Checks.intro, function (req, res, next) {
     if (!req.body.conditions._id) {
         HomeProxy.applyIntro().then(function() {
-            IntrosModel.create(req.bod.models, function (err, doc) {
+            IntrosModel.create(req.body.models, function (err, doc) {
                 if (err) {
                     return next();
                 }
                 req.body.data = doc;
                 next();
-            }).catch(next);
+            });
         }).catch(next);
     } else {
-        delete fields.themes;
         IntrosModel.update(req.body.conditions, {$set: req.body.models}, function(err, doc) {
             if (err) {
                return next();
             }
             req.body.data = doc;
             next();
-        }).catch(next);
+        });
     }
 });
 
@@ -94,7 +92,7 @@ router.post("/intro/destory", Checks.introId, function(req, res, next) {
 
 // 获取intro 所有内容项
 router.get("/intro/data", function (req, res, next) {
-    HomeProxy.getIntro({}).then(function(collections) {
+    HomeProxy.getIntros({pagination: 1, pageSize: 99999}).then(function(collections) {
         res.send({
             status: true,
             data: collections
@@ -180,10 +178,9 @@ router.get("/intro/themes/data", function(req, res, next) {
     var currentPage = body.currentPage || 1;
     var start = (currentPage - 1) * 4;
     var end = currentPage * 4;
-    IntrosModel.findOne({_id}).populate('themes', {slice: [start, end]})
+    IntrosModel.findOne({_id: body._id}).populate('themes', {slice: [start, end]})
     .then(function(data) {
-        req.bod.data = data;
-        next();
+       res.json(data.themes);
     }).catch(next);
 });
 

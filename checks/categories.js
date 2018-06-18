@@ -1,6 +1,6 @@
 var Validator = require('./../utils/validator');
 
-exports.add = function(res, res, next) {
+exports.add = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -29,7 +29,7 @@ exports.add = function(res, res, next) {
     next();
 }
 
-exports.update = function(res, res, next) {
+exports.update = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -67,7 +67,7 @@ exports.update = function(res, res, next) {
     next();
 }
 
-exports.children = function(res, res, next) {
+exports.children = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -99,7 +99,7 @@ exports.children = function(res, res, next) {
 }
 
 
-exports.updateChild = function(res, req, next) {
+exports.updateChild = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -132,7 +132,7 @@ exports.updateChild = function(res, req, next) {
     next();
 }
 
-exports.query = function(res, req, next) {
+exports.query = function(req, res, next) {
     var params = req.query;
     var rules = [
 		{

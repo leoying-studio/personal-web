@@ -5,7 +5,7 @@ exports.getIntros = function (params) {
     if (params) {
         return IntrosModel.queryPaging(params);
     } else {
-        return IntrosModel.findOne({ apply: true });
+        return IntrosModel.findOne({ apply: true }); 
     }
 }
 

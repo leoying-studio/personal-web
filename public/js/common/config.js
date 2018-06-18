@@ -1,177 +1,91 @@
-define(['require', 'utils', 'init', 'jquery'], function (require, utils, init, $) {
-    var columns = {};
-    var articles = [
-        { field: "title", title: "标题", width: '200px' },
-        { field: 'description', title: '文章说明' },
-        { field: 'img', title: '图片地址', width: '100px' },
-        { field: 'navId', title: '导航id', width: '100px' },
-        { field: 'createdTime', title: '发布时间', width: '250px' },
-    ]
-    // article
-    columns.articles = function (destroy, edit) {
-        var newArticles = articles.concat(
-            [
-                {
-                    title: '操作', width: '200px', command: [
-                        {
-                            text: '删除', click: destroy || new Function()
-                        },
-                        {
-                            text: '编辑', click: edit || new Function()
-                        }
-                    ]
-                }
-            ]
-        );
-        return newArticles;
+define(['jquery'], function ($) {
+    var _defaultConfig = {
+        methods: 'get',
+        dataType: 'json',
+        pageSize: 10,
+        singleSelect: true,
+        striped: true,                      //是否显示行间隔色
+        cache: false,                       //是否使用缓存，默认为true，所以一般情况下需要设置一下这个属性（*）
+        pagination: true,                   //是否显示分页（*）
+        sortable: false,                    //是否启用排序
+        search: true, 
+        showRefresh: true,     
+        clickToSelect: false,
+        align: 'center',  
+        pagination: true,
+        pageList: [10, 20, 50, 100]		
     }
 
-    // 文章推荐
-    columns.homeRecommend = function (cancel) {
-        var newArticles = articles.concat(
-            [
+    var intro = function(events) {
+        var options = {
+            url: '/intro/data',
+            toolbar: '#introToolbar',
+            columns: [
                 {
-                    title: '操作', width: '200px', command: [
-                        {
-                            text: '取消推荐', click: cancel || new Function()
-                        }
-                    ]
-                }
-            ]
-        );
-        return newArticles;
-    }
-
-    // 类别
-    columns.categories = function (destroy, edit) {
-        var categories = [
-            { field: 'name', title: '类别名称' },
-            { field: '_id', title: 'id' },
-            {
-                title: '操作', command: [
-                    // {
-                    //     text: '删除', click: destroy || new Function()
-                    // },
-                    {
-                        text: '编辑', click: edit || new Function()
+                    checkbox: true
+                }, {
+                    title: '标语',
+                    field: 'slogan'
+                },
+                {
+                    title: '标题',
+                    field: 'title'
+                },
+                {
+                    title: '简介',
+                    field: 'intro'
+                },
+                {
+                    title: '主题标题',
+                    field: 'headline'
+                },
+                {
+                    title: '应用',
+                    field: 'apply',
+                    formatter: function(v) {
+                        return v ? '是' : '否';
                     }
-                ]
-            }
-        ]
-        return categories;
+                },
+                {
+                    title: '创建时间',
+                    field: 'updateTime'
+                },
+                {
+                    title: '更新时间',
+                    field: 'updateTime'
+                },
+                {
+                    title: '操作',
+                    events: events,
+                    formatter: function(e, item, i) {
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
+                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>" + 
+                        "<a href='#' class='label label-primary' name='theme'>主题</a>" 
+                    }
+                }
+            ]
+           }
+        return Object.assign({} ,_defaultConfig, options);
     }
 
-    // 导航
-    columns.navs = function (destroy, edit) {
-        var navs = [
-            { field: 'name', title: '导航名称' },
-            { field: '_id', title: 'id' },
-            {
-                title: '操作', command: [
-                    // { name: 'destroy', text: '删除', click: destroy || new Function},
-                    {text: '编辑', click: edit || new Function},
-                ]
-            }
-        ]
-        return navs;
+    var theme = function(events, params) {
+        var options = {
+            url: '/intro/themes/data',
+            toolbar: '#themeToolbar',
+            columns: [
+                {
+                    field: 'topicMap',
+                    title: '主题图'
+                }
+            ]
+        }
+        return Object.assign({}, _defaultConfig, options, params || {});
     }
-
-    // 介绍信息
-    columns.intro = function(destroy, apply, edit) {
-        var func = function() {};
-        var intro = [
-            {field: "title", title: "标题"},
-            {field: "caption", title: "字幕"},
-            {field: "description", title: "说明"},
-            {field: "createdTime", title: "添加时间"},
-            {
-                title:'操作', command: [
-                    {text: "删除", click: destroy || func},
-                    {text: '应用', click: apply || func},
-                    {text: "编辑", click: edit || func},
-                ]
-            }
-        ];
-        return intro;
-    }
-    
-    columns.special = function(destroy, edit) {
-        var func = function() {};
-        var special = [
-            // {field: "title", title: "标题"},
-            {field: "headline", title: "标题"},
-            {field: "homeFigure", title: "说明"},
-            {field: "createdTime", title: "添加时间"},
-            {
-                title:'操作', command: [
-                    {text: "删除", click: destroy || func},
-                    {text: '编辑', click: edit || func}
-                ]
-            }
-        ];
-        return special;
-    }
-    columns.themes = function(destroy, edit) {
-        var func = function() {};
-        var themes = [
-            {field: "presentation", title: "描述"},
-            {field: "photo", title: "照片"},
-            {
-                title:'操作', command: [
-                    {text: "删除", click: destroy || func},
-                    {text: '编辑', click: edit || func}
-                ]
-            }
-        ];
-        return themes;
-    }
-    // editor
-    var editor = {
-        tools: [
-            "bold",
-            "italic",
-            "underline",
-            "strikethrough",
-            "justifyLeft",
-            "justifyCenter",
-            "justifyRight",
-            "justifyFull",
-            "insertUnorderedList",
-            "insertOrderedList",
-            "indent",
-            "outdent",
-            "createLink",
-            "unlink",
-            "insertImage",
-            "insertFile",
-            "subscript",
-            "superscript",
-            "createTable",
-            "addRowAbove",
-            "addRowBelow",
-            "addColumnLeft",
-            "addColumnRight",
-            "deleteRow",
-            "deleteColumn",
-            "viewHtml",
-            "formatting",
-            "cleanFormatting",
-            "fontName",
-            "fontSize",
-            "foreColor",
-            "backColor",
-            "print"
-        ],
-        resizable: {
-            content: true,
-            toolbar: false
-        },
-    };
-
-
 
     return {
-        columns: columns,
-        editor: editor
-    };
+        table: {
+            intro: intro,
+            theme: theme
+        } 
+    }
 });

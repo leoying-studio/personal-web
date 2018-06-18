@@ -40,6 +40,7 @@ var Scheam = new mongoose.Schema({
 
 
 Scheam.plugin(Super.getCategories);
+Scheam.plugin(Super.queryPaging);
 
 Scheam.pre('save', function(next) {
 	var now = new Date();

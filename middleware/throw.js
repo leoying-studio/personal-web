@@ -1,6 +1,3 @@
-exports.abnormal = function(err, req, res, next) {
-    res.render("common/error");
-}   
 
 // 作为中间件可以对返回的数据格式进行定义
 exports.message = {
@@ -9,13 +6,13 @@ exports.message = {
         var message = body.message;
         var data = body.data;
         if (data) {
-            var body = {};
+            var main = {};
             for(var key in data) {
-                body[key] = data[key];
+                main[key] = data[key];
             }
             return res.send({
                 status: true,
-                body,
+                main: main,
                 message: message || '保存成功!'
             });
         }
@@ -30,3 +27,7 @@ exports.message = {
         });
     }
 }
+
+exports.abnormal = function(err, req, res, next) {
+    return res.render("common/error");
+}   

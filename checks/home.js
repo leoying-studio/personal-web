@@ -1,17 +1,17 @@
 var Validator = require('./../utils/validator');
 
-exports.intro = function(res, res, next) {
+exports.intro = function(req, res, next) {
     var body = req.body;
     var title = body.title
     var slogan = body.slogan;
     var headline = body.headline;
     var intro = body.intro;
-    var _id = body.id;
+    var _id = body._id;
     var rules = [
         {
 			value: title,
 			type: String,
-			name: '标题不能为空'
+			name: '标题'
 		},
 		{
 			value: slogan,
@@ -19,7 +19,7 @@ exports.intro = function(res, res, next) {
             rule: {
                 min: 6
             },
-			name: '提示标语不能为空'
+            name: '标语',
         },
         {
 			value: intro,
@@ -28,7 +28,7 @@ exports.intro = function(res, res, next) {
                 min: 10,
                 max: 60
             },
-			name: '介绍信息不能为空'
+			name: '介绍信息'
         },
         {
 			value: headline ,
@@ -37,13 +37,14 @@ exports.intro = function(res, res, next) {
                 min: 1,
                 max: 6
             },
-			name: '主题标题不能为空'
+            name: '主题标题',
+            message: '主题标题限制在1到6个字符之间'
 		}
     ];
     
     var validate = Validator(rules);
     if (!validate.status) {
-        return validate;
+        return res.send(validate);
     }
     req.body = {
         models: {
@@ -62,11 +63,12 @@ exports.intro = function(res, res, next) {
 }
 
 
-exports.introId = function(res, res, next) {
+exports.introId = function(req, res, next) {
     var body = req.body;
+    var _id = body._id;
     var rules = [
 		{
-			value: body.id,
+			value: _id,
 			type: String,
 			name: '介绍Id'
 		}
@@ -75,11 +77,11 @@ exports.introId = function(res, res, next) {
     if (!validate.status) {
         return validate;
     }
-    req.body = {_id: body.id};
+    req.body = {_id};
     next();
 }
 
-exports.children = function(res, res, next) {
+exports.children = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -111,7 +113,7 @@ exports.children = function(res, res, next) {
 }
 
 
-exports.query = function(res, req, next) {
+exports.query = function(req, res, next) {
     var params = req.query;
     var rules = [
 		{
@@ -130,7 +132,7 @@ exports.query = function(res, req, next) {
     next();
 }
 
-exports.map = function(res, req, next) {
+exports.map = function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;
@@ -164,7 +166,7 @@ exports.map = function(res, req, next) {
     next();
 }
 
-exports.mapItem = function(res, req, next) {
+exports.mapItem = function(req, res, next) {
     var body = req.body;
     var _id = body.introId;
     var themeId = body.themeId;

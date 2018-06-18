@@ -1,44 +1,44 @@
 //维护基础功能验证
 var _validate = {
-	_trim : function(value) {
-		if (typeof value === 'string') {
+	trim : function(value) {
+		if (this.type(value, String)) {
 			return value = value.replace(/\s/g, "");
 		}
 		return value;
 	},
 	
 	
-	_min : function(value, max) {
-		if (typeof value === "string") {
-			value = this._trim(value);
+	min : function(value, min) {
+		if (this.type(value, String)) {
+			value = this.trim(value);
 			return value.length >= min;
 		}
 		return value >= min;
 	},
 	
-	_max : function(value, min) {
-		if (typeof value === "string") {
-			value = this._trim(value);
-			return value.length <= this.max;
+	max : function(value, max) {
+		if (this.type(value, String)) {
+			value = this.trim(value);
+			return value.length < max;
 		}
 		return value <= min;
 	},
 	
-	_email : function(value) {
+	email : function(value) {
 		var validatEmail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 		return value.test(validatEmail);
 	},
 	
-	_required : function(value) {
-		value = this._trim(value);
+	required : function(value) {
+		value = this.trim(value);
 		return !(value === "" || typeof value == 'undefined' || value.length == 0);
 	},
 	
-	_contrast : function(value, reducedValue) {
+	contrast : function(value, reducedValue) {
 		return value === reducedValue;
 	},
 	
-	_type : function(value, type) {
+	type : function(value, type) {
 		if (!type) {
 			return true;
 		}
@@ -56,13 +56,13 @@ var _validate = {
 
 var _typeValid = function(value, rules, ruleTypes) {
 	// 数组类型验证
-	if (_validate._type(ruleTypes, Function)) {
+	if (_validate.type(ruleTypes, Function)) {
 		ruleTypes = [ruleTypes];
 	}
 	
 	// 类型验证
 	var status = ruleTypes.every(function(type) {
-		return !_validate._type(value, type); 
+		return !_validate.type(value, type); 
 	});
 	// 如果数据类型均不符合
 	if (status) {
@@ -84,27 +84,25 @@ var _typeValid = function(value, rules, ruleTypes) {
  * @param {Array} rules 规则项
  * 验证规则项
  */
-var _ruleValid = function(rules, value) {
+var _ruleValid = function(rules, value, name, message) {
 	// 规则验证
 	for (var rule of rules) {
 		// 对象验证
-		var r = rule.rule;
-		var m = rule.message;
 		try {
-			var v = _validate._type(value, String)
-			if (v) {
-				if (!_validate[v](value)) {
+			var t = _validate.type(rule, String)
+			if (t) {
+				if (!_validate[rule](value)) {
 					return {
 						status: false,
-						message: m
+						message: message || name + "不符合格式规范!"
 					}
 				}
 			} else {
-				for(var key in r) {
-					if(!_validate[key](r[key])) {
+				for(var key in rule) {
+					if(!_validate[key](value, rule[key])) {
 						return {
 							status: false,
-							message: m
+							message: message || name + '值不符合格式规范!'
 						}
 					}
 				}
@@ -135,7 +133,7 @@ var _baseValid = function(value, name, ruleTypes) {
 			message: '请指定'+name+'值类型!'
 		}
 	}
-	if (!_validate._required(value)) {
+	if (!_validate.required(value)) {
 		return {
 			status: false,
 			message: name + '值不存在'
@@ -158,6 +156,8 @@ function Validator(items = []) {
 		var value = item.value;
 		// 中文名
 		var name = item.name;
+		// 错误提示消息
+		var message = item.message;
 
 		// 规则器基本参数验证
 		var baseValid = _baseValid(value, name, ruleTypes);
@@ -166,7 +166,7 @@ function Validator(items = []) {
 		}
 
 		// 兼容转换规则
-		if(_validate._type(rules, Object)) {
+		if(_validate.type(rules, Object)) {
 			rules = [rules];
 		}
 
@@ -177,7 +177,7 @@ function Validator(items = []) {
 			return typeValid;
 		}
 		// 规则验证
-		var ruleValid = _ruleValid(rules, value);
+		var ruleValid = _ruleValid(rules, value, name, message);
 		if (!ruleValid.status) {
 			return ruleValid;
 		}
