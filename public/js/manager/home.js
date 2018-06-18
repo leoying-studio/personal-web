@@ -1,20 +1,15 @@
 define(['jquery', 'api', 'config' ], function($, api, config) {
-	$('.aside-bar .list-group-item > a').click(function() {
-		var icon = $(this).children().last();
-		// 如果已经折叠
-		if (icon.attr('collapsing') === 'true') {
-			icon.removeClass('glyphicon-menu-up')
-			.addClass('glyphicon-menu-down').attr('collapsing', false);
-		} else {
-			icon.removeClass('glyphicon-menu-down')
-			.addClass('glyphicon-menu-up').attr('collapsing', true);
-		}
-	});
+	// 外层父容器变量, 支持向下查找的方式，避免全局查找
+	var main = $('#main'), asideBar = $('.aside-bar');
+	var breadcrumb = main.find('.breadcrumb');
+
+	// 业务常量
+	var crumbs = [];
 
 	var themeEvents = {
 		'click .label[name=edit]': function(e, f, r) {
 			$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
-			var form = $('.intro > form');
+			var form = $('#intro > form');
 			form.attr('_id', r._id);
 			api.setValues(form, r);
 		},
@@ -76,24 +71,37 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 			}
 			$("#intro").hide();
 			$('#theme').show();
-			if ($('.main > .breadcrumb > li > a[tick=theme]').length) {
-				return;
-			}
-			$('.main > .breadcrumb').append("<li><a href='#' class='disabled' disabled='true' tick='theme'>主题<a/></li>");
-			$('.main > .breadcrumb > li:last-child').prev().children(':first-child').removeClass('disabled');
+			insertCrumb('主题', 'theme');
 		}
 	};
 
-	$('.main > .breadcrumb > li > a').click(function() {
-		var disabled = $(this).attr('disabled');
-		if (disabled) {
+	// 添加面包屑导航
+	var insertCrumb = function(name, tick) {
+		if (breadcrumb.find('a[tick='+tick+']').length) {
 			return;
 		}
-		var tick = $(this).attr('tick');
-		$(this).addClass('disabled');
-		$('.main > section').hide();
-		$('#' +　$(this).attr('tick')).show();
-	});
+		breadcrumb.append(
+			"<li>" +
+					"<a href='#' class='disabled' tick=" + tick + ">" + name + "</a>" +
+			"</li>"	
+		); 
+		crumbs.push(tick);
+		switcherCrumb(tick);
+		breadcrumb.find('a').click(function() {
+			$(this).removeAttr('href');
+			var ctick = $(this).attr('tick');
+			switcherCrumb(ctick);
+		});
+	}
+
+	// 面包屑导航切换
+	var switcherCrumb = function(tick) {
+		tick = $('#'+tick);
+		$(crumbs).each(function(index, item) {
+			$('#'+item).hide();
+		});
+		tick.show();
+	}
 
 	var intro = config.table.intro(introEvents);;
 	$('#introTable').bootstrapTable(intro);
@@ -103,7 +111,6 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	}
 
 	$('#introNewly').click(function() {
-		debugger;
 		$('#intro').children(":not(:last-child)").hide().last().parent().children().last().show();
 	});
 
@@ -127,6 +134,12 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	$("#intro > form>:last-child>:first-child").click(function() {
 		$('#intro').children().last().hide().parent().children().first().show();
 		refreshTbale();
+	});
+
+	$('#ThemeNewly').click(function() {
+		$('#theme').hide();
+		$('#themeForm').show();
+		insertCrumb('新增主题', 'themeForm');
 	});
 });
 

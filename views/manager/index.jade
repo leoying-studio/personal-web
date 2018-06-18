@@ -13,10 +13,9 @@ html
     include ./header.jade
     aside.aside-bar 
       include ./aside/index.jade
-    main.main
+    main.main#main
       ul.breadcrumb
-        li 
-          a(href="#") 首页
+        li 当前位置: 首页 
         li
-          a(href="#" tick='intro').divider 介绍
+          a(tick='intro').divider.disabled 介绍
       include ./home/index.jade

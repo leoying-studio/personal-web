@@ -1,12 +1,19 @@
 @charset "UTF-8";
-.disabled {
+a {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
   color: #ccc;
 }
 
-.disabled:hover {
+.disabled {
   color: #ccc;
-  text-decoration: none;
-  cursor: default;
 }
 
 .header {
