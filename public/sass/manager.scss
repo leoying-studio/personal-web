@@ -3,10 +3,8 @@ a{
 }
 
 a:focus{text-decoration: none}
-a:hover{text-decoration: none; color: #ccc;}
-
-.disabled {
-	color: #ccc;
+a:hover {
+	text-decoration: none;
 }
 
 .header {
@@ -80,9 +78,14 @@ a:hover{text-decoration: none; color: #ccc;}
 	padding: 0 10px;
 	& > .breadcrumb {
 		margin-top: 65px;
+		.bread-active {
+			color: black;
+			&:hover {
+				color: black;
+			}
+		}
 	}
-
-	.intro {
+	#intro {
 		& > form {
 			padding-top: 32px;
 			& >:last-child {

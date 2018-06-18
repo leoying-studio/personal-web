@@ -9,11 +9,6 @@ a:focus {
 
 a:hover {
   text-decoration: none;
-  color: #ccc;
-}
-
-.disabled {
-  color: #ccc;
 }
 
 .header {
@@ -98,10 +93,18 @@ a:hover {
   margin-top: 65px;
 }
 
-.main .intro > form {
+.main > .breadcrumb .bread-active {
+  color: black;
+}
+
+.main > .breadcrumb .bread-active:hover {
+  color: black;
+}
+
+.main #intro > form {
   padding-top: 32px;
 }
 
-.main .intro > form > :last-child > :first-child {
+.main #intro > form > :last-child > :first-child {
   margin-right: 12px;
 }
