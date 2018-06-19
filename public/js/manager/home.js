@@ -10,8 +10,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	 * @param {Object} config 配置信息
 	 */
 	var initializeTable = function(config) {
-		$('#table').bootstrapTable('destroy');
-		$('#table').bootstrapTable(config)
+		$('#table').bootstrapTable('destroy').bootstrapTable(config);
 	}
 
 	var themeEvents = {
