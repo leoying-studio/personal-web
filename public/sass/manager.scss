@@ -1,13 +1,5 @@
-a{
-	text-decoration: none;
-}
 
-a:focus{text-decoration: none}
-a:hover{text-decoration: none; color: #ccc;}
 
-.disabled {
-	color: #ccc;
-}
 
 .header {
 	height: 50px;
@@ -81,7 +73,6 @@ a:hover{text-decoration: none; color: #ccc;}
 	& > .breadcrumb {
 		margin-top: 65px;
 	}
-
 	.intro {
 		& > form {
 			padding-top: 32px;

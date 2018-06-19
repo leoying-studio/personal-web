@@ -1,21 +1,4 @@
 @charset "UTF-8";
-a {
-  text-decoration: none;
-}
-
-a:focus {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-  color: #ccc;
-}
-
-.disabled {
-  color: #ccc;
-}
-
 .header {
   height: 50px;
   position: fixed;

@@ -88,7 +88,6 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		crumbs.push(tick);
 		switcherCrumb(tick);
 		breadcrumb.find('a').click(function() {
-			$(this).removeAttr('href');
 			var ctick = $(this).attr('tick');
 			switcherCrumb(ctick);
 		});
@@ -103,7 +102,8 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		tick.show();
 	}
 
-	var intro = config.table.intro(introEvents);;
+	var intro = config.table.intro(introEvents);
+
 	$('#introTable').bootstrapTable(intro);
 
 	var refreshTbale = function() {
