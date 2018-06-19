@@ -1,16 +1,4 @@
 @charset "UTF-8";
-a {
-  text-decoration: none;
-}
-
-a:focus {
-  text-decoration: none;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
 .header {
   height: 50px;
   position: fixed;
@@ -101,10 +89,6 @@ a:hover {
   color: black;
 }
 
-.main #intro form {
-  padding-top: 32px;
-}
-
-.main #intro form > :last-child > :first-child {
+.main form > :last-child > :first-child {
   margin-right: 12px;
 }

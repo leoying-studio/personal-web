@@ -4,7 +4,8 @@ exports.intro = function(req, res, next) {
     var body = req.body;
     var title = body.title
     var slogan = body.slogan;
-    var headline = body.headline;
+    // 主题概述
+    var themeOverview = body.themeOverview;
     var intro = body.intro;
     var _id = body._id;
     var rules = [
@@ -31,14 +32,14 @@ exports.intro = function(req, res, next) {
 			name: '介绍信息'
         },
         {
-			value: headline ,
+			value: themeOverview ,
             type: String,
             rule: {
                 min: 1,
                 max: 6
             },
-            name: '主题标题',
-            message: '主题标题限制在1到6个字符之间'
+            name: '主题概述',
+            message: '主题概述限制在1到6个字符之间'
 		}
     ];
     

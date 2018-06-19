@@ -1,5 +1,6 @@
 define(['jquery'], function ($) {
     var _defaultConfig = {
+        toolbar: '#toolbar',
         methods: 'get',
         dataType: 'json',
         pageSize: 10,
@@ -19,7 +20,6 @@ define(['jquery'], function ($) {
     var intro = function(events) {
         var options = {
             url: '/intro/data',
-            toolbar: '#introToolbar',
             columns: [
                 {
                     checkbox: true
@@ -71,7 +71,6 @@ define(['jquery'], function ($) {
     var theme = function(events, params) {
         var options = {
             url: '/intro/themes/data',
-            toolbar: '#themeToolbar',
             columns: [
                 {
                     field: 'topicMap',

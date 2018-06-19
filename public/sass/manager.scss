@@ -1,11 +1,4 @@
-a{
-	text-decoration: none;
-}
 
-a:focus{text-decoration: none}
-a:hover {
-	text-decoration: none;
-}
 
 .header {
 	height: 50px;
@@ -85,13 +78,10 @@ a:hover {
 			}
 		}
 	}
-	#intro {
-		form {
-			padding-top: 32px;
-			& >:last-child {
-				& >:first-child {
-					margin-right: 12px;
-				}
+	form {
+		&>:last-child {
+			& >:first-child {
+				margin-right: 12px;
 			}
 		}
 	}

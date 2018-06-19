@@ -6,7 +6,7 @@ html
     title = title
     link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
     link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
-    //- link(rel='stylesheet', href='/css/common.css')
+    link(rel='stylesheet', href='/css/common.css')
     link(rel='stylesheet', href='/css/manager.css')
     script(src="/lib/require/require.js" data-main="/js/main-manager")
   body
@@ -17,5 +17,12 @@ html
       ul.breadcrumb
         li 当前位置: 首页 
         li
-          a(tick='intro' href="#").divider.bread-active 介绍
+          a(tick='intro').divider.bread-active 介绍
+      section
+        header#toolbar
+          div.btn-group
+            button.btn.btn-info(nextstep='#introForm')
+              i.glyphicon.glyphicon-plus 
+              span 新增
+        table#table
       include ./home/index.jade

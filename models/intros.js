@@ -10,8 +10,8 @@ var Scheam = new mongoose.Schema({
 	 title:{type: String},
 	 // 简介
 	 intro:{type: String},
-	 // 主题顶部标题
-	 headline: String,
+	 // 主题顶部概述
+	 themeOverview: String,
 	 // 主题
 	 themes: [
 		 {

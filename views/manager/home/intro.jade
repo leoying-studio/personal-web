@@ -1,10 +1,3 @@
-section#intro
-	header#introToolbar
-		div.btn-group
-			button.btn.btn-info#introNewly
-				i.glyphicon.glyphicon-plus 
-				span 新增
-	table#introTable
 form(action="" role="form" style="display:none;")#introForm
 	div.form-group
 		label(for="title") 标题
@@ -13,8 +6,8 @@ form(action="" role="form" style="display:none;")#introForm
 		label(for="title") 宣传语
 		input(type="text" placeholder="请输入宣传标语" name="slogan").form-control
 	div.form-group
-		label(for="title") 主题标题
-		input(type="text" placeholder="请输入主题标题" name="headline").form-control
+		label(for="title") 主题概述
+		input(type="text" placeholder="请输入主题标题" name="themeOverview").form-control
 	div.form-group
 		label(for="title") 简介
 		textarea(name="intro", cols="30", rows="10")(type="text" placeholder="请输入简介信息 ").form-control
