@@ -18,4 +18,10 @@ html
         li 当前位置: 首页 
         li
           a(tick='intro').divider.disabled 介绍
-      include ./home/index.jade
+      section
+        header#toolbar
+          div.btn-group
+            button.btn.btn-info#introNewly
+              i.glyphicon.glyphicon-plus 
+              span 新增
+        table#table

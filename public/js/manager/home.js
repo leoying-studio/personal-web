@@ -5,6 +5,14 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	// 业务常量
 	var crumbs = [];
+	/**
+	 * 
+	 * @param {Object} config 配置信息
+	 */
+	var initializeTable = function(config) {
+		$('#table').bootstrapTable('destroy');
+		$('#table').bootstrapTable(config)
+	}
 
 	var themeEvents = {
 		'click .label[name=edit]': function(e, f, r) {
@@ -54,23 +62,13 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 			}
 		},
 		'click .label[name=theme]': function(e, f, r) { 
-			var theme = {};
-			if (!$("#themeTable").children().length) {
-				theme = config.table.theme({}, {queryParams: function(params) {
+			 var theme = config.table.theme({}, {queryParams: function(params) {
 					return {
 						_id: r._id
 					};
 				}
 			});
-				$("#themeTable").bootstrapTable(theme);
-			} else {
-				$('#themeTable').bootstrapTable('refresh', {
-					url: '/intro/theme/data?_id='+r._id,
-					silent: true
-				})
-			}
-			$("#intro").hide();
-			$('#theme').show();
+			initializeTable(theme);
 			insertCrumb('主题', 'theme');
 		}
 	};
@@ -104,7 +102,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	var intro = config.table.intro(introEvents);
 
-	$('#introTable').bootstrapTable(intro);
+	initializeTable(intro);
 
 	var refreshTbale = function() {
 		$('#introTable').bootstrapTable('refresh');
