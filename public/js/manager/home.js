@@ -15,11 +15,15 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		table.bootstrapTable('destroy').bootstrapTable(config);
 	}
 
+	// 面包屑导航切换
+	var switchBread= function(step) {
+		
+	}
+	
 	// 添加面包屑导航
 	var insertBread = function(name, step) {
-		table.parents('section').hide();
-		var bread = breadcrumb.find('a[step='+step+']');
 		breadcrumb.find('.bread-active').removeClass('bread-active');
+		var bread = breadcrumb.find('a[step='+step+']');
 		if (bread.length) {
 			bread.addClass('bread-active');
 			return;
@@ -29,21 +33,16 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 					"<a href='#' class='bread-active' step=" + step + ">" + name + "</a>" +
 			"</li>"	
 		); 
-		crumbs.push(step);
-		breadcrumb.find('a').click(function() {
-			var step = $(this).attr('step');
-			switcherCrumb(step);
-		});
 	}
 
-	// 面包屑导航切换
-	var switcherCrumb = function(step) {
-		$(crumbs).each(function(index, item) {
-			$(item).hide();
-		});
-		$(step).show();
-	}
+	insertBread('介绍', '110');	
 
+
+	addbutton.click(function() {
+		var nextstep = $(this).attr('nextstep'); 
+		table.parents('section').hide();
+		$(nextstep).show();
+	});
 
 
 	var themeEvents = {
@@ -111,14 +110,6 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	initializeTable(intro);
 
-	var refreshTbale = function() {
-		$('#introTable').bootstrapTable('refresh');
-	}
-
-	$('#introNewly').click(function() {
-		$('#intro').hide();
-		$("#introForm").show();
-	});
 
 	$("#intro > form>:last-child>:last-child").click(function() {
 		 var form = $('#intro > form');
@@ -137,16 +128,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		 });
 	});			
 
-	// $("#intro > form>:last-child>:first-child").click(function() {
-	// 	$('#intro').children().last().hide().parent().children().first().show();
-	// 	refreshTbale();
-	// });
 
-	addbutton.click(function() {
-		var nextstep = $(this).attr('nextstep'); 
-		table.parents('section').hide();
-		$(nextstep).show();
-	});
 
 	$('#themeForm button').click(function(e) {
 		 var params = api.getParams($('#themeForm'));

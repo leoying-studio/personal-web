@@ -1,5 +1,6 @@
 a{
 	text-decoration: none;
 }
+
 a:focus{text-decoration: none}
-a:hover{text-decoration: none;}
+a:hover{text-decoration: none; color: #337ab7; cursor: pointer;}

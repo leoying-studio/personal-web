@@ -8,4 +8,6 @@ a:focus {
 
 a:hover {
   text-decoration: none;
+  color: #337ab7;
+  cursor: pointer;
 }
