@@ -52,8 +52,8 @@ exports.intro = function(req, res, next) {
             title,
             slogan,
             intro,
-            headline,
-            apply: true,
+            themeOverview,
+            apply: false,
             themes: []
         },
         conditions: {

@@ -16,16 +16,20 @@ html
     main.main#main
       ul.breadcrumb
         li 当前位置: 首页 
-<<<<<<< HEAD
         li
           a(step='intro').bread-active 介绍
-=======
->>>>>>> 361091c450470073bbf51aa020e371b7b401d18b
       section
         header#toolbar
           div.btn-group
             button.btn.btn-info(nextstep='#introForm')
               i.glyphicon.glyphicon-plus 
               span 新增
+            button.btn.btn-default 请选择主题
+            button.btn.btn-default.dropdown-toggle(data-toggle="dropdown" aria-expanded="false") 
+              span.caret 
+               <span class="sr-only"></span>
+            ul.dropdown-menu(role='menu')
+              li
+                a(href="") action
         table#table
       include ./home/index.jade

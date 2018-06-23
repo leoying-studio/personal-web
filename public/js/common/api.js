@@ -6,7 +6,7 @@ define([
     var main = $('#main'), asideBar = $('.aside-bar');
     var breadcrumb = main.find('.breadcrumb');
     var toolbar = $('#toolbar');
-    var addbutton = toolbar.find('button');
+    var addbutton = toolbar.find('button:first-child');
     var table = $('#table');
     var preViewId = '';
     var _changeBread = function(step) {
@@ -22,7 +22,8 @@ define([
     addbutton.click(function() {
 		var nextstep = $(this).attr('nextstep'); 
 		preViewId = nextstep;
-		api.hideTable();
+        api.hideTable();
+        api.clearValues($(nextstep));
 		$(nextstep).show();
 	});
 

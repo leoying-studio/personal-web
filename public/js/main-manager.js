@@ -4,7 +4,8 @@ require.config({
          'bootstrap': '/lib/bootstrap/js/bootstrap.min',
          'bootstrap.table': '/lib/bootstrap/js/bootstrap.table',
          'bootstrap-table-zh-CN': '/lib/bootstrap/js/bootstrap-table-zh-CN.min',
-         'home': '/js/manager/home',
+         'intro': '/js/manager/home/intro',
+         'aside': '/js/manager/home/aside',
          'api': '/js/common/api',
          'config': '/js/common/config'
      },
@@ -25,7 +26,7 @@ require.config({
 });
 
 require(['bootstrap', 'bootstrap.table', 'bootstrap-table-zh-CN',], function() {
-    require(['config', 'api','home'], function() {
+    require(['config', 'api','intro', 'aside'], function() {
         
     })
 });

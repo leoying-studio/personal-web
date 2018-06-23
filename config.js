@@ -1,5 +1,5 @@
 module.exports={
-    "ip":"localhost",
+    "ip":"127.0.0.1",
     "db":"blog",
     "port":12345,
     "session": {
@@ -8,6 +8,6 @@ module.exports={
         maxAge: 720000
     },
     nodePort: 3002,
-    mongodb: 'mongodb://localhost:12345/blog',
+    mongodb: 'mongodb://127.0.0.1:12345/blog',
     baseUrl: 'http://localhost:3002'
 };
