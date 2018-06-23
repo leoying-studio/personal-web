@@ -111,18 +111,21 @@ router.post("/intro/themes/save", function(req, res, next) {
     var _id = body._id;
     var themeId = body.themeId;
     var topicMap = body.topicMap;
+    var headline = body.headline;
     var fields = {
         $push: {
             themes: {
                 map: [],
-                topicMap
+                topicMap,
+                headline
             }
         }
     };
     if (themeId) {
         fields = {
             $set: {
-                topicMap
+                topicMap,
+                headline
             } 
         }
     }

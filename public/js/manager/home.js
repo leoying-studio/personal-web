@@ -6,119 +6,82 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	var addbutton = toolbar.find('button');
 	var table = $('#table');
 	// 业务常量
-	var crumbs = [];
-	/**
-	 * 
-	 * @param {Object} config 配置信息
-	 */
-	var initializeTable = function(config) {
-		table.bootstrapTable('destroy').bootstrapTable(config);
-	}
 
-	// 添加面包屑导航
-	var insertBread = function(name, step) {
-		table.parents('section').hide();
-		var bread = breadcrumb.find('a[step='+step+']');
-		breadcrumb.find('.bread-active').removeClass('bread-active');
-		if (bread.length) {
-			bread.addClass('bread-active');
-			return;
-		}
-		breadcrumb.append(
-			"<li>" +
-					"<a href='#' class='bread-active' step=" + step + ">" + name + "</a>" +
-			"</li>"	
-		); 
-		crumbs.push(step);
-		breadcrumb.find('a').click(function() {
-			var step = $(this).attr('step');
-			switcherCrumb(step);
-		});
-	}
-
-	// 面包屑导航切换
-	var switcherCrumb = function(step) {
-		$(crumbs).each(function(index, item) {
-			$(item).hide();
-		});
-		$(step).show();
-	}
-
-
-
-	var themeEvents = {
-		'click .label[name=edit]': function(e, f, r) {
-			$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
-			var form = $('#intro > form');
-			form.attr('_id', r._id);
-			api.setValues(form, r);
-		},
-		'click .label[name=destory]': function(e, f, r) {
-			if (confirm('确认删除吗?')) {
-				$.post('/intro/destory', {
-					_id: r._id
-				}).then(function(res) {
-					 if (res.status) { n
-						api.message.success('删除成功');
-						refreshTbale();
-					 } else {
-						api.message.error(res.message);
-					 }
-				});
-			}
-		},
-		'click .label[name=theme]': function(e, f, r) { 
-			$('#intro').hide();
-		},
-	};
-
-	var introEvents = {
-		'click .label[name=edit]': function(e, f, r) {
-			$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
-			var form = $('.intro > form');
-			form.attr('_id', r._id);
-			api.setValues(form, r);
-		},
-		'click .label[name=destory]': function(e, f, r) {
-			if (confirm('确认删除吗?')) {
-				$.post('/intro/destory', {
-					_id: r._id
-				}).then(function(res) {
-					 if (res.status) {
-						api.message.success('删除成功');
-						refreshTbale();
-					 } else {
-						api.message.error(res.message);
-					 }
-				});
-			}
-		},
-		'click .label[name=theme]': function(e, f, r) { 
-			 var theme = config.table.theme({}, {queryParams: function(params) {
-					return {
+	var events = {
+		theme: {
+			'click .label[name=edit]': function(e, f, r) {
+				$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
+				var form = $('#intro > form');
+				form.attr('_id', r._id);
+				api.setValues(form, r);
+			},
+			'click .label[name=destory]': function(e, f, r) {
+				if (confirm('确认删除吗?')) {
+					$.post('/intro/destory', {
 						_id: r._id
-					};
+					}).then(function(res) {
+						 if (res.status) { n
+							api.message.success('删除成功');
+							api.refreshTbale();
+						 } else {
+							api.message.error(res.message);
+						 }
+					});
 				}
-			});
-			initializeTable(theme);
-			insertBread('主题', '#themeForm');
+			},
+			'click .label[name=theme]': function(e, f, r) { 
+				$('#intro').hide();
+			}
+		},
+		intro: {
+			'click .label[name=edit]': function(e, f, r) {
+				$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
+				var form = $('.intro > form');
+				form.attr('_id', r._id);
+				api.setValues(form, r);
+			},
+			'click .label[name=destory]': function(e, f, r) {
+				if (confirm('确认删除吗?')) {
+					$.post('/intro/destory', {
+						_id: r._id
+					}).then(function(res) {
+						 if (res.status) {
+							api.message.success('删除成功');
+							refreshTbale();
+						 } else {
+							api.message.error(res.message);
+						 }
+					});
+				}
+			},
+			'click .label[name=theme]': function(e, f, r) { 
+				var queryParams = {
+					queryParams: function(params) {
+						return {
+							_id: r._id
+						};
+					}
+				};
+				api.initTable('theme', {}, queryParams);
+				api.insertBread('主题', 'theme', events);
+				addbutton.attr('nextstep', '#themeForm');
+				$("#themeForm").attr('_id', r._id);
+			}
 		}
 	};
 
-	
+	api.initTable('intro', events.intro);
 
-	var intro = config.table.intro(introEvents);
-
-	initializeTable(intro);
-
-	var refreshTbale = function() {
-		$('#introTable').bootstrapTable('refresh');
-	}
 
 	$('#introNewly').click(function() {
 		$('#intro').hide();
 		$("#introForm").show();
 	});
+
+	$('#introForm button').click(function() {
+		$("#introForm").hide();
+		api.showTable();
+	})
 
 	$("#intro > form>:last-child>:last-child").click(function() {
 		 var form = $('#intro > form');
@@ -128,27 +91,23 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		 $.post('/intro/save', params).then(function(res) {
 			  if (res.status) {
 				  api.clearValues(form);
-				  form.attr('_id', '');
 				  api.message.success('保存成功');
-				  refreshTbale();
 			  } else {
 				  api.message.error(res.message);
 			  }
 		 });
 	});			
 
-	// $("#intro > form>:last-child>:first-child").click(function() {
-	// 	$('#intro').children().last().hide().parent().children().first().show();
-	// 	refreshTbale();
-	// });
 
-	addbutton.click(function() {
-		var nextstep = $(this).attr('nextstep'); 
-		table.parents('section').hide();
-		$(nextstep).show();
-	});
 
 	$('#themeForm button').click(function(e) {
+		 var index = $(this).index();
+		 if (index === 0) {
+			$('#themeForm').hide();
+			api.showTable();
+			api.refreshTable();
+			return;
+		 }
 		 var params = api.getParams($('#themeForm'));
 		 var _id = $("#themeForm").attr('_id');
 		 params._id = _id;

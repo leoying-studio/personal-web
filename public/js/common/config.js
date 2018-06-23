@@ -74,8 +74,22 @@ define(['jquery'], function ($) {
             columns: [
                 {
                     field: 'topicMap',
-                    title: '主题图'
+                    title: '主题图',
+                    width:　'400px'
+                },
+                {
+                    field: 'headline',
+                    title: '主题标题'
+                },
+                {
+                    title: '操作',
+                    events: events,
+                    formatter: function(e, item, i) {
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
+                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>" + 
+                        "<a href='#' class='label label-primary' name='theme'>主题</a>" 
                 }
+              }
             ]
         }
         return Object.assign({}, _defaultConfig, options, params || {});
