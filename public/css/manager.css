@@ -86,6 +86,7 @@
 }
 
 .main > .breadcrumb .bread-active:hover {
+  cursor: none;
   color: black;
 }
 

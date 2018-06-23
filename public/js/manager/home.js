@@ -7,6 +7,7 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 	var table = $('#table');
 	// 业务常量
 
+<<<<<<< HEAD
 	var events = {
 		theme: {
 			'click .label[name=edit]': function(e, f, r) {
@@ -31,6 +32,83 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 			},
 			'click .label[name=theme]': function(e, f, r) { 
 				$('#intro').hide();
+=======
+	// 面包屑导航切换
+	var switchBread= function(step) {
+		
+	}
+	
+	// 添加面包屑导航
+	var insertBread = function(name, step) {
+		breadcrumb.find('.bread-active').removeClass('bread-active');
+		var bread = breadcrumb.find('a[step='+step+']');
+		if (bread.length) {
+			bread.addClass('bread-active');
+			return;
+		}
+		breadcrumb.append(
+			"<li>" +
+					"<a href='#' class='bread-active' step=" + step + ">" + name + "</a>" +
+			"</li>"	
+		); 
+	}
+
+	insertBread('介绍', '110');	
+
+
+	addbutton.click(function() {
+		var nextstep = $(this).attr('nextstep'); 
+		table.parents('section').hide();
+		$(nextstep).show();
+	});
+
+
+	var themeEvents = {
+		'click .label[name=edit]': function(e, f, r) {
+			$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
+			var form = $('#intro > form');
+			form.attr('_id', r._id);
+			api.setValues(form, r);
+		},
+		'click .label[name=destory]': function(e, f, r) {
+			if (confirm('确认删除吗?')) {
+				$.post('/intro/destory', {
+					_id: r._id
+				}).then(function(res) {
+					 if (res.status) { n
+						api.message.success('删除成功');
+						refreshTbale();
+					 } else {
+						api.message.error(res.message);
+					 }
+				});
+			}
+		},
+		'click .label[name=theme]': function(e, f, r) { 
+			$('#intro').hide();
+		},
+	};
+
+	var introEvents = {
+		'click .label[name=edit]': function(e, f, r) {
+			$('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
+			var form = $('.intro > form');
+			form.attr('_id', r._id);
+			api.setValues(form, r);
+		},
+		'click .label[name=destory]': function(e, f, r) {
+			if (confirm('确认删除吗?')) {
+				$.post('/intro/destory', {
+					_id: r._id
+				}).then(function(res) {
+					 if (res.status) {
+						api.message.success('删除成功');
+						refreshTbale();
+					 } else {
+						api.message.error(res.message);
+					 }
+				});
+>>>>>>> 361091c450470073bbf51aa020e371b7b401d18b
 			}
 		},
 		intro: {
@@ -72,11 +150,18 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 
 	api.initTable('intro', events.intro);
 
+<<<<<<< HEAD
 
 	$('#introNewly').click(function() {
 		$('#intro').hide();
 		$("#introForm").show();
 	});
+=======
+	var intro = config.table.intro(introEvents);
+
+	initializeTable(intro);
+
+>>>>>>> 361091c450470073bbf51aa020e371b7b401d18b
 
 	$('#introForm button').click(function() {
 		$("#introForm").hide();
