@@ -41,6 +41,11 @@
 			& >:first-child {
 				padding-right: 20px;
 			}
+			
+		}
+		.active {
+			font-size: 14px;
+			font-weight: bold;
 		}
 		.children-group {
 			left: 0;

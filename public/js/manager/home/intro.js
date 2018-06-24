@@ -1,10 +1,10 @@
-define(['jquery', 'api', 'config' ], function($, api, config) {
+define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	// 外层父容器变量, 支持向下查找的方式，避免全局查找
 	var main = $('#main'), asideBar = $('.aside-bar');
 	var breadcrumb = main.find('.breadcrumb');
 	var toolbar = $('#toolbar');
-	var buttonGroup = toolbar.find('button');
-	var addbutton = buttonGroup.eq(0);
+	var buttons= toolbar.find('button');
+	var addbutton = buttons.eq(0);
 
 	// 业务常量
 
@@ -12,7 +12,6 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 		theme: {
 			'click .label[name=edit]': function(e, f, r) {
 				api.hideTable();
-				// $('.intro').children(":not(:last-child)").hide().last().parent().children().last().show();
 				var form = $('#introForm');
 				form.attr('_id', r._id);
 				api.setValues(form, r);
@@ -72,10 +71,20 @@ define(['jquery', 'api', 'config' ], function($, api, config) {
 				$("#themeForm").attr('_id', r._id);
 			}
 		}
-	};
+    };
+    
+    aside.switchToIntro(function() {
+        initIntro();
+    });
 
-	api.initTable('intro', events.intro);
-	buttonGroup.not(':first-child').hide();
+    var initIntro = function() {
+        api.initTable('intro', events.intro);
+        api.removeAllBread();
+        api.insertBread('介绍', 'intro', events);
+        buttons.not(':first-child').hide();
+    }
+
+    initIntro();
 
 	$('#introNewly').click(function() {
 		$('#intro').hide();

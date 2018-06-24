@@ -151,6 +151,9 @@ define([
                 api.initTable(step, events[step]);
                 api.showTable();
             });
+        },
+        removeAllBread() {
+            breadcrumb.children(':eq(0)').nextAll().remove();
         }
     }
 

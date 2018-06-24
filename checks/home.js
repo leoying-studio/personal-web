@@ -53,7 +53,7 @@ exports.intro = function(req, res, next) {
             slogan,
             intro,
             themeOverview,
-            apply: false,
+            apply: true,
             themes: []
         },
         conditions: {

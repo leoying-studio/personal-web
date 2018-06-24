@@ -50,6 +50,11 @@
   padding-right: 20px;
 }
 
+.aside-bar .list-group-item .active {
+  font-size: 14px;
+  font-weight: bold;
+}
+
 .aside-bar .list-group-item .children-group {
   left: 0;
   right: 0;

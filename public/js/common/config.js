@@ -16,7 +16,7 @@ define(['jquery'], function ($) {
         pagination: true,
         pageList: [10, 20, 50, 100]		
     }
-
+    
     var intro = function(events) {
         var options = {
             url: '/intro/data',

@@ -7,7 +7,8 @@ require.config({
          'intro': '/js/manager/home/intro',
          'aside': '/js/manager/home/aside',
          'api': '/js/common/api',
-         'config': '/js/common/config'
+         'config': '/js/common/config',
+         'theme': '/js/manager/home/theme'
      },
      shim: {
           'bootstrap': {
@@ -26,9 +27,9 @@ require.config({
 });
 
 require(['bootstrap', 'bootstrap.table', 'bootstrap-table-zh-CN',], function() {
-    require(['config', 'api','intro', 'aside'], function() {
+    require(['config', 'api','aside', 'intro', 'theme'], function() {
         
-    })
+    });
 });
 
 

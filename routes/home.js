@@ -38,15 +38,29 @@ router.get('/manager', function (req, res, next) {
  */
 router.post("/intro/save", Checks.intro, function (req, res, next) {
     if (!req.body.conditions._id) {
-        HomeProxy.applyIntro().then(function() {
-            IntrosModel.create(req.body.models, function (err, doc) {
-                if (err) {
-                    return next();
-                }
-                req.body.data = doc;
-                next();
-            });
-        }).catch(next);
+        IntersModel.count(function(count) {
+            if (!count) {
+                IntrosModel.create(req.body.models, function (err, doc) {
+                    if (err) {
+                        return next();
+                    }
+                    req.body.data = doc;
+                    next();
+                });
+            } else {
+                IntersModel.findOne({apply: true}, function(doc) {
+                    doc.update({apply: false}, function(doc) {
+                        IntrosModel.create(req.body.models, function (err, doc) {
+                            if (err) {
+                                return next();
+                            }
+                            req.body.data = doc;
+                            next();
+                        });
+                    });
+                })
+            }
+        });
     } else {
         IntrosModel.update(req.body.conditions, {$set: req.body.models}, function(err, doc) {
             if (err) {
