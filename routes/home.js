@@ -37,29 +37,29 @@ router.get('/manager', function (req, res, next) {
  * 设置首页介绍信息
  */
 router.post("/intro/save", Checks.intro, function (req, res, next) {
-    if (!req.body.conditions._id) {
-        IntersModel.count(function(count) {
-            if (!count) {
-                IntrosModel.create(req.body.models, function (err, doc) {
-                    if (err) {
-                        return next();
-                    }
-                    req.body.data = doc;
-                    next();
-                });
-            } else {
-                IntersModel.findOne({apply: true}, function(doc) {
-                    doc.update({apply: false}, function(doc) {
-                        IntrosModel.create(req.body.models, function (err, doc) {
-                            if (err) {
-                                return next();
-                            }
-                            req.body.data = doc;
-                            next();
-                        });
-                    });
-                })
+    var create = function() {
+        IntrosModel.create(req.body.models, function (err, doc) {
+            if (err) {
+                return next(err);
             }
+            req.body.data = doc;
+            return next();
+        });
+    }
+    if (!req.body.conditions._id) {
+        IntersModel.findOne({apply: true}, function(err, doc) {
+            if (err) {
+                return next(err);
+            }
+            if (doc) {
+                doc.update({apply: false}, function(err, doc) {
+                    if (err) {
+                        return next(err);
+                    }
+                    create();
+                });
+            } 
+            create();
         });
     } else {
         IntrosModel.update(req.body.conditions, {$set: req.body.models}, function(err, doc) {
