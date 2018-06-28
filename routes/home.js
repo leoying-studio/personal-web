@@ -47,7 +47,7 @@ router.post("/intro/save", Checks.intro, function (req, res, next) {
         });
     }
     if (!req.body.conditions._id) {
-        IntersModel.findOne({apply: true}, function(err, doc) {
+        IntrosModel.findOne({apply: true}, function(err, doc) {
             if (err) {
                 return next(err);
             }
@@ -58,6 +58,7 @@ router.post("/intro/save", Checks.intro, function (req, res, next) {
                     }
                     create();
                 });
+                return;
             } 
             create();
         });
@@ -200,7 +201,7 @@ router.get("/intro/themes/data", function(req, res, next) {
     var currentPage = body.currentPage || 1;
     var start = (currentPage - 1) * 4;
     var end = currentPage * 4;
-    IntrosModel.findOne({_id: body._id}).populate('themes', {slice: [start, end]})
+    IntrosModel.findOne({apply: true}).populate('themes', {slice: [start, end]})
     .then(function(data) {
        res.json(data.themes);
     }).catch(next);
