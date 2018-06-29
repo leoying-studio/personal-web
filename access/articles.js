@@ -8,29 +8,26 @@ export default class Articles {
 	 * @param {Number} pagination 需要查询的页码
 	 */
 	static list (categoryId, childId, pagination) {
-		let articles = Articles.queryPaging({ currentPage }, conditions);
-		let count = Articles.count(conditions);
-		let categories = Articles.getCategories();
-		return Promise.all([categories, articles, count]);
+		
 	}
 
 	/**
 	 * @param {Object} models  数据模型字段 
 	 */
-	static add(models) {
-		return Articles.create(models);
+	static async add(models) {
+		return await Articles.create(models);
 	}
 
 	/**
 	 * @param {String} id 需要删除的文章id字段 
 	 */
-	static destory(id) {
-		return Articles.findByIdAndRemove(id);
+	static async destory(id) {
+		return await Articles.findByIdAndRemove(id);
 	}
 
 	// 获取总数
-	static count() {
-		return Articles.count();
+	static async count() {
+		return await Articles.count();
 	}
 
 	/**
@@ -38,7 +35,7 @@ export default class Articles {
 	 * @param {Number} year 年份
 	 * @param {Number} month 月份
 	 */
-	static timeline(year, month) {
+	static async timeline(year, month) {
 		let query = {};
 		try {
 			let endYear = month < 12 ? year : year + 1;
@@ -53,7 +50,7 @@ export default class Articles {
 			query = {};
 		} finally {
 			// 聚合分组查询
-			return ArticlesModel.aggregate([
+			return await ArticlesModel.aggregate([
 				{
 					$project: {
 						year: { $substr: ['$createdAt', 0, 4] },
@@ -82,8 +79,8 @@ export default class Articles {
 	/**
 	 * @param {String} id 当前文章的id 
 	 */
-	static getArticle(id) {
-		return Articles.findById(id);
+	static async getArticle(id) {
+		return await Articles.findById(id);
 	}
 
 }
