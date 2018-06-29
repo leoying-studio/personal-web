@@ -1,24 +1,28 @@
-var Categories = require('./../model/categories');
+import Categories from './../model/categories';
+export default class {
+	static getCategory(id) {
+		return Categories.findById(id);
+	}
 
-exports.getCategory = function(id) {
-	return Categories.findById(id);
+	static list(){
+		return Categories.find({});
+	}
+
+	static addChild() {
+		return Categories.update(conditions, {$push: model});
+	}
+
+	static updateChild() {
+		return Categories.findOneAndUpdate(conditions, {
+			$set : model
+		});
+	}
+
+	static updateCategory (id, model) {
+		return Categories.findByIdAndUpdate(id, {
+			$set : model
+		});
+	}
 }
 
-exports.list = function() {
-	return Categories.find({});
-}
 
-exports.addChild = function(conditions, model) {
-	return Categories.update(conditions, {$push: model});
-}
-
-exports.updateChild = function(conditions, model) {
-	return Categories.findOneAndUpdate(conditions, {
-        $set : model
-    });
-}
-exports.updateCategory = function(id, model) {
-	return Categories.findByIdAndUpdate(id, {
-        $set : model
-    });
-}
