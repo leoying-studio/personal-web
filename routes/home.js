@@ -5,6 +5,9 @@ var IntrosModel = require("./../models/intros");
 var Checks = require("./../checks/home");
 var ArticlesModel = require("./../models/articles");
 var ArticlesProxy = require("./../proxy/articles");
+/**
+ * MVC 的c作用很简单，只去拿数据和返回数据，其他一概不管。
+ */
 
 router.get("/", function (req, res, next) {
     var categories = ArticlesModel.getCategories();

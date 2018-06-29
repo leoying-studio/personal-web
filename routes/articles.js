@@ -5,7 +5,7 @@ var CommentsModel = require("./../models/comments");
 var Utils = require("./../utils");
 var Checks = require("./../checks/articles");
 var ArticlesProxy = require("./../proxy/articles");
-
+var ArticlesProxy = require("./../proxy/articles");
 // 新增
 router.post("/add", Checks.save, function(req, res, next) {
 	// 开始插入数据

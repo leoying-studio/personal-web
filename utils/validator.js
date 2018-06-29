@@ -7,7 +7,6 @@ var _validate = {
 		return value;
 	},
 	
-	
 	min : function(value, min) {
 		if (this.type(value, String)) {
 			value = this.trim(value);
