@@ -1,18 +1,18 @@
-var Categories = require('./../model/categories');
+var Categories = require('./../models/categories');
 
 exports.getCategory = function(id) {
 	return Categories.findById(id);
 }
 
-exports. list = function(){
+exports.all = function(){
 	return Categories.find({});
 }
 
-exports. addChild = function() {
+exports.addChild = function() {
 	return Categories.update(conditions, {$push: model});
 }
 
-exports. updateChild = function() {
+exports.updateChild = function() {
 	return Categories.findOneAndUpdate(conditions, {
 		$set : model
 	});

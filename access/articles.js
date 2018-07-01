@@ -12,20 +12,20 @@ exports.list = function(categoryId, childId, pagination) {
 /**
  * @param {Object} models  数据模型字段 
  */
-exports.add = function(models) {
-	return await Articles.create(models);
+exports.add = function(model) {
+	return Articles.create(model);
 }
 
 /**
  * @param {String} id 需要删除的文章id字段 
  */
 exports.destory = function(id) {
-	return await Articles.findByIdAndRemove(id);
+	return Articles.findByIdAndRemove(id);
 }
 
 // 获取总数
 exports.count = function() {
-	return await Articles.count();
+	return Articles.count();
 }
 
 /**
@@ -48,7 +48,7 @@ exports.timeline = function(year, month) {
 		query = {};
 	} finally {
 		// 聚合分组查询
-		return await ArticlesModel.aggregate([
+		return Articles.aggregate([
 			{
 				$project: {
 					year: { $substr: ['$createdAt', 0, 4] },
@@ -78,6 +78,9 @@ exports.timeline = function(year, month) {
  * @param {String} id 当前文章的id 
  */
 exports.getArticle = function(id) {
-	return await Articles.findById(id);
+	return Articles.findById(id);
 }
 
+exports.recommends = function() {
+	return Articles.find({recommend: true});
+}

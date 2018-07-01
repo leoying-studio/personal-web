@@ -7,7 +7,6 @@ exports.intro = function(req, res, next) {
     // 主题概述
     var themeOverview = body.themeOverview;
     var intro = body.intro;
-    var _id = body._id;
     var rules = [
         {
 			value: title,
@@ -46,19 +45,6 @@ exports.intro = function(req, res, next) {
     var validate = Validator(rules);
     if (!validate.status) {
         return res.send(validate);
-    }
-    req.body = {
-        models: {
-            title,
-            slogan,
-            intro,
-            themeOverview,
-            apply: true,
-            themes: []
-        },
-        conditions: {
-            _id
-        }
     }
     next();
 }

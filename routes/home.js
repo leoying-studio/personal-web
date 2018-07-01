@@ -3,119 +3,39 @@ var router = express.Router();
 var HomeProxy = require("./../proxy/home");
 var IntrosModel = require("./../models/intros");  
 var Checks = require("./../checks/home");
-var ArticlesModel = require("./../models/articles");
-var ArticlesProxy = require("./../proxy/articles");
+var Home = require('./../business/home');
+
 /**
  * MVC 的c作用很简单，只去拿数据和返回数据，其他一概不管。
  */
-
-router.get("/", function (req, res, next) {
-    var categories = ArticlesModel.getCategories();
-    var recommend = ArticlesModel.queryPaging({}, {recommend: true});
-    // 获取最新的一条信息
-    var intro = HomeProxy.getIntros();   
-    var timeline = ArticlesProxy.getTimeline();
-    var getItems = [categories, recommend, intro, timeline];
-    Promise.all(getItems)
-    .then( function (values) {
-        var data = {
-            categories: values[0],
-            recommends: values[1],
-            intro: values[2] || { },
-            timeline: values[3].collections
-        };
-        res.render("index", data);
-    }).catch(next);
+router.get("/", Home.getAll, function (req, res, next) {
+    res.render('index.jade', req.body.data);
 });
 
 
 /* GET home page. */
-router.get('/manager', function (req, res, next) {
-    ArticlesModel.getCategories().then(function(data) {
-        res.render("manager", {categories: data});
-    }).catch(next);
+router.get('/manager', Home.getAllCategories, function (req, res, next) {
+    res.render("manager", req.body.data);
 });
+
 
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save", Checks.intro, function (req, res, next) {
-    var create = function() {
-        IntrosModel.create(req.body.models, function (err, doc) {
-            if (err) {
-                return next(err);
-            }
-            req.body.data = doc;
-            return next();
-        });
-    }
-    if (!req.body.conditions._id) {
-        IntrosModel.findOne({apply: true}, function(err, doc) {
-            if (err) {
-                return next(err);
-            }
-            if (doc) {
-                doc.update({apply: false}, function(err, doc) {
-                    if (err) {
-                        return next(err);
-                    }
-                    create();
-                });
-                return;
-            } 
-            create();
-        });
-    } else {
-        IntrosModel.update(req.body.conditions, {$set: req.body.models}, function(err, doc) {
-            if (err) {
-               return next();
-            }
-            req.body.data = doc;
-            next();
-        });
-    }
+router.post("/intro/save", Checks.intro, Home.saveIntro, function (req, res, next) {
+    next();
 });
 
-/**
- * 应用介绍信息
- */
-router.post("/intro/apply", Checks.introId, function(req, res, next) {
-    // 查询并更新
-    HomeProxy.applyIntro(req.body).then(function(r) {
-        res.body = {
-            message: r.message,
-            data: {}
-        };
-        next();
-    }).catch(next)
-});
 
 // 消灭这条推荐数据
-router.post("/intro/destory", Checks.introId, function(req, res, next) {
-    IntrosModel.remove(req.body, function(err, state) {
-        if (err) {
-           return next();
-        } 
-        if (state.result.n === 0) {
-            return res.send({
-                status: false,
-                message: "删除失败!"
-            });
-        } 
-       req.body.data = {};
-       next();
-    }).catch(next);
+router.post("/intro/destory", Checks.introId, Home.destroyIntro, function(req, res, next) {
+    next();
 }); 
 
 
 // 获取intro 所有内容项
-router.get("/intro/data", function (req, res, next) {
-    HomeProxy.getIntros({pagination: 1, pageSize: 99999}).then(function(collections) {
-        res.send({
-            status: true,
-            data: collections
-        });
-    }).catch(next)
+router.get("/intro/data", Home.getAllIntros, function (req, res, next) {
+    res.json(req.body.data);
 });
 
 

@@ -112,6 +112,6 @@ app.use(Throw.message.error);
 //   res.render('error');
 // });
 
-import webpack from 'webpack'
+
 
 module.exports = app;

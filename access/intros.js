@@ -1,10 +1,10 @@
 
-var Intros = require('./../model/intros');
+var Intros = require('./../models/intros');
 
 exports.save = function (_id, model) {
 	return new Promise(function(resolve, reject) {
 		var create = function() {
-			IntrosModel.create(model, function (err, doc) {
+			Intros.create(model, function (err, doc) {
 				if (err) {
 					return reject(err);
 				}
@@ -12,7 +12,7 @@ exports.save = function (_id, model) {
 			});
 		}
 		if (!_id) {
-			IntrosModel.findOne({apply: true}, function(err, doc) {
+			Intros.findOne({apply: true}, function(err, doc) {
 				if (err) {
 					return reject(err);
 				}
@@ -28,7 +28,7 @@ exports.save = function (_id, model) {
 				create();
 			});
 		} else {
-			IntrosModel.update({_id}, {$set: model}, function(err, doc) {
+			Intros.update({_id}, {$set: model}, function(err, doc) {
 				if (err) {
 				   return reject(err);
 				}
@@ -38,11 +38,11 @@ exports.save = function (_id, model) {
 	});
 }
 
-exports.destory = function (id, cb) {
-	Intros.findByIdAndRemove(id, cb);
+exports.destory = function (id) {
+	return Intros.findByIdAndRemove(id);
 }
 
-exports.saveTheme = function (id, themeId, topicMap, headline, cb) {
+exports.saveTheme = function (id, themeId, topicMap, headline) {
 	var model = {
 		$push: {
 			themes: {
@@ -60,19 +60,19 @@ exports.saveTheme = function (id, themeId, topicMap, headline, cb) {
 			}
 		}
 	}
-	return Intros.findByIdAndUpdate(id, model, cb);
+	return Intros.findByIdAndUpdate(id, model);
 }
 
 
-exports.all = function (cb) {
+exports.all = function () {
 	return Intros.queryPaging({ pagination: 1, pageSize: 9999 });
 }
 
-exports.getApply = function(cb) {
-	Intros.findOne({ apply: true }, cb);
+exports.getApply = function() {
+	return Intros.findOne({ apply: true });
 }
 
-exports.saveByTheme = function(id, themeId, fields, cb) {
+exports.saveByTheme = function(id, themeId, fields) {
 	var innerModel = {
 		map: {
 			theme: {
@@ -85,33 +85,15 @@ exports.saveByTheme = function(id, themeId, fields, cb) {
 	if (themeId) {
 		model = { $set: innerModel };
 	}
-	Intros.findByIdAndUpdate(id, model, cb);
+	return Intros.findByIdAndUpdate(id, model);
 }
 
 exports.destoryThemeItemById = function(themeId) {
-	return new Promise(function (resolve, reject) {
-		Intros.findOne({ apply: true }, function (err, doc) {
-			if (err) {
-				return reject(err);
-			}
-			doc.remove(function (doc) {
-				resolve(doc);
-			});
-		});
-	});
+
 }
 
 exports.destoryThemeById = function (themeId) {
-	return new Promise(function (resolve, reject) {
-		Intros.findOne({ apply: true }, function (err, doc) {
-			if (err) {
-				return reject(err);
-			}
-			doc.remove(function (doc) {
-				resolve(doc);
-			});
-		});
-	});
+
 }
 
 

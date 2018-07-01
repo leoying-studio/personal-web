@@ -1,10 +1,10 @@
-var Comments = require('./../model/comments');
+var Comments = require('./../models/comments');
 
-exports.list = function() {
+exports.list = function(conditions, params) {
 	return Comments.queryPaging(conditions, params);
 }
 
-exports.add = function() {
+exports.add = function(model) {
 	return Comments.create(model);
 }
 
