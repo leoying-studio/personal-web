@@ -1,11 +1,10 @@
-import Comments from './../model/comments';
+var Comments = require('./../model/comments');
 
-export default class{
-	static list() {
-		return Comments.queryPaging(conditions, params);
-	}
-
-	static add() {
-		return Comments.create(model);
-	}
+exports.list = function() {
+	return Comments.queryPaging(conditions, params);
 }
+
+exports.add = function() {
+	return Comments.create(model);
+}
+
