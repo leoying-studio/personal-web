@@ -1,10 +1,10 @@
 
 var Intros = require('./../model/intros');
 
-exports.save = function (_id, conditions, model) {
+exports.save = function (_id, model) {
 	return new Promise(function(resolve, reject) {
 		var create = function() {
-			IntrosModel.create(req.body.models, function (err, doc) {
+			IntrosModel.create(model, function (err, doc) {
 				if (err) {
 					return reject(err);
 				}
@@ -28,7 +28,7 @@ exports.save = function (_id, conditions, model) {
 				create();
 			});
 		} else {
-			IntrosModel.update({_id}, {$set: req.body.models}, function(err, doc) {
+			IntrosModel.update({_id}, {$set: model}, function(err, doc) {
 				if (err) {
 				   return reject(err);
 				}
@@ -42,8 +42,8 @@ exports.destory = function (id, cb) {
 	Intros.findByIdAndRemove(id, cb);
 }
 
-exports.saveTheme = function (id, themeId, topicMap, headline) {
-	var fields = {
+exports.saveTheme = function (id, themeId, topicMap, headline, cb) {
+	var model = {
 		$push: {
 			themes: {
 				map: [],
@@ -53,51 +53,39 @@ exports.saveTheme = function (id, themeId, topicMap, headline) {
 		}
 	};
 	if (themeId) {
-		fields = {
+		model = {
 			$set: {
 				topicMap,
 				headline
 			}
 		}
 	}
-	return Intros.update({ id }, fields);
+	return Intros.findByIdAndUpdate(id, model, cb);
 }
 
 
-exports.all = function () {
+exports.all = function (cb) {
 	return Intros.queryPaging({ pagination: 1, pageSize: 9999 });
 }
 
-exports.saveByTheme = function(id, themeId, model) {
-	var fields = {
-		$push: {
-			map: {
-				theme: {
-					discriptiveGraph,
-					presentation
-				}
+exports.getApply = function(cb) {
+	Intros.findOne({ apply: true }, cb);
+}
+
+exports.saveByTheme = function(id, themeId, fields, cb) {
+	var innerModel = {
+		map: {
+			theme: {
+				discriptiveGraph: fields.discriptiveGraph,
+				presentation: fields.presentation
 			}
 		}
 	};
+	var model = {$push: innerModel};
 	if (themeId) {
-		fields = {
-			$set: {
-				map: {
-					theme: {
-						discriptiveGraph,
-						presentation
-					}
-				}
-			}
-		};
+		model = { $set: innerModel };
 	}
-	return Intros.findByIdAndUpdate(id, fields);
-}
-
-exports.getListByTheme = function(pagination = 1) {
-	var start = (pagination - 1) * 4;
-	var end = pagination * 4;
-	return await IntrosModel.findOne({ apply: true }).populate('themes', { slice: [start, end] });
+	Intros.findByIdAndUpdate(id, model, cb);
 }
 
 exports.destoryThemeItemById = function(themeId) {
