@@ -1,20 +1,41 @@
 
 var Intros = require('./../model/intros');
 
-exports.save = function (id, conditions, model) {
-	try {
-		if (!id) {
-			let intro = await Intros.findOne({ apply: true });
-			if (!intro) {
-				return await Intros.create(models);
-			}
-			await intro.update({ apply: false });
-		} else {
-			return await Intros.create(models);
+exports.save = function (_id, conditions, model) {
+	return new Promise(function(resolve, reject) {
+		var create = function() {
+			IntrosModel.create(req.body.models, function (err, doc) {
+				if (err) {
+					return reject(err);
+				}
+				resolve(doc);
+			});
 		}
-	} catch (e) {
-		return e;
-	}
+		if (!_id) {
+			IntrosModel.findOne({apply: true}, function(err, doc) {
+				if (err) {
+					return reject(err);
+				}
+				if (doc) {
+					doc.update({apply: false}, function(err, doc) {
+						if (err) {
+							return reject(err);
+						}
+						create();
+					});
+					return;
+				} 
+				create();
+			});
+		} else {
+			IntrosModel.update({_id}, {$set: req.body.models}, function(err, doc) {
+				if (err) {
+				   return reject(err);
+				}
+				resolve(doc);
+			});
+		}
+	});
 }
 
 exports.destory = function (id) {
