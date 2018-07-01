@@ -38,8 +38,8 @@ exports.save = function (_id, conditions, model) {
 	});
 }
 
-exports.destory = function (id) {
-	return await Intros.findByIdAndRemove(id);
+exports.destory = function (id, cb) {
+	Intros.findByIdAndRemove(id, cb);
 }
 
 exports.saveTheme = function (id, themeId, topicMap, headline) {
@@ -60,15 +60,15 @@ exports.saveTheme = function (id, themeId, topicMap, headline) {
 			}
 		}
 	}
-	return await Intros.update({ id }, fields);
+	return Intros.update({ id }, fields);
 }
 
 
-exports.list = function () {
-	return await Intros.queryPaging({ pagination: 1, pageSize: 9999 });
+exports.all = function () {
+	return Intros.queryPaging({ pagination: 1, pageSize: 9999 });
 }
 
-exports.saveByTheme(id, themeId, model) {
+exports.saveByTheme = function(id, themeId, model) {
 	var fields = {
 		$push: {
 			map: {
@@ -94,13 +94,13 @@ exports.saveByTheme(id, themeId, model) {
 	return Intros.findByIdAndUpdate(id, fields);
 }
 
-exports.getListByTheme(pagination = 1) {
+exports.getListByTheme = function(pagination = 1) {
 	var start = (pagination - 1) * 4;
 	var end = pagination * 4;
 	return await IntrosModel.findOne({ apply: true }).populate('themes', { slice: [start, end] });
 }
 
-exports.destoryThemeItemById(themeId) {
+exports.destoryThemeItemById = function(themeId) {
 	return new Promise(function (resolve, reject) {
 		Intros.findOne({ apply: true }, function (err, doc) {
 			if (err) {

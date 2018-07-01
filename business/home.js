@@ -1,7 +1,7 @@
 var Intros = require('./../access/intros');
 
 exports.getAll = function() {
-
+  
 }
 
 
