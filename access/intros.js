@@ -42,21 +42,21 @@ exports.destory = function (id) {
 	return Intros.findByIdAndRemove(id);
 }
 
-exports.saveTheme = function (id, themeId, topicMap, headline) {
+exports.saveTheme = function (id, themeId, fields) {
 	var model = {
 		$push: {
 			themes: {
 				map: [],
-				topicMap,
-				headline
+				topicMap: fields.topicMap,
+				headline: fields.topicMap
 			}
 		}
 	};
 	if (themeId) {
 		model = {
 			$set: {
-				topicMap,
-				headline
+				topicMap: fields.topicMap,
+				headline: fields.topicMap
 			}
 		}
 	}
@@ -72,7 +72,7 @@ exports.getApply = function() {
 	return Intros.findOne({ apply: true });
 }
 
-exports.saveByTheme = function(id, themeId, fields) {
+exports.saveThemeItem = function(id, themeId, fields) {
 	var innerModel = {
 		map: {
 			theme: {

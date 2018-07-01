@@ -183,3 +183,39 @@ exports.mapItem = function(req, res, next) {
     req.body = {_id, "themes._id": themeId, "themes.map._id": mapId};
     next();
 } 
+
+exports.theme = function (req, res, next) {
+    var body = req.body;
+    var _id = body._id;
+    var themeId = body.themeId;
+    var topicMap = body.topicMap;
+    var headline = body.headline;
+    var rules = [
+        {
+            name: '介绍Id',
+            type: String,
+            value: _id
+        },
+        {
+            name: '主题Id',
+            type: String,
+            value: themeId
+        },
+        {
+            name: '主题图',
+            type: String,
+            value: topicMap
+        },
+        {
+            name: '主题标题',
+            type: String,
+            value: headline
+        }
+    ];
+
+    var validate = Validator(rules);
+    if (!validate.status) {
+        return validate;
+    }  
+    next();
+}

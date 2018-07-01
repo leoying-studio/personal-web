@@ -44,77 +44,13 @@ router.get("/intro/data", Home.getAllIntros, function (req, res, next) {
  */
 
  //根据 introId添加主题
-router.post("/intro/themes/save", function(req, res, next) {
-    var body = req.body;
-    var _id = body._id;
-    var themeId = body.themeId;
-    var topicMap = body.topicMap;
-    var headline = body.headline;
-    var fields = {
-        $push: {
-            themes: {
-                map: [],
-                topicMap,
-                headline
-            }
-        }
-    };
-    if (themeId) {
-        fields = {
-            $set: {
-                topicMap,
-                headline
-            } 
-        }
-    }
-    IntrosModel.update({_id}, fields, function(err, doc) {
-        if (err) {
-           return next();
-        }
-        req.body.data = doc;
-        next();
-    })
+router.post("/intro/themes/save", Checks.theme, Home.saveThemeByIntro, function(req, res, next) {
+    next();
 });
 
 // 根据首页themeId进行添加主题项内容
 router.post("/intro/themes/item/save", function(req, res, next) {
-    var body = req.body;
-    var introId = body.introId;
-    var themeId = body.themeId;
-    var discriptiveGraph = body.discriptiveGraph;
-    var presentation = body.presentation;
-    var fields = {
-        $push: {
-            map: {
-                theme: {
-                    discriptiveGraph,
-                    presentation
-                }
-            }
-        }
-    };
-    if (themeId) {
-        fields = {
-            $set: {
-                map: {
-                   theme: {
-                        discriptiveGraph,
-                        presentation
-                   }
-                }
-            }
-        };
-    }
-    IntrosModel.update({_id: introId}, fields,  function(err, state) {
-        if(err) {
-            req.body.message = themeId ? '更新错误' : '新增错误';
-            return next();
-        } 
-        res.send({
-            status: true,
-            msg: themeId ? '更新成功' : '新增成功'
-        });
-    }).catch(next);
+    next();
 });
 
 

@@ -58,3 +58,30 @@ exports.destroyIntro = function(req, res, next) {
 		next();
 	}).catch(next);
 }
+
+// 根据介绍信息保存
+exports.saveThemeByIntro = function(req, res, next) {
+	var body = req.body;
+	Intros.saveTheme(req.body._id, body.themeId, {
+		topicMap: body.topicMap,
+		headline: body.headline
+	}).then(function(doc) {
+		req.body.data = doc;
+		next();
+	}).catch(next);
+}
+
+
+exports.saveThemeItem = function(req, res, next) {
+	var introId = body.introId;
+    var themeId = body.themeId;
+    var discriptiveGraph = body.discriptiveGraph;
+	var presentation = body.presentation;
+	Intros.saveThemeItem(introId, themeId, {
+		discriptiveGraph,
+		discriptiveGraph
+	}).then(function(doc) {
+		req.body.data = doc;
+		next();
+	}).catch(next);
+}
