@@ -7,6 +7,7 @@ var Checks = require("./../checks/articles");
 var ArticlesProxy = require("./../proxy/articles");
 var ArticlesProxy = require("./../proxy/articles");
 var Articles = require('./../business/articles');
+
 // 新增
 router.post("/add", Checks.save, function(req, res, next) {
 	// 开始插入数据
@@ -25,29 +26,14 @@ router.get("/view/:categoryId/:childId/:pagination", Checks.query, Articles.getP
 }); 
 
 // ajax查询文章列表
-router.get("/data", Checks.query, function(req, res, next)　{
-	ArticlesProxy.list(req.body, req.params, function(collections) {
-		req.body.data = {
-			data: collections[0],
-			total: collections[1]
-		};
-		next();
-	}).catch(next);
+router.get("/data", Checks.query, Articles.getPage, function(req, res, next)　{
+	res.json(req.body.data);
 }); 
 
 
 // 删除
-router.post("/delete", Checks.delete, function(req, res, next) {
-	Promise.all([
-		ArticlesModel.findOneAndRemove({_id: req.body.articleId}),
-		CommentModel.findOneAndRemove(req.body),
-	]).then( collections => {
-		req.body.data = {
-			article: collections[0],
-			comments: collections[1]
-		};
-		next();
-	}).catch(next);
+router.post("/delete", Checks.delete, Articles.destoryById, function(req, res, next) {
+	next();
 }); 
 
 // 修改

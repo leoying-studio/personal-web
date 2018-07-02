@@ -28,6 +28,16 @@ exports.count = function() {
 	return Articles.count();
 }
 
+
+exports.save = function(id, fields) {
+	if (id) {
+		return ArticlesModel.findByIdAndUpdate( articleId ,{
+			$set: fields,
+		});
+	}
+	return ArticlesModel.create(fields);
+}
+
 /**
  * 
  * @param {Number} year 年份
