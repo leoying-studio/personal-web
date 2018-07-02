@@ -16,7 +16,7 @@ var Scheam = new mongoose.Schema({
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
 	// 子类Id
-	childrenId: [
+	categories: [
 		{ id: ObjectId}
 	],
 	// 是否作为首页推荐

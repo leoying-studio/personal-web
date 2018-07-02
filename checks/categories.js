@@ -1,6 +1,6 @@
 var Validator = require('./../utils/validator');
 
-exports.add = function(req, res, next) {
+exports.save = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
@@ -22,10 +22,6 @@ exports.add = function(req, res, next) {
     if (!validate.status) {
         return validate;
     }
-    req.body = {
-        name: body.name,
-        children: body.children
-    };
     next();
 }
 
@@ -89,12 +85,6 @@ exports.children = function(req, res, next) {
     if (!validate.status) {
         return validate;
     }
-    req.body = {
-        categoryId: body.categoryId,
-    };
-    req.modes = {
-        children: {name: body.name}
-    };
     next();
 }
 

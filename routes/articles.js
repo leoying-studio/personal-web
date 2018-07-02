@@ -6,6 +6,7 @@ var Utils = require("./../utils");
 var Checks = require("./../checks/articles");
 var ArticlesProxy = require("./../proxy/articles");
 var ArticlesProxy = require("./../proxy/articles");
+var Articles = require('./../business/articles');
 // 新增
 router.post("/add", Checks.save, function(req, res, next) {
 	// 开始插入数据
@@ -19,17 +20,8 @@ router.post("/add", Checks.save, function(req, res, next) {
 });
 
 // 查询
-router.get("/view/:categoryId/:childId/:pagination", Checks.query, function(req, res)　{
-	ArticlesProxy.list(req.body, req.params, true)
-	.then(function(data) {
-		var body = {
-			categories: data[0],
-			total: data[1],
-			childId,
-			pagination
-		};
-		res.render("article/index", body);
-	});
+router.get("/view/:categoryId/:childId/:pagination", Checks.query, Articles.getPage, function(req, res)　{
+	res.json(req.body.data);
 }); 
 
 // ajax查询文章列表

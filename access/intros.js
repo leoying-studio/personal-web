@@ -93,8 +93,21 @@ exports.destoryThemeItemById = function(themeId) {
 }
 
 exports.destoryThemeById = function (themeId) {
-
+	return Intros.findOne({apply: true, "themes._id": themeId}).remove();
 }
 
 
+exports.themeItem = function(themeId) {
+	return Intros.find({apply: true, "themes._id": themeId});
+}
 
+
+exports.destoryThemeItemById = function(themeId, mapId) {
+	return IntrosModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
+	.remove();
+}
+
+
+exports.getIntroById = function(id) {
+	return Intros.findById(id);
+}

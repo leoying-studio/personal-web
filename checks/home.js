@@ -180,7 +180,6 @@ exports.mapItem = function(req, res, next) {
     if (!validate.status) {
         return validate;
     }   
-    req.body = {_id, "themes._id": themeId, "themes.map._id": mapId};
     next();
 } 
 
@@ -197,11 +196,6 @@ exports.theme = function (req, res, next) {
             value: _id
         },
         {
-            name: '主题Id',
-            type: String,
-            value: themeId
-        },
-        {
             name: '主题图',
             type: String,
             value: topicMap
@@ -215,7 +209,7 @@ exports.theme = function (req, res, next) {
 
     var validate = Validator(rules);
     if (!validate.status) {
-        return validate;
+        return res.send(validate);
     }  
     next();
 }

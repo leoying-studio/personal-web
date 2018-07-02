@@ -79,8 +79,39 @@ exports.saveThemeItem = function(req, res, next) {
 	var presentation = body.presentation;
 	Intros.saveThemeItem(introId, themeId, {
 		discriptiveGraph,
-		discriptiveGraph
+		presentation
 	}).then(function(doc) {
+		req.body.data = doc;
+		next();
+	}).catch(next);
+}
+
+exports.getThemeCategories = function(req, res, next) {
+	Intros.getIntroById(req.body._id).then(function(doc) {
+		req.body.data = doc.themes;
+		next();
+	});
+}
+
+exports.getThemeMap = function(req, res, next) {
+	Intros.themeItem(req.body.themeId).then(function(collections) {
+		req.body.data = collections;
+		next();
+	});
+}
+
+exports.destroyIntroTheme = function(req, res, next) {
+	Intros.destoryThemeById(req.body.themeId)
+	.then(function(doc) {
+		req.body.data = doc;
+		next(); 
+	});
+}
+
+exports.destoryThemeItem = function(req, res, next) {
+	var body = req.body;
+	Intros.destoryThemeItemById(body.themeId, body.mapId)
+	.then(function(doc) {
 		req.body.data = doc;
 		next();
 	}).catch(next);
