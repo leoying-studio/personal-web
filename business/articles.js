@@ -6,22 +6,22 @@ var convert = {
 	comments: function(comments) {
 		return comments.map(function(comment) {
 			var interval = (new Date() - new Date(comment.createdAt)) / 1000 / 60;
-			var intervalNam = "";
+			var intervalName = "";
 			if (interval < 1) {
-				intervalNam = "刚刚";
+				intervalName = "刚刚";
 			} else if(interval < 60) {
-				intervalNam = Math.floor(interval) + '分钟前';
+				intervalName = Math.floor(interval) + '分钟前';
 			} else if (interval > 60 && interval < 24 * 60) {
-				intervalNam = Math.floor(interval / 60) + '小时前';
+				intervalName = Math.floor(interval / 60) + '小时前';
 			} else if (interval >= 24 * 60 && interval < 24 * 60 * 7) {
-				intervalNam = Math.floor(interval / 24 / 60) + '天前';
+				intervalName = Math.floor(interval / 24 / 60) + '天前';
 			} else {
-				intervalNam = comment.createdTime
+				intervalName = comment.createdTime
 			}
 			return {
 				username: comment.username,
 				content: comment.content,
-				intervalNam
+				intervalName
 			};
 		});
 	}
