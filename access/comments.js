@@ -1,11 +1,11 @@
 var Comments = require('./../models/comments');
 
-exports.list = function(params, conditions) {
-	return Comments.queryPaging(params, conditions);
+exports.list = function(articleId, pagination) {
+	return Comments.queryPaging({pagination}, {articleId});
 }
 
-exports.add = function(model) {
-	return Comments.create(model);
+exports.add = function(field) {
+	return Comments.create(field);
 }
 
 exports.count = function() {

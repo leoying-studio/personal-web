@@ -14,7 +14,7 @@ var Scheam = new mongoose.Schema({
 	updateAt: {type: Date,  default: Date.now},
 	// 子类Id
 	categories: [
-		{ id: ObjectId}
+		{ id: mongoose.Schema.Types.ObjectId}
 	],
 	// 是否作为首页推荐
 	recommend: {type: Boolean, default: false},

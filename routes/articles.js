@@ -36,32 +36,19 @@ router.get("/detail/view/:articleId/:pagination", Checks.detail, Articles.getDet
 	next();
 });
 
-
 /**
  * 获取评论信息
  */
 router.get("/comments", Checks.detail, function(req, res) {
-	CommentsModel.queryPaging(req.body, req.params).then(function(collections) {
-		req.body.data = collections;
-		next();
-	}).catch(next);
+	next();
 });	
 
 
 /**
  * 添加评论
  */
-router.post("/comment/add", Checks.comments, function (req, res, next) {
-	CommentsModel.create(req.body, function(err, doc) {
-		if (err) {
-			return next();
-		}
-		req.body = {
-			data: comment,
-			message: '评论成功'
-		}
-		next();
-	}).catch(next);
+router.post("/comment/add", Checks.comments, Articles.addCommnet, function (req, res, next) {
+	next();
 });
 
 module.exports = router;
