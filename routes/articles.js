@@ -1,23 +1,13 @@
 var express = require('express');
 var router = express.Router();
-var ArticlesModel = require("../models/articles");
 var CommentsModel = require("./../models/comments");
-var Utils = require("./../utils");
 var Checks = require("./../checks/articles");
-var ArticlesProxy = require("./../proxy/articles");
-var ArticlesProxy = require("./../proxy/articles");
 var Articles = require('./../business/articles');
 
 // 新增
-router.post("/add", Checks.save, function(req, res, next) {
+router.post("/add", Checks.save, Articles.save, function(req, res, next) {
 	// 开始插入数据
-	ArticlesModel.create(req.body, function(err, doc) {
-		if (err) {
-			return next();
-		}
-		req.body.data = doc;
-		next();
-	}).catch(next);
+	next();
 });
 
 // 查询
@@ -38,37 +28,12 @@ router.post("/delete", Checks.delete, Articles.destoryById, function(req, res, n
 
 // 修改
 router.post("/update", Checks.save, function(req, res, next) {
-	var articleId = req.body.article;
-    ArticlesModel.findByIdAndUpdate( articleId ,{
-		$set: req.body,
-	}, function(err , doc) {
-		if (err) {
-			return next();
-		}
-		req.body.data = doc;
-		next();
-	}).catch(next);
+	next();
 });
 
 
-router.get("/detail/view/:articleId/:pagination", Checks.detail, function(req, res) {
-	ArticlesModel.getCategories().then(function(categories) {
-		ArticlesProxy.detail(req.body, req.params.pagination, function(data) {
-			data.params = {
-				articleId,
-				pagination
-			};
-			data.navs = navs;
-			var body = {
-				data,
-				params: {
-					articleId: req.body.articleId,
-					pagination: req.params.pagination
-				}
-			};
-			res.render("detail", data);
-		});
-	});
+router.get("/detail/view/:articleId/:pagination", Checks.detail, Articles.getDetail, function(req, res) {
+	next();
 });
 
 
