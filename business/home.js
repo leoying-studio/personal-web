@@ -87,7 +87,7 @@ exports.saveThemeItem = function(req, res, next) {
 }
 
 exports.getThemeCategories = function(req, res, next) {
-	Intros.getIntroById(req.body._id).then(function(doc) {
+	Intros.getApply().then(function(doc) {
 		req.body.data = doc.themes;
 		next();
 	});

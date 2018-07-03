@@ -1,6 +1,5 @@
 var express = require('express');
 var router = express.Router();
-var CommentsModel = require("./../models/comments");
 var Checks = require("./../checks/articles");
 var Articles = require('./../business/articles');
 
@@ -43,11 +42,10 @@ router.get("/comments", Checks.detail, function(req, res) {
 	next();
 });	
 
-
 /**
  * 添加评论
  */
-router.post("/comment/add", Checks.comments, Articles.addCommnet, function (req, res, next) {
+router.post("/comment/add", Checks.comments, Articles.addComment, function (req, res, next) {
 	next();
 });
 

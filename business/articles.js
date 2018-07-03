@@ -99,7 +99,7 @@ exports.getCommnets = function (req, res, next) {
 }
 
 
-exports.addCommnet = function (req, res, next) {
+exports.addComment = function (req, res, next) {
 	var body = req.body;
 	Comments.add(req.body).then(function (doc) {
 		req.body.data = doc;
