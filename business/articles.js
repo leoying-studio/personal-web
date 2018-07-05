@@ -95,7 +95,7 @@ exports.getCommnets = function (req, res, next) {
 		.then(function (collection) {
 			req.body.data = collection;
 			next();
-		});
+	}).catch(next)
 }
 
 
@@ -104,5 +104,5 @@ exports.addComment = function (req, res, next) {
 	Comments.add(req.body).then(function (doc) {
 		req.body.data = doc;
 		next();
-	});
+	}).catch(next);
 }

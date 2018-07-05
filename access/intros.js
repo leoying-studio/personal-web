@@ -48,7 +48,7 @@ exports.saveTheme = function (id, themeId, fields) {
 			themes: {
 				map: [],
 				topicMap: fields.topicMap,
-				headline: fields.topicMap
+				headline: fields.headline
 			}
 		}
 	};
@@ -56,11 +56,12 @@ exports.saveTheme = function (id, themeId, fields) {
 		model = {
 			$set: {
 				topicMap: fields.topicMap,
-				headline: fields.topicMap
+				headline: fields.headline
 			}
 		}
+		return Intros.update({_id: id, 'themes._id': themeId}, model).exec();
 	}
-	return Intros.findByIdAndUpdate(id, model);
+	return Intros.findByIdAndUpdate(id, model).exec();
 }
 
 

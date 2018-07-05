@@ -12,27 +12,18 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 		theme: {
 			'click .label[name=edit]': function(e, f, r) {
 				api.hideTable();
-				var form = $('#introForm');
-				form.attr('_id', r._id);
+				var form = $('#themeForm');
+				form.attr('themeId', r._id);
 				api.setValues(form, r);
-				$('#themeForm').show();
+				form.show();
 			},
 			'click .label[name=destory]': function(e, f, r) {
 				if (confirm('确认删除吗?')) {
-					$.post('/intro/destory', {
-						_id: r._id
-					}).then(function(res) {
-						 if (res.status) { n
-							api.message.success('删除成功');
-							api.refreshTbale();
-						 } else {
-							api.message.error(res.message);
-						 }
-					});
+					
 				}
 			},
 			'click .label[name=theme]': function(e, f, r) { 
-				$('#intro').hide();
+	
 			}
 		},
 		intro: {
@@ -41,7 +32,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 				var form = $('#introForm');
 				form.attr('_id', r._id);
 				api.setValues(form, r);
-				$('#introForm').show();
+				form.show();
 			},
 			'click .label[name=destory]': function(e, f, r) {
 				if (confirm('确认删除吗?')) {
@@ -65,7 +56,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 						};
 					}
 				};
-				api.initTable('theme', {}, queryParams);
+				api.initTable('theme', events.theme, queryParams);
 				api.insertBread('主题', 'theme', events);
 				addbutton.attr('nextstep', '#themeForm');
 				$("#themeForm").attr('_id', r._id);
@@ -89,6 +80,10 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	$('#introNewly').click(function() {
 		$('#intro').hide();
 		$("#introForm").show();
+	});
+
+	addbutton.click(function() {
+		$('#themeForm').removeAttr('themeId');
 	});
 
 	$('#introForm button').click(function() {
@@ -125,7 +120,9 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 		 }
 		 var params = api.getParams($('#themeForm'));
 		 var _id = $("#themeForm").attr('_id');
+		 var themeId = $("#themeForm").attr('themeId');
 		 params._id = _id;
+		 params.themeId = themeId;
 		 $.post('/intro/themes/save', params).then(function(res) {
 			 if (res.status) {
 				 api.message.success('保存成功');
