@@ -7,7 +7,6 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	var addbutton = buttons.eq(0);
 
 	// 业务常量
-
 	var events = {
 		theme: {
 			'click .label[name=edit]': function(e, f, r) {
@@ -19,11 +18,17 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 			},
 			'click .label[name=destory]': function(e, f, r) {
 				if (confirm('确认删除吗?')) {
-					
+					$.post('/intro/themes/destory', {
+						themeId: r._id
+					}).then(function(res) {
+						if (res.status) {
+							api.message.success('删除成功');
+							api.refreshTable();
+						 } else {
+							api.message.error(res.message);
+						 }
+					})
 				}
-			},
-			'click .label[name=theme]': function(e, f, r) { 
-	
 			}
 		},
 		intro: {

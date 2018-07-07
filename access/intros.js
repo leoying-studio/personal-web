@@ -55,13 +55,13 @@ exports.saveTheme = function (id, themeId, fields) {
 	if (themeId) {
 		model = {
 			$set: {
-				topicMap: fields.topicMap,
-				headline: fields.headline
+				'themes.$.topicMap': fields.topicMap,
+				'themes.$.headline': fields.headline
 			}
 		}
-		return Intros.update({_id: id, 'themes._id': themeId}, model).exec();
+		return Intros.update({_id: id, 'themes._id': themeId}, model);
 	}
-	return Intros.findByIdAndUpdate(id, model).exec();
+	return Intros.findByIdAndUpdate(id, model);
 }
 
 
@@ -73,20 +73,26 @@ exports.getApply = function() {
 	return Intros.findOne({ apply: true });
 }
 
-exports.saveThemeItem = function(id, themeId, fields) {
+exports.saveThemeItem = function(themeId, mapId, fields) {
 	var innerModel = {
-		map: {
-			theme: {
+		$push: {
+			'themes.$.map': {
 				discriptiveGraph: fields.discriptiveGraph,
 				presentation: fields.presentation
 			}
 		}
 	};
-	var model = {$push: innerModel};
-	if (themeId) {
-		model = { $set: innerModel };
+	if (mapId) {
+		innerHeight = {
+			$set: {
+				'themes.0.map.0.discriptiveGraph': fields.discriptiveGraph,
+				'themes.0.map.0.presentation': fields.presentation,
+				}
+		};
+		return Intros.update({apply: true, 'themes.0.map.0._id': mapId}, innerModel );
 	}
-	return Intros.findByIdAndUpdate(id, model);
+
+	return Intros.update({apply: true, 'themes._id': themeId}, innerModel );
 }
 
 exports.destoryThemeItemById = function(themeId) {
@@ -94,7 +100,7 @@ exports.destoryThemeItemById = function(themeId) {
 }
 
 exports.destoryThemeById = function (themeId) {
-	return Intros.findOne({apply: true, "themes._id": themeId}).remove();
+	return Intros.update({apply: true}, {$pull: {themes: {_id: themeId}}});
 }
 
 

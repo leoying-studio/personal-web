@@ -72,11 +72,11 @@ exports.saveThemeByIntro = function(req, res, next) {
 }
 
 exports.saveThemeItem = function(req, res, next) {
-	var introId = body.introId;
+	var body = req.body;
     var themeId = body.themeId;
     var discriptiveGraph = body.discriptiveGraph;
 	var presentation = body.presentation;
-	Intros.saveThemeItem(introId, themeId, {
+	Intros.saveThemeItem(themeId, body.mapId, {
 		discriptiveGraph,
 		presentation
 	}).then(function(doc) {
@@ -86,7 +86,7 @@ exports.saveThemeItem = function(req, res, next) {
 }
 
 exports.getThemeCategories = function(req, res, next) {
-	Intros.getIntroById(req.body._id).then(function(doc) {
+	Intros.getApply().then(function(doc) {
 		req.body.data = doc.themes;
 		next();
 	});

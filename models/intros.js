@@ -20,13 +20,13 @@ var Scheam = new mongoose.Schema({
 			headline: String,
 			map: [
 				{
-					theme: {
-						// 陈述
-						presentation: String,
-						// 描述图
-						discriptiveGraph: String
-					}
+
+					// 陈述
+					presentation: String,
+					// 描述图
+					discriptiveGraph: String
 				}
+				
 			]
 		 }
 	 ],

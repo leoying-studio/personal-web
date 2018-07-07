@@ -47,7 +47,7 @@ router.post("/intro/themes/save", Checks.theme, Home.saveThemeByIntro, function(
 });
 
 // 根据首页themeId进行添加主题项内容
-router.post("/intro/themes/item/save", function(req, res, next) {
+router.post("/intro/themes/item/save", Home.saveThemeItem, function(req, res, next) {
     next();
 });
 

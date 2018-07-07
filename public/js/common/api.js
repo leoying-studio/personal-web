@@ -126,9 +126,8 @@ define([
         refreshTable: function () {
             table.bootstrapTable('refresh');
         },
-        initTable: function(name, events, queryParams) {
-            debugger;
-            var conf = config.table[name](events, queryParams);
+        initTable: function(name, events, queryParams, data) {
+            var conf = config.table[name](events, queryParams, data);
 		    table.bootstrapTable('destroy').bootstrapTable(conf);
         },
         insertBread: function(name, step, events) {
