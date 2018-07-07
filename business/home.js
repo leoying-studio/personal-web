@@ -71,7 +71,6 @@ exports.saveThemeByIntro = function(req, res, next) {
 	}).catch(next);
 }
 
-
 exports.saveThemeItem = function(req, res, next) {
 	var introId = body.introId;
     var themeId = body.themeId;
