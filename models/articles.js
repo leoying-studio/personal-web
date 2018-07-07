@@ -1,5 +1,4 @@
 var mongoose = require('../db').mongoose;
-var ObjectId = mongoose.Schema.ObjectId;
 var Super = require('./super');
 var Utils = require("./../utils/index");
 
@@ -9,15 +8,13 @@ var Scheam = new mongoose.Schema({
 	description: String,
 	// 配图, 说明图
 	illustration: String,
-	// 类别Id
-	categoryId: ObjectId,
 	createdTime: { type: String, default: Utils.time.get() },
 	updateTime: {type: String, default:  Utils.time.get()},
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
 	// 子类Id
-	childrenId: [
-		{ id: ObjectId}
+	categories: [
+		{ id: mongoose.Schema.Types.ObjectId}
 	],
 	// 是否作为首页推荐
 	recommend: {type: Boolean, default: false},

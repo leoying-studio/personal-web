@@ -48,7 +48,7 @@ exports.saveTheme = function (id, themeId, fields) {
 			themes: {
 				map: [],
 				topicMap: fields.topicMap,
-				headline: fields.topicMap
+				headline: fields.headline
 			}
 		}
 	};
@@ -56,11 +56,12 @@ exports.saveTheme = function (id, themeId, fields) {
 		model = {
 			$set: {
 				topicMap: fields.topicMap,
-				headline: fields.topicMap
+				headline: fields.headline
 			}
 		}
+		return Intros.update({_id: id, 'themes._id': themeId}, model).exec();
 	}
-	return Intros.findByIdAndUpdate(id, model);
+	return Intros.findByIdAndUpdate(id, model).exec();
 }
 
 
@@ -93,8 +94,21 @@ exports.destoryThemeItemById = function(themeId) {
 }
 
 exports.destoryThemeById = function (themeId) {
-
+	return Intros.findOne({apply: true, "themes._id": themeId}).remove();
 }
 
 
+exports.themeItem = function(themeId) {
+	return Intros.find({apply: true, "themes._id": themeId});
+}
 
+
+exports.destoryThemeItemById = function(themeId, mapId) {
+	return IntrosModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
+	.remove();
+}
+
+
+exports.getIntroById = function(id) {
+	return Intros.findById(id);
+}

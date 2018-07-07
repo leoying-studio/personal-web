@@ -5,8 +5,8 @@ var Articles = require('./../models/articles');
  * @param {String} childId 子类Id
  * @param {Number} pagination 需要查询的页码
  */
-exports.list = function(categoryId, childId, pagination) {
-		
+exports.list = function(categoryId, pagination) {
+	return Articles.queryPaging({pagination}, {'categories.id': categoryId});
 }
 
 /**
@@ -28,16 +28,26 @@ exports.count = function() {
 	return Articles.count();
 }
 
+
+exports.save = function(id, fields) {
+	if (id) {
+		return ArticlesModel.findByIdAndUpdate( articleId ,{
+			$set: fields,
+		});
+	}
+	return ArticlesModel.create(fields);
+}
+
 /**
  * 
  * @param {Number} year 年份
  * @param {Number} month 月份
  */
 exports.timeline = function(year, month) {
-	let query = {};
+	var query = {};
 	try {
-		let endYear = month < 12 ? year : year + 1;
-		let endMonth = month < 12 ? month + 1 : 1;
+		var endYear = month < 12 ? year : year + 1;
+		var endMonth = month < 12 ? month + 1 : 1;
 		query = {
 			'createdAt': {
 				$gt: new Date(year, month),

@@ -127,6 +127,7 @@ define([
             table.bootstrapTable('refresh');
         },
         initTable: function(name, events, queryParams) {
+            debugger;
             var conf = config.table[name](events, queryParams);
 		    table.bootstrapTable('destroy').bootstrapTable(conf);
         },
