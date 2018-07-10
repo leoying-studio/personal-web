@@ -89,7 +89,17 @@ exports.saveThemeItem = function(themeId, mapId, fields) {
 				'themes.0.map.0.presentation': fields.presentation,
 				}
 		};
-		return Intros.update({apply: true, 'themes.0.map.0._id': mapId}, innerModel );
+
+		Intros.update({apply: true, 'themes._id': themeId}, innerModel ).then(function(doc) {
+			var map = doc.map;
+			var mapIndex = 0;
+			for (var i = 0; i < map.length; i++ ) {
+				if(map._id === mapId) {
+					mapIndex = i;
+					break;
+				}
+			}
+		});
 	}
 
 	return Intros.update({apply: true, 'themes._id': themeId}, innerModel );
