@@ -4,9 +4,14 @@ define([
     'api'
 ], function(require, aside, api) {
     'use strict';
+    var toolbar = $('#toolbar');
     var buttons= $('#toolbar').find('button');
     var buttons= toolbar.find('button');
-	var addbutton = buttons.eq(0);
+    var addbutton = buttons.eq(0);
+    var categoriesForm = $('#categoriesForm');
+    var formButtons = categoriesForm.find('button');
+    var back = formButtons.first();
+    var submit = formButtons.last();
 
     var events = {
         'click .label[name=edit]': function(e, f, r) {
@@ -34,9 +39,16 @@ define([
 
     aside.switchToCategories(function() {
         buttons.not(':first').hide();
+        addbutton.attr('nextstep', '#categoriesForm');
         api.initTable('categories', events);
         api.removeAllBread();
         api.insertBread('类别', 'categories', {});
         addbutton.removeClass("disabled");
+    });
+
+    back.click(function() {
+        categoriesForm.hide();
+        api.showTable();
+        api.refreshTable();
     });
 });
