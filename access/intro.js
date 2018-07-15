@@ -2,11 +2,14 @@
 var Intro = require('../models/intro');
 
 exports.save = function (fields) {
-	if (!fields._id) {
-		return Intro.create(fields).exec();
-	}
-	delete fields.themes;
-	return Intro.update({_id: fields._id}, fields).exec();
+	return Intro.count()
+	.then(function(count) {
+		if(count > 0) {
+			delete fields.themes;
+			return Intro.update({}, fields).exec();
+		}
+		return Intro.create(fields);
+	});	
 }
 
 exports.destory = function (id) {
@@ -40,6 +43,13 @@ exports.all = function () {
 	return Intro.queryPaging({ pagination: 1, pageSize: 9999 });
 }
 
+exports.findOne = function() {
+	return Intro.findOne({}).exec();
+}
+
+exports.count = function() {
+	return Intro.count().exec();
+}
 // exports.getApply = function() {
 // 	return Intro.findOne({ apply: true });
 // }

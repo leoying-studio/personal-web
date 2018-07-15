@@ -120,60 +120,43 @@ exports.query = function(req, res, next) {
 }
 
 exports.map = function(req, res, next) {
-    var body = req.body;
-    var _id = body.introId;
+    var body = Object.assign(req.body, req.query, req.params);
     var themeId = body.themeId;
     var rules = [
-        {
-            name: '介绍Id',
-            type: String,
-            value: _id
-        },
         {
             name: '主题Id',
             type: String,
             value: themeId
         }
     ];
-
     var validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }   
-    req.body = {
-        models: {
-           'themes._id': themeId,
-           _id
-        },
-        params: {
-            pagination: body.pagination,
-            pageSize: body.pageSize
-        }
-    };
     next();
 }
 
 exports.mapItem = function(req, res, next) {
     var body = req.body;
-    var _id = body.introId;
+    var _id = body._id;
     var themeId = body.themeId;
-    var mapId = body.mapId;
+    // var mapId = body.mapId;
     var rules = [
         {
-            name: '介绍Id',
+            name: '主题id',
             type: String,
             value: _id
         },
-        {
-            name: '主题Id',
-            type: String,
-            value: themeId
-        },
-        {
-            name: '主题内容Id',
-            type: String,
-            value: themeId
-        }
+        // {
+        //     name: '主题Id',
+        //     type: String,
+        //     value: themeId
+        // },
+        // {
+        //     name: '主题内容Id',
+        //     type: String,
+        //     value: themeId
+        // }
     ];
 
     var validate = Validator(rules);

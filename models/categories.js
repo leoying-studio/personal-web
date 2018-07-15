@@ -5,7 +5,7 @@ var Scheam = new mongoose.Schema({
 	 // 一级分类名称
 	 name: String,
 	 // 二级分类
-	 children: [
+	 subcategories: [
 		 {name: String}
 	 ],
 	 createdTime: { type: String, default: Utils.time.get() },

@@ -20,7 +20,7 @@ router.get('/manager', Home.getAllCategories, function (req, res, next) {
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save", Checks.intro, Home.saveIntro, function (req, res, next) {
+router.post("/intro/save", Checks.intro, Home.setIntro, function (req, res, next) {
     next();
 });
 
@@ -32,7 +32,7 @@ router.post("/intro/save", Checks.intro, Home.saveIntro, function (req, res, nex
 
 
 // 获取intro 所有内容项
-router.get("/intro/data", Home.getAllIntros, function (req, res, next) {
+router.get("/intro/data", Home.getAllIntro, function (req, res, next) {
     res.json(req.body.data);
 });
 
@@ -57,7 +57,7 @@ router.get("/intro/themes/data", Home.getThemeCategories, function(req, res, nex
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/map/data", Checks.map, Home.getThemeMap, function(req, res, next) {
+router.get("/intro/themes/map/data/:themeId", Checks.map, Home.getThemeMap, function(req, res, next) {
     res.json(req.body.data);
 });
 

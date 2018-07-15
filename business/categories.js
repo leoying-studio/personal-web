@@ -1,6 +1,6 @@
 var Catgegories = require('./../access/categories');
 
-exports.getAllCategories = function(req, res, next) {
+exports.getAll = function(req, res, next) {
 	Catgegories.all().then(function(collection) {
 		req.body.data = collection;
 		next();
@@ -18,7 +18,7 @@ exports.saveCategory = function(req, res, next) {
 
 exports.getChildren = function(req, res, next) {
 	var body = req.body;
-	Catgegories.getChildrenByCategory(body._id)
+	Catgegories.getSubcategoriesById(body._id)
 	.then(function(doc) {
 		req.body.data = doc.children;
 		next();

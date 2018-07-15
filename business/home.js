@@ -1,4 +1,4 @@
-var Intros = require('../access/intro');
+var Intro = require('../access/intro');
 var Themes = require('../access/themes');
 var Categories = require('./../access/categories');
 var Articles = require('./../access/articles');
@@ -7,7 +7,7 @@ exports.getAll = function(req, res, next) {
     Promise.all([
 		Categories.all(),
 		Articles.recommends(),
-		Intros.getApply(),
+		// Intro.getApply(),
 		Articles.timeline(),
 	]).then(function(collections) {
 		req.body.data = {
@@ -20,23 +20,16 @@ exports.getAll = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.saveIntro = function(req, res, next) {
-	var body = req.body;
-	Intros.save({
-		_id: body._id,
-		title: body.title,
-		slogan: body.slogan,
-		intro: body.intro,
-		themeOverview: body.themeOverview,
-		themes: []
-	}).then(function(doc) {
+exports.setIntro = function(req, res, next) {
+	Intro.save(req.body)
+	.then(function(doc) {
 		req.body.data = doc;
-		next();	
+		next();
 	}).catch(next);
 }
 
-exports.getAllIntros = function(req, res, next) {
-	Intros.all().then(function(collections) {
+exports.getAllIntro = function(req, res, next) {
+	Intro.all().then(function(collections) {
 		req.body.data = collections;
 		next();
 	}).catch(next);
@@ -53,7 +46,7 @@ exports.getAllCategories = function(req, res, next) {
 }
 
 // exports.destroyIntro = function(req, res, next) {
-// 	Intros.destory(req.body._id)
+// 	Intro.destory(req.body._id)
 // 	.then(function(doc) {
 // 		req.body.data = doc;
 // 		next();
@@ -63,7 +56,7 @@ exports.getAllCategories = function(req, res, next) {
 // 根据介绍信息保存
 exports.saveThemeByIntro = function(req, res, next) {
 	var body = req.body;
-	Intros.saveTheme(req.body._id, body.themeId, {
+	Intro.saveTheme(req.body._id, body.themeId, {
 		illustrating: body.illustrating,
 		headline: body.headline
 	}).then(function(doc) {
@@ -77,7 +70,9 @@ exports.saveThemeItem = function(req, res, next) {
     // var themeId = body.themeId;
     var discriptiveGraph = body.discriptiveGraph;
 	var presentation = body.presentation;
-	Themes.save(body.mapId, {
+	var themeId = body.themeId;
+	Themes.save(req.body._id, {
+		themeId,
 		discriptiveGraph,
 		presentation
 	}).then(function(doc) {
@@ -87,9 +82,10 @@ exports.saveThemeItem = function(req, res, next) {
 }
 
 exports.getThemeCategories = function(req, res, next) {
-	Intros.getAll().then(function(collections) {
-		collections  = collections || [];
-		var doc = collections[0] || [];
+	Intro.findOne().then(function(doc) {
+		doc = doc || {
+			themes: []
+		};
 		req.body.data = doc.themes;
 		next();
 	});
@@ -104,7 +100,7 @@ exports.getThemeMap = function(req, res, next) {
 }
 
 exports.destroyIntroTheme = function(req, res, next) {
-	Intros.destoryThemeById(req.body.themeId)
+	Intro.destoryThemeById(req.body.themeId)
 	.then(function(doc) {
 		req.body.data = doc;
 		next(); 
@@ -113,7 +109,7 @@ exports.destroyIntroTheme = function(req, res, next) {
 
 exports.destoryThemeItem = function(req, res, next) {
 	var body = req.body;
-	Themes.removeThemeById( body.mapId)
+	Themes.removeById( body._id)
 	.then(function(doc) {
 		req.body.data = doc;
 		next();

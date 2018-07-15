@@ -93,9 +93,9 @@ define(['jquery'], function ($) {
         return Object.assign({}, _defaultConfig, options, params || {});
     }
 
-    var themeList = function(events, params, data) {
+    var themeList = function(events, params, themeId) {
         var options = {
-            data: data,
+            url: '/intro/themes/map/data/'+themeId,
             columns: [
                 {
                     field: 'presentation',
@@ -119,8 +119,37 @@ define(['jquery'], function ($) {
         return Object.assign({}, _defaultConfig, options, params || {});
     }
 
+
+    var categories = function(events, params) {
+        var options = {
+            url: '/categories/data',
+            columns: [
+                {
+                    field: 'name',
+                    title: '名称',
+                    width:　'400px'
+                },
+                {
+                    field: 'time',
+                    title: '创建时间'
+                },
+                {
+                    title: '操作',
+                    events: events,
+                    formatter: function(e, item, i) {
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
+                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>"
+                }
+              }
+            ]
+        }
+        return Object.assign({}, _defaultConfig, options, params || {});
+    }
+
+
     return {
         table: {
+            categories: categories,
             intro: intro,
             theme: theme,
             themeList: themeList

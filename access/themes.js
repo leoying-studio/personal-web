@@ -1,4 +1,4 @@
-var Themes = require('../access/themes');
+var Themes = require('../models/themes');
 
 exports.getAllById = function(themeId) {
     return Themes.find({themeId}).exec();
@@ -8,10 +8,13 @@ exports.updateThemeById = function(id) {
     return Themes.findOne({_id: id}).exec();
 }
 
-exports.removeThemeById = function(id) {
+exports.removeById = function(id) {
     return Themes.findByIdAndRemove({_id: id}).exec();
 }
 
-exports.save = function(fields) {
-    return Themes.save(fields).exec();
+exports.save = function(_id, fields) {
+    if (!_id) {
+        return Themes.create(fields);
+    }
+    return Themes.update({_id}, fields).exec();
 }

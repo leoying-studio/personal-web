@@ -24,27 +24,26 @@ define([
         addbutton.removeClass('disabled', 'disabled');
     });
 
-
-
     var events = {
         'click .label[name=edit]': function(e, f, r) {
             api.hideTable();
-            themeListForm.attr('mapId', r._id);
+            themeListForm.attr('_id', r._id);
             api.setValues(themeListForm, r);
             themeListForm.show();
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
-                // $.post('/intro/themes/destory', {
-                //     themeId: r._id
-                // }).then(function(res) {
-                //     if (res.status) {
-                //         api.message.success('删除成功');
-                //         api.refreshTable();
-                //      } else {
-                //         api.message.error(res.message);
-                //      }
-                // })
+                debugger;
+                $.post('/intro/theme/map/destory', {
+                    _id: r._id
+                }).then(function(res) {
+                    if (res.status) {
+                        api.message.success('删除成功');
+                        api.refreshTable();
+                     } else {
+                        api.message.error(res.message);
+                     }
+                })
             }
         }
     };
@@ -52,15 +51,14 @@ define([
     // 获取主题分类
     var getThemeCategories = function() {
         $.get('/intro/themes/data').then(function(data) {
-            debugger;
             dropdowm.children().remove();
             $(data).each(function(index, item) {
-                dropdowm.append('<li><a>'+item.headline+'</a></li>');
+                dropdowm.append('<li><a href="#">'+item.headline+'</a></li>');
             });
             var chooseTheme = function(theme) {
                 dropdownActive.text(theme.headline);
                 themeListForm.attr('themeId', theme._id);
-                api.initTable('themeList', events, {}, theme.map);
+                api.initTable('themeList', events, {}, theme._id);
             }
             dropdowm.children().click(function() {
                 var index = $(this).index();
@@ -74,7 +72,7 @@ define([
     }
 
     themeListForm.find('.back').click(function() {
-        themeListForm.removeAttr('mapId');
+        themeListForm.removeAttr('_id');
         themeListForm.hide();
         getThemeCategories();
         api.showTable();
@@ -83,7 +81,7 @@ define([
     formSubmit.click(function() {
         var params = api.getParams(themeListForm);
         params.themeId = themeListForm.attr('themeId');
-        params.mapId = themeListForm.attr('mapId');
+        params._id = themeListForm.attr('_id');
         $.post('/intro/themes/item/save', params)
         .then(function(res) {
             if (res.status) {

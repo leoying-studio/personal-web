@@ -5,9 +5,9 @@ var Super = require("./super");
 // 定义映射的集合结构模型
 var Scheam = new mongoose.Schema({
 	 themeId: String,
-     illustrating: String, //配图
+     discriptiveGraph: String, //配图
      // 内部项标题
-     headline: String,
+     presentation: String,
 	 // 是否应用该专题
 	 createdTime: { type: String, default: Utils.time.get()},
 	 updateTime: {type: String, default:  Utils.time.get()},

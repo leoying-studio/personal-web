@@ -13,7 +13,7 @@ router.get("/category/data", Checks.query, Categories.getChildren, function(req,
 });
 
 // 查询导航列表
-router.get("/data", Categories.getAllCategories,  function(req, res, next) {
+router.get("/data", Categories.getAll,  function(req, res, next) {
     res.json(req.body.data);
 });
 

@@ -1,6 +1,6 @@
 var Categories = require('./../models/categories');
 
-exports.getCategory = function (id) {
+exports.getById = function (id) {
 	return Categories.findById(id);
 }
 
@@ -10,7 +10,7 @@ exports.save = function (id, name) {
 	}
 	return Categories.create({
 		name,
-		children: []
+		subcategories: []
 	}).exec();
 }
 
@@ -18,14 +18,14 @@ exports.all = function () {
 	return Categories.find({});
 }
 
-exports.ChildByCategory = function (id, childId ,name) {
-	if (!childId) {
+exports.getSubcategoriesById = function (id, subcategoryId ,name) {
+	if (!subcategoryId) {
 		return Categories.findByIdAndUpdate(id, { $push: {name} });
 	}
-	return Categories.findByIdAndUpdate({_id: id, 'children._id': childId}, {$set: {name}});
+	return Categories.findByIdAndUpdate({_id: id, 'subcategories._id': subcategoryId}, {$set: {name}});
 }
 
-exports.updateChild = function () {
+exports.updateSubcategories = function () {
 	return Categories.findOneAndUpdate(conditions, {
 		$set: model
 	});
@@ -36,8 +36,3 @@ exports.updateCategory = function (id, model) {
 		$set: model
 	});
 }
-
-exports.getChildrenByCategory = function(id) {
-	return Categories.findById(id);
-}
-
