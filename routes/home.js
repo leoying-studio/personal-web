@@ -26,9 +26,9 @@ router.post("/intro/save", Checks.intro, Home.saveIntro, function (req, res, nex
 
 
 // 消灭这条推荐数据
-router.post("/intro/destory", Checks.introId, Home.destroyIntro, function(req, res, next) {
-    next();
-}); 
+// router.post("/intro/destory", Checks.introId, Home.destroyIntro, function(req, res, next) {
+//     next();
+// }); 
 
 
 // 获取intro 所有内容项

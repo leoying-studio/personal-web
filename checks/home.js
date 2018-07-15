@@ -187,7 +187,7 @@ exports.theme = function (req, res, next) {
     var body = req.body;
     var _id = body._id;
     var themeId = body.themeId;
-    var topicMap = body.topicMap;
+    var illustrating = body.illustrating;
     var headline = body.headline;
     var rules = [
         {
@@ -198,7 +198,7 @@ exports.theme = function (req, res, next) {
         {
             name: '主题图',
             type: String,
-            value: topicMap
+            value: illustrating
         },
         {
             name: '主题标题',

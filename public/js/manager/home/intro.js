@@ -5,7 +5,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	var toolbar = $('#toolbar');
 	var buttons= toolbar.find('button');
 	var addbutton = buttons.eq(0);
-
+	var existIntro = false;
 	// 业务常量
 	var events = {
 		theme: {
@@ -39,20 +39,6 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 				api.setValues(form, r);
 				form.show();
 			},
-			'click .label[name=destory]': function(e, f, r) {
-				if (confirm('确认删除吗?')) {
-					$.post('/intro/destory', {
-						_id: r._id
-					}).then(function(res) {
-						 if (res.status) {
-							api.message.success('删除成功');
-							api.refreshTable();
-						 } else {
-							api.message.error(res.message);
-						 }
-					});
-				}
-			},
 			'click .label[name=theme]': function(e, f, r) { 
 				var queryParams = {
 					queryParams: function(params) {
@@ -63,6 +49,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 				};
 				api.initTable('theme', events.theme, queryParams);
 				api.insertBread('主题', 'theme', events);
+				addbutton.removeClass('disabled');
 				addbutton.attr('nextstep', '#themeForm');
 				$("#themeForm").attr('_id', r._id);
 			}
@@ -74,7 +61,20 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
     });
 
     var initIntro = function() {
-        api.initTable('intro', events.intro);
+		var config = {
+			onLoadSuccess: function(r) {
+				if (r.length) {
+					existIntro = true;
+					addbutton.addClass('disabled');
+				}
+			},
+			// onPostBody: function(r) {
+			// 	if (r.length) {
+			// 		addbutton.hide();
+			// 	}
+			// }
+		};
+        api.initTable('intro', events.intro, config);
         api.removeAllBread();
         api.insertBread('介绍', 'intro', events);
         buttons.not(':first-child').hide();
@@ -91,10 +91,18 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 		$('#themeForm').removeAttr('themeId');
 	});
 
+	breadcrumb.click(function() {
+		 var el = $(this).find('a[step=intro]');
+		 if (el.length &&　existIntro) {
+			 addbutton.addClass('disabled');
+		 }
+	});
+
 	$('#introForm button').click(function() {
 		var index = $(this).index();
 		if (index === 0) {
 			$("#introForm").hide();
+			$("#introForm").removeAttr('_id');
 			api.showTable();
 			api.refreshTable();
 			return;

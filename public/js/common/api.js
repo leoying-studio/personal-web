@@ -20,6 +20,9 @@ define([
     }
 
     addbutton.click(function() {
+        if ($(this).attr('class').indexOf('disabled')>-1){
+            return;
+        }
 		var nextstep = $(this).attr('nextstep'); 
 		preViewId = nextstep;
         api.hideTable();

@@ -21,6 +21,7 @@ define([
         getThemeCategories();
         // 设置下一步点击
         addbutton.attr('nextstep', '#themeListForm');
+        addbutton.removeClass('disabled', 'disabled');
     });
 
 
@@ -51,6 +52,7 @@ define([
     // 获取主题分类
     var getThemeCategories = function() {
         $.get('/intro/themes/data').then(function(data) {
+            debugger;
             dropdowm.children().remove();
             $(data).each(function(index, item) {
                 dropdowm.append('<li><a>'+item.headline+'</a></li>');
