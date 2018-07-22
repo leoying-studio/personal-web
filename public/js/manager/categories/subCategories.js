@@ -5,9 +5,10 @@ define([
 ], function(require, aside, api) {
     'use strict';
     var toolbar = $('#toolbar');
-    var dropdowm = toolbar.find('.dropdown-menu');
-    var dropdownActive = toolbar.find('.dropdown-menu-active');
-    var buttons= toolbar.find('button');
+    var commDropwn = $('#common-dropdown');
+    var dropdown = commDropwn.find('.dropdown-menu');
+    var dropdownActive = commDropwn.find('.dropdown-menu-active');
+    var buttons= commDropwn.find('button');
     var addbutton = buttons.eq(0);
     var form = $('#subCategoriesForm');
     var back = form.find('button:first');
@@ -28,15 +29,15 @@ define([
         $.get('/categories/data').then(function(data) {
             api.removeAllBread();
             api.insertBread('子级分类', 'subCategories', {});
-            dropdowm.children().remove();
+            dropdown.children().remove();
             $(data).each(function(index, item) {
-              dropdowm.append('<li><a href="#">'+item.name+'</a></li>');
+              dropdown.append('<li><a href="#">'+item.name+'</a></li>');
             });
             if (data.length) {
                 var firstCategory = data[0];
                 chooseSubCategories(firstCategory);
                 // 重新注册
-                dropdowm.children().click(function() {
+                dropdown.children().click(function() {
                      var index = $(this).index();
                      chooseSubCategories(data[index]);
                 });

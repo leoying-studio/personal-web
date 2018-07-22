@@ -6,7 +6,8 @@ define([
     var main = $('#main'), asideBar = $('.aside-bar');
     var breadcrumb = main.find('.breadcrumb');
     var toolbar = $('#toolbar');
-    var addbutton = toolbar.find('button:first-child');
+    var commDrop = $('#common-dropdown');
+    var addbutton = commDrop.find('button:first-child');
     var table = $('#table');
     var preViewId = '';
     var _changeBread = function(step) {

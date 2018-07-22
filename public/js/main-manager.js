@@ -10,7 +10,9 @@ require.config({
          'config': '/js/common/config',
          'theme': '/js/manager/home/theme',
          'categories': '/js/manager/categories/index',
-         'subCategories': '/js/manager/categories/subCategories'
+         'subCategories': '/js/manager/categories/subCategories',
+         'articles': '/js/manager/articles/index',
+         'comments': 'js/manager/articles/comments'
      },
      shim: {
           'bootstrap': {
@@ -29,7 +31,7 @@ require.config({
 });
 
 require(['bootstrap', 'bootstrap.table', 'bootstrap-table-zh-CN',], function() {
-    require(['config', 'api','aside', 'intro', 'theme', 'categories', 'subCategories'], function() {
+    require(['config', 'api','aside', 'intro', 'theme', 'categories', 'subCategories', 'articles', 'comments'], function() {
         
     });
 });
