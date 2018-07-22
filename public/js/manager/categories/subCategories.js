@@ -19,7 +19,7 @@ define([
     var chooseSubCategories = function(data) {
         form.attr('_id', data._id);
         dropdownActive.text(data.name);
-        debugger;
+       
         api.initTable('subCategories', events, {}, data.subcategories);
     }
 

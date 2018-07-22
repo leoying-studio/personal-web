@@ -34,7 +34,7 @@ exports.updateSubCategory = function (id, subId, name) {
 	if (subId) {
 		model = {};
 	}
-	return Categories.findOneAndUpdate(id, model);
+	return Categories.findByIdAndUpdate(id, model);
 }
 
 exports.updateCategory = function (id, model) {
