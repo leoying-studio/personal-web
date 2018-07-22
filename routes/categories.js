@@ -3,7 +3,7 @@ var router = express.Router();
 var Categories = require("./../business/categories");
 var Checks = require("./../Checks/categories");
 
-router.post("/save", Checks.save, Categories.saveCategory, function(req, res, next) {
+router.post("/save", Checks.save, Categories.save, function(req, res, next) {
     next();
 });
 
@@ -18,7 +18,7 @@ router.get("/data", Categories.getAll,  function(req, res, next) {
 });
 
 // 添加导航下的类别
-router.post('/children/save', Checks.children, Categories.saveChild, function(req, res, next) {
+router.post('/subCategory/save', Checks.children, Categories.savSubCategory, function(req, res, next) {
     next();
 });
 

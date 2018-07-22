@@ -7,7 +7,7 @@ exports.getAll = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.saveCategory = function(req, res, next) {
+exports.save = function(req, res, next) {
 	var body = req.body;
 	Catgegories.save(body._id, body.name)
 	.then(function(doc) {
@@ -25,7 +25,7 @@ exports.getChildren = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.saveChild = function(req, res, next) {
+exports.savSubCategory = function(req, res, next) {
 	var body = req.body;
 	 Catgegories.addChild(body._id, body.childId, body.name)
 	 .then(function(doc) {
