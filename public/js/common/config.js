@@ -147,12 +147,36 @@ define(['jquery'], function ($) {
     }
 
 
+    var subCategories = function(events, params, data) {
+        var options = {
+            data: data,
+            columns: [
+                {
+                    field: 'name',
+                    title: '名称',
+                    width:　'400px'
+                },
+                {
+                    title: '操作',
+                    events: events,
+                    formatter: function(e, item, i) {
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
+                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>"
+                }
+              }
+            ]
+        }
+        return Object.assign({}, _defaultConfig, options, params || {});
+    }
+
+
     return {
         table: {
             categories: categories,
             intro: intro,
             theme: theme,
-            themeList: themeList
+            themeList: themeList,
+            subCategories: subCategories
         } 
     }
 });

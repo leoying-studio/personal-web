@@ -65,7 +65,7 @@ exports.children = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
-			value: body.categoryId,
+			value: body._id,
 			type: String,
 			name: '类别Id'
 		},
@@ -81,7 +81,10 @@ exports.children = function(req, res, next) {
 	];
     var validate = Validator(rules);
     if (!validate.status) {
-        return validate;
+        return res.send({
+            status: false,
+            message: validate.message
+        });
     }
     next();
 }

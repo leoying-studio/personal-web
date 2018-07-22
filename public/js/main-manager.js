@@ -9,7 +9,8 @@ require.config({
          'api': '/js/common/api',
          'config': '/js/common/config',
          'theme': '/js/manager/home/theme',
-         'categories': '/js/manager/categories/index'
+         'categories': '/js/manager/categories/index',
+         'subCategories': '/js/manager/categories/subCategories'
      },
      shim: {
           'bootstrap': {
@@ -28,7 +29,7 @@ require.config({
 });
 
 require(['bootstrap', 'bootstrap.table', 'bootstrap-table-zh-CN',], function() {
-    require(['config', 'api','aside', 'intro', 'theme', 'categories'], function() {
+    require(['config', 'api','aside', 'intro', 'theme', 'categories', 'subCategories'], function() {
         
     });
 });

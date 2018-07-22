@@ -29,7 +29,7 @@ define([
     });
 
     categoriesMenu.click(function() {
-        homeMenu.find('.active').removeClass('active');
+        categoriesMenu.find('.active').removeClass('active');
         $(this).find('span').addClass('active');
         var index = $(this).index();
         switch(index) {
@@ -37,7 +37,7 @@ define([
                 categoriesCallback();
             break;
             case 1: 
-               
+               subcategoriesCallback();
             break;
         }
     });
@@ -54,9 +54,14 @@ define([
         categoriesCallback = cb;
     }
 
+    var switchToSubCategories = function(cb) {
+        subcategoriesCallback = cb;
+    }
+
     return {
         'switchToTheme': switchToTheme,
         'switchToIntro': switchToIntro,
-        'switchToCategories': switchToCategories
+        'switchToCategories': switchToCategories,
+        'switchToSubCategories': switchToSubCategories
     };
 });
