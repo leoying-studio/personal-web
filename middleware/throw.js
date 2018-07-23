@@ -10,6 +10,7 @@ exports.message = {
             for(var key in data) {
                 main[key] = data[key];
             }
+
             return res.send({
                 status: true,
                 main: main,

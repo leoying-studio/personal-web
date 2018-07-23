@@ -1,13 +1,9 @@
 var Validator = require('./../utils/validator');
 
 exports.save = function(req, res, next) {
+
     var body = req.body;
     var rules = [
-		{
-			value: body.children,
-			type: Array,
-			name: '子类'
-        },
         {
 			value: body.name,
             type: String,

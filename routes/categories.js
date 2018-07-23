@@ -3,7 +3,7 @@ var router = express.Router();
 var Categories = require("./../business/categories");
 var Checks = require("./../Checks/categories");
 
-router.post("/save", Checks.save, Categories.saveCategory, function(req, res, next) {
+router.post("/save", Checks.save, Categories.save, function(req, res, next) {
     next();
 });
 

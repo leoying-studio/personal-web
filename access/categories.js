@@ -11,7 +11,7 @@ exports.save = function (id, name) {
 	return Categories.create({
 		name,
 		subcategories: []
-	}).exec();
+	});
 }
 
 exports.all = function () {
