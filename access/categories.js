@@ -25,10 +25,16 @@ exports.getSubcategoriesById = function (id, subcategoryId ,name) {
 	return Categories.findByIdAndUpdate({_id: id, 'subcategories._id': subcategoryId}, {$set: {name}});
 }
 
-exports.updateSubcategories = function () {
-	return Categories.findOneAndUpdate(conditions, {
-		$set: model
-	});
+exports.updateSubCategory = function (id, subId, name) {
+	var model = {
+		$push: {
+			subcategories: {name}
+		}
+	};
+	if (subId) {
+		model = {};
+	}
+	return Categories.findByIdAndUpdate(id, model);
 }
 
 exports.updateCategory = function (id, model) {

@@ -32,3 +32,13 @@ ul.list-group
 				a(href="#").center-block
 					i.glyphicon.glyphicon-record
 					span 二级
+	li.list-group-item
+		a(data-toggle="collapse" aria-expanded="false" href="#articles-config-menu").center-block.clearfix
+			i.glyphicon.glyphicon-book
+			span 文章
+			//- i(collapsing='true').glyphicon.glyphicon-menu-up.pull-right
+		ul.children-group.collapsing#articles-config-menu
+			li
+				a(href="#").center-block
+					i.glyphicon.glyphicon-list-alt
+					span 列表

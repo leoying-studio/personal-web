@@ -18,15 +18,16 @@ html
         li 当前位置: 首页 
       section
         header#toolbar
-          div.btn-group
+          div.btn-group#common-dropdown
             button.btn.btn-info(nextstep='#introForm')
               i.glyphicon.glyphicon-plus 
               span 新增
             button.btn.btn-default.dropdown-menu-active 请选择主题
             button.btn.btn-default.dropdown-toggle(data-toggle="dropdown" aria-expanded="false") 
-              span.caret 
-               <span class="sr-only"></span>
+              span.caret
+                span.sr-only 
             ul.dropdown-menu.drop-menu-right(role='menu')
+          include ./articles/index.jade
         table#table
       include ./home/index.jade
       include ./categories/index.jade

@@ -8,9 +8,9 @@ router.post("/save", Checks.save, Categories.save, function(req, res, next) {
 });
 
 // 分类查询
-router.get("/category/data", Checks.query, Categories.getChildren, function(req, res, next) {
-     res.json(req.body.data);
-});
+// router.get("/category/data", Checks.query, Categories.getChildren, function(req, res, next) {
+//      res.json(req.body.data);
+// });
 
 // 查询导航列表
 router.get("/data", Categories.getAll,  function(req, res, next) {
@@ -18,13 +18,13 @@ router.get("/data", Categories.getAll,  function(req, res, next) {
 });
 
 // 添加导航下的类别
-router.post('/children/save', Checks.children, Categories.saveChild, function(req, res, next) {
+router.post('/subCategory/save', Checks.children, Categories.savSubCategory, function(req, res, next) {
     next();
 });
 
 // 更新导航下面的类别
-router.post("/children/update", Checks.children, function(req, res, next) {
-    next();
-});
+// router.post("/children/update", Checks.children, function(req, res, next) {
+//     next();
+// });
 
 module.exports = router;

@@ -52,17 +52,17 @@ define([
         api.refreshTable();
     });
 
+
     submit.click(function() {
-       var params = api.getParams(categoriesForm);
-       $.post('/categories/save', params)
-       .then(function(res) {
+        var params = api.getParams(categoriesForm);
+        $.post('/categories/save', params)
+        .then(function(res) {
             if (res.status) {
-                api.message.success('保存成功');
-                api.refreshTable();
-                api.clearValues(categoriesForm);
-            } else {
-                api.message.error(res.message);
+               api.clearValues(categoriesForm);
+               api.message.success('保存成功');
+               return;
             }
-       });
+            api.message.error(res.message);
+        });
     });
 });

@@ -33,7 +33,6 @@ define([
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
-                debugger;
                 $.post('/intro/theme/map/destory', {
                     _id: r._id
                 }).then(function(res) {

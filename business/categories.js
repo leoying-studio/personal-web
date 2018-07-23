@@ -16,18 +16,18 @@ exports.save = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.getChildren = function(req, res, next) {
-	var body = req.body;
-	Categories.getSubcategoriesById(body._id)
-	.then(function(doc) {
-		req.body.data = doc.children;
-		next();
-	}).catch(next);
-}
+// exports.getChildren = function(req, res, next) {
+// 	var body = req.body;
+// 	Catgegories.getSubcategoriesById(body._id)
+// 	.then(function(doc) {
+// 		req.body.data = doc.children;
+// 		next();
+// 	}).catch(next);	
+// }
 
-exports.saveChild = function(req, res, next) {
+exports.savSubCategory = function(req, res, next) {
 	var body = req.body;
-	Categories.addChild(body._id, body.childId, body.name)
+	 Catgegories.updateSubCategory(body._id, body.childId, body.name)
 	 .then(function(doc) {
 		req.body.data = doc;
 		next();
