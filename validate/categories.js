@@ -62,7 +62,7 @@ exports.update = function(req, res, next) {
     next();
 }
 
-exports.children = function(req, res, next) {
+exports.subCategories = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
