@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Checks = require("./../checks/home");
+var Validate = require("./../validate/home");
 var Home = require('./../business/home');
 
 /**
@@ -20,13 +20,13 @@ router.get('/manager', Home.getAllCategories, function (req, res, next) {
 /**
  * 设置首页介绍信息
  */
-router.post("/intro/save", Checks.intro, Home.setIntro, function (req, res, next) {
+router.post("/intro/save", Validate.intro, Home.setIntro, function (req, res, next) {
     next();
 });
 
 
 // 消灭这条推荐数据
-// router.post("/intro/destory", Checks.introId, Home.destroyIntro, function(req, res, next) {
+// router.post("/intro/destory", Validate.introId, Home.destroyIntro, function(req, res, next) {
 //     next();
 // }); 
 
@@ -42,7 +42,7 @@ router.get("/intro/data", Home.getAllIntro, function (req, res, next) {
  * 首页主题增删查改
  */
  //根据 introId添加主题
-router.post("/intro/themes/save", Checks.theme, Home.saveThemeByIntro, function(req, res, next) {
+router.post("/intro/themes/save", Validate.theme, Home.saveThemeByIntro, function(req, res, next) {
     next();
 });
 
@@ -57,7 +57,7 @@ router.get("/intro/themes/data", Home.getThemeCategories, function(req, res, nex
 });
 
 // 根据introId 和 themeId 来查询主题详情
-router.get("/intro/themes/map/data/:themeId", Checks.map, Home.getThemeMap, function(req, res, next) {
+router.get("/intro/themes/map/data/:themeId", Validate.map, Home.getThemeMap, function(req, res, next) {
     res.json(req.body.data);
 });
 
@@ -66,7 +66,7 @@ router.post("/intro/themes/destory", Home.destroyIntroTheme, function(req, res, 
     next();
 });
 
-router.post("/intro/theme/map/destory", Checks.mapItem, Home.destoryThemeItem, function(req, res, next) {
+router.post("/intro/theme/map/destory", Validate.mapItem, Home.destoryThemeItem, function(req, res, next) {
     next();
 });
 

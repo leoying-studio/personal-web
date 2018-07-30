@@ -9,8 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 var app = express();
-var middlewareCheck = require('./middleware/check');
-var Throw = require('./middleware/throw');
+var Throw = require('./interceptor/throw');
 // 自定义引入
 // var connect = require('connect')
 var sassMiddleware = require('node-sass-middleware');
