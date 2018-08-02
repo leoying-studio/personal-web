@@ -3,7 +3,7 @@ var router = express.Router();
 var Validate = require("./../validate/home");
 var Home = require('./../business/home');
 
-// 添加导航下的类别
+// 侧边栏切换进行重定向转发
 router.get('/redirect/:target', function(req, res, next) {
 	var target = req.body.target;
     res.render(target + '.jade');

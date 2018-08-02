@@ -28,6 +28,7 @@ var users = require('./routes/users');
 var categories = require('./routes/categories');
 var home = require('./routes/home');
 var articles = require('./routes/articles');
+var manager = require('./routes/manager');
 // var detail = require('./routes/detail');
 // var db = require('./db');
 // var MongoStore=require('connect-mongo')(session);
@@ -87,7 +88,7 @@ app.use('/', home);
 app.use("/users", users);
 app.use("/categories", categories);
 app.use("/articles", articles);
-
+app.use("/manager", manager);
 
 // 自定义中间件抛出消息
 app.use(Throw.abnormal);
