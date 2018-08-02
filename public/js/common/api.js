@@ -30,7 +30,6 @@ define([
         api.clearValues($(nextstep));
 		$(nextstep).show();
 	});
-
     var api =  {
         getParams: function (form, every) {
             var _params = {};
@@ -120,12 +119,10 @@ define([
         showTable: function () {
             table.parents('section').show();
         },
-
         // 隐藏table
         hideTable: function () {
             table.parents('section').hide();
         },
-
         // 刷新表
         refreshTable: function () {
             table.bootstrapTable('refresh');
@@ -160,7 +157,5 @@ define([
             breadcrumb.children(':eq(0)').nextAll().remove();
         }
     }
-
-
     return api;
 });
