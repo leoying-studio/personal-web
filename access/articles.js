@@ -31,7 +31,7 @@ exports.count = function() {
 
 exports.save = function(id, fields) {
 	if (id) {
-		return ArticlesModel.findByIdAndUpdate( articleId ,{
+		return ArticlesModel.findByIdAndUpdate( id ,{
 			$set: fields,
 		});
 	}
