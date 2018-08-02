@@ -1,2 +1,17 @@
-
-include ./toolbar.jade
+section
+	header#toolbar
+		div(style="margin-right: 10px").pull-left
+			label(style="margin-right: 10px") 类别:
+			span.btn-group
+				button.btn.btn-default.dropdown-toggle#categoriesMenu(data-toggle="dropdown" aria-expanded="false" type="button") 请选择分类 
+					span.caret
+						span.sr-only 
+				ul.dropdown-menu.drop-menu-right(role='menu')#categoriesDropPanel
+		div.pull-left
+			label(style="margin-right: 10px") 子分类:
+			span.btn-group
+				button.btn.btn-default.dropdown-toggle#subcategoriesMenu(data-toggle="dropdown" aria-expanded="false" type="button") 请选择子类别 
+					span.caret
+						span.sr-only 
+				ul.dropdown-menu.drop-menu-right(role='menu')#subcategoriesDropPanel
+	table#table

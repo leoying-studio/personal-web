@@ -11,18 +11,8 @@ html
     script(src="/lib/require/require.js" data-main="/js/main-manager")
   body
     include ./header.jade
-    aside.aside-bar 
-      include ./aside/index.jade
-    main.main#main
-      ul.breadcrumb
-        li 当前位置: 首页 
-      section
-        header#toolbar
-          div.btn-group#common-dropdown
-            button.btn.btn-info(nextstep='#introForm')
-              i.glyphicon.glyphicon-plus 
-              span 新增
-          include ./articles/index.jade
-        table#table
-      include ./home/index.jade
-      include ./categories/index.jade
+    main
+      aside.aside-bar 
+        include ./aside/index.jade
+      section.main
+        iframe(src="")
