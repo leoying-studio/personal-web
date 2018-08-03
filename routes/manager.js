@@ -5,15 +5,19 @@ var Home = require('./../business/home');
 
 // 侧边栏切换进行重定向转发
 router.get('/redirect/:target', function(req, res, next) {
-	var target = req.body.target;
-    res.render(target + '.jade');
+    var target = req.params.target;
+    switch(target) {
+        case '0' : {
+            res.render('manager/intro');
+            break;
+        } case '1': {
+            res.render('manager/theme');
+            break;
+        }
+    }   
 });
 
 
-// 根据当前的introId获取下面的主题列表
-router.get("/intro/themes/data", Home.getThemeCategories, function(req, res, next) {
-    res.json(req.body.data);
-});
 
 // 根据introId 和 themeId 来查询主题详情
 router.get("/intro/themes/map/data/:themeId", Validate.map, Home.getThemeMap, function(req, res, next) {
@@ -41,7 +45,6 @@ router.post("/intro/save", Validate.intro, Home.setIntro, function (req, res, ne
 router.get("/intro/data", Home.getAllIntro, function (req, res, next) {
     res.json(req.body.data);
 });
-
 
 /**
  * 首页主题增删查改

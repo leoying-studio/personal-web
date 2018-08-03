@@ -10,11 +10,14 @@ router.get("/", Home.getAll, function (req, res, next) {
     res.render('index.jade', req.body.data);
 });
 
-
 /* GET home page. */
 router.get('/manager', Home.getAllCategories, function (req, res, next) {
     res.render("manager", req.body.data);
 });
 
+// 获取介绍信息下的主题
+router.get("/intro/themes/data", Home.getThemeCategories, function(req, res, next) {
+    res.json(req.body.data);
+});
 
 module.exports = router;

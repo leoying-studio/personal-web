@@ -4,8 +4,9 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	var breadcrumb = main.find('.breadcrumb');
 	var toolbar = $('#toolbar');
 	var buttons= toolbar.find('button');
-	var addbutton = buttons.eq(0);
 	var existIntro = false;
+	var form = $('#form');
+	var formBtns = form.find('button');
 	// 业务常量
 	var events = {
 		theme: {
@@ -56,9 +57,6 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 		}
     };
     
-    aside.switchToIntro(function() {
-        initIntro();
-    });
 
     var initIntro = function() {
 		var config = {
@@ -67,12 +65,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 					existIntro = true;
 					addbutton.addClass('disabled');
 				}
-			},
-			// onPostBody: function(r) {
-			// 	if (r.length) {
-			// 		addbutton.hide();
-			// 	}
-			// }
+			}
 		};
         api.initTable('intro', events.intro, config);
         api.removeAllBread();
@@ -88,7 +81,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 	});
 
 	addbutton.click(function() {
-		$('#themeForm').removeAttr('themeId');
+		form.removeAttr('themeId');
 	});
 
 	breadcrumb.click(function() {
@@ -98,7 +91,7 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 		 }
 	});
 
-	$('#introForm button').click(function() {
+	form.find('button').click(function() {
 		var index = $(this).index();
 		if (index === 0) {
 			$("#introForm").hide();
@@ -120,10 +113,9 @@ define(['jquery', 'api', 'config', 'aside'], function($, api, config, aside) {
 			 }
 		});
 	})
-
 		
 
-	$('#themeForm button').click(function(e) {
+	formBtns.click(function(e) {
 		 var index = $(this).index();
 		 if (index === 0) {
 			$('#themeForm').hide();

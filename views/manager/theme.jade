@@ -1,4 +1,12 @@
-form(style="display:none;")#themeForm
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
+link(rel='stylesheet', href='/css/common.css')
+link(rel='stylesheet', href='/css/manager.css')
+script(src="/lib/require/require.js" data-main="/js/main-manager")
+
+div
+	header#toolbar
+	table#table
+form(style="display:none;")#form
     div.form-group
         label(for="") 主题标题
         input(type="text" name="headline").form-control 
@@ -8,7 +16,7 @@ form(style="display:none;")#themeForm
     div.form-group
         button(type='button').btn.btn-default 返回
         button(type='button').btn.btn-primary 提交
-form(style="display:none;")#themeListForm
+form(style="display:none;")#itemForm
     div.form-group
         label(for="") 陈述(说明)
         input(type="text" name="presentation").form-control 

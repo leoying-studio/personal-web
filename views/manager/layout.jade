@@ -10,9 +10,4 @@ html
     link(rel='stylesheet', href='/css/manager.css')
     script(src="/lib/require/require.js" data-main="/js/main-manager")
   body
-    include ./header.jade
-    main
-      aside.aside-bar 
-        include ./aside/index.jade
-      section.viewport
-        iframe(name="iframe" class="iframe")
+	block content

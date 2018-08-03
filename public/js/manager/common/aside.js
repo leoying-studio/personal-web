@@ -7,83 +7,19 @@ define([
     var homeMenu = $('.aside-bar > ul > li:eq(0) > ul > li');
     var categoriesMenu = $('.aside-bar > ul > li:eq(1) > ul > li');
     var articlesMenu = $('.aside-bar > ul > li:eq(2) > ul > li' );
-    var toolbar = $('#toolbar');
-    var buttons = toolbar.find('button');
-    // 业务回调
-    var themeCallback = null;
-    var introCallback = null;
-    var categoriesCallback = null;
-    var subcategoriesCallback = null;
-    var ArticlesCallback = null;
 
     homeMenu.click(function(e) {
         homeMenu.find('.active').removeClass('active');
         $(this).find('span').addClass('active');
-        var index = $(this).index();
-        switch(index) {
-            case 0:
-                introCallback();
-            break;
-            case 1: 
-                themeCallback();
-            break;
-        }
     });
 
     categoriesMenu.click(function() {
         categoriesMenu.find('.active').removeClass('active');
         $(this).find('span').addClass('active');
-        var index = $(this).index();
-        switch(index) {
-            case 0:
-                categoriesCallback();
-            break;
-            case 1: 
-               subcategoriesCallback();
-            break;
-        }
     });
 
     articlesMenu.click(function() {
         categoriesMenu.find('.active').removeClass('active');
         $(this).find('span').addClass('active');
-        var index = $(this).index();
-        $('#articles-toolbar').hide();
-        switch(index) {
-            case 0:
-                ArticlesCallback();
-            break;
-            case 1: 
-               
-            break;
-        }
     });
-
-    var switchToTheme = function(cb) {
-        themeCallback = cb;
-    }
-
-    var switchToIntro = function(cb) {
-        introCallback = cb;
-    }
-
-    var switchToCategories = function(cb) {
-        categoriesCallback = cb;
-    }
-
-    var switchToSubCategories = function(cb) {
-        subcategoriesCallback = cb;
-    }
-
-    var switchToArticles = function(cb) {
-        ArticlesCallback = cb;
-    }
-
-    return {
-        'switchToTheme': switchToTheme,
-        'switchToIntro': switchToIntro,
-        'switchToCategories': switchToCategories,
-        'switchToSubCategories': switchToSubCategories,
-        switchToArticles: switchToArticles
-    };
 });

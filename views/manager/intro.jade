@@ -1,4 +1,9 @@
-form(action="" role="form" style="display:none;")#introForm
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+link(rel='stylesheet', href='/css/common.css')
+link(rel='stylesheet', href='/css/manager.css')
+script(src="/lib/require/require.js" data-main="/js/main-manager")
+
+form(action="" role="form" style="padding-right: 10px")#form
 	div.form-group
 		label(for="title") 标题
 		input(type="text" placeholder="请输入标题" name="title").form-control

@@ -12,7 +12,7 @@ require.config({
          'categories': '/js/manager/categories/index',
          'subCategories': '/js/manager/categories/subCategories',
          'articles': '/js/manager/articles/index',
-         'comments': 'js/manager/articles/comments'
+         'comments': '/js/manager/articles/comments'
      },
      shim: {
           'bootstrap': {
