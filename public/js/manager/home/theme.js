@@ -6,30 +6,18 @@ define([
     'config'
 ], function(require, $, api, aside, config) {
     var main = $('#main'), asideBar = $('.aside-bar');
-    var breadcrumb = main.find('.breadcrumb');
     var toolbar = $('#toolbar');
-    var dropdowm = toolbar.find('.dropdown-menu');
-    var dropdownActive = toolbar.find('.dropdown-menu-active');
-    var buttons= toolbar.find('button');
-    var addbutton = buttons.eq(0);
-    var itemForm = $('#itemForm');
-    var formSubmit = itemForm.find('.submit');
-    // aside.switchToTheme(function() {
-    //     buttons.show();
-    //     api.removeAllBread();
-    //     api.insertBread('主题列表', 'themeMap', {});
-    //     getThemeCategories();
-    //     // 设置下一步点击
-    //     addbutton.attr('nextstep', '#itemForm');
-    //     addbutton.removeClass('disabled', 'disabled');
-    // });
-
+    var addBtn = $('#addBtn');
+    var form = $('#form');
+    var save = $('#save');
+    var back = $('#back');
+	
     var events = {
         'click .label[name=edit]': function(e, f, r) {
             api.hideTable();
-            itemForm.attr('_id', r._id);
-            api.setValues(itemForm, r);
-            itemForm.show();
+            form.attr('_id', r._id);
+            api.setValues(form, r);
+            form.show();
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
@@ -47,50 +35,37 @@ define([
         }
     };
 
-    // 获取主题分类
-    var getThemeCategories = function() {
-        $.get('/intro/themes/data').then(function(data) {
-            dropdowm.children().remove();
-            $(data).each(function(index, item) {
-                dropdowm.append('<li><a href="#">'+item.headline+'</a></li>');
-            });
-            var chooseTheme = function(theme) {
-                dropdownActive.text(theme.headline);
-                itemForm.attr('themeId', theme._id);
-                api.initTable('themeList', events, {}, theme._id);
-            }
-            dropdowm.children().click(function() {
-                var index = $(this).index();
-                chooseTheme(data[index]);
-            });
-            if (data.length) {
-                var firstCateory = data[0];
-                chooseTheme(firstCateory);
+    var requestSave = function() {
+        var params = api.getParams(form);
+        params._id = form.attr('_id');
+        $.post('/intro/theme/save', params)
+        .then(function(res) {
+            if (res.status) {
+                api.message.success('保存成功');
+            } else {
+                api.message.error(res.message);
             }
         });
     }
 
-    itemForm.find('.back').click(function() {
-        itemForm.removeAttr('_id');
-        itemForm.hide();
-        getThemeCategories();
-        api.showTable();
+    // 获取主题分类
+    api.initTable('theme', events, {});
+
+    save.click(function() {
+        requestSave();
     });
 
-    formSubmit.click(function() {
-        var params = api.getParams(itemForm);
-        params.themeId = itemForm.attr('themeId');
-        params._id = itemForm.attr('_id');
-        $.post('/intro/themes/item/save', params)
-        .then(function(res) {
-            if (res.status) {
-                api.message.success('保存成功');
-                api.clearValues(itemForm);
-             } else {
-                api.message.error(res.message);
-             }
-        });
+    addBtn.click(function() {
+       api.hideTable();
+       form.show();
+       api.clearValues(form);
     });
 
-    getThemeCategories();
+    back.click(function() {
+       form.removeAttr('_id');
+       form.hide();
+       api.refreshTable();
+       api.showTable();
+    });
+   
 });

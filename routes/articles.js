@@ -10,7 +10,7 @@ router.post("/add", Validate.save, Articles.save, function(req, res, next) {
 });
 
 // 查询
-router.get("/view/:categoryId/:childId/:pagination", Validate.query, Articles.getPage, function(req, res)　{
+router.get("/view/:categoryId/:subId/:pagination", Validate.query, Articles.getPage, function(req, res)　{
 	res.json(req.body.data);
 }); 
 

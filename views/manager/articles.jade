@@ -1,0 +1,45 @@
+
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
+link(rel='stylesheet', href='/css/common.css')
+link(rel='stylesheet', href='/css/manager.css')
+script(src="/lib/require/require.js" data-main="/js/main-articles")
+
+header#toolbar
+    div.dropdown.pull-left(style="margin-right: 15px;")
+        label(for="" style="padding-right: 10px") 一级分类:
+        button( data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropName 选择一级类别&nbsp;
+            span(class="caret")
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropName")#dropGroup
+    div.dropdown.pull-left(style="margin-right: 15px;")
+        label(style="padding-right: 10px") 二级分类: 
+        button( data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropSubName 选择一级类别&nbsp;
+            span(class="caret")
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropSubName")#dropSubGroup
+    div.pull-left
+        button.btn.btn-primary 新增
+        
+table#table
+
+form#form(action="" style="display:none;")
+    div.form-group
+        label(for="title") 标题
+        input(type="text" placeholder="请输入标题" name="title").form-control
+    div.form-group
+        label(for="") 说明
+        input(type="text" placeholder="" name="description").form-control
+    div.form-group
+        label(for="") 文章配图
+        ]HJJ            input(type="text" placeholder="请输入主题标题" name="illustration").for
+        label(for="") 文章内容
+        textarea(name="content", cols="30", rows="10" type="text" placeholder="请输入简介信息 ").form-control
+    div.form-group
+        label(for="") 是否推荐
+        input(type="radio" name="recomend").form-control 是
+        input(type="radio" name="recomend").form-control 否
+    div.form-group
+        label(for="") 推荐图
+        input(type="text" placeholder="推荐图" name="illustration").form-control
+    div.form-group
+        button.btn.btn-default#back(type='button') 返回
+        button.btn.btn-primary#save(type='button') 提交

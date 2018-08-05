@@ -29,11 +29,11 @@ var convert = {
 
 exports.getPage = function (req, res, next) {
 	var body = req.body;
-	Articles.list(body.categoryId, body.pagination)
-		.then(function (collection) {
-			req.body.data = collection;
-			next();
-		});
+	Articles.list(body.categoryId, body.subId, body.pagination)
+	.then(function (collection) {
+		req.body.data = collection;
+		next();
+	});
 }
 
 exports.destoryById = function (req, res, next) {

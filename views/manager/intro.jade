@@ -1,7 +1,7 @@
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
 link(rel='stylesheet', href='/css/common.css')
 link(rel='stylesheet', href='/css/manager.css')
-script(src="/lib/require/require.js" data-main="/js/main-manager")
+script(src="/lib/require/require.js" data-main="/js/main-intro")
 
 form(action="" role="form" style="padding-right: 10px")#form
 	div.form-group
@@ -17,5 +17,4 @@ form(action="" role="form" style="padding-right: 10px")#form
 		label(for="title") 简介
 		textarea(name="intro", cols="30", rows="10")(type="text" placeholder="请输入简介信息 ").form-control
 	div.form-group
-		button.btn.btn-default(type="button") 返回
-		button.btn.btn-primary(type='button') 提交
+		button.btn.btn-primary(type='button')#saveBtn 提交

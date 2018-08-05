@@ -27,9 +27,9 @@ exports.setIntro = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.getAllIntro = function(req, res, next) {
-	Intro.all().then(function(collections) {
-		req.body.data = collections;
+exports.getIntro = function(req, res, next) {
+	Intro.findOne().then(function(doc) {
+		req.body.data = doc;
 		next();
 	}).catch(next);
 }
@@ -44,32 +44,36 @@ exports.getAllCategories = function(req, res, next) {
 	});
 }
 
-// exports.destroyIntro = function(req, res, next) {
-// 	Intro.destory(req.body._id)
-// 	.then(function(doc) {
-// 		req.body.data = doc;
-// 		next();
-// 	}).catch(next);
-// }
-
 // 根据介绍信息保存
-exports.saveThemeByIntro = function(req, res, next) {
+exports.saveTheme = function(req, res, next) {
 	var body = req.body;
-	Intro.saveTheme(req.body._id, body.themeId, {
-		illustrating: body.illustrating,
-		headline: body.headline
-	}).then(function(doc) {
-		req.body.data = doc;
-		next();
-	}).catch(next);
+	var saveCommand = function() {
+		Intro.saveTheme(body._id, {
+			illustrating: body.illustrating,
+			headline: body.headline
+		}).then(function(doc) {
+			req.body.data = doc;
+			next();
+		}).catch(next);
+	}
+	if (!body._id) {
+		Intro.findOne().then(function(doc) {
+			if (doc.length < 4) {
+				return saveCommand();
+			}
+			req.body.message = "超过最大主题添加数";
+			next();
+		});
+		return;
+	}
+	saveCommand();
 }
 
 exports.saveThemeItem = function(req, res, next) {
 	var body = req.body;
-    // var themeId = body.themeId;
     var discriptiveGraph = body.discriptiveGraph;
 	var presentation = body.presentation;
-	var themeId = body.themeId;
+
 	Themes.save(req.body._id, {
 		themeId,
 		discriptiveGraph,

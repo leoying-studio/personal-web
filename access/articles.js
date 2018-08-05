@@ -5,8 +5,8 @@ var Articles = require('./../models/articles');
  * @param {String} childId 子类Id
  * @param {Number} pagination 需要查询的页码
  */
-exports.list = function(categoryId, pagination) {
-	return Articles.queryPaging({pagination}, {'categories.id': categoryId});
+exports.list = function(categoryId, subId, pagination) {
+	return Articles.queryPaging({pagination}, {'categories.id': categoryId, subId});
 }
 
 /**

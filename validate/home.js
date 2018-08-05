@@ -174,11 +174,6 @@ exports.theme = function (req, res, next) {
     var headline = body.headline;
     var rules = [
         {
-            name: '介绍Id',
-            type: String,
-            value: _id
-        },
-        {
             name: '主题图',
             type: String,
             value: illustrating

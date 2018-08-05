@@ -117,18 +117,28 @@ define([
         },
         // 显示table模块
         showTable: function () {
-            table.parents('section').show();
+            table.parents('.bootstrap-table').show();
         },
         // 隐藏table
         hideTable: function () {
-            table.parents('section').hide();
+            table.parents('.bootstrap-table').hide();
         },
         // 刷新表
         refreshTable: function () {
             table.bootstrapTable('refresh');
         },
-        initTable: function(name, events, queryParams, data) {
-            var conf = config.table[name](events, queryParams, data);
+        initTable: function(name, events, options, params) {
+            var type = Object.prototype.toString.call(params);
+            var paramStrify = '';
+            if (type === '[object Object]') {
+                for (var k in params) {
+                    paramStrify +='&'+ k + '=' + params[k];
+                }
+                paramStrify = paramStrify.replace(/&/, '?');
+            } else {
+                paramStrify = params;
+            }
+            var conf = config.table[name](events, options, paramStrify);
 		    table.bootstrapTable('destroy').bootstrapTable(conf);
         },
         insertBread: function(name, step, events) {

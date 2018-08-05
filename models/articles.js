@@ -12,8 +12,9 @@ var Scheam = new mongoose.Schema({
 	updateTime: {type: String, default:  Utils.time.get()},
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
+	category: String,
 	// 子类Id
-	categories: [
+	subcategories: [
 		{ id: mongoose.Schema.Types.ObjectId}
 	],
 	// 是否作为首页推荐

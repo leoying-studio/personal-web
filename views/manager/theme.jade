@@ -1,11 +1,12 @@
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
 link(rel='stylesheet', href='/css/common.css')
 link(rel='stylesheet', href='/css/manager.css')
-script(src="/lib/require/require.js" data-main="/js/main-manager")
+script(src="/lib/require/require.js" data-main="/js/main-theme")
 
-div
-	header#toolbar
-	table#table
+header#toolbar
+    button.btn.btn-primary#addBtn 添加
+table#table
 form(style="display:none;")#form
     div.form-group
         label(for="") 主题标题
@@ -14,15 +15,5 @@ form(style="display:none;")#form
         label(for="") 主题配图
         input(type="text" name="illustrating").form-control 
     div.form-group
-        button(type='button').btn.btn-default 返回
-        button(type='button').btn.btn-primary 提交
-form(style="display:none;")#itemForm
-    div.form-group
-        label(for="") 陈述(说明)
-        input(type="text" name="presentation").form-control 
-    div.form-group
-        label(for="") 描述图
-        input(type="text" name="discriptiveGraph").form-control 
-    div.form-group
-        button(type='button').btn.btn-default.back 返回
-        button(type='button').btn.btn-primary.submit 提交
+        button(type='button').btn.btn-default#back 返回
+        button(type='button').btn.btn-primary#save 提交

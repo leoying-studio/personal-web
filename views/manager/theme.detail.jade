@@ -1,0 +1,22 @@
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
+link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
+link(rel='stylesheet', href='/css/common.css')
+link(rel='stylesheet', href='/css/manager.css')
+script(src="/lib/require/require.js" data-main="/js/main-theme-detail")
+
+header#toolbar
+    div.dropdown
+        button(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropName 选择主题类别&nbsp;
+            span(class="caret")
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropPanel")#dropGroup
+table#table
+form(style="display:none;")#form
+    div.form-group
+        label(for="") 陈述(说明)
+        input(type="text" name="presentation").form-control 
+    div.form-group
+        label(for="") 描述图
+        input(type="text" name="discriptiveGraph").form-control 
+    div.form-group
+        button(type='button').btn.btn-default.back 返回
+        button(type='button').btn.btn-primary.submit 提交

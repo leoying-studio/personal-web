@@ -17,55 +17,6 @@ define(['jquery'], function ($) {
         pageList: [10, 20, 50, 100]		
     }
     
-    var intro = function(events, config) {
-        var options = {
-            url: '/intro/data',
-            columns: [
-                {
-                    checkbox: true
-                }, {
-                    title: '标语',
-                    field: 'slogan'
-                },
-                {
-                    title: '标题',
-                    field: 'title'
-                },
-                {
-                    title: '简介',
-                    field: 'intro'
-                },
-                {
-                    title: '主题标题',
-                    field: 'headline'
-                },
-                {
-                    title: '应用',
-                    field: 'apply',
-                    formatter: function(v) {
-                        return v ? '是' : '否';
-                    }
-                },
-                {
-                    title: '创建时间',
-                    field: 'updateTime'
-                },
-                {
-                    title: '更新时间',
-                    field: 'updateTime'
-                },
-                {
-                    title: '操作',
-                    events: events,
-                    formatter: function(e, item, i) {
-                        return "<a href='#' class='label label-info' name='edit' style='margin: 0 5px;'>编辑</a>" + 
-                        "<a href='#' class='label label-primary' name='theme'>主题</a>" 
-                    }
-                }
-            ]
-           }
-        return Object.assign({} ,_defaultConfig, options, config);
-    }
 
     var theme = function(events, params) {
         var options = {
@@ -93,9 +44,9 @@ define(['jquery'], function ($) {
         return Object.assign({}, _defaultConfig, options, params || {});
     }
 
-    var themeList = function(events, params, themeId) {
+    var themeList = function(events, params, params) {
         var options = {
-            url: '/intro/themes/map/data/'+themeId,
+            url: '/intro/themes/map/data/' + params,
             columns: [
                 {
                     field: 'presentation',
@@ -147,7 +98,7 @@ define(['jquery'], function ($) {
     }
 
 
-    var subCategories = function(events, params, data) {
+    var subcategories = function(events, params, data) {
         var options = {
             data: data,
             columns: [
@@ -169,14 +120,55 @@ define(['jquery'], function ($) {
         return Object.assign({}, _defaultConfig, options, params || {});
     }
 
+    var articles = function(events, options, params) {
+        var options = {
+            url: '/articles/data/' + params,
+            columns: [
+                {
+                    field: 'title',
+                    title: '文章标题',
+                },
+                {
+                    field: 'description',
+                    title: '文章说明',
+                },
+                {
+                    field: 'illustration',
+                    title: '文章配图',
+                },
+                {
+                    field: 'recommend',
+                    title: '是否推荐'
+                },
+                {
+                    field: 'recommendFigure',
+                    title: '推荐图'
+                },
+                {
+                    field: 'content',
+                    title: '文章内容'
+                },
+                {
+                    title: '操作',
+                    events: events,
+                    formatter: function(e, item, i) {
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
+                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>"
+                }
+              }
+            ]
+        }
+        return Object.assign({}, _defaultConfig, options, params || {});
+    }
+
 
     return {
         table: {
             categories: categories,
-            intro: intro,
             theme: theme,
             themeList: themeList,
-            subCategories: subCategories
+            subcategories: subcategories,
+            articles: articles
         } 
     }
 });

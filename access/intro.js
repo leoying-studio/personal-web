@@ -6,7 +6,7 @@ exports.save = function (fields) {
 	.then(function(count) {
 		if(count > 0) {
 			delete fields.themes;
-			return Intro.update({}, fields).exec();
+			return Intro.update({}, {$set: fields}).exec();
 		}
 		return Intro.create(fields);
 	});	
@@ -16,32 +16,27 @@ exports.destory = function (id) {
 	return Intro.findByIdAndRemove(id);
 }
 
-exports.saveTheme = function (id, themeId, fields) {
+exports.saveTheme = function (id, fields) {
 	var model = {
 		$push: {
 			themes: {
-				map: [],
 				illustrating: fields.illustrating,
 				headline: fields.headline
 			}
 		}
 	};
-	if (themeId) {
+	if (id) {
 		model = {
 			$set: {
 				'themes.$.illustrating': fields.illustrating,
 				'themes.$.headline': fields.headline
 			}
 		}
-		return Intro.update({_id: id, 'themes._id': themeId}, model);
+		return Intro.update({'themes._id': id}, model);
 	}
-	return Intro.findByIdAndUpdate(id, model);
+	return Intro.update({}, model);
 }
 
-
-exports.all = function () {
-	return Intro.queryPaging({ pagination: 1, pageSize: 9999 });
-}
 
 exports.findOne = function() {
 	return Intro.findOne({}).exec();
@@ -50,9 +45,7 @@ exports.findOne = function() {
 exports.count = function() {
 	return Intro.count().exec();
 }
-// exports.getApply = function() {
-// 	return Intro.findOne({ apply: true });
-// }
+
 
 exports.saveThemeItem = function(themeId, mapId, fields) {
 	return new Promise(function(resolve, reject) {
@@ -99,16 +92,10 @@ exports.destoryThemeById = function (themeId) {
 }
 
 
-exports.themeItem = function(themeId) {
-	return Intro.find({apply: true, "themes._id": themeId});
-}
-
-
 exports.destoryThemeItemById = function(themeId, mapId) {
 	return IntroModel.findOne({_id, "themes._id": themeId, "themes.map._id": mapId})
 	.remove();
 }
-
 
 exports.getIntroById = function(id) {
 	return Intro.findById(id);

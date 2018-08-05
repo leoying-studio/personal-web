@@ -1,19 +1,32 @@
 define([
     'require',
-    'aside'
-], function(require, aside) {
+    'api'
+], function(require, api) {
     'use strict';
     var toolbar = $('#toolbar');
-    var commDrop = $('#common-dropdown');
-    var articlesToolbar = $("#articles-toolbar");
-    var categoriesDropPanel = $('#categoriesDropPanel');
-    var subcategoriesDropPanel = $('#subcategoriesDropPanel');
-    var categoriesMenu = $("#categoriesMenu");
-    var subcategoriesMenu = $("#subcategoriesMenu");
-    var icon = " <span class='caret'><span class='sr-only'></span></span>";
+    var form = $('#form');
+    var save = $("#save");
+    var dropName = $('#dropName');
+    var dropSubName = $('#dropSubName');
+    var dropSubGroup = $('#dropSubGroup');
+    var dropGroup = $('#dropGroup');
+    var dropId = '';
+    var subId = '';
+
+
+    save.click(function() {
+
+    });
+
+    back.click(function() {
+        form.hide();
+        api.showTable();
+    });
+
     var createCategories = function(data) {
+        dropGroup.children().remove();
         $(data).each(function(index, category) {
-            categoriesDropPanel.append(
+            dropGroup.append(
                 "<li><a href='#'>" +category.name+ "</a></li>"
             );
         });
@@ -21,26 +34,53 @@ define([
     }
 
     var switchCate = function(data) {
-        categoriesDropPanel
+        dropGroup
         .children()
         .click(function(e) {
             var index = $(this).index();
-            
-            categoriesMenu.html(data[index].name + icon);
+            dropName.text(data[index].name);
+            dropId = data[index]._id;
+            subId = data[0].subcategories._id;
+            dropName.append('&nbsp;&nbsp;<span class="caret"></span>');
             getSubCate(data[index].subcategories);
         });
     }
+
+    //  切换二级分类
+    var switchSub = function(data){
+        dropSubGroup
+        .children()
+        .click(function(e) {
+            var index = $(this).index();
+            subId = data[index]._id;
+            dropSubName.text(data[index].name);
+            subId = data[index]._id;
+            dropSubName.append('&nbsp;&nbsp;<span class="caret"></span>');
+            api.initTable('articles', {}, {}, {
+                categoryId: dropId,
+                subId: subId
+            });
+        });
+    }   
 
     var getSubCate = function(data) {
         var html = "";
         $(data).each(function(index, category) {
             html += "<li><a href='#'>" +category.name+ "</a></li>";
         });
-        subcategoriesDropPanel.html(html);
+        dropSubGroup.html(html);
         if (data.length) {
-            return subcategoriesMenu.html(data[0].name + icon);
+            dropSubName.html(data[0].name);
+            dropSubName.append('&nbsp;&nbsp;<span class="caret"></span>');
+            switchSub(data); 
+            api.initTable('articles', {}, {}, {
+                categoryId: dropId,
+                subId: subId
+            });
+            return 
         }
-        subcategoriesMenu.html('没有更多分类' + icon);
+        dropSubName.text('没有更多分类');
+        dropSubName.append('&nbsp;&nbsp;<span class="caret"></span>');
     }
 
     var getCategories = function() {
@@ -50,11 +90,8 @@ define([
         });
     }
 
-    aside.switchToArticles(function() {
-        commDrop.hide();
-        articlesToolbar.show();
-        getCategories();
-    });
+    getCategories();
+
 
     
 });
