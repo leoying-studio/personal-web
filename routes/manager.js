@@ -16,15 +16,15 @@ router.get('/redirect/:target', function(req, res, next) {
             break;  
         }
         case '2': {
-            res.render('manager/theme.detail.jade');
+            res.render('manager/theme.detail');
             break;
         }
         case '4' :{
-            res.render('manager/categoies');
+            res.render('manager/categoies.jade');
             break;
         }
         case '5' : {
-            res.render('manager/subcategories');
+            res.render('manager/subcategories.jade');
         }
         case '6' : {
             res.render('manager/articles');
