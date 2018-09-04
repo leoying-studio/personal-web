@@ -2,7 +2,7 @@ require.config({
     paths: {
         'jquery': '/lib/jquery/jquery.min',
         'bootstrap': '/lib/bootstrap/js/bootstrap.min',
-        'intro': '/js/manager/home/intro',
+        'intro': '/js/manager/intro',
         'api': '/js/common/api',
     },
     shim: {

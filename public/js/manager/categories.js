@@ -7,6 +7,8 @@ define([
     var form = $('form');
     var back = $('#back');
     var save = $("#save");
+    var addBtn = $("#addBtn");
+    var table = $("#table");
 
     var events = {
         'click .label[name=edit]': function(e, f, r) {
@@ -42,5 +44,10 @@ define([
             }
             api.message.error(res.message);
         });
+    });
+
+    addBtn.click(function() {
+        form.show();
+        api.hideTable();
     });
 });

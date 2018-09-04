@@ -5,7 +5,7 @@ require.config({
         'bootstrap.table': '/lib/bootstrap/js/bootstrap.table',
         'config': '/js/common/config',
         'api': '/js/common/api',
-        'theme': '/js/manager/home/theme',
+        'theme': '/js/manager/theme',
     },
     shim: {
          'bootstrap': {
