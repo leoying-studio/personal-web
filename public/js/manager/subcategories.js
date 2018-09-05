@@ -63,7 +63,7 @@ define([
         });
     }
 
-    getCategories();
+    // getCategories();
   
     // // 返回按钮回调
     back.click(function() {
