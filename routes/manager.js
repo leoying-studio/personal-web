@@ -23,7 +23,7 @@ router.get('/redirect/:target', function(req, res, next) {
             res.render('manager/categoies.jade');
             break;
         }
-        case '5' : {
+        case 's' : {
             res.render('manager/subcategories.jade');
         }
         case '6' : {
