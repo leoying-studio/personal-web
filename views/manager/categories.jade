@@ -3,14 +3,13 @@ link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
 link(rel='stylesheet', href='/css/common.css')
 link(rel='stylesheet', href='/css/manager.css')
 script(src="/lib/require/require.js" data-main="/js/main-categories")
-
 header#toolbar
 	button.btn.btn-primary#addBtn 新增
 table#table
 form(action="" style='display:none;')#categoriesForm
-	div.form-group
+	div.form-item
 		label(for="" ) 名称
 		input.form-control(name="name" type='input')
-	div.form-group
+	div.form-item
 		button.btn.btn-default.btn-back(type='button')#back 返回
 		button.btn.btn-primary(type='button')#save 保存

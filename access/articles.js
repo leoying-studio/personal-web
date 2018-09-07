@@ -94,3 +94,4 @@ exports.getArticle = function(id) {
 exports.recommends = function() {
 	return Articles.find({recommend: true});
 }
+

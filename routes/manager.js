@@ -6,6 +6,7 @@ var Home = require('./../business/home');
 // 侧边栏切换进行重定向转发
 router.get('/redirect/:target', function(req, res, next) {
     var target = req.params.target;
+<<<<<<< HEAD
     switch(target) {
         case '0' : {
             res.render('manager/intro');
@@ -30,8 +31,9 @@ router.get('/redirect/:target', function(req, res, next) {
             res.render('manager/articles');
         }
     }   
+=======
+    res.render("manager/" + target);  
+>>>>>>> 4bf98397d82d37064ee28db4b5fbddd620c10278
 });
-
-
 
 module.exports = router;
