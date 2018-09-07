@@ -2628,7 +2628,7 @@ input[type="search"] {
     line-height: 46px;
   }
 }
-.form-group {
+.form-item {
   margin-bottom: 15px;
 }
 .radio,
@@ -2719,22 +2719,22 @@ textarea.input-sm,
 select[multiple].input-sm {
   height: auto;
 }
-.form-group-sm .form-control {
+.form-item-sm .form-control {
   height: 30px;
   padding: 5px 10px;
   font-size: 12px;
   line-height: 1.5;
   border-radius: 3px;
 }
-.form-group-sm select.form-control {
+.form-item-sm select.form-control {
   height: 30px;
   line-height: 30px;
 }
-.form-group-sm textarea.form-control,
-.form-group-sm select[multiple].form-control {
+.form-item-sm textarea.form-control,
+.form-item-sm select[multiple].form-control {
   height: auto;
 }
-.form-group-sm .form-control-static {
+.form-item-sm .form-control-static {
   height: 30px;
   min-height: 32px;
   padding: 6px 10px;
@@ -2756,22 +2756,22 @@ textarea.input-lg,
 select[multiple].input-lg {
   height: auto;
 }
-.form-group-lg .form-control {
+.form-item-lg .form-control {
   height: 46px;
   padding: 10px 16px;
   font-size: 18px;
   line-height: 1.3333333;
   border-radius: 6px;
 }
-.form-group-lg select.form-control {
+.form-item-lg select.form-control {
   height: 46px;
   line-height: 46px;
 }
-.form-group-lg textarea.form-control,
-.form-group-lg select[multiple].form-control {
+.form-item-lg textarea.form-control,
+.form-item-lg select[multiple].form-control {
   height: auto;
 }
-.form-group-lg .form-control-static {
+.form-item-lg .form-control-static {
   height: 46px;
   min-height: 38px;
   padding: 11px 16px;
@@ -2798,14 +2798,14 @@ select[multiple].input-lg {
 }
 .input-lg + .form-control-feedback,
 .input-group-lg + .form-control-feedback,
-.form-group-lg .form-control + .form-control-feedback {
+.form-item-lg .form-control + .form-control-feedback {
   width: 46px;
   height: 46px;
   line-height: 46px;
 }
 .input-sm + .form-control-feedback,
 .input-group-sm + .form-control-feedback,
-.form-group-sm .form-control + .form-control-feedback {
+.form-item-sm .form-control + .form-control-feedback {
   width: 30px;
   height: 30px;
   line-height: 30px;
@@ -2913,7 +2913,7 @@ select[multiple].input-lg {
   color: #737373;
 }
 @media (min-width: 768px) {
-  .form-inline .form-group {
+  .form-inline .form-item {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -2974,7 +2974,7 @@ select[multiple].input-lg {
 .form-horizontal .checkbox {
   min-height: 27px;
 }
-.form-horizontal .form-group {
+.form-horizontal .form-item {
   margin-right: -15px;
   margin-left: -15px;
 }
@@ -2989,13 +2989,13 @@ select[multiple].input-lg {
   right: 15px;
 }
 @media (min-width: 768px) {
-  .form-horizontal .form-group-lg .control-label {
+  .form-horizontal .form-item-lg .control-label {
     padding-top: 11px;
     font-size: 18px;
   }
 }
 @media (min-width: 768px) {
-  .form-horizontal .form-group-sm .control-label {
+  .form-horizontal .form-item-sm .control-label {
     padding-top: 6px;
     font-size: 12px;
   }
@@ -4376,7 +4376,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
           box-shadow: inset 0 1px 0 rgba(255, 255, 255, .1), 0 1px 0 rgba(255, 255, 255, .1);
 }
 @media (min-width: 768px) {
-  .navbar-form .form-group {
+  .navbar-form .form-item {
     display: inline-block;
     margin-bottom: 0;
     vertical-align: middle;
@@ -4426,10 +4426,10 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 @media (max-width: 767px) {
-  .navbar-form .form-group {
+  .navbar-form .form-item {
     margin-bottom: 5px;
   }
-  .navbar-form .form-group:last-child {
+  .navbar-form .form-item:last-child {
     margin-bottom: 0;
   }
 }
@@ -6468,8 +6468,8 @@ button.close {
 .container-fluid:after,
 .row:before,
 .row:after,
-.form-horizontal .form-group:before,
-.form-horizontal .form-group:after,
+.form-horizontal .form-item:before,
+.form-horizontal .form-item:after,
 .btn-toolbar:before,
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:before,
@@ -6498,7 +6498,7 @@ button.close {
 .container:after,
 .container-fluid:after,
 .row:after,
-.form-horizontal .form-group:after,
+.form-horizontal .form-item:after,
 .btn-toolbar:after,
 .btn-group-vertical > .btn-group:after,
 .nav:after,
