@@ -4,26 +4,28 @@ define([
     'jquery'
 ], function(require, api, $) {
     'use strict';
-
     var toolbar = $('#toolbar');
     var dropName = $('#dropName');
     var dropGroup = $('#dropGroup');
     var form = $('#form');
     var back = $('#back');
     var save = $('#save');
-    var _id = '';
+    var addBtn = $("#addBtn");
+    var cateId = '';
+    var subId = "";
+
 
     var events = {
         'click .label[name=edit]': function(e, f, r) {
             api.hideTable();
-            form.attr('subId', r._id);
+            form.attr('subId', r.cateId);
             api.setValues(form, r);
             form.show();
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
                 $.post('/intro/themes/destory', {
-                    themeId: r._id
+                    themeId: r.cateId
                 }).then(function(res) {
                     if (res.status) {
                         api.message.success('删除成功');
@@ -38,7 +40,7 @@ define([
 
     // // 分类切换选择
     var chooseSubCategories = function(data) {
-        _id = data._id;
+        cateId = data._id;
         dropName.text(data.name);
         dropName.append('&nbsp;&nbsp;<span class="caret"></span>');
         api.initTable('subcategories', events, {}, data.subcategories);
@@ -63,7 +65,7 @@ define([
         });
     }
 
-    // getCategories();
+    getCategories();
   
     // // 返回按钮回调
     back.click(function() {
@@ -72,10 +74,15 @@ define([
         api.showTable();
     });
 
+    addBtn.click(function() {
+        form.show();
+        api.hideTable();
+    });
+
     save.click(function() {
         var params = api.getParams(form);
-        params.subId = form.attr('subId');
-        params._id = _id;
+        params.subId = subId;
+        params.cateId = cateId;
         $.post('/categories/subcategory/save', params)  
         .then(function(res) {
             if (res.status) {

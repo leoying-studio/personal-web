@@ -3,8 +3,8 @@ var router = express.Router();
 var Validate = require("./../validate/articles");
 var Articles = require('./../business/articles');
 
-// 新增
-router.post("/add", Validate.save, Articles.save, function(req, res, next) {
+// 保存，新增或者编辑
+router.post("/save", Validate.save, Articles.save, function(req, res, next) {
 	// 开始插入数据
 	next();
 });
@@ -24,11 +24,6 @@ router.get("/data", Validate.query, Articles.getPage, function(req, res, next)�
 router.post("/delete", Validate.delete, Articles.destoryById, function(req, res, next) {
 	next();
 }); 
-
-// 修改
-router.post("/update", Validate.save, function(req, res, next) {
-	next();
-});
 
 
 router.get("/detail/view/:articleId/:pagination", Validate.detail, Articles.getDetail, function(req, res) {

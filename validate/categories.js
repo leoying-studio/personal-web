@@ -66,7 +66,7 @@ exports.subCategories = function(req, res, next) {
     var body = req.body;
     var rules = [
 		{
-			value: body._id,
+			value: body.cateId,
 			type: String,
 			name: '类别Id'
 		},

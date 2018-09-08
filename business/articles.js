@@ -1,12 +1,12 @@
-var Comments = require('./../access/comments');
-var Articles = require('./../access/articles');
-var Categories = require('./../access/categories');
+const Comments = require('./../access/comments');
+const Articles = require('./../access/articles');
+const Categories = require('./../access/categories');
 
-var convert = {
+const convert = {
 	comments: function(comments) {
 		return comments.map(function(comment) {
-			var interval = (new Date() - new Date(comment.createdAt)) / 1000 / 60;
-			var intervalName = "";
+			let interval = (new Date() - new Date(comment.createdAt)) / 1000 / 60;
+			let intervalName = "";
 			if (interval < 1) {
 				intervalName = "刚刚";
 			} else if(interval < 60) {
@@ -28,8 +28,8 @@ var convert = {
 }
 
 exports.getPage = function (req, res, next) {
-	var body = req.body;
-	Articles.list(body.categoryId, body.subId, body.pagination)
+	let { categoryId, subId,  pagination} = req.body;
+	Articles.list(categoryId, subId, pagination)
 	.then(function (collection) {
 		req.body.data = collection;
 		next();
@@ -37,7 +37,7 @@ exports.getPage = function (req, res, next) {
 }
 
 exports.destoryById = function (req, res, next) {
-	var body = req.body;
+	let body = req.body;
 	Promise.all([
 		Articles.destory(body.id),
 		Comments.destory(body.id)
@@ -49,15 +49,28 @@ exports.destoryById = function (req, res, next) {
 
 
 exports.save = function (req, res, next) {
-	var body = req.body;
-	Articles.save(req.body._id, {
-		title: body.title,
-		description: body.description,
+	let { categoryId, 
+		  title, 
+		  articleId = "",
+		  description,
+		  illustration, 
+		  subIds, 
+		  content,
+		  recommend = false, 
+		  recommendFigure = "",   
+		 } = req.body;
+	subIds = subIds.map((id) => {
+		return {id};
+	});
+	Articles.save(articleId, {
+		title,
+		description,
 		// 配图, 说明图
-		illustration: body.illustration,
-		categories,
+		illustration,
+		categoryId,
 		recommend,
-		recommendFigure: String,
+		subIds,
+		recommendFigure,
 		content
 	}).then(function (doc) {
 		req.body.data = doc;
@@ -67,9 +80,9 @@ exports.save = function (req, res, next) {
 
 
 exports.getDetail = function (req, res, next) {
-	var body = req.body;
-	var pagination = body.pagination;
-	var articleId = body.articleId;
+	let body = req.body;
+	let pagination = body.pagination;
+	let articleId = body.articleId;
 	Promise.all([
 		Categories.all(),
 		Articles.getArticle(articleId),
@@ -88,9 +101,9 @@ exports.getDetail = function (req, res, next) {
 
 
 exports.getCommnets = function (req, res, next) {
-	var body = req.body;
-	var pagination = body.pagination;
-	var articleId = body.articleId;
+	let body = req.body;
+	let pagination = body.pagination;
+	let articleId = body.articleId;
 	Comments.list(articleId, pagination)
 		.then(function (collection) {
 			req.body.data = collection;
@@ -100,7 +113,7 @@ exports.getCommnets = function (req, res, next) {
 
 
 exports.addComment = function (req, res, next) {
-	var body = req.body;
+	let body = req.body;
 	Comments.add(req.body).then(function (doc) {
 		req.body.data = doc;
 		next();

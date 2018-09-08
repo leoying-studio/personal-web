@@ -11,6 +11,8 @@ var _validate = {
 		if (this.type(value, String)) {
 			value = this.trim(value);
 			return value.length >= min;
+		}  else if (this.type(value, Array)) {
+			return value.length >= min;
 		}
 		return value >= min;
 	},
@@ -96,13 +98,12 @@ var _ruleValid = function(rules, value, name, message) {
 						message: message || name + "不符合格式规范!"
 					}
 				}
-			} else {
-				for(var key in rule) {
-					if(!_validate[key](value, rule[key])) {
-						return {
-							status: false,
-							message: message || name + '值不符合格式规范!'
-						}
+			}
+			for(var key in rule.rule) {
+				if(!_validate[key](value, rule.rule[key])) {
+					return {
+						status: false,
+						message: message || name + '值不符合格式规范!'
 					}
 				}
 			}

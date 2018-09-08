@@ -1,16 +1,15 @@
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
-link(rel='stylesheet', href='/css/common.css')
-link(rel='stylesheet', href='/css/manager.css')
-link(rel='stylesheet', href='/css/subcategoriess.css')
+link(rel='stylesheet', href='/css/common.css')  
+link(rel='stylesheet', href='/css/manager/subcategories.css')
 script(src="/lib/require/require.js" data-main="/js/main-subcategories")
 
 header#toolbar.header
+    button.btn.btn-primary#addBtn 新增
     div.dropdown.inline
         button(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropName 选择一级类别&nbsp;
             span(class="caret")
         ul(class="dropdown-menu" role="menu" aria-labelledby="dropName")#dropGroup
-    button.btn.btn-primary 新增
 table#table
 
 form(action="" style='display:none;')#form  

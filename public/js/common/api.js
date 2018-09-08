@@ -34,17 +34,35 @@ define([
         getParams: function (form, every) {
             var _params = {};
             form.children().each(function (index, item) {
+                item = $(item);
                 if (!every) {
                     // 如果是最后一项就不去遍历了
                     if (index == form.children().length - 1) {
                         return;
                     }
                 }
-                var widget = $(item).children(":last-child");
+                if (item.hasClass("checkbox-item")) {
+                    var boxs = item.find("input[type='checkbox']");
+                    var values = [];
+                    var name = "";
+                    boxs.each(function(index, widget) {
+                        name = $(widget).attr("name");
+                        values.push( $(widget).val());
+                    });
+                    _params[name] = values;
+                    return;
+                }
+                if (item.hasClass("radio-item")) {
+                    var radio = item.find("input[type=radio]:checked");
+                    var name = radio.attr("name");
+                    _params[name] = radio.value;
+                    return;
+                }
+                var widget = item.children(":last-child");
                 var name = widget.attr('name');
                 var value = widget.val();
                 _params[name] = value;
-            });
+            }); 
             return _params;
         },
         clearValues: function (form, every) {

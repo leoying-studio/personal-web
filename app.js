@@ -23,6 +23,26 @@ app.use(sassMiddleware({
   }));
 app.use(express.static(path.join(__dirname, "/public")))
 
+app.use(sassMiddleware({
+  /* Options */
+  src: path.join(__dirname, "/public/sass/manager")
+, dest: __dirname + '/public/css/manager'
+, debug: true
+, outputStyle: 'expanded'
+, prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+}));
+app.use(express.static(path.join(__dirname, "/public")))
+
+app.use(sassMiddleware({
+  /* Options */
+  src: path.join(__dirname, "/public/sass/www")
+, dest: __dirname + '/public/css/www'
+, debug: true
+, outputStyle: 'expanded'
+, prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+}));
+app.use(express.static(path.join(__dirname, "/public")))
+
 
 var users = require('./routes/users');
 var categories = require('./routes/categories');

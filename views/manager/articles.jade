@@ -1,41 +1,49 @@
+link(href='/lib/bootstrap/css/bootstrap.min.css', rel='stylesheet')
+link(href='/lib/bootstrap/css/bootstrap.table.css', rel='stylesheet')
+link(href='/css/common.css', rel='stylesheet')
+link(href='/css/manager/articles.css', rel='stylesheet')
+script(data-main="/js/main-articles" src="/lib/require/require.js")
 
-link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
-link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
-link(rel='stylesheet', href='/css/common.css')
-link(rel='stylesheet', href='/css/manager.css')
-script(src="/lib/require/require.js" data-main="/js/main-articles")
+header#toolbar.header
+    button.btn.btn-primary#addBtn 新增
+    label(for="" style="padding-right: 10px") 一级分类:
+    div.dropdown.inline
+        button(data-toggle="dropdown" aria-expanded="false" aria-haspopup="true").btn.btn-default#dropName 选择一级类别
+            span(class="caret")
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropName")#dropCate
+    label(style="padding-right: 10px") 二级分类: 
+    div.dropdown.inline
+        button(data-toggle="dropdown" aria-expanded="false" aria-haspopup="true").btn.btn-default#dropSubName 选择一级类别
+            span(class="caret")
+        ul(class="dropdown-menu" role="menu" aria-labelledby="dropSubName")#dropSubcate
 
-header#toolbar
-    div.dropdown.pull-left(style="margin-right: 15px;")
-        label(for="" style="padding-right: 10px") 一级分类:
-        button( data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropName 选择一级类别&nbsp;
-            span(class="caret")
-        ul(class="dropdown-menu" role="menu" aria-labelledby="dropName")#dropGroup
-    div.dropdown.pull-left(style="margin-right: 15px;")
-        label(style="padding-right: 10px") 二级分类: 
-        button( data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropSubName 选择一级类别&nbsp;
-            span(class="caret")
-        ul(class="dropdown-menu" role="menu" aria-labelledby="dropSubName")#dropSubGroup
-    div.pull-left
-        button.btn.btn-primary 新增
 table#table
-form#form(action="" style="display:none;")
+form(action="" style="display:none;")#form.form
     div.form-item
         label(for="title") 标题
-        input(type="text" placeholder="请输入标题" name="title").form-control
+        input(name="title" type="text" placeholder="请输入标题").form-control
     div.form-item
         label(for="") 说明
-        input(type="text" placeholder="" name="description").form-control
+        input(name="description" type="text" placeholder="").form-control
     div.form-item
         label(for="") 文章配图
-        textarea(name="content", cols="30", rows="10" type="text" placeholder="请输入简介信息 ").form-control
-    div.form-item
+        input(name="illustration" type="text" placeholder="推荐图").form-control
+    div.form-item.radio-item
         label(for="") 是否推荐
-        input(type="radio" name="recomend").form-control 是
-        input(type="radio" name="recomend").form-control 否
+        div.inline.radio-box
+            input(name="recommend" type="radio" value="1") 
+            span 是
+        div.inline.radio-box
+            input(name="recommend" type="radio" value="0")
+            span 否
+    div.form-item.checkbox-item
+        label(for="") 二级分类:
     div.form-item
         label(for="") 推荐图
-        input(type="text" placeholder="推荐图" name="illustration").form-control
+        input(name="illustration" type="text" placeholder="推荐图").form-control
+    div.for-item
+        label 文章内容
+        textarea(name="content" type="text" cols="30" rows="10" placeholder="请输入文章内容 ").form-control
     div.form-item
         button.btn.btn-default#back(type='button') 返回
         button.btn.btn-primary#save(type='button') 提交

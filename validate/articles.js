@@ -24,7 +24,7 @@ exports.save = function(req, res, next) {
 			}, 
             type: Array,
             name: '分类',
-			value: body.childrenId
+			value: body.subIds
 		},
 		{
 			value: body.categoryId,
@@ -59,9 +59,9 @@ exports.save = function(req, res, next) {
         title: body.title,
 		illustration: body.illustration,
 		categoryId: body.categoryId,
-		childrenId: body.childrenId,
+		subIds: body.subIds,
 		description: body.description,
-		recommend: body.recommend || false,
+		recommend: body.recommend,
 		recommendFigure: body.recommendFigure || '',
 		content: body.content
     };
@@ -70,7 +70,7 @@ exports.save = function(req, res, next) {
 
 
 exports.query = function(req, res, next) {
-	var params = Object.keys(req.body) || Object.keys(req.query) || Object.query;
+	var params = req.query;
 	var rules = [
 		{
 			value: params.categoryId,
@@ -92,14 +92,6 @@ exports.query = function(req, res, next) {
 	if (!validate) {
 		req.body.message = validate.message;
 		return validate.send(validate);
-	}
-	req.body = {
-		categoryId: params.categoryId,
-		'childrenId.id': params.childId
-	};
-	req.params = {
-		childId: params.childId,
-		pagination: params.pagination
 	}
 	next();
 }
