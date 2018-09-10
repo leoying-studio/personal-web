@@ -1,7 +1,7 @@
-var Intro = require('../access/intro');
-var Themes = require('../access/themes');
-var Categories = require('./../access/categories');
-var Articles = require('./../access/articles');
+const Intro = require('../access/intro');
+const Themes = require('../access/themes');
+const Categories = require('./../access/categories');
+const Articles = require('./../access/articles');
 
 exports.getAll = function(req, res, next) {
     Promise.all([
@@ -46,8 +46,8 @@ exports.getAllCategories = function(req, res, next) {
 
 // 根据介绍信息保存
 exports.saveTheme = function(req, res, next) {
-	var body = req.body;
-	var saveCommand = function() {
+	let body = req.body;
+	let saveCommand = function() {
 		Intro.saveTheme(body._id, {
 			illustrating: body.illustrating,
 			headline: body.headline
@@ -70,9 +70,9 @@ exports.saveTheme = function(req, res, next) {
 }
 
 exports.saveThemeItem = function(req, res, next) {
-	var body = req.body;
-    var discriptiveGraph = body.discriptiveGraph;
-	var presentation = body.presentation;
+	let body = req.body;
+    let discriptiveGraph = body.discriptiveGraph;
+	let presentation = body.presentation;
 
 	Themes.save(req.body._id, {
 		themeId,
@@ -111,7 +111,7 @@ exports.destroyIntroTheme = function(req, res, next) {
 }
 
 exports.destoryThemeItem = function(req, res, next) {
-	var body = req.body;
+	let body = req.body;
 	Themes.removeById( body._id)
 	.then(function(doc) {
 		req.body.data = doc;
