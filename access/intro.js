@@ -1,5 +1,5 @@
 
-var Intro = require('../models/intro');
+const Intro = require('../models/intro');
 
 exports.save = function (fields) {
 	return Intro.count()
@@ -17,7 +17,7 @@ exports.destory = function (id) {
 }
 
 exports.saveTheme = function (id, fields) {
-	var model = {
+	let model = {
 		$push: {
 			themes: {
 				illustrating: fields.illustrating,
@@ -49,7 +49,7 @@ exports.count = function() {
 
 exports.saveThemeItem = function(themeId, mapId, fields) {
 	return new Promise(function(resolve, reject) {
-		var innerModel = {
+		let innerModel = {
 			$push: {
 				'themes.$.map': {
 					discriptiveGraph: fields.discriptiveGraph,
@@ -68,8 +68,8 @@ exports.saveThemeItem = function(themeId, mapId, fields) {
 			.then(function(doc) {
 				doc.find({'themes._id': themeId})
 				.then(function(collection) {
-					var doc = collection[0];
-					var setModel = doc.update({'map._id': mapId}, innerModel);
+					let doc = collection[0];
+					let setModel = doc.update({'map._id': mapId}, innerModel);
 					resolve(setModel);
 				}).catch(function(err) {
 					reject(err);
@@ -81,7 +81,7 @@ exports.saveThemeItem = function(themeId, mapId, fields) {
 			// return Intro.update({apply: true, 'themes.map._id': mapId}, innerModel );
 		}
 	
-		var pushModel = Intro.update({apply: true, 'themes._id': themeId}, innerModel );
+		let pushModel = Intro.update({apply: true, 'themes._id': themeId}, innerModel );
 		resolve(pushModel);
 	});
 }

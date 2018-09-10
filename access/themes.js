@@ -1,4 +1,4 @@
-var Themes = require('../models/themes');
+const Themes = require('../models/themes');
 
 exports.getAllById = function(themeId) {
     return Themes.find({themeId}).exec();
