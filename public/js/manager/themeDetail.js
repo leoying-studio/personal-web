@@ -5,17 +5,15 @@ define([
     'aside',
     'config'
 ], function(require, $, api, aside, config) {
-    var main = $('#main'), asideBar = $('.aside-bar');
-    var breadcrumb = main.find('.breadcrumb');
     var toolbar = $('#toolbar');
-    var dropdown = toolbar.find('.dropdown');
     var buttons= toolbar.find('button');
     var dropGroup = $('#dropGroup');
     var addbutton = buttons.eq(0);
-    var itemForm = $('#itemForm');
-    var formSubmit = itemForm.find('.submit');
     var dropName = $('#dropName');
-
+    var form = $("#form");
+    var submit = $("#submit");
+    var back = $("#back");
+    var themeId = "";
     	
        // 业务常量
 	var events = {
@@ -29,6 +27,7 @@ define([
 			},
 			'click .label[name=destory]': function(e, f, r) {
 				if (confirm('确认删除吗?')) {
+
 					$.post('/intro/themes/destory', {
 						themeId: r._id
 					}).then(function(res) {
@@ -75,6 +74,7 @@ define([
                 dropGroup.append('<li><a href="#">'+item.headline+'</a></li>');
             });
             var chooseTheme = function(theme) { 
+                themeId = theme._id;
                 dropName.text(theme.headline);
                 dropName.append('&nbsp;&nbsp;<span class="caret"></span>');
                 api.initTable('themeList', {}, {}, theme._id);
@@ -90,26 +90,31 @@ define([
         });
     }
 
-    itemForm.find('.back').click(function() {
-        itemForm.removeAttr('_id');
-        itemForm.hide();
-        getThemeCategories();
-        api.showTable();
-    });
-
-    formSubmit.click(function() {
-        var params = api.getParams(itemForm);
-        params.themeId = itemForm.attr('themeId');
-        params._id = itemForm.attr('_id');
+    submit.click(function() {
+        var params = api.getParams(form);
+        params.themeId = themeId;
+        params._id = form.attr('_id');
         $.post('/intro/themes/item/save', params)
         .then(function(res) {
             if (res.status) {
                 api.message.success('保存成功');
-                api.clearValues(itemForm);
+                api.clearValues(form);
              } else {
                 api.message.error(res.message);
              }
         });
+    });
+
+    back.click(function() {
+        form.removeAttr('_id');
+        form.hide();
+        getThemeCategories();
+        api.showTable();
+    });
+
+    addbutton.click(function() {
+        api.hideTable();
+        form.show();
     });
 
     getThemeCategories();

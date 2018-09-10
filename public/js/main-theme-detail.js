@@ -5,7 +5,7 @@ require.config({
         'bootstrap.table': '/lib/bootstrap/js/bootstrap.table',
         'config': '/js/common/config',
         'api': '/js/common/api',
-        'theme.detail': '/js/manager/theme.detail',
+        'themeDetail': '/js/manager/themeDetail',
     },
     shim: {
          'bootstrap': {
@@ -24,7 +24,7 @@ require.config({
 });
 
 require(['bootstrap', 'bootstrap.table'], function() {
-   require(['config', 'api', 'theme.detail'], function() {
+   require(['config', 'api', 'themeDetail'], function() {
        
    });
 });

@@ -36,7 +36,7 @@ router.post("/intro/themes/destory", Home.destroyIntroTheme, function(req, res, 
     next();
 });
 
-router.post("/intro/theme/map/destory", Validate.mapItem, Home.destoryThemeItem, function(req, res, next) {
+router.post("/intro/themes/item/destory", Validate.mapItem, Home.destoryThemeItem, function(req, res, next) {
     next();
 });
 

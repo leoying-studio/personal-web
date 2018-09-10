@@ -2,10 +2,12 @@ link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
 link(rel='stylesheet', href='/css/common.css')
 link(rel='stylesheet', href='/css/manager.css')
+link(rel='stylesheet', href='/css/manager/themeDetail.css')
 script(src="/lib/require/require.js" data-main="/js/main-theme-detail")
 
-header#toolbar
-    div.dropdown
+header#toolbar.toolbar
+    button.btn.btn-primary.add-btn 新增
+    div.dropdown.inline
         button(data-toggle="dropdown" aria-haspopup="true" aria-expanded="false").btn.btn-default#dropName 选择主题类别&nbsp;
             span(class="caret")
         ul(class="dropdown-menu" role="menu" aria-labelledby="dropPanel")#dropGroup
@@ -18,5 +20,5 @@ form(style="display:none;")#form
         label(for="") 描述图
         input(type="text" name="discriptiveGraph").form-control 
     div.form-item
-        button(type='button').btn.btn-default.back 返回
-        button(type='button').btn.btn-primary.submit 提交
+        button(type='button').btn.btn-default#back 返回
+        button(type='button').btn.btn-primary#submit 提交
