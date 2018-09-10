@@ -1,13 +1,13 @@
-var Validator = require('./../utils/validator');
+let Validator = require('./../utils/validator');
 
 exports.intro = function(req, res, next) {
-    var body = req.body;
-    var title = body.title
-    var slogan = body.slogan;
+    let body = req.body;
+    let title = body.title
+    let slogan = body.slogan;
     // 主题概述
-    var themeOverview = body.themeOverview;
-    var intro = body.intro;
-    var rules = [
+    let themeOverview = body.themeOverview;
+    let intro = body.intro;
+    let rules = [
         {
 			value: title,
 			type: String,
@@ -42,7 +42,7 @@ exports.intro = function(req, res, next) {
 		}
     ];
     
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return res.send(validate);
     }
@@ -51,16 +51,16 @@ exports.intro = function(req, res, next) {
 
 
 exports.introId = function(req, res, next) {
-    var body = req.body;
-    var _id = body._id;
-    var rules = [
+    let body = req.body;
+    let _id = body._id;
+    let rules = [
 		{
 			value: _id,
 			type: String,
 			name: '介绍Id'
 		}
     ];
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }
@@ -69,8 +69,8 @@ exports.introId = function(req, res, next) {
 }
 
 exports.children = function(req, res, next) {
-    var body = req.body;
-    var rules = [
+    let body = req.body;
+    let rules = [
 		{
 			value: body.categoryId,
 			type: String,
@@ -86,7 +86,7 @@ exports.children = function(req, res, next) {
 			name: '类别名称'
 		}
 	];
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }
@@ -101,15 +101,15 @@ exports.children = function(req, res, next) {
 
 
 exports.query = function(req, res, next) {
-    var params = req.query;
-    var rules = [
+    let params = req.query;
+    let rules = [
 		{
 			value: body.categoryId,
 			type: String,
 			name: '类别Id'
 		}
 	];
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }
@@ -120,16 +120,16 @@ exports.query = function(req, res, next) {
 }
 
 exports.map = function(req, res, next) {
-    var body = Object.assign(req.body, req.query, req.params);
-    var themeId = body.themeId;
-    var rules = [
+    let body = Object.assign(req.body, req.query, req.params);
+    let themeId = body.themeId;
+    let rules = [
         {
             name: '主题Id',
             type: String,
             value: themeId
         }
     ];
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }   
@@ -137,11 +137,11 @@ exports.map = function(req, res, next) {
 }
 
 exports.mapItem = function(req, res, next) {
-    var body = req.body;
-    var _id = body._id;
-    var themeId = body.themeId;
-    // var mapId = body.mapId;
-    var rules = [
+    let body = req.body;
+    let _id = body._id;
+    let themeId = body.themeId;
+    // let mapId = body.mapId;
+    let rules = [
         {
             name: '主题id',
             type: String,
@@ -159,7 +159,7 @@ exports.mapItem = function(req, res, next) {
         // }
     ];
 
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return validate;
     }   
@@ -167,12 +167,8 @@ exports.mapItem = function(req, res, next) {
 } 
 
 exports.theme = function (req, res, next) {
-    var body = req.body;
-    var _id = body._id;
-    var themeId = body.themeId;
-    var illustrating = body.illustrating;
-    var headline = body.headline;
-    var rules = [
+    let {illustrating, headline} = req.body;
+    let rules = [
         {
             name: '主题图',
             type: String,
@@ -185,7 +181,7 @@ exports.theme = function (req, res, next) {
         }
     ];
 
-    var validate = Validator(rules);
+    let validate = Validator(rules);
     if (!validate.status) {
         return res.send(validate);
     }  

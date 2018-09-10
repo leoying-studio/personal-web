@@ -3,14 +3,15 @@ define([
     'jquery',
     'config'
 ], function (require, $, config) {
-    var main = $('#main'), asideBar = $('.aside-bar');
+    var main = $('#main'),
+        asideBar = $('.aside-bar');
     var breadcrumb = main.find('.breadcrumb');
     var toolbar = $('#toolbar');
     var commDrop = $('#common-dropdown');
     var addbutton = commDrop.find('button:first-child');
     var table = $('#table');
     var preViewId = '';
-    var _changeBread = function(step) {
+    var _changeBread = function (step) {
         var bread = breadcrumb.find('a[step=' + step + ']');
         breadcrumb.find('.bread-active').removeClass('bread-active');
         if (bread.length) {
@@ -20,17 +21,17 @@ define([
         return false;
     }
 
-    addbutton.click(function() {
-        if ($(this).attr('class').indexOf('disabled')>-1){
+    addbutton.click(function () {
+        if ($(this).attr('class').indexOf('disabled') > -1) {
             return;
         }
-		var nextstep = $(this).attr('nextstep'); 
-		preViewId = nextstep;
+        var nextstep = $(this).attr('nextstep');
+        preViewId = nextstep;
         api.hideTable();
         api.clearValues($(nextstep));
-		$(nextstep).show();
-	});
-    var api =  {
+        $(nextstep).show();
+    });
+    var api = {
         getParams: function (form, every) {
             var _params = {};
             form.children().each(function (index, item) {
@@ -45,9 +46,9 @@ define([
                     var boxs = item.find("input[type='checkbox']");
                     var values = [];
                     var name = "";
-                    boxs.each(function(index, widget) {
+                    boxs.each(function (index, widget) {
                         name = $(widget).attr("name");
-                        values.push( $(widget).val());
+                        values.push($(widget).val());
                     });
                     _params[name] = values;
                     return;
@@ -62,7 +63,7 @@ define([
                 var name = widget.attr('name');
                 var value = widget.val();
                 _params[name] = value;
-            }); 
+            });
             return _params;
         },
         clearValues: function (form, every) {
@@ -79,9 +80,39 @@ define([
         },
         setValues: function (form, params) {
             form.children().each(function (index, child) {
-                var widget = $(child).children().last();
+                child = $(child);
+                var widget = null,
+                    widgetType = "common";
+                if (child.hasClass("checkbox-item")) {
+                    widgetType = "checkbox";
+                    widget = child.find("input[type='checkbox']");
+                } else if (child.hasClass("radio-item")) {
+                    widgetType = "radio";
+                    widget = child.find("input[type=radio]");
+                } else {
+                    widget = $(child).children().last();
+                }
                 for (var k in params) {
-                    if (widget.attr('name') === k) {
+                    if (widgetType == "checkbox") {
+                        if (widget.first().attr("name") == k) {
+                            widget.each(function (i, w) {
+                                $(params[k]).each(function (p, param) {
+                                    if ($(w).val() == param.id) {
+                                        $(w).attr("checked", true);
+                                    }
+                                });
+                            });
+                        }
+                    } else if (widgetType == "radio") {
+                        if (widget.first().attr("name") == k) {
+                            widget.each(function (i, w) {
+                                debugger;
+                                if (params[k].toString() == $(w).val()) {
+                                    $(w).attr("checked", true);
+                                }
+                            });
+                        }
+                    } else if(widget.attr('name') === k) {
                         widget.val(params[k]);
                     }
                 }
@@ -145,34 +176,34 @@ define([
         refreshTable: function () {
             table.bootstrapTable('refresh');
         },
-        initTable: function(name, events, options, params) {
+        initTable: function (name, events, options, params) {
             var type = Object.prototype.toString.call(params);
             var paramStrify = '';
             if (type === '[object Object]') {
                 for (var k in params) {
-                    paramStrify +='&'+ k + '=' + params[k];
+                    paramStrify += '&' + k + '=' + params[k];
                 }
                 paramStrify = paramStrify.replace(/&/, '?');
             } else {
                 paramStrify = params;
             }
             var conf = config.table[name](events, options, paramStrify);
-		    table.bootstrapTable('destroy').bootstrapTable(conf);
+            table.bootstrapTable('destroy').bootstrapTable(conf);
         },
-        insertBread: function(name, step, events) {
+        insertBread: function (name, step, events) {
             var inserted = _changeBread(step);
             if (inserted) {
                 return;
             }
             breadcrumb.append(
                 "<li>" +
-                        "<a href='#' class='bread-active' step=" + step + ">" + name + "</a>" +
-                "</li>"	
-            ); 
-            breadcrumb.find('a').click(function() {
+                "<a href='#' class='bread-active' step=" + step + ">" + name + "</a>" +
+                "</li>"
+            );
+            breadcrumb.find('a').click(function () {
                 var step = $(this).attr('step');
                 var form = $(this).attr('form');
-                addbutton.attr('nextstep', '#'+step+'Form');
+                addbutton.attr('nextstep', '#' + step + 'Form');
                 // 干掉后面的所有元素
                 $(this).parent().nextAll().remove();
                 _changeBread(step);

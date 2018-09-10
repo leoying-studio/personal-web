@@ -8,6 +8,10 @@ exports.add = function(field) {
 	return Comments.create(field);
 }
 
+exports.destory = function(id) {
+	return Comments.findByIdAndRemove(id).exec();
+}
+
 exports.count = function() {
 	return Comments.count().exec();
 }

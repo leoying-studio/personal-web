@@ -37,10 +37,10 @@ exports.getPage = function (req, res, next) {
 }
 
 exports.destoryById = function (req, res, next) {
-	let body = req.body;
+	let { articleId } = req.body;
 	Promise.all([
-		Articles.destory(body.id),
-		Comments.destory(body.id)
+		Articles.destory(articleId),
+		Comments.destory(articleId)
 	]).then(function (collection) {
 		req.body.data = collection;
 		next();
@@ -51,7 +51,7 @@ exports.destoryById = function (req, res, next) {
 exports.save = function (req, res, next) {
 	let { categoryId, 
 		  title, 
-		  articleId = "",
+		  articleId,
 		  description,
 		  illustration, 
 		  subIds, 
@@ -113,7 +113,6 @@ exports.getCommnets = function (req, res, next) {
 
 
 exports.addComment = function (req, res, next) {
-	let body = req.body;
 	Comments.add(req.body).then(function (doc) {
 		req.body.data = doc;
 		next();

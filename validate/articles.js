@@ -55,16 +55,6 @@ exports.save = function(req, res, next) {
 	if (!validate.status) {
 		return res.send(validate);
     }
-    req.body = {
-        title: body.title,
-		illustration: body.illustration,
-		categoryId: body.categoryId,
-		subIds: body.subIds,
-		description: body.description,
-		recommend: body.recommend,
-		recommendFigure: body.recommendFigure || '',
-		content: body.content
-    };
     next();
 }
 
@@ -110,9 +100,6 @@ exports.delete = function(req, res, next) {
 	if (!validate) {
 		return res.send(validate);
 	}
-	req.body = {
-		articleId: body.articleId
-	};
 	next();
 }
 
