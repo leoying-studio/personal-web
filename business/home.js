@@ -46,6 +46,7 @@ exports.getAllCategories = function(req, res, next) {
 
 // 根据介绍信息保存
 exports.saveTheme = function(req, res, next) {
+<<<<<<< HEAD
 	let {_id, illustrating, headline } = req.body;
 	Intro.saveTheme(_id, {
 		illustrating,
@@ -55,6 +56,29 @@ exports.saveTheme = function(req, res, next) {
 		next();
 	}).catch(next);
 	
+=======
+	let body = req.body;
+	let saveCommand = function() {
+		Intro.saveTheme(body._id, {
+			illustrating: body.illustrating,
+			headline: body.headline
+		}).then(function(doc) {
+			req.body.data = doc;
+			next();
+		}).catch(next);
+	}
+	if (!body._id) {
+		Intro.findOne().then(function(doc) {
+			if (doc.length < 4) {
+				return saveCommand();
+			}
+			req.body.message = "超过最大主题添加数";
+			next();
+		});
+		return;
+	}
+	saveCommand();
+>>>>>>> 8fe1eed95f38e43e30983c2172d8411d0bef5b49
 }
 
 exports.saveThemeItem = function(req, res, next) {

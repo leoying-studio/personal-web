@@ -1,4 +1,4 @@
-var Categories = require('./../access/categories');
+const Categories = require('./../access/categories');
 
 exports.getAll = function(req, res, next) {
 	Categories.all().then(function(collection) {
@@ -8,7 +8,7 @@ exports.getAll = function(req, res, next) {
 }
 
 exports.save = function(req, res, next) {
-	var body = req.body;
+	let body = req.body;
 	Categories.save(body._id, body.name)
 	.then(function(doc) {
 		req.body.data = doc;
@@ -17,7 +17,7 @@ exports.save = function(req, res, next) {
 }
 
 exports.saveSubcategory = function(req, res, next) {
-	var body = req.body;
+	let body = req.body;
 	 Categories.updateSubcategory(body.cateId, body.subId, body.name)
 	 .then(function(doc) {
 		req.body.data = doc;

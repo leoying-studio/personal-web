@@ -1,4 +1,4 @@
-var Categories = require('./../models/categories');
+const Categories = require('./../models/categories');
 
 exports.getById = function (id) {
 	return Categories.findById(id);
@@ -26,7 +26,7 @@ exports.getSubcategoriesById = function (id, subcategoryId ,name) {
 }
 
 exports.updateSubcategory = function (id, subId, name) {
-	var model = {
+	let model = {
 		$push: {
 			subcategories: {name}
 		}
