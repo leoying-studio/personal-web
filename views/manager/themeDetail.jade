@@ -12,7 +12,7 @@ header#toolbar.toolbar
             span(class="caret")
         ul(class="dropdown-menu" role="menu" aria-labelledby="dropPanel")#dropGroup
 table#table
-form(style="display:none;")#form
+form(style="display:none;")#form.form
     div.form-item
         label(for="") 陈述(说明)
         input(type="text" name="presentation").form-control 
@@ -20,5 +20,5 @@ form(style="display:none;")#form
         label(for="") 描述图
         input(type="text" name="discriptiveGraph").form-control 
     div.form-item
-        button(type='button').btn.btn-default#back 返回
+        button(type='button').btn.btn-default.btn-back#back 返回
         button(type='button').btn.btn-primary#submit 提交

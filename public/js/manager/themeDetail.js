@@ -14,45 +14,17 @@ define([
     var submit = $("#submit");
     var back = $("#back");
     var themeId = "";
-    	
-       // 业务常量
-	var events = {
-		theme: {
-			'click .label[name=edit]': function(e, f, r) {
-				api.hideTable();
-				var form = $('#themeForm');
-				form.attr('themeId', r._id);
-				api.setValues(form, r);
-				form.show();
-			},
-			'click .label[name=destory]': function(e, f, r) {
-				if (confirm('确认删除吗?')) {
-
-					$.post('/intro/themes/destory', {
-						themeId: r._id
-					}).then(function(res) {
-						if (res.status) {
-							api.message.success('删除成功');
-							api.refreshTable();
-						 } else {
-							api.message.error(res.message);
-						 }
-					})
-				}
-			}
-		},
-	};
 	
     var events = {
         'click .label[name=edit]': function(e, f, r) {
             api.hideTable();
-            itemForm.attr('_id', r._id);
-            api.setValues(itemForm, r);
-            itemForm.show();
+            form.attr('_id', r._id);
+            api.setValues(form, r);
+            form.show();
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
-                $.post('/intro/theme/map/destory', {
+                $.post('/intro/themes/item/destory', {
                     _id: r._id
                 }).then(function(res) {
                     if (res.status) {
@@ -77,7 +49,7 @@ define([
                 themeId = theme._id;
                 dropName.text(theme.headline);
                 dropName.append('&nbsp;&nbsp;<span class="caret"></span>');
-                api.initTable('themeList', {}, {}, theme._id);
+                api.initTable('themeList', events, {}, theme._id);
             }
             dropGroup.children().click(function() {
                 var index = $(this).index();
