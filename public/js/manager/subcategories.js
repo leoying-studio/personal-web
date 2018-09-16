@@ -18,18 +18,19 @@ define([
     var events = {
         'click .label[name=edit]': function(e, f, r) {
             api.hideTable();
-            form.attr('subId', r.cateId);
+            subId = r._id;
             api.setValues(form, r);
             form.show();
         },
         'click .label[name=destory]': function(e, f, r) {
             if (confirm('确认删除吗?')) {
-                $.post('/intro/themes/destory', {
-                    themeId: r.cateId
+                $.post('/categories/subcategory/destory', {
+                    cateId: cateId,
+                    subId: r._id
                 }).then(function(res) {
                     if (res.status) {
                         api.message.success('删除成功');
-                        api.refreshTable();
+                        getCategories();
                      } else {
                         api.message.error(res.message);
                      }

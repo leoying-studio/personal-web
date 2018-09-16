@@ -1,13 +1,13 @@
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.min.css')
 link(rel='stylesheet', href='/lib/bootstrap/css/bootstrap.table.css')
 link(rel='stylesheet', href='/css/common.css')
-link(rel='stylesheet', href='/css/manager.css')
+link(rel='stylesheet', href='/css/manager/theme.css')
 script(src="/lib/require/require.js" data-main="/js/main-theme")
 
 header#toolbar
     button.btn.btn-primary#addBtn 添加
 table#table
-form(style="display:none;")#form
+form(style="display:none;")#form.form
     div.form-item
         label(for="") 主题标题
         input(type="text" name="headline").form-control 
@@ -15,5 +15,5 @@ form(style="display:none;")#form
         label(for="") 主题配图
         input(type="text" name="illustrating").form-control 
     div.form-item
-        button(type='button').btn.btn-default#back 返回
-        button(type='button').btn.btn-primary#save 提交
+        button(type='button').btn.btn-default#back.back 返回
+        button(type='button').btn.btn-primary#save.save 提交

@@ -4,8 +4,8 @@ div.wrapper.clearfix
         h2 #{intro.slogan}
         p #{intro.intro}
     div.show
-        h2 #{intro.headLine}
+        h2 #{intro.themeOverview}
         div.wrapper
             each theme in intro.themes || []
                 span
-                    img(src="#{theme.topicMap}", alt="" width="164.5px" height="100px")
+                    img(src="#{theme.illustrating}", alt="" width="164.5px" height="100px")

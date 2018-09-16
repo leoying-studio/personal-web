@@ -71,6 +71,11 @@
   text-decoration: none;
 }
 
+.aside-bar .list-group-item .children-group a .subcate-icon {
+  padding-left: 3px;
+  font-size: 12px;
+}
+
 .aside-bar .list-group-item .children-group a > :first-child {
   padding-right: 8px;
 }

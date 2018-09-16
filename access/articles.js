@@ -23,6 +23,11 @@ exports.destory = function(id) {
 	return Articles.findByIdAndRemove(id);
 }
 
+
+exports.destoryBySubId = function(id, callback) {
+	return Articles.remove({"subIds._id": id}, callback);
+}
+
 // 获取总数
 exports.count = function() {
 	return Articles.count();

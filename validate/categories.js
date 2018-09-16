@@ -1,7 +1,6 @@
 var Validator = require('./../utils/validator');
 
 exports.save = function(req, res, next) {
-
     var body = req.body;
     var rules = [
         {
@@ -140,5 +139,29 @@ exports.query = function(req, res, next) {
     req.body = {
         _id: body.categoryId
     };
+    next();
+}
+
+exports.destorySubcategory = function(req, res, next) {
+    let {cateId, subId} = req.body;
+    var rules = [
+		{
+			value: cateId,
+			type: String,
+			name: '类别Id'
+		},
+        {
+			value: subId,
+            type: String,
+			name: '子类别Id'
+		}
+	];
+    var validate = Validator(rules);
+    if (!validate.status) {
+        return res.send({
+            status: false,
+            message: validate.message
+        });
+    }
     next();
 }

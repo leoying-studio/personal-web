@@ -88,8 +88,7 @@ define(['jquery'], function ($) {
                     title: '操作',
                     events: events,
                     formatter: function(e, item, i) {
-                        return "<a href='#' class='label label-info' name='edit' >编辑</a>" + 
-                        "<a href='#' class='label label-danger' style='margin: 0 5px;' name='destory'>删除</a>"
+                        return "<a href='#' class='label label-info' name='edit' >编辑</a>"
                 }
               }
             ]
