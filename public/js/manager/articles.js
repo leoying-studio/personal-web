@@ -153,6 +153,7 @@ define([
 
     save.click(function () {
         var params = api.getParams(form);
+        params.recommand = Boolean( params.recommand);
         params.categoryId = categoryId;
         params.articleId = articleId;
         $.ajax({

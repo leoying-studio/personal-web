@@ -5,7 +5,6 @@ define([
     'aside',
     'config'
 ], function(require, $, api, aside, config) {
-    var main = $('#main'), asideBar = $('.aside-bar');
     var toolbar = $('#toolbar');
     var addBtn = $('#addBtn');
     var form = $('#form');
@@ -42,6 +41,7 @@ define([
         .then(function(res) {
             if (res.status) {
                 api.message.success('保存成功');
+                api.clearValues(form);
             } else {
                 api.message.error(res.message);
             }
@@ -53,6 +53,7 @@ define([
 
     save.click(function() {
         requestSave();
+
     });
 
     addBtn.click(function() {
@@ -66,6 +67,7 @@ define([
        form.hide();
        api.refreshTable();
        api.showTable();
+   
     });
    
 });

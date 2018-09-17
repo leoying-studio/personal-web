@@ -1,13 +1,13 @@
 header.header#header
-    h1 LIUYING
-    nav.nav
-     ul.clearfix
-      li.nav-item
-        a(href="#" ) 首页
-      each category in categories
-       li.nav-item
-        a(href="#").nav-name #{category.name}
-        ul.categories-wrapper
-         each child in category.children
-          li
-           a.category-menu(href="/article/view/#{category._id}/#{children._id}/1" categoryId="#{category._id}" childId="#{child._id}") #{child.name}
+  h1 LIUYING
+  nav.nav
+    ul.clearfix
+     li.nav-item
+       a(href="#" ) 首页
+        each category in categories
+            li.nav-item
+                a(href="#").nav-name #{category.name}
+                    ul.categories-wrapper
+                        each subcategory in category.subcategories
+                            li
+                                a.category-menu(href="/article/view/#{category._id}/#{subcategory._id}/1" ) #{subcategory.name}

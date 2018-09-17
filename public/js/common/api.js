@@ -56,7 +56,7 @@ define([
                 if (item.hasClass("radio-item")) {
                     var radio = item.find("input[type=radio]:checked");
                     var name = radio.attr("name");
-                    _params[name] = radio.value;
+                    _params[name] = radio.val();
                     return;
                 }
                 var widget = item.children(":last-child");

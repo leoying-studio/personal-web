@@ -7,6 +7,7 @@ exports.getAll = function(req, res, next) {
     Promise.all([
 		Categories.all(),
 		Articles.recommends(),
+		Intro.findOne(),
 		Articles.timeline(),
 	]).then(function(collections) {
 		req.body.data = {

@@ -6,15 +6,15 @@ html
     link(rel="stylesheet", href="/lib/jquery/plugin/paging/paging.css")
     link(rel='stylesheet', href='/css/common.css')
     link(rel='stylesheet', href='/css/reset.css')
-    link(rel='stylesheet', href='/css/index.css')
-    link(rel='stylesheet', href='/css/article.css')
-    link(rel='stylesheet', href='/css/register.css')
-    link(rel='stylesheet', href='/css/login.css')
+    link(rel='stylesheet', href='/css/www_root/index.css')
+    link(rel='stylesheet', href='/css/www_root/article.css')
+    link(rel='stylesheet', href='/css/www_root/register.css')
+    link(rel='stylesheet', href='/css/www_root/login.css')
     link(rel='stylesheet', href='/lib/font-awesome-4.7.0/css/font-awesome.min.css')
     script(src="/lib/require/require.js" data-main="/js/main-www")
   body
-    include ./common/message.jade
-    include ./common/header.jade
+    //- include ./common/message.jade
+    include ./../common/header.jade
     div.container
       block content
 

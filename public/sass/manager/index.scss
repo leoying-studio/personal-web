@@ -38,6 +38,7 @@
 				color: inherit;
 				font-size: inherit;
 				text-decoration: none;
+			
 			& >:first-child {
 				padding-right: 20px;
 			}
@@ -59,7 +60,10 @@
 				color: inherit;
 				padding: 5px 5px 5px 15px;
 				text-decoration: none;
-
+				.subcate-icon {
+					padding-left: 3px;
+					font-size: 12px;
+				}
 				&>:first-child {
 					padding-right: 8px;
 				}

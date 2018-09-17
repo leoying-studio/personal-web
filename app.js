@@ -29,7 +29,16 @@ app.use(sassMiddleware({
 , dest: __dirname + '/public/css/manager'
 , debug: true
 , outputStyle: 'expanded'
-, prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+}));
+app.use(express.static(path.join(__dirname, "/public")))
+
+
+app.use(sassMiddleware({
+  /* Options */
+  src: path.join(__dirname, "/public/sass/manager/index.scss")
+, dest: __dirname + '/public/css/manager/index.css'
+, debug: true
+, outputStyle: 'expanded'
 }));
 app.use(express.static(path.join(__dirname, "/public")))
 
@@ -42,6 +51,9 @@ app.use(sassMiddleware({
 , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
 }));
 app.use(express.static(path.join(__dirname, "/public")))
+
+
+
 
 
 var users = require('./routes/users');
