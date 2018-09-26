@@ -13,6 +13,9 @@ var Throw = require('./interceptor/throw');
 // 自定义引入
 // var connect = require('connect')
 var sassMiddleware = require('node-sass-middleware');
+
+app.use(express.static(path.join(__dirname, "/public")));
+
 app.use(sassMiddleware({
       /* Options */
       src: path.join(__dirname, "/public/sass")
@@ -21,36 +24,26 @@ app.use(sassMiddleware({
     , outputStyle: 'expanded'
     , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
   }));
-app.use(express.static(path.join(__dirname, "/public")))
+
 
 app.use(sassMiddleware({
   /* Options */
-  src: path.join(__dirname, "/public/sass/manager")
-, dest: __dirname + '/public/css/manager'
+  src: path.join(__dirname, "/sass/manager")
+, dest: __dirname + '/css/manager'
 , debug: true
 , outputStyle: 'expanded'
 }));
-app.use(express.static(path.join(__dirname, "/public")))
 
 
-app.use(sassMiddleware({
-  /* Options */
-  src: path.join(__dirname, "/public/sass/manager/index.scss")
-, dest: __dirname + '/public/css/manager/index.css'
-, debug: true
-, outputStyle: 'expanded'
-}));
-app.use(express.static(path.join(__dirname, "/public")))
 
 app.use(sassMiddleware({
   /* Options */
-  src: path.join(__dirname, "/public/sass/www")
-, dest: __dirname + '/public/css/www'
+  src: path.join(__dirname, "/sass/www/")
+, dest: __dirname + '/css/www/'
 , debug: true
 , outputStyle: 'expanded'
 , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
 }));
-app.use(express.static(path.join(__dirname, "/public")))
 
 
 
@@ -61,9 +54,6 @@ var categories = require('./routes/categories');
 var home = require('./routes/home');
 var articles = require('./routes/articles');
 var manager = require('./routes/manager');
-// var detail = require('./routes/detail');
-// var db = require('./db');
-// var MongoStore=require('connect-mongo')(session);
 
 
 // view engine setup
@@ -103,19 +93,6 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-app.use(function(req, res, next) {
-  if (Object.keys(req.body).length) {
-      return next();
-  } else if (Object.keys(req.query).length) {
-      req.body = req.query;
-      return next();
-  } else {
-     req.body = req.params;
-     next();
-  }
-});
-
 app.use('/', home);
 app.use("/users", users);
 app.use("/categories", categories);
@@ -126,24 +103,6 @@ app.use("/manager", manager);
 app.use(Throw.abnormal);
 app.use(Throw.message.success);
 app.use(Throw.message.error);
-// catch 404 and forward to error handler
-// app.use(function(req, res, next) {
-//   var err = new Error('Not Found');
-//   err.status = 404;
-//   next(err);
-// });
-
-// error handler
-
-// app.use(function(err, req, res, next) {
-//   // set locals, only providing error in development
-//   res.locals.message = err.message;
-//   res.locals.error = req.app.get('env') === 'development' ? err : {};
-//   // render the error page
-//   res.status(err.status || 500);
-//   res.render('error');
-// });
-
 
 
 module.exports = app;
