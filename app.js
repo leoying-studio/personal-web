@@ -42,7 +42,7 @@ app.use(sassMiddleware({
 , dest: __dirname + '/css/www/'
 , debug: true
 , outputStyle: 'expanded'
-, prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
+
 }));
 
 

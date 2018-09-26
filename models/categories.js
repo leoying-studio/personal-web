@@ -10,17 +10,10 @@ var Scheam = new mongoose.Schema({
 	 ],
 	 createdTime: { type: String, default: Utils.time.get() },
 	 updateTime: {type: String, default:  Utils.time.get()},
-	 createdAt: {type: Date, default: Utils.time.difference()},
-	 updateAt: {type: Date,  default: Utils.time.difference()},
+	 createdAt: {type: Date, default: Date.now},
+	 updateAt: {type: Date,  default: Date.now},
 });
 
-Scheam.set('toJSON', { getters: true, virtuals: false });
-
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
 
 var Categories = mongoose.model('categories', Scheam);
 
