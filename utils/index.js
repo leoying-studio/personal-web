@@ -21,9 +21,6 @@ var Utils = {
             else {
                 return year + "-" + month + "-" + day + " " + hour + ":" + minutes;
             }
-        },
-        difference: function()　{
-            return Date.now() + 8 * 3600;
         }
      },
 } 
