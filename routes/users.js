@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const UsersModel = require("./../models/users");
 const Utils = require("./../utils");
-const Validator = require("./../utils/validator");
+
 
 router.get('/login/view', function(req, res) {
     UsersModel.getCategories().then(function(collections) {
@@ -50,12 +50,7 @@ router.post("/register/submit", function(req, res) {
     let password = body.password;
     let passAgain = body.passAgain;
     let email = body.email;
-    let validate = Validator([
-        {mode: "required, len", value: username, message: "用户名不合法", conditions: {min:2, max: 6}},
-        {mode: "required, len", value: password, message: "密码输入不合法", conditions: {min:6, max: 16}},
-        {mode: "required, email", value: email, message: "邮箱不合法"},
-        {mode: "contrast", message: "两次密码输入不一致", conditions: {value: password, reducedValue: passAgain} }
-    ]);
+    
     if (!validate.status) {
         req.flash("error", e.message);
         return res.redirect("/user/register/view");

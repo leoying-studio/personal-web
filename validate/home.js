@@ -1,4 +1,4 @@
-let Validator = require('./../utils/validator');
+let Validator = require('./validator');
 
 exports.intro = function(req, res, next) {
     let body = req.body;

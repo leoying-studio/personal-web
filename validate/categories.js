@@ -1,4 +1,4 @@
-var Validator = require('./../utils/validator');
+var Validator = require('./validator');
 
 exports.save = function(req, res, next) {
     var body = req.body;
