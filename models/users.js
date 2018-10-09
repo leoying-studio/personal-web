@@ -1,8 +1,8 @@
-var mongoose = require('../db').mongoose;
-var Utils = require("./../utils/index");
-var Super = require("./super");
+const mongoose = require('../db').mongoose;
+const Utils = require("./../utils/index");
+const Super = require("./super");
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+let Scheam = new mongoose.Schema({
 	 username:{type: String},
 	 nickName:{type: String, default: '暂无'},
 	 password:{type: String},
@@ -17,6 +17,6 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.getCategories);
 
 
-var Users = mongoose.model('users', Scheam);
+let Users = mongoose.model('users', Scheam);
 
 module.exports = Users;

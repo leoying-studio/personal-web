@@ -1,9 +1,9 @@
-var mongoose = require('../db').mongoose;
-var Utils = require("./../utils/index");
-var Super = require("./super");
+let mongoose = require('../db').mongoose;
+let Utils = require("./../utils/index");
+let Super = require("./super");
 
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+let Scheam = new mongoose.Schema({
 	 username:{type: String},
 	 message: String,
 	 email: {type: String},
@@ -14,13 +14,8 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.plugin(Super.getCategories);
-Scheam.set('toJSON', { getters: true, virtuals: false });
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
 
-var Messages = mongoose.model('messages', Scheam);
+
+let Messages = mongoose.model('messages', Scheam);
 
 module.exports = Messages;

@@ -1,10 +1,10 @@
-var Categories = require('./categories');
+let Categories = require('./categories');
 
 // 分页查询
 exports.queryPaging = function (scheam) {
     scheam.statics.queryPaging = function(params = {}, conditions = {}) {
-        var pagination = Number(params.pagination || 1);
-        var pageSize = Number(params.pageSize || 10);
+        let pagination = Number(params.pagination || 1);
+        let pageSize = Number(params.pageSize || 10);
         return this.find(conditions).sort({ 'createdAt': -1 })
             .skip((pagination - 1) * pageSize)
             .limit(pageSize).lean();

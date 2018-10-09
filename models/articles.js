@@ -1,9 +1,9 @@
-var mongoose = require('../db').mongoose;
-var Super = require('./super');
-var Utils = require("./../utils/index");
+const mongoose = require('../db').mongoose;
+const Super = require('./super');
+const Utils = require("./../utils/index");
 
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+let Scheam = new mongoose.Schema({
 	title: String,
 	description: String,
 	// 配图, 说明图
@@ -33,5 +33,5 @@ Scheam.plugin(Super.getCategories);
 
 
 
-var Articles = mongoose.model('articles', Scheam);
+let Articles = mongoose.model('articles', Scheam);
 module.exports = Articles;

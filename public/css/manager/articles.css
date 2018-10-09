@@ -1,0 +1,19 @@
+.header .btn {
+  margin-right: 20px;
+}
+
+.form {
+  padding-right: 12px;
+}
+
+.form .form-item:last-child button:first-child {
+  margin-right: 12px;
+}
+
+.form .radio-item .radio-box {
+  margin-left: 12px;
+}
+
+.form .checkbox-item .check-box {
+  margin-left: 12px;
+}

@@ -1,9 +1,9 @@
-var mongoose=require('../db').mongoose;
-var Utils = require("./../utils/index");
-var Super = require("./super");
+const mongoose=require('../db').mongoose;
+const Utils = require("./../utils/index");
+const Super = require("./super");
 
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+let Scheam = new mongoose.Schema({
 	 // 标语, 口号
 	 slogan: {type: String},
 	 // 标题
@@ -31,5 +31,5 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.getCategories);
 Scheam.plugin(Super.queryPaging);
 
-var Intro = mongoose.model('intro', Scheam);
+let Intro = mongoose.model('intro', Scheam);
 module.exports = Intro;

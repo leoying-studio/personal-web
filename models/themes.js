@@ -1,9 +1,9 @@
-var mongoose=require('../db').mongoose;
-var Utils = require("./../utils/index");
-var Super = require("./super");
+let mongoose=require('../db').mongoose;
+let Utils = require("./../utils/index");
+let Super = require("./super");
 
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+let Scheam = new mongoose.Schema({
 	 themeId: String,
      discriptiveGraph: String, //配图
      // 内部项标题
@@ -19,5 +19,5 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.getCategories);
 Scheam.plugin(Super.queryPaging);
 
-var Themes = mongoose.model('themes', Scheam);
+let Themes = mongoose.model('themes', Scheam);
 module.exports = Themes;

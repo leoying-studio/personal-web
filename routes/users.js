@@ -1,8 +1,8 @@
-var express = require('express');
-var router = express.Router();
-var UsersModel = require("./../models/users");
-var Utils = require("./../utils");
-var Validator = require("./../utils/validator");
+const express = require('express');
+const router = express.Router();
+const UsersModel = require("./../models/users");
+const Utils = require("./../utils");
+const Validator = require("./../utils/validator");
 
 router.get('/login/view', function(req, res) {
     UsersModel.getCategories().then(function(collections) {
@@ -21,9 +21,9 @@ router.get('/register/view', function(req, res) {
 });
 
 router.post("/login/submit", function(req, res) {
-	var body = req.body;
-	var username = body.username;
-    var password = body.password
+	let body = req.body;
+	let username = body.username;
+    let password = body.password
 	UsersModel.findOne({
         username,
         password
@@ -44,13 +44,13 @@ router.post("/login/submit", function(req, res) {
 });
 
 router.post("/register/submit", function(req, res) {
-	var body = req.body;
-    var username = body.username;
-    var nickName = body.nickName || "";
-    var password = body.password;
-    var passAgain = body.passAgain;
-    var email = body.email;
-    var validate = Validator([
+	let body = req.body;
+    let username = body.username;
+    let nickName = body.nickName || "";
+    let password = body.password;
+    let passAgain = body.passAgain;
+    let email = body.email;
+    let validate = Validator([
         {mode: "required, len", value: username, message: "用户名不合法", conditions: {min:2, max: 6}},
         {mode: "required, len", value: password, message: "密码输入不合法", conditions: {min:6, max: 16}},
         {mode: "required, email", value: email, message: "邮箱不合法"},

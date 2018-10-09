@@ -1,0 +1,16 @@
+a {
+  text-decoration: none;
+}
+
+a:focus {
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.inline {
+  display: inline;
+}
