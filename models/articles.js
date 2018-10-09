@@ -27,15 +27,10 @@ var Scheam = new mongoose.Schema({
 	timestamps: {createdAt: 'createdAt', updatedAt: 'updateAt'}
 });
 
-Scheam.set('toJSON', { getters: true, virtuals: false });
+
 Scheam.plugin(Super.queryPaging);
 Scheam.plugin(Super.getCategories);
 
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
 
 
 var Articles = mongoose.model('articles', Scheam);

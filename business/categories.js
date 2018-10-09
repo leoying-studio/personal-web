@@ -1,6 +1,7 @@
 const Categories = require('./../access/categories');
 const Articles = require('./../access/articles');
 const Comments = require('./../access/comments');
+
 exports.getAll = function(req, res, next) {
 	Categories.all().then(function(collection) {
 		req.body.data = collection;

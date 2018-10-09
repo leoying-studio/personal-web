@@ -15,12 +15,7 @@ var Scheam = new mongoose.Schema({
 });
 
 Scheam.plugin(Super.getCategories);
-Scheam.set('toJSON', { getters: true, virtuals: false });
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
+
 
 var Users = mongoose.model('users', Scheam);
 

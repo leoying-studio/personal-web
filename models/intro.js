@@ -31,13 +31,5 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.getCategories);
 Scheam.plugin(Super.queryPaging);
 
-// Scheam.pre('save', function(next) {
-// 	var now = new Date();
-// 	this.updateAt = now;
-// 	this.updateTime = Utils.time.get();
-//   	next();
-// });
-
-// Scheam.set('toJSON', { getters: true, virtuals: false });
 var Intro = mongoose.model('intro', Scheam);
 module.exports = Intro;

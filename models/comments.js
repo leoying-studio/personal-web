@@ -1,10 +1,10 @@
-var mongoose=require('../db').mongoose;
-var ObjectId = mongoose.Schema.ObjectId;
-var Utils = require("./../utils/index");
-var Super = require("./super");
+const mongoose=require('../db').mongoose;
+const ObjectId = mongoose.Schema.ObjectId;
+const Utils = require("./../utils/index");
+const Super = require("./super");
 
 // 定义映射的集合结构模型
-var Scheam = new mongoose.Schema({
+const Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
 	// 文章的id
@@ -16,12 +16,7 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.queryPaging);
 Scheam.plugin(Super.getCategories);
 
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
-Scheam.set('toJSON', { getters: true, virtuals: false });
-var Comment = mongoose.model('comments', Scheam);
+
+const Comment = mongoose.model('comments', Scheam);
 
 module.exports = Comment;

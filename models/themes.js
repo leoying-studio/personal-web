@@ -19,12 +19,5 @@ var Scheam = new mongoose.Schema({
 Scheam.plugin(Super.getCategories);
 Scheam.plugin(Super.queryPaging);
 
-Scheam.pre('save', function(next) {
-	var now = new Date();
-  	this.updateAt = now;
-  	next();
-});
-
-Scheam.set('toJSON', { getters: true, virtuals: false });
 var Themes = mongoose.model('themes', Scheam);
 module.exports = Themes;
