@@ -1,4 +1,5 @@
-@import './common/mixin.scss';
+@import './../common/mixin.scss';
 .register-form {
 	@include reg-login-form;
 }
+

@@ -8,44 +8,14 @@ var flash = require("connect-flash");
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
+require('./gulp/gulpfile');
 var app = express();
+
 var Throw = require('./interceptor/throw');
-// 自定义引入
-// var connect = require('connect')
-var sassMiddleware = require('node-sass-middleware');
+
+
 
 app.use(express.static(path.join(__dirname, "/public")));
-
-app.use(sassMiddleware({
-      /* Options */
-      src: path.join(__dirname, "/public/sass")
-    , dest: __dirname + '/public/css'
-    , debug: true
-    , outputStyle: 'expanded'
-    , prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
-  }));
-
-
-app.use(sassMiddleware({
-  /* Options */
-  src: path.join(__dirname, "/sass/manager")
-, dest: __dirname + '/css/manager'
-, debug: true
-, outputStyle: 'expanded'
-}));
-
-
-
-app.use(sassMiddleware({
-  /* Options */
-  src: path.join(__dirname, "/sass/www/")
-, dest: __dirname + '/css/www/'
-, debug: true
-, outputStyle: 'expanded'
-, prefix:  '/css'  // Where prefix is at <link rel="stylesheets" href="prefix/style.css"/> 
-}));
-
-
 
 
 
