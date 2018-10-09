@@ -21,9 +21,16 @@ exports.getAll = function(req, res, next) {
 }
 
 exports.setIntro = function(req, res, next) {
-	Intro.save(req.body)
-	.then(function(doc) {
-		req.body.data = doc;
+	let fields = {
+		...req.body,
+		themes: []
+	};
+	Intro.save(fields)
+	.then(function(err, doc) {
+		if (err) {
+			return next(err);
+		}
+		req.body.data = true;
 		next();
 	}).catch(next);
 }

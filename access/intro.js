@@ -2,14 +2,18 @@
 const Intro = require('../models/intro');
 
 exports.save = function (fields) {
-	return Intro.count()
-	.then(function(count) {
-		if(count > 0) {
-			delete fields.themes;
-			return Intro.update({}, {$set: fields}).exec();
-		}
-		return Intro.create(fields);
-	});	
+	return new Promise(function(resolve, reject) {
+		Intro.findOne({}, function(err, doc) {
+			if (err) {
+				return reject(err);
+			}
+			if (doc) {
+				delete fields.themes;
+			}
+			doc.set({...fields});
+			doc.save(resolve);	
+		});
+	});
 }
 
 exports.destory = function (id) {

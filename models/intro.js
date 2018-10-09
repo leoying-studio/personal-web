@@ -30,6 +30,8 @@ let Scheam = new mongoose.Schema({
 
 Scheam.plugin(Super.getCategories);
 Scheam.plugin(Super.queryPaging);
+Scheam.set('toObject', { getters: true });
+Scheam.set('toJSON', { getters: true });
 
 let Intro = mongoose.model('intro', Scheam);
 module.exports = Intro;
