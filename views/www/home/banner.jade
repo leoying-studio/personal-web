@@ -2,7 +2,7 @@ div.flexslider#bannerPanel
   ul.clearfix.slides
    each recommend in recommends
     li.banner-item 
-     a(href="/article/detail/view/#{recommend._id}/1")
+     a(href="/articles/detail/view/#{recommend._id}/1")
       img(src="#{recommend.recommendFigure}", alt="")
       div.content
         h2 #{recommend.title}

@@ -1,7 +1,8 @@
 define([
     'require',
-    'api'
-], function (require, api) {
+    'api',
+    'jquery'
+], function (require, api, $) {
     'use strict';
     var toolbar = $('#toolbar');
     var form = $('#form');
@@ -21,6 +22,7 @@ define([
     var currentCate = {};
     var checkItem = form.children('.checkbox-item');
 
+    var ue = UE.getEditor('editor');
 
     back.click(function () {
         form.hide();
@@ -153,6 +155,8 @@ define([
 
     save.click(function () {
         var params = api.getParams(form);
+        var content = ue.getContent();
+        params.content = content;
         params.recommand = Boolean( params.recommand);
         params.categoryId = categoryId;
         params.articleId = articleId;
@@ -186,6 +190,9 @@ define([
         api.refreshTable();
         api.showTable();
     });
+
+
+
 
 
     getCategories();

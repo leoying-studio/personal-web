@@ -80,20 +80,18 @@ exports.save = function (req, res, next) {
 
 
 exports.getDetail = function (req, res, next) {
-	let body = req.body;
-	let pagination = body.pagination;
-	let articleId = body.articleId;
+	let {articleId, pagination} = req.params;
 	Promise.all([
 		Categories.all(),
 		Articles.getArticle(articleId),
-		Comments.list({ pagination }, { articleId }),
+		// Comments.list( pagination , articleId ),
 		Comments.count()
 	]).then(function (collection) {
 		req.body.data = {
 			categories: collection[0],
 			article: collection[1],
-			comments: convert.comments(collection[2]),
-			total: collection[3]
+			comments: [],
+			total: collection[2]
 		};
 		next();
 	}).catch(next);

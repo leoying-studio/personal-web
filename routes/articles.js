@@ -26,14 +26,14 @@ router.post("/delete", Validate.delete, Articles.destoryById, function(req, res,
 }); 
 
 
-router.get("/detail/view/:articleId/:pagination", Validate.detail, Articles.getDetail, function(req, res) {
-	next();
+router.get("/detail/view/:articleId/:pagination", Articles.getDetail, function(req, res, next) {
+	res.render("www/detail/index", req.body.data);
 });
 
 /**
  * 获取评论信息
  */
-router.get("/comments", Validate.detail, function(req, res) {
+router.get("/comments", Validate.detail, function(req, res, next) {
 	next();
 });	
 

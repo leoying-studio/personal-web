@@ -10,7 +10,7 @@ exports.save = function(req, res, next) {
 		},
 		{
 			rule: {
-				rule: {min: 10, max: 3000},
+				rule: {min: 10, max: Infinity},
 				message: '文章内容不能少于十个字符'
 			},
             name: '文章内容',
