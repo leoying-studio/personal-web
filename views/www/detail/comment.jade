@@ -1,9 +1,9 @@
 
 div.comment
   header.comment-header
-   textarea.comment-input(placeholder="说说你的看法......" id="commentContent")
+   textarea.comment-input(placeholder="说说你的看法......" name="content" id="textareaContent")
    div.publish-wrapper
-    button.btn.btn-success(articleId="#{comments.params.articleId}" id="publishCommentBtn") 发布
+    button.btn.btn-success(articleId="#{comments.params.articleId}" id="publishBtn") 发布
   section.comment-content
     include ./content-item.jade
   footer.comment-footer

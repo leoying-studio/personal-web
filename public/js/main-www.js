@@ -7,7 +7,8 @@ require.config({
         "detail": "detail",
         "jquery": "./../../lib/jquery/jquery.min",
         "jquery.flexslider": "./../../lib/jquery/plugin/jquery.flexslider",
-        "jquery.paging": "./../../lib/jquery/plugin/paging/paging.min"
+        "jquery.paging": "./../../lib/jquery/plugin/paging/paging.min",
+        'api': '/js/common/api',
     },
     shim: {
         "index": {
@@ -37,7 +38,7 @@ require.config({
 
 
 require(["jquery", "jquery.paging", "jquery.flexslider", ], function($) {
-     require(["index", "article", "detail", "invok"], function() {
+     require(["index", "article", "detail", "invok", 'api'], function() {
 
      });
 });

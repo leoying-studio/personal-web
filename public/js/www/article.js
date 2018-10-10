@@ -1,8 +1,10 @@
 define([
     'require',
-    'jquery'
-], function(require, $) {
+    'jquery',
+    'api'
+], function(require, $, api) {
      var inited = false;
+     var publishBtn = $("#publishBtn");
      // 分页初始化
      var articlePaging = $("#articlePaging");
      if (articlePaging.length) {
@@ -23,4 +25,26 @@ define([
             }
         });
      }
+
+     publishBtn.click(function() {
+        var content = $("#textareaContent").val();
+        $.ajax({
+            url: "/articles/comment/add",
+            data: {
+                content: content,
+                articleId: $(this).attr("articleId")
+            }, 
+            success: function(res) {
+                if (res.status) {
+                    api.message.success("发布成功");
+                    $("#textareaContent").val("")
+                }
+                api.message.error("发布失败");
+            },
+            fail: function() {
+
+            }
+        });
+     });
+
 });
