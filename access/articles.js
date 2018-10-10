@@ -6,7 +6,7 @@ const Articles = require('./../models/articles');
  * @param {Number} pagination 需要查询的页码
  */
 exports.list = function(categoryId, subId, pagination = 1) {
-	return Articles.queryPaging({pagination}, {'subIds.id': subId, categoryId});
+	return Articles.queryPaging({pagination}, {categoryId, 'subIds.id': subId });
 }
 
 /**
