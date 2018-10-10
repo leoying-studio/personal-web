@@ -50,7 +50,7 @@ exports.save = function(id, fields) {
  */
 exports.timeline = function(year, month) {
 	let query = {};
-	try {
+	if (year && month) {
 		let endYear = month < 12 ? year : year + 1;
 		let endMonth = month < 12 ? month + 1 : 1;
 		query = {
@@ -59,33 +59,30 @@ exports.timeline = function(year, month) {
 				$lt: new Date(endYear, endMonth)
 			}
 		};
-	} catch (e) {
-		query = {};
-	} finally {
-		// 聚合分组查询
-		return Articles.aggregate([
-			{
-				$project: {
-					year: { $substr: ['$createdAt', 0, 4] },
-					month: { $substr: ['$createdAt', 5, 2] },
-					time: { $substr: ['$createdAt', 0, 7] },
-					description: '$description',
-					illustration: '$illustration',
-					articleId: '$_id'
-				}
-			},
-			{
-				$match: query
-			},
-			{
-				$group: {
-					'_id': '$time',
-					number: { $sum: 1 },
-					document: { $push: { 'description': '$description', 'illustration': '$illustration', 'articleId': '$articleId' } },
-				}
+	} 
+	// 聚合分组查询
+	return Articles.aggregate([
+		{
+			$project: {
+				year: { $substr: ['$createdAt', 0, 4] },
+				month: { $substr: ['$createdAt', 5, 2] },
+				time: { $substr: ['$createdAt', 0, 7] },
+				description: '$description',
+				illustration: '$illustration',
+				articleId: '$_id'
 			}
-		]);
-	}
+		},
+		{
+			$match: query
+		},
+		{
+			$group: {
+				'_id': '$time',
+				number: { $sum: 1 },
+				document: { $push: { 'description': '$description', 'illustration': '$illustration', 'articleId': '$articleId' } },
+			}
+		}
+	]);
 }
 
 

@@ -32,6 +32,5 @@ Scheam.plugin(Super.queryPaging);
 Scheam.plugin(Super.getCategories);
 
 
-
 let Articles = mongoose.model('articles', Scheam);
 module.exports = Articles;

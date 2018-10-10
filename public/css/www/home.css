@@ -127,6 +127,7 @@
 
 .intro > .wrapper {
   width: 1000px;
+  min-height: 300px;
   margin: 0 auto;
   padding: 80px 0;
   font-weight: bold;

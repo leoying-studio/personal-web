@@ -118,10 +118,11 @@
 	color: $dark-grey;
 	& > .wrapper {
 		width: 1000px;
+		min-height: 300px;
 		margin: 0 auto;
 		padding: 80px 0;
 		font-weight: bold;
-		.caption {
+		.caption {	
 			width: 58%;
 			float: left;
 			word-break: break-all;
