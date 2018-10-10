@@ -28,7 +28,7 @@ const convert = {
 }
 
 exports.getPage = function (req, res, next) {
-	let { categoryId, subId,  pagination} = req.body;
+	let { categoryId, subId,  pagination} = req.query;
 	Articles.list(categoryId, subId, pagination)
 	.then(function (collection) {
 		req.body.data = collection;

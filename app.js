@@ -11,9 +11,6 @@ var config = require("./config");
 var app = express();
 
 var Throw = require('./interceptor/throw');
-
-
-
 app.use(express.static(path.join(__dirname, "/public")));
 
 
