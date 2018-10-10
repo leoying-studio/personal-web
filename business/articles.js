@@ -84,14 +84,20 @@ exports.getDetail = function (req, res, next) {
 	Promise.all([
 		Categories.all(),
 		Articles.getArticle(articleId),
-		// Comments.list( pagination , articleId ),
+		Comments.list( pagination , articleId ),
 		Comments.count()
-	]).then(function (collection) {
+	]).then(function (collections) {
 		req.body.data = {
-			categories: collection[0],
-			article: collection[1],
-			comments: [],
-			total: collection[2]
+			categories: collections[0],
+			article: collections[1],
+			comments: {
+			  list: convert.comments(collections[2]),
+			  params: {
+				articleId,
+				pagination
+			  },
+			  total:  collections[3]
+			}
 		};
 		next();
 	}).catch(next);

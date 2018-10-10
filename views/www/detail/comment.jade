@@ -1,10 +1,9 @@
-- var articleId = params.articleId;
-- var currentPage = params.currentPage;
+
 div.comment
   header.comment-header
    textarea.comment-input(placeholder="说说你的看法......" id="commentContent")
    div.publish-wrapper
-    button.btn.btn-primary(articleId="#{params.articleId}" id="publishCommentBtn") 发布
+    button.btn.btn-success(articleId="#{comments.params.articleId}" id="publishCommentBtn") 发布
   section.comment-content
     include ./content-item.jade
   footer.comment-footer
