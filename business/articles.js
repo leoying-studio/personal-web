@@ -28,10 +28,23 @@ const convert = {
 }
 
 exports.getPage = function (req, res, next) {
-	let { categoryId, subId,  pagination} = req.query;
-	Articles.list(categoryId, subId, pagination)
+	let { categoryId, subId,  pagination} = req.params;
+	Promise.all([
+		Articles.list(categoryId, subId, pagination),
+		Articles.count(categoryId, subId),
+		Categories.all()
+	])
 	.then(function (collection) {
-		req.body.data = collection;
+		req.body.data = {
+			list: collection[0],
+			total: collection[1],
+			categories: collection[2],
+			params: {
+				categoryId,
+				subId,
+				pagination
+			}
+		};
 		next();
 	});
 }
@@ -46,7 +59,6 @@ exports.destoryById = function (req, res, next) {
 		next();
 	}).catch(next);
 }
-
 
 exports.save = function (req, res, next) {
 	let { categoryId, 
@@ -84,8 +96,8 @@ exports.getDetail = function (req, res, next) {
 	Promise.all([
 		Categories.all(),
 		Articles.getArticle(articleId),
-		Comments.list( pagination , articleId ),
-		Comments.count()
+		Comments.list(articleId, pagination),
+		Comments.count(articleId)
 	]).then(function (collections) {
 		req.body.data = {
 			categories: collections[0],

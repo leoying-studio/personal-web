@@ -29,8 +29,8 @@ exports.destoryBySubId = function(id, callback) {
 }
 
 // 获取总数
-exports.count = function() {
-	return Articles.count();
+exports.count = function(categoryId, subId) {
+	return Articles.count({categoryId, 'subIds.id': subId});
 }
 
 

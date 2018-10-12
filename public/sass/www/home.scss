@@ -1,69 +1,69 @@
 @import "./../common/var.scss";
 @import "./../common/mixin.scss";
-// header  开始
-.header {
-	width: 100%;
-	min-width: 960px;
-    min-height: 50px;
-    line-height: 65px;
-    height: 65px;
-    box-sizing: border-box;
-    padding: 0 8%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index:99;
-    background: white;
-	box-shadow: 0 0 1px 0px #e4e4e4;
-	h1 {
-		float:left;
-		font-weight: bold;
-		font-size: 24px;
-		color: $essential-colour;
-	}
-	nav {
-		float: right;
-		ul {
-			text-align: center;
+
+.header-wrapper {
+	height: 65px;
+	.header {
+		width: 100%;
+		min-width: 960px;
+		min-height: 50px;
+		line-height: 65px;
+		height: 65px;
+		box-sizing: border-box;
+		padding: 0 8%;
+		position: fixed;
+		top: 0;
+		left: 0;
+		z-index:99;
+		background: white;
+		box-shadow: 0 0 1px 0px #e4e4e4;
+		h1 {
+			float:left;
+			font-weight: bold;
+			font-size: 24px;
+			line-height: 65px;
+			color: $essential-colour;
 		}
-		.nav-item {
-			float: left;
-			position: relative;
-			a {
-				display: block;
-				width: 110px;
-				font-weight: bold;
-				color: #404040;
-				text-decoration: none;
-				&:hover {
-					color: $essential-colour;
+		nav {
+			float: right;
+			ul {
+				text-align: center;
+			}
+			.nav-item {
+				float: left;
+				position: relative;
+				a {
+					display: block;
+					width: 110px;
+					font-weight: bold;
+					color: #404040;
+					text-decoration: none;
+					&:hover {
+						color: $essential-colour;
+					}
 				}
-			}
-			&:hover .categories-wrapper {
-				display: block;
-			}
-			.categories-wrapper {
-				position: absolute;
-				top: 48px;
-				display: none;
-				li {
-					float: none;  
-					margin-bottom: 2px;
-					line-height: 25px;
-					background-color: $essential-colour;
-					a {
-						color: white;
+				&:hover .categories-wrapper {
+					display: block;
+				}
+				.categories-wrapper {
+					position: absolute;
+					top: 48px;
+					display: none;
+					li {
+						float: none;  
+						margin-bottom: 2px;
+						line-height: 25px;
+						background-color: $essential-colour;
+						a {
+							color: white;
+						}
 					}
 				}
 			}
 		}
 	}
 }
-// header 结束
 
-.container {
-	padding-top: 65px;
-}
 
 /*banner  开始*/
 .banner {

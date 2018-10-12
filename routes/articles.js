@@ -11,7 +11,7 @@ router.post("/save", Validate.save, Articles.save, function(req, res, next) {
 
 // 查询
 router.get("/view/:categoryId/:subId/:pagination", Validate.query, Articles.getPage, function(req, res)　{
-	res.json(req.body.data);
+	res.render("www/article/index", req.body.data);
 }); 
 
 // ajax查询文章列表

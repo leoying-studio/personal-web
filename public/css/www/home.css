@@ -1,5 +1,9 @@
 @charset "UTF-8";
-.header {
+.header-wrapper {
+  height: 65px;
+}
+
+.header-wrapper .header {
   width: 100%;
   min-width: 960px;
   min-height: 50px;
@@ -15,27 +19,28 @@
   box-shadow: 0 0 1px 0px #e4e4e4;
 }
 
-.header h1 {
+.header-wrapper .header h1 {
   float: left;
   font-weight: bold;
   font-size: 24px;
+  line-height: 65px;
   color: #66AF33;
 }
 
-.header nav {
+.header-wrapper .header nav {
   float: right;
 }
 
-.header nav ul {
+.header-wrapper .header nav ul {
   text-align: center;
 }
 
-.header nav .nav-item {
+.header-wrapper .header nav .nav-item {
   float: left;
   position: relative;
 }
 
-.header nav .nav-item a {
+.header-wrapper .header nav .nav-item a {
   display: block;
   width: 110px;
   font-weight: bold;
@@ -43,33 +48,29 @@
   text-decoration: none;
 }
 
-.header nav .nav-item a:hover {
+.header-wrapper .header nav .nav-item a:hover {
   color: #66AF33;
 }
 
-.header nav .nav-item:hover .categories-wrapper {
+.header-wrapper .header nav .nav-item:hover .categories-wrapper {
   display: block;
 }
 
-.header nav .nav-item .categories-wrapper {
+.header-wrapper .header nav .nav-item .categories-wrapper {
   position: absolute;
   top: 48px;
   display: none;
 }
 
-.header nav .nav-item .categories-wrapper li {
+.header-wrapper .header nav .nav-item .categories-wrapper li {
   float: none;
   margin-bottom: 2px;
   line-height: 25px;
   background-color: #66AF33;
 }
 
-.header nav .nav-item .categories-wrapper li a {
+.header-wrapper .header nav .nav-item .categories-wrapper li a {
   color: white;
-}
-
-.container {
-  padding-top: 65px;
 }
 
 /*banner  开始*/

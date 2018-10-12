@@ -5,4 +5,4 @@ block content
    div.article-wrapper.clearfix
     include ./verticle-item.jade
    div.article-paging-wrapper
-     div.paging#articlePaging(navId="#{params.navId}" categoryId="#{params.categoryId}" currentPage="#{params.currentPage}" total="#{total}")
+     div.paging#articlePaging(subId="#{params.subId}" categoryId="#{params.categoryId}" currentPage="#{params.pagination}" total="#{total}")

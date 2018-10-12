@@ -8,7 +8,7 @@ const Scheam = new mongoose.Schema({
 	username: {type: 'string'},
 	content:{type: 'string'},
 	// 文章的id
-	articleId: {type: ObjectId},
+	articleId: String,
 	createdTime: { type: String, default: Utils.time.get() },
 	createdAt: {type: Date, default: Date.now},
 });

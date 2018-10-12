@@ -1,8 +1,8 @@
-each article in articles
-  div.article-verticle-item(navId="#{article.navId}" articleId="#{article._id}" categoryId="#{params.categoryId}")
-    img.icon(src="#{article.img}", alt="")
+each article in list
+  div.article-verticle-item(subId="#{article.subId}" articleId="#{article._id}" categoryId="#{params.categoryId}")
+    img.icon(src="#{article.illustration}", alt="")
     div.content
       h2.title
-        a(href="/article/detail/view/#{article._id}/1") #{article.title}
+        a(href="/articles/detail/view/#{article._id}/1") #{article.title}
       p.time #{article.createdTime}  
       p.description #{article.description}

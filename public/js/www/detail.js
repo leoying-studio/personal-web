@@ -18,7 +18,7 @@ define([
             slideSpeed: 600, // 缓动速度。单位毫秒 
             callback: function(no) { // 回调函数 
                 if (inited) {
-                    window.location.href = window.location.origin+"/article/detail/view/"+articleId+"/"+no;
+                    window.location.href = window.location.origin+"/articles/detail/view/"+articleId+"/"+no;
                 }
                 inited = true;
             }
@@ -37,38 +37,29 @@ define([
          );
     }
 
+    var publishBtn = $("#publishBtn");
     //  //发表文章详情页的评论
-     $("#publishCommentBtn").click(function() {
-         var articleId = $(this).attr('articleId');
-        $.getScript("http://int.dpool.sina.com.cn/iplookup/iplookup.php?format=js",function(){ 
-              var country = remote_ip_info["country"];
-              var province = remote_ip_info["province"];  
-              var city = remote_ip_info["city"];    
-              var username = province+city+"用户说:"
-              var content = $("#commentContent").val();
-              var params = {
-                  username, 
-                  content,
-                  articleId
-              };
-              $.ajax({
-                 url: '/article/comment/submit',
-                 data: params,
-                 type:'post',
-                 success: function(res) {
-                   if (res.status) {
-                       $("#commentContent").val('');
-                       appendComment(res.data);
-                       invok.message.success(res.message);
-                   } else {
-                       invok.message.error(res.message);
-                   }
-                 },
-                 error: function() {
-                    invok.message.success('请求错误');
-                 }
-              });
-         }) ;   
-     });
+    publishBtn.click(function () {
+        var content = $("#textareaContent").val();
+            $.ajax({
+                url: "/articles/comment/add",
+                type: 'post',
+                data: {
+                    content: content,
+                    username: '暂无',
+                    articleId: $(this).attr("articleId")
+                },
+                success: function (res) {
+                    if (res.status) {
+                        api.message.success("发布成功");
+                        $("#textareaContent").val("")
+                    }
+                    api.message.error("发布失败");
+                },
+                fail: function () {
+
+                }
+            });
+        });
      $("#articleContent").html($("#articleContent").text());
 });

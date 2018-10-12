@@ -1,3 +1,7 @@
+function onBack(res) {
+    debugger;
+}
+
 require.config({
     baseUrl: "/js/www/",
     paths: {
@@ -37,7 +41,7 @@ require.config({
 });
 
 
-require(["jquery", "jquery.paging", "jquery.flexslider", ], function($) {
+require(["jquery", "jquery.paging", "jquery.flexslider"], function($) {
      require(["index", "article", "detail", "invok", 'api'], function() {
 
      });
