@@ -25,14 +25,13 @@ exports.setIntro = function(req, res, next) {
 		...req.body,
 		themes: []
 	};
-	Intro.save(fields)
-	.then(function(err, doc) {
+	Intro.save(fields, function(err, doc) {
 		if (err) {
 			return next(err);
 		}
-		req.body.data = true;
+		req.body.data = doc;
 		next();
-	}).catch(next);
+	});
 }
 
 exports.getIntro = function(req, res, next) {

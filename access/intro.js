@@ -1,18 +1,18 @@
 
 const Intro = require('../models/intro');
 
-exports.save = function (fields) {
-	return new Promise(function(resolve, reject) {
-		Intro.findOne({}, function(err, doc) {
-			if (err) {
-				return reject(err);
-			}
-			if (doc) {
-				delete fields.themes;
-			}
+exports.save = function (fields, callback) {
+	Intro.findOne({}, function(err, doc) {
+		if (err) {
+			return reject(err);
+		}
+		if (doc) {
+			delete fields.themes;
 			doc.set({...fields});
-			doc.save(resolve);	
-		});
+			doc.save(callback);	
+			return;
+		}
+		Intro.create(fields, callback);
 	});
 }
 

@@ -7,7 +7,7 @@ let Scheam = new mongoose.Schema({
 	 // 标语, 口号
 	 slogan: {type: String},
 	 // 标题
-	 title:{type: String},
+	 title:{type: String, default: ""},
 	 // 简介
 	 intro:{type: String},
 	 // 主题顶部概述
