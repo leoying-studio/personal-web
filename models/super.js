@@ -1,4 +1,4 @@
-let Categories = require('./categories');
+const Categories = require('./categories');
 
 // 分页查询
 exports.queryPaging = function (scheam) {
