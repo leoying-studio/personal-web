@@ -1,26 +1,28 @@
-var Utils = {
+const Utils = {
      time: {
-        get: function(date, accuracy) {
+        get: function(date, objectification) {
             if (typeof date != "object") {
                 date = new Date();
             }
-            var year = date.getFullYear();
-            var month = date.getMonth() + 1;
-            var day = date.getDate();
-            var hour = date.getHours();
-            var minutes = date.getMinutes();
-            var second = date.getSeconds();
+            let year = date.getFullYear();
+            let month = date.getMonth() + 1;
+            let day = date.getDate();
+            let hour = date.getHours();
+            let minutes = date.getMinutes();
+            let second = date.getSeconds();
             month = month < 10 ? '0' + month :　month;
             day = day < 10 ? '0' + day :day;
-            if (accuracy == "day" || accuracy == "d") {
-                return year + "-" + month + "-" + day;
-            }
-            else if (accuracy == "second" || accuracy == "s") {
-                return year + "-" + month + "-" + day + " " + hour + ":" + minutes + ":" + second;
-            }
-            else {
+            if (!objectification) {
                 return year + "-" + month + "-" + day + " " + hour + ":" + minutes;
-            }
+            } 
+            return {
+                year,
+                month,
+                day,
+                hour,
+                minutes,
+                second
+            };
         }
      },
 } 
