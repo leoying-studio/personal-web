@@ -1,7 +1,7 @@
-let express = require('express');
-let router = express.Router();
-let Validate = require("./../validate/home");
-let Home = require('./../business/home');
+const express = require('express');
+const router = express.Router();
+const Validate = require("./../validate/home");
+const Home = require('./../business/home');
 
 /**
  * MVC 的c作用很简单，只去拿数据和返回数据，其他一概不管。

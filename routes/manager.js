@@ -1,7 +1,5 @@
-let express = require('express');
-let router = express.Router();
-let Validate = require("./../validate/home");
-let Home = require('./../business/home');
+const express = require('express');
+const router = express.Router();
 
 // 侧边栏切换进行重定向转发
 router.get('/redirect/:target', function(req, res, next) {

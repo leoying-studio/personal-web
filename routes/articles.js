@@ -1,7 +1,7 @@
-let express = require('express');
-let router = express.Router();
-let Validate = require("./../validate/articles");
-let Articles = require('./../business/articles');
+const express = require('express');
+const router = express.Router();
+const Validate = require("./../validate/articles");
+const Articles = require('./../business/articles');
 
 // 保存，新增或者编辑
 router.post("/save", Validate.save, Articles.save, function(req, res, next) {
