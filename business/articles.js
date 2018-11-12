@@ -71,9 +71,7 @@ exports.save = function (req, res, next) {
 		  recommend = false, 
 		  recommendFigure = "",   
 		 } = req.body;
-	subIds = subIds.map((id) => {
-		return {id};
-	});
+	subIds = subIds.map((id) => {id});
 	Articles.save(articleId, {
 		title,
 		description,

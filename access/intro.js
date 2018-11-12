@@ -1,46 +1,17 @@
 
 const Intro = require('../models/intro');
 
-exports.save = function (fields, callback) {
-	Intro.findOne({}, function(err, doc) {
-		if (err) {
-			return reject(err);
-		}
-		if (doc) {
-			delete fields.themes;
-			doc.set({...fields});
-			doc.save(callback);	
-			return;
-		}
-		Intro.create(fields, callback);
-	});
+exports.add = function(fields) {
+	return Intro.create(fields);
 }
 
 exports.destory = function (id) {
 	return Intro.findByIdAndRemove(id);
 }
 
-exports.saveTheme = function (id, fields) {
-	let model = {
-		$push: {
-			themes: {
-				illustrating: fields.illustrating,
-				headline: fields.headline
-			}
-		}
-	};
-	if (id) {
-		model = {
-			$set: {
-				'themes.$.illustrating': fields.illustrating,
-				'themes.$.headline': fields.headline
-			}
-		}
-		return Intro.update({'themes._id': id}, model);
-	}
-	return Intro.update({}, model);
+exports.update = function(fields) {
+	return Intro.updateOne({}, fields);
 }
-
 
 exports.findOne = function() {
 	return Intro.findOne({}).exec();
@@ -48,6 +19,24 @@ exports.findOne = function() {
 
 exports.count = function() {
 	return Intro.count().exec();
+}
+
+exports.addTheme = function(fields) {
+	return Intro.update({
+		$push: {
+			"themes": fields
+		}
+	});
+}
+
+exports.updateTheme = function(id, fields) {
+	let {illustrating, headline} = fields;
+	return Intro.update({
+		$set: {
+			'themes.$.illustrating': illustrating,
+			'themes.$.headline': headline
+		}
+	}, fields);
 }
 
 

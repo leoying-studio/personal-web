@@ -1,7 +1,7 @@
-let mongoose=require('../db').mongoose;
-let Utils = require("./../utils/index");
+const mongoose=require('../db').mongoose;
+const Utils = require("./../utils/index");
 // 定义映射的集合结构模型
-let Scheam = new mongoose.Schema({
+const Scheam = new mongoose.Schema({
 	 // 一级分类名称
 	 name: String,
 	 // 二级分类

@@ -3,7 +3,7 @@ const router = express.Router();
 const Categories = require("./../business/categories");
 const Validate = require("./../validate/categories");
 
-router.post("/save", Validate.save, Categories.save, (req, res, next) => {
+router.post("/save", Validate.save, Categories.saveCategory, (req, res, next) => {
     next();
 });
 

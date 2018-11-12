@@ -3,7 +3,7 @@ const Utils = require("./../utils/index");
 const Super = require("./super");
 
 // 定义映射的集合结构模型
-let Scheam = new mongoose.Schema({
+const Scheam = new mongoose.Schema({
 	 // 标语, 口号
 	 slogan: {type: String},
 	 // 标题

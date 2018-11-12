@@ -1,5 +1,6 @@
 const Intro = require('../access/intro');
 const Themes = require('../access/themes');
+// 数据访问层
 const Categories = require('./../access/categories');
 const Articles = require('./../access/articles');
 
@@ -20,17 +21,25 @@ exports.getAll = function(req, res, next) {
 	}).catch(next);
 }
 
+/**
+ * 保存介绍信息
+ */
 exports.setIntro = function(req, res, next) {
-	let fields = {
-		...req.body,
-		themes: []
-	};
-	Intro.save(fields, function(err, doc) {
-		if (err) {
-			return next(err);
+	Intro.count().then(function(count) {
+		if (!count) {
+			Intro.add({...req.body, themes: []}).then(function(doc) {
+				if (err) {
+					return next(err);
+				}
+				req.body.data = doc;
+				next();
+			}).catch(next);
+		} else {
+			Intro.update({...req.body}).then(function(doc) {
+				req.body.data = doc;
+				next();
+			}).catch(next)
 		}
-		req.body.data = doc;
-		next();
 	});
 }
 
@@ -53,15 +62,20 @@ exports.getAllCategories = function(req, res, next) {
 
 // 根据介绍信息保存
 exports.saveTheme = function(req, res, next) {
-	let {_id, illustrating, headline } = req.body;
-	Intro.saveTheme(_id, {
-		illustrating,
-		headline
-	}).then(function(doc) {
-		req.body.data = doc;
-		next();
-	}).catch(next);
-	
+	let {id} = req.body;
+	if (id) {
+		Intro.updateTheme(id, {illustrating, headline})
+		.then(function(doc) {
+			req.body.data = doc;
+			next();
+		}).catch(next);
+	} else {
+		Intro.addTheme({illustrating, headline})
+		.then(function(doc) {
+			req.body.data = doc;
+			next();
+		}).catch(next);
+	}
 }
 
 exports.saveThemeItem = function(req, res, next) {

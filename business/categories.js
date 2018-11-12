@@ -9,7 +9,7 @@ exports.getAll = function(req, res, next) {
 	}).catch(next);
 }
 
-exports.save = function(req, res, next) {
+exports.saveCategory = function(req, res, next) {
 	let body = req.body;
 	Categories.save(body._id, body.name)
 	.then(function(doc) {
