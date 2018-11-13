@@ -1,46 +1,34 @@
 const Categories = require('./../models/categories');
 
-exports.getById = function (id) {
+exports.find = function (id) {
 	return Categories.findById(id);
 }
 
-exports.save = function (id, name) {
-	if (id) {
-		return Categories.findByIdAndUpdate(id, {$set: {name} });
-	}
+exports.add = function(name) {
 	return Categories.create({
 		name,
 		subcategories: []
 	});
 }
 
-exports.all = function () {
+exports.save = function (id, name) {
+	return Categories.findByIdAndUpdate(id, {$set: {name} });
+}
+
+exports.findAll = function () {
 	return Categories.find({});
 }
 
-exports.getSubcategoriesById = function (id, subcategoryId ,name) {
-	if (!subcategoryId) {
-		return Categories.findByIdAndUpdate(id, { $push: {name} });
-	}
-	return Categories.findByIdAndUpdate({_id: id, 'subcategories._id': subcategoryId}, {$set: {name}});
+exports.addSubcategory = function(id, name) {
+	return Categories.findByIdAndUpdate(id, { $push: {
+		subcategories: {name}} 
+	});
 }
 
-exports.updateSubcategory = function (id, subId, name) {
-	let model = {
-		$push: {
-			subcategories: {name}
-		}
-	};
-	if (subId) {
-		model = {
-			$set: {
-				'subcategories.$.name': name
-			}
-		};
-		return Categories.update({_id: id, 'subcategories._id': subId}, model);
-	}
-	return Categories.findByIdAndUpdate(id, model);
+exports.updateSubcategory = function(id, subId, name) {
+	return Categories.findByIdAndUpdate({_id: id, 'subcategories._id': subId}, {$set: {'subcategories.$.name': name}});
 }
+
 
 exports.updateCategory = function (id, model) {
 	return Categories.findByIdAndUpdate(id, {
@@ -50,6 +38,5 @@ exports.updateCategory = function (id, model) {
 
 
 exports.destorySubcategoryById =  function(cateId, subId) {
-	let execute = Categories.update({_id: cateId}, {$pull: {"subcategories": {_id: subId}}});
-	return execute;
+	return Categories.update({_id: cateId}, {$pull: {"subcategories": {_id: subId}}});
 }
