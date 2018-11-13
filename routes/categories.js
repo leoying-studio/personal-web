@@ -13,7 +13,7 @@ router.get("/data", Categories.getAll,  (req, res, next) => {
 });
 
 // 添加导航下的类别
-router.post('/subcategory/save', Validate.subCategories, Categories.saveSubcategory, (req, res, next) => {
+router.post('/subcategory/save', Validate.subcategories, Categories.saveSubcategory, (req, res, next) => {
     next();
 });
 

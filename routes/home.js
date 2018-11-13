@@ -52,14 +52,14 @@ router.post("/intro/save", Validate.intro, Home.setIntro, function (req, res, ne
  * 首页主题增删查改
  */
  //根据 introId添加主题
-router.post("/intro/theme/save", Validate.theme, Home.saveTheme, function(req, res, next) {
-    next();
-});
+// router.post("/intro/theme/save", Validate.theme, Home.saveTheme, function(req, res, next) {
+//     next();
+// });
 
 
 // 根据首页themeId进行添加主题项内容
-router.post("/intro/themes/item/save", Home.saveThemeItem, function(req, res, next) {
-    next();
-});
+// router.post("/intro/themes/item/save", Home.saveThemeItem, function(req, res, next) {
+//     next();
+// });
 
 module.exports = router;
