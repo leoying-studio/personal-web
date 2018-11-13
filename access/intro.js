@@ -13,7 +13,7 @@ exports.update = function(fields) {
 	return Intro.updateOne({}, fields);
 }
 
-exports.findOne = function() {
+exports.find = function() {
 	return Intro.findOne({}).exec();
 }
 

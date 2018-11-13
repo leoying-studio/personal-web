@@ -6,9 +6,9 @@ const Articles = require('./../access/articles');
 
 exports.getAll = function(req, res, next) {
     Promise.all([
-		Categories.all(),
+		Categories.findAll(),
 		Articles.recommends(),
-		Intro.findOne(),
+		Intro.find(),
 		Articles.timeline(),
 	]).then(function(collections) {
 		req.body.data = {
@@ -44,20 +44,20 @@ exports.setIntro = function(req, res, next) {
 }
 
 exports.getIntro = function(req, res, next) {
-	Intro.findOne().then(function(doc) {
+	Intro.find().then(function(doc) {
 		req.body.data = doc;
 		next();
 	}).catch(next);
 }
 
 exports.getAllCategories = function(req, res, next) {
-	Categories.all()
+	Categories.findAll()
 	.then(function(collections) {
 		req.body.data = {
 			categories: collections
 		};
 		next();
-	});
+	}).catch(next);
 }
 
 // 根据介绍信息保存
@@ -91,13 +91,13 @@ exports.saveThemeItem = function(req, res, next) {
 }
 
 exports.getThemeCategories = function(req, res, next) {
-	Intro.findOne().then(function(doc) {
+	Intro.find().then(function(doc) {
 		doc = doc || {
 			themes: []
 		};
 		req.body.data = doc.themes;
 		next();
-	});
+	}).catch(next);
 }
 
 exports.getThemeMap = function(req, res, next) {
@@ -105,7 +105,7 @@ exports.getThemeMap = function(req, res, next) {
 	.then(function(collections) {
 		req.body.data = collections;
 		next();
-	});
+	}).catch(next);
 }
 
 exports.destroyIntroTheme = function(req, res, next) {
@@ -113,7 +113,7 @@ exports.destroyIntroTheme = function(req, res, next) {
 	.then(function(doc) {
 		req.body.data = doc;
 		next(); 
-	});
+	}).catch(next);
 }
 
 exports.destoryThemeItem = function(req, res, next) {
