@@ -86,6 +86,9 @@ exports.find = function (id) {
 	return Articles.findById(id);
 }
 
+/**
+ * 获取推荐信息
+ */
 exports.recommends = function () {
 	return Articles.find({ recommend: true });
 }

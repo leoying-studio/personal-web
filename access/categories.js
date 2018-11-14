@@ -37,6 +37,6 @@ exports.updateCategory = function (id, model) {
 }
 
 
-exports.destorySubcategoryById =  function(cateId, subId) {
+exports.destorySubcategory=  function(cateId, subId) {
 	return Categories.update({_id: cateId}, {$pull: {"subcategories": {_id: subId}}});
 }

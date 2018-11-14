@@ -1,20 +1,21 @@
 const Themes = require('../models/themes');
 
-exports.getAllById = function(themeId) {
+exports.getAll = function(themeId) {
     return Themes.find({themeId}).exec();
 }
 
-exports.updateThemeById = function(id) {
-    return Themes.findOne({_id: id}).exec();
+exports.find= function(id, callback) {
+    return Themes.findById(id).exec(callback);
 }
 
-exports.removeById = function(id) {
-    return Themes.findByIdAndRemove({_id: id}).exec();
+exports.remove = function(id) {
+    return Themes.findByIdAndRemove(id).exec();
 }
 
-exports.save = function(_id, fields) {
-    if (!_id) {
-        return Themes.create(fields);
-    }
-    return Themes.update({_id}, fields).exec();
+exports.add = function(field) {
+    return Themes.create(field);
+}
+
+exports.update = function(id, fields) {
+    return Themes.update({_id: id}, fields).exec();
 }
