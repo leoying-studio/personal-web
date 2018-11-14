@@ -92,7 +92,7 @@ exports.save = function (req, res, next) {
 exports.getDetail = function (req, res, next) {
 	let {articleId, pagination} = req.params;
 	Promise.all([
-		Categories.all(),
+		Categories.findAll(),
 		Articles.find(articleId),
 		Comments.list(articleId, pagination),
 		Comments.count(articleId)
