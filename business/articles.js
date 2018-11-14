@@ -93,7 +93,7 @@ exports.getDetail = function (req, res, next) {
 	let {articleId, pagination} = req.params;
 	Promise.all([
 		Categories.all(),
-		Articles.getArticle(articleId),
+		Articles.find(articleId),
 		Comments.list(articleId, pagination),
 		Comments.count(articleId)
 	]).then(function (collections) {
