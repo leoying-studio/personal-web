@@ -1,6 +1,6 @@
 const mongoose = require('../db').mongoose;
 const Super = require('./super');
-const Utils = require("./../utils/index");
+const Utils = require("../utils/index");
 
 // 定义映射的集合结构模型
 const Scheam = new mongoose.Schema({

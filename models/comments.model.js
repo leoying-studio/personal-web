@@ -1,6 +1,6 @@
 const mongoose=require('../db').mongoose;
 const ObjectId = mongoose.Schema.ObjectId;
-const Utils = require("./../utils/index");
+const Utils = require("../utils/index");
 const Super = require("./super");
 
 // 定义映射的集合结构模型

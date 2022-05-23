@@ -5,9 +5,16 @@ const ObjectId = Schema.Types.ObjectId;
 // 定义映射的集合结构模型
 const CateSchema = new Schema({
 	 // 分类名称
-	 label: String,
-	 value: String,
+	 label: {
+		required: true,
+		type: String
+	 },
+	 value: {
+		required: false,
+		type: String
+	 },
 	 parentId: {
+		 required: false,
 		 type: ObjectId,
 		 default: null
 	 },
@@ -37,4 +44,4 @@ CateSchema.statics.update = function(id, data) {
 
 const Categories = mongoose.model('categories', CateSchema);
 
-module.exports = Categories;
+export default Categories
