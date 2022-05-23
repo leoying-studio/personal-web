@@ -11,7 +11,10 @@ exports.getAll = function(req, res, next) {
 
 exports.saveCategory = function(req, res, next) {
 	let body = req.body;
-	Categories.save(body._id, body.name)
+	Categories.save(body._id, {
+		label: body.name,
+		value: 1
+	})
 	.then(function(doc) {
 		req.body.data = doc;
 		next();

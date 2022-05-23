@@ -14,8 +14,6 @@
     "debug": "~2.6.3",
     "express": "~4.15.2",
     "express-session": "^1.15.5",
-    "gulp": "^3.9.1",
-    "gulp-sass": "^4.0.1",
     "jade": "~1.11.0",
     "mongoose": "^4.13.12",
     "morgan": "~1.8.1",

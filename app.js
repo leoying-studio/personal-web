@@ -9,6 +9,7 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 var config = require("./config");
 var app = express();
+var db = require('./db')
 
 var Throw = require('./interceptor/throw');
 app.use(express.static(path.join(__dirname, "/public")));

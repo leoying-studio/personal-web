@@ -2,10 +2,13 @@ const express = require('express');
 const router = express.Router();
 const Categories = require("./../business/categories");
 const Validate = require("./../validate/categories");
+const Categories2 = require("./../controller/categories");
 
 router.post("/save", Validate.save, Categories.saveCategory, (req, res, next) => {
     next();
 });
+
+router.post("/save1", Categories2.save);
 
 // 查询导航列表
 router.get("/data", Categories.getAll,  (req, res, next) => {
