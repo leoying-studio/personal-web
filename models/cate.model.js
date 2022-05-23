@@ -33,7 +33,8 @@ CateSchema.statics.removeById = function(id) {
 
 // 查找所有的数据
 CateSchema.statics.all = function() {
-	return this.find({}).exec()
+	const query =  this.find({})
+	return query.exec()
 }
 
 CateSchema.statics.update = function(id, data) {

@@ -1,16 +1,13 @@
-const express = require('express');
+import express from 'express'
 const router = express.Router();
-import CateController from './controller/cate.controller'
+import CateController from './controllers/cate.controller'
+import CateService from './services/cate.service'
 
 // 分类
 router.post("/categories/save", CateController.save);
 // router.post("/categories/tree", Categories.tree);
 // router.post("/categories/remove", Categories.remove);
 
-setTimeout(function() {
-    CateController.tree({
-     
-    })
-},  1000)
+CateService.tree()
 
-module.exports = router;
+export default router;
