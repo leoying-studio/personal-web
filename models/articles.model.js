@@ -1,4 +1,11 @@
 import mongoose from 'mongoose'
+
+const BelongedSchema = new mongoose.Schema({
+	cateId:  mongoose.Schema.Types.ObjectId
+}, {
+	id: false
+})
+
 // 定义映射的集合结构模型
 const Scheam = new mongoose.Schema({
 	title: String,
@@ -8,8 +15,13 @@ const Scheam = new mongoose.Schema({
 	createdAt: {type: Date, default: Date.now},
 	updateAt: {type: Date,  default: Date.now},
 	// 所属分类
-	belonged: [
-		{cateId: mongoose.Schema.Types.ObjectId}
+	belonged: [BelongedSchema],
+	categories: [
+		{
+			type: mongoose.Schema.Types.ObjectId, 
+			required: true, 
+			ref: 'categories'
+		}
 	],
 	// 是否作为推荐
 	recommend: {type: Boolean, default: false},
@@ -22,6 +34,10 @@ const Scheam = new mongoose.Schema({
 });
 
 // 分页查询
+Scheam.static.findById = function(id) {
+	return this.findById(id).populate("categories").exec()
+} 
+
 Scheam.static.query = function(conditions = {}, pageSize = 10, pageNo = 1) {
 	return this.find(conditions).skip(pageSize * pageNo).limit(pageSize).sort({
 		_id: -1
@@ -35,9 +51,11 @@ Scheam.static.update = function(data) {
 } 
 
 Scheam.static.pullSub = function(id, cateId) {
-    return this.findOne({_id: id}).then((query) =>{
-		query.belonged.id(cateId).remove()
-	})
+	return this.update({_id: id}, {$pull: {"belonged": {cateId}}});
+} 
+
+Scheam.static.pushSub = function(id, cateId) {
+	return this.update({_id: id}, {$pull: {"belonged": {cateId}}});
 } 
 
 let Articles = mongoose.model('articles', Scheam);
