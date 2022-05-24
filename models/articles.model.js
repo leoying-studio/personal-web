@@ -9,7 +9,7 @@ const Scheam = new mongoose.Schema({
 	updateAt: {type: Date,  default: Date.now},
 	// 所属分类
 	belonged: [
-		mongoose.Schema.Types.ObjectId,
+		{cateId: mongoose.Schema.Types.ObjectId}
 	],
 	// 是否作为推荐
 	recommend: {type: Boolean, default: false},
@@ -34,10 +34,10 @@ Scheam.static.update = function(data) {
 	}).exec()
 } 
 
-Scheam.static.setId = function(data) {
-    return this.findByIdAndUpdate(id, {
-		$set: data	
-	}).exec()
+Scheam.static.pullSub = function(id, cateId) {
+    return this.findOne({_id: id}).then((query) =>{
+		query.belonged.id(cateId).remove()
+	})
 } 
 
 let Articles = mongoose.model('articles', Scheam);
