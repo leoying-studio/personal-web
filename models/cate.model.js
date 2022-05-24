@@ -11,7 +11,7 @@ const CateSchema = new Schema({
 	 },
 	 value: {
 		required: false,
-		type: String
+		type: String,
 	 },
 	 parentId: {
 		 required: false,

@@ -4,7 +4,7 @@
 
 "@ampproject/remapping@^2.1.0":
   version "2.2.0"
-  resolved "https://registry.npmmirror.com/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
+  resolved "https://registry.npmjs.org/@ampproject/remapping/-/remapping-2.2.0.tgz#56c133824780de3174aed5ab6834f3026790154d"
   integrity sha512-qRmjj8nj9qmLTQXXmaR1cck3UXSRMPrbsLJAasZpF+t3riI71BXed5ebIOYwQntykeZuhjsdweEc9BxH5Jc26w==
   dependencies:
     "@jridgewell/gen-mapping" "^0.1.0"
@@ -24,7 +24,7 @@
 
 "@babel/core@^7.18.0":
   version "7.18.0"
-  resolved "https://registry.npmmirror.com/@babel/core/-/core-7.18.0.tgz#c58d04d7c6fbfb58ea7681e2b9145cfb62726756"
+  resolved "https://registry.npmjs.org/@babel/core/-/core-7.18.0.tgz#c58d04d7c6fbfb58ea7681e2b9145cfb62726756"
   integrity sha512-Xyw74OlJwDijToNi0+6BBI5mLLR5+5R3bcSH80LXzjzEGEUlvNzujEE71BaD/ApEZHAvFI/Mlmp4M5lIkdeeWw==
   dependencies:
     "@ampproject/remapping" "^2.1.0"
@@ -244,7 +244,7 @@
 
 "@babel/helpers@^7.18.0":
   version "7.18.0"
-  resolved "https://registry.npmmirror.com/@babel/helpers/-/helpers-7.18.0.tgz#aff37c3590de42102b54842446146d0205946370"
+  resolved "https://registry.npmjs.org/@babel/helpers/-/helpers-7.18.0.tgz#aff37c3590de42102b54842446146d0205946370"
   integrity sha512-AE+HMYhmlMIbho9nbvicHyxFwhrO+xhKB6AhRxzl8w46Yj0VXTZjEsAoBVC7rB2I0jzX+yWyVybnO08qkfx6kg==
   dependencies:
     "@babel/template" "^7.16.7"
@@ -766,14 +766,6 @@
     "@babel/helper-create-regexp-features-plugin" "^7.16.7"
     "@babel/helper-plugin-utils" "^7.16.7"
 
-"@babel/polyfill@^7.12.1":
-  version "7.12.1"
-  resolved "https://registry.npmmirror.com/@babel/polyfill/-/polyfill-7.12.1.tgz#1f2d6371d1261bbd961f3c5d5909150e12d0bd96"
-  integrity sha512-X0pi0V6gxLi6lFZpGmeNa4zxtwEmCs42isWLNjZZDE0Y8yVfgu0T2OAHlzBbdYlqbW/YXVvoBHpATEM+goCj8g==
-  dependencies:
-    core-js "^2.6.5"
-    regenerator-runtime "^0.13.4"
-
 "@babel/preset-env@^7.18.0":
   version "7.18.0"
   resolved "https://registry.npmmirror.com/@babel/preset-env/-/preset-env-7.18.0.tgz#ec7e51f4c6e026816000b230ed7cf74a1530d91d"
@@ -919,7 +911,7 @@
 
 "@jridgewell/gen-mapping@^0.1.0":
   version "0.1.1"
-  resolved "https://registry.npmmirror.com/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
+  resolved "https://registry.npmjs.org/@jridgewell/gen-mapping/-/gen-mapping-0.1.1.tgz#e5d2e450306a9491e3bd77e323e38d7aff315996"
   integrity sha512-sQXCasFk+U8lWYEe66WxRDOE9PjVz4vSM51fTu3Hw+ClTpUSQb718772vH3pyS5pShp6lvQM7SxgIDXXXmOX7w==
   dependencies:
     "@jridgewell/set-array" "^1.0.0"
@@ -1561,7 +1553,7 @@ content-type@~1.0.2:
 
 convert-source-map@^1.7.0:
   version "1.8.0"
-  resolved "https://registry.npmmirror.com/convert-source-map/-/convert-source-map-1.8.0.tgz#f3373c32d21b4d780dd8004514684fb791ca4369"
+  resolved "https://registry.npmjs.org/convert-source-map/-/convert-source-map-1.8.0.tgz#f3373c32d21b4d780dd8004514684fb791ca4369"
   integrity sha512-+OQdjP49zViI/6i7nIJpA8rAl4sV/JdPfU9nZs3VqOwGIgizICvuN2ru6fMd+4llL0tar18UYJXfZ/TWtmhUjA==
   dependencies:
     safe-buffer "~5.1.1"
@@ -1601,11 +1593,6 @@ core-js-compat@^3.21.0, core-js-compat@^3.22.1:
   dependencies:
     browserslist "^4.20.3"
     semver "7.0.0"
-
-core-js@^2.6.5:
-  version "2.6.12"
-  resolved "https://registry.npmmirror.com/core-js/-/core-js-2.6.12.tgz#d9333dfa7b065e347cc5682219d6f690859cc2ec"
-  integrity sha512-Kb2wC0fvsWfQrgk8HU5lW6U/Lcs8+9aaYcy4ZFc6DDlo4nZ7n70dEgE5rtR0oG6ufKDUnrwfWL1mXR5ljDatrQ==
 
 core-js@^3.22.6:
   version "3.22.6"
@@ -2019,7 +2006,7 @@ function-bind@^1.1.1:
 
 gensync@^1.0.0-beta.2:
   version "1.0.0-beta.2"
-  resolved "https://registry.npmmirror.com/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
+  resolved "https://registry.npmjs.org/gensync/-/gensync-1.0.0-beta.2.tgz#32a6ee76c3d7f52d46b2b1ae5d93fea8580a25e0"
   integrity sha512-3hN7NaskYvMDLQY55gnW3NQ+mesEAepTqlg+VEbj7zzqEMBVNhzcGYYeqFo/TlYz6eQiFcp1HcsCZO+nGgS8zg==
 
 get-intrinsic@^1.0.2, get-intrinsic@^1.1.1:
@@ -2417,7 +2404,7 @@ json5@^1.0.1:
 
 json5@^2.2.1:
   version "2.2.1"
-  resolved "https://registry.npmmirror.com/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
+  resolved "https://registry.npmjs.org/json5/-/json5-2.2.1.tgz#655d50ed1e6f95ad1a3caababd2b0efda10b395c"
   integrity sha512-1hqLFMSrGHRHxav9q9gNjJ5EXznIxGVO09xQRrwplcS8qs28pZ8s8hupZAmqDwZUmVZ2Qb2jnyPOWcDH8m8dlA==
 
 jstransformer@0.0.2:
