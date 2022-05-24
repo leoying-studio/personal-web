@@ -8,14 +8,19 @@ router.post("/categories/tree", CateController.tree);
 router.post("/categories/remove", CateController.remove);
 router.post("/categories/update", CateController.update);
 // 文章
-router.post("/categories/save", CateController.save);
-router.post("/categories/tree", CateController.tree);
-router.post("/categories/remove", CateController.remove);
-router.post("/categories/update", CateController.update);
-// 评论
-router.post("/categories/save", CateController.save);
-router.post("/categories/tree", CateController.tree);
-router.post("/categories/remove", CateController.remove);
-router.post("/categories/update", CateController.update);
+// router.post("/categories/save", CateController.save);
+// router.post("/categories/tree", CateController.tree);
+// router.post("/categories/remove", CateController.remove);
+// router.post("/categories/update", CateController.update);
+// // 评论
+// router.post("/categories/save", CateController.save);
+// router.post("/categories/tree", CateController.tree);
+// router.post("/categories/remove", CateController.remove);
+// router.post("/categories/update", CateController.update);
+
+
+router.get("/", (req, res) => {
+    res.render("layout", {})
+});
 
 export default router;

@@ -44,16 +44,23 @@ Scheam.static.update = function(data) {
 } 
 
 Scheam.static.pullSub = function(id, cateId) {
-	const doc = await this.findById(id)
-	return this.update({_id: id}, {$pull: {"categories": {cateId}}});
+	return this.findByIdAndUpdate({_id: id, 'categories._id': cateId}, {$pull: {categories: {
+		_id: cateId
+	}}});
 } 
 
 Scheam.static.pushSub = async function(id, cateId) {
-	const doc = await this.findById(id)
-	doc.belonged.push(new ObjectId(cateId))
-	return doc.save()
+	return this.findByIdAndUpdate({_id: id}, {
+		$push: {
+			categories: new ObjectId(cateId)
+		}
+	});
 } 
 
-let Articles = mongoose.model('articles', Scheam);
+CateSchema.statics.remove = function(id, data) {
+	return this.findByIdAndRemove(id)
+}
 
-module.exports = Articles;
+const Articles = mongoose.model('articles', Scheam);
+
+export default Articles;

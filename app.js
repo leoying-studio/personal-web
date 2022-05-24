@@ -55,12 +55,10 @@ app.use(function (req, res, next) {
   next();
 });
 
-
-
 // 自定义中间件抛出消息
-app.use(Throw.abnormal);
-app.use(Throw.message.success);
-app.use(Throw.message.error);
+// app.use(Throw.abnormal);
+// app.use(Throw.message.success);
+// app.use(Throw.message.error);
 
 
 module.exports = app;

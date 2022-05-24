@@ -1,8 +1,0 @@
-extends ../layout
-block content
- section
-  div.article-container
-   div.article-wrapper.clearfix
-    include ./verticle-item.jade
-   div.article-paging-wrapper
-     div.paging#articlePaging(subId="#{params.subId}" categoryId="#{params.categoryId}" currentPage="#{params.pagination}" total="#{total}")

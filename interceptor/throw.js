@@ -22,13 +22,10 @@ exports.message = {
     error: function(req, res, next) {
         var body = req.body;
         var message = body.message;
-        res.send({
-            status: false,
-            message: message || '数据执行异常!'
-        });
+        res.render("layout", {});
     }
 }
 
 exports.abnormal = function(err, req, res, next) {
-    return res.render("common/error");
+    // return res.render("common/error");
 }   
