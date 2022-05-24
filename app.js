@@ -15,7 +15,9 @@ var db = require('./db')
 var Throw = require('./interceptor/throw');
 app.use(express.static(path.join(__dirname, "/public")));
 
-import './routes'
+import routes from './routes'
+
+
 
 
 // view engine setup
@@ -29,6 +31,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use("/", routes)
+
 
 // session 中间件
 app.use(session({
@@ -54,6 +58,7 @@ app.use(function (req, res, next) {
   res.locals.error = req.flash('error').toString();
   next();
 });
+
 
 // 自定义中间件抛出消息
 // app.use(Throw.abnormal);
