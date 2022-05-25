@@ -20,7 +20,7 @@ router.post("/categories/update", CateController.update);
 
 
 router.get("/", (req, res) => {
-    res.render("layout.jade", {})
+    res.render("index", {})
 });
 
 export default router;

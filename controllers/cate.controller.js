@@ -17,7 +17,11 @@ export default class CateController {
 
     static async tree(req, res) {
         const treeData = await CateService.tree()
-        res.send(treeData)
+        console.log(treeData, 'tree')
+
+        res.render('layout', {
+            treeData
+        })
     }
 
     static async remove(req, res) {
