@@ -61,6 +61,12 @@ CateSchema.statics.remove = function(id, data) {
 	return this.findByIdAndRemove(id)
 }
 
+CateSchema.statics.findRecommend = function() {
+	return this.find({
+		recommend: true
+	})
+}
+
 const Articles = mongoose.model('articles', Scheam);
 
 export default Articles;
