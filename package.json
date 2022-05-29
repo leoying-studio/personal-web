@@ -15,6 +15,7 @@
     "express": "~4.15.2",
     "express-session": "^1.15.5",
     "jade": "~1.11.0",
+    "less-middleware": "^3.1.0",
     "mongoose": "^4.13.12",
     "morgan": "~1.8.1",
     "nodemon": "^2.0.16",
@@ -23,9 +24,9 @@
     "uglify-js": "^3.4.0"
   },
   "devDependencies": {
+    "@babel/core": "^7.18.0",
     "@babel/preset-env": "^7.18.0",
     "@babel/register": "^7.17.7",
-    "core-js": "^3.22.6",
-    "@babel/core": "^7.18.0"
+    "core-js": "^3.22.6"
   }
 }
