@@ -1,14 +1,24 @@
 extends layout
 
 block content 
+    
     div.recommend
-        ul.banners
-            li.banner-item(style="background-color: red")
-                //- a(href="#") 
-                //-     img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+        ul.banners.clearfix#banners
+            li.banner-item
+                a(href="#") 
+                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
             li.banner-item(style="background-color: green")
-                //- a(href="#") 
-                //-     img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+                a(href="#") 
+                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
             li.banner-item(style="background-color: blue")
-                //- a(href="#") 
-                //-     img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+                a(href="#") 
+                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+            li.banner-item(style="background-color: red")
+                a(href="#") 
+                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+
+
+
+    script(src="https://cdn.bootcdn.net/ajax/libs/require.js/2.3.6/require.js" data-main="/js/index.js") 
+
+
