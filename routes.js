@@ -23,4 +23,10 @@ router.get("/", (req, res) => {
     res.render("index", {})
 });
 
+
+router.get("/admin", (req, res) => {
+    res.render("admin/admin", {})
+});
+
+
 export default router;

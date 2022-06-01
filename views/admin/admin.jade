@@ -1,0 +1,16 @@
+extends ./layout.jade
+
+block content 
+    main.row
+        div.col-2.bg-success(style="height:100px")
+            nav.navbar#accordion
+                ul.navbar-nav
+                    li.nav-item 
+                        a(href="#") 分类管理
+                        ul.navbar-nav 
+                            li.nav-item  
+                                a(href="") 下面的第一
+                    li.nav-item 
+                        a(href="#") 文章管理
+                           
+        div.col-10.bg-info(style="height:100px")
