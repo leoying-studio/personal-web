@@ -1,16 +1,15 @@
 doctype html
 html 
     head
-        link(href="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet")
+        link(href="/lib/bootstrap.min.css" rel="stylesheet")
+        link(href="/admin.css" rel="stylesheet")
         block 
             block title 
                 title 个人主页
     body 
-        include ./navbar    
-
         block content
         
         block footer
     script(src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js")
-    script(src="https://cdn.staticfile.org/twitter-bootstrap/4.3.1/js/bootstrap.min.js")
+    script(src="/lib/bootstrap.bundle.min.js")
     block script 
