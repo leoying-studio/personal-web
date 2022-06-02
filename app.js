@@ -8,7 +8,7 @@ import routes from './routes'
 const staticPath = path.join(__dirname, "/public")
 
 const lessMiddleware = require('less-middleware');
-app.use(lessMiddleware(staticPath));
+app.use(lessMiddleware( path.join(__dirname, "public", "styles")));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(bodyParser.json());
