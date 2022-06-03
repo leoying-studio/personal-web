@@ -1,4 +1,4 @@
-
+@import url('./../iconfont/iconfont.css');
 
 ::-webkit-scrollbar-track {
     background: #b886ff;
@@ -11,7 +11,7 @@
 .sidebar {
     width: 250px;
     position: fixed;
-    padding: 20px 0px;
+    padding: 0 0 20px 0px;
     height: 100vh;
     position: fixed;
     overflow-y: scroll;
@@ -21,23 +21,35 @@
     z-index: 99;
     transition: all 0.3s ease-out 0s;
 
+    .app-logo {
+        font-size: 28px;
+        height: 55px;
+        line-height: 55px;
+        font-weight: 600;
+        text-align: center;
+        color: rgb(93 0 224);
+        ;
+    }
+
     .sidebar-nav {
         ul {
 
             li {
                 position: relative;
                 margin: 5px 0px;
+
                 a {
                     display: flex;
                     align-items: center;
-                    color: #5d657b;
                     font-size: 16px;
                     font-weight: 500;
                     width: 100%;
                     position: relative;
                     z-index: 1;
-                    padding: 10px 25px; 
-                    color: #271c37;
+                    padding: 14px 25px;
+                    font-size: 16px;
+                    font-weight: 500;
+                    color: #5d657b;
 
                     &:hover {
                         color: #ffffff;
@@ -50,16 +62,6 @@
                         opacity: 1;
                         visibility: visible;
                     }
-                    &::after {
-                        content: "\ea5e";
-                        font: normal normal normal 1em/1 "LineIcons";
-                        position: absolute;
-                        right: 25px;
-                        top: 16px;
-                        font-size: 12px;
-                        transition: all 0.3s ease-out 0s;
-                    }
-
 
                     span {
                         &.name {
@@ -68,13 +70,42 @@
                             justify-content: space-between;
                             width: 100%;
                         }
-                        
+
+                        &.icon {
+                            margin-right: 12px;
+                            font-size: 18px;
+                        }
+
                     }
 
-                    
+                }
+
+            }
+
+            .nav-has-children {
+                & > a {
+                    &:after {
+                        content: "\e66a";
+                        font: normal normal normal 1em/1 "iconfont";
+                        position: absolute;
+                        right: 25px;
+                        top: 16px;
+                        font-size: 16px;
+                        transition: all 0.3s ease-out 0s;
+                        transform: rotate(180deg);
+                    }
+
+                    &.collapsed {
+                        &:after {
+                            transform: rotate(0deg) !important;
+                        }
+                    }
+
                 }
             }
+
+
         }
-       
+
     }
-}   
+}

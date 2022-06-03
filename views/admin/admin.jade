@@ -1,20 +1,24 @@
 extends ./layout.jade
 
 block content
-    article.sidebar
+    aside.sidebar
         div.app-logo 管理后台
         nav.sidebar-nav
             ul
                 li.nav-item
-                    a(href="#") 
-                        span 
-                        span.name 分类管理 
-                li.nav-item
-                    a(href="#") 
-                        span 
+                    a(href="#" ) 
+                        span.icon.iconfont.icon-menu
+                        span.name 分类管理
+                li.nav-item.nav-has-children
+                    a.collapsed(href="#" data-bs-toggle="collapse" data-bs-target="#articleList"  aria-expanded="false" aria-label="Toggle navigation") 
+                        span.icon.iconfont.icon-image-text
                         span.name 文章管理
+                    ul#articleList.collapse
+                        li 
+                            a(href="#") 列表
                 li.nav-item
                     a(href="#") 
-                        span 
-                        span.name 媒体库  
+                        span.icon.iconfont.icon-film
+                        span.name 媒体库
+               
     main.row
