@@ -3,6 +3,7 @@ block append stylesheet
     link(href="/styles/cate.css" rel="stylesheet")
     link(href="/styles/components.css" rel="stylesheet")
     link(rel="stylesheet", href="/lib/bs-tab.css")
+    link(rel="stylesheet", href="https://cdn.bootcdn.net/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css")
     
 block content
     div.container-fluid.categories-page
@@ -16,6 +17,23 @@ block content
                         th(data-field="_id") id
                         th(data-field="label") 名称
                         th(data-field="value") 值
-                            
+        div.modal.fade#categoryModal(aria-hidden="true"  role="dialog"  tabindex="-1")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        h4 新增分类
+                    div.modal-body
+                       form(action="") 
+                            div.mb-3
+                                label(for="").col-form-label 名称
+                                input(type="text").form-control#categoryName 
+                            div 
+                                label(for="").col-form-label 所属分类
+                                div.form-control#categoriesTree
+                    div.modal-footer
+                        button(type="button"  data-bs-dismiss="modal").btn.btn-default 取消
+                        button(type="button" data-bs-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
+    script(src="https://cdn.bootcdn.net/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js") 
+    script(src="/js/admin/cate.js") 

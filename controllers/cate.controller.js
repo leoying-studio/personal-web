@@ -3,25 +3,30 @@ import CateModel from "./../models/cate.model"
 export default class CateController {
     
     static save(req, res) {
-        const body = req.body || {
-            label: '小明2',
-            value: '002',
-            parentId: '628b54ae98f787c1eb3cf4a4'
+        const body = req.body || {};
+        if (!body.label) {
+            return res.send({
+                msg: "请输入名称",
+                status: false
+            })
         }
         CateService.save(body).then((err, result) => {
             if (result > 0) {
-                res.send(result)
+                res.send({
+                    data: result,
+                    msg: "ok",
+                    status: true
+                })
             }
         })
     }
 
     static async tree(req, res) {
         const treeData = await CateService.tree()
+    
         console.log(treeData, 'tree')
 
-        res.render('layout', {
-            treeData
-        })
+        res.send(treeData)
     }
 
     static async remove(req, res) {
