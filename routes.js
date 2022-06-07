@@ -1,7 +1,6 @@
 import express from 'express'
 const router = express.Router();
 import CateController from './controllers/cate.controller'
-
 // 分类
 router.post("/categories/save", CateController.save);
 router.post("/categories/tree", CateController.tree);
@@ -26,6 +25,12 @@ router.get("/", (req, res) => {
 
 router.get("/admin", (req, res) => {
     res.render("admin/admin", {})
+});
+
+router.get("/admin/categories/data",  CateController.data);
+
+router.get("/admin/categories", (req, res) => {
+    res.render("admin/categories", {})
 });
 
 

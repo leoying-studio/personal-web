@@ -2,7 +2,7 @@ extends ./layout.jade
 
 block content
     aside.sidebar
-        div.app-logo 管理后台
+        div.app-logo
         nav.sidebar-nav
             ul
                 li.nav-item
@@ -21,4 +21,33 @@ block content
                         span.icon.iconfont.icon-film
                         span.name 媒体库
                
-    main.row
+    main.main
+        header.header 
+            div.container-fluid
+                div.row 
+                    div.col-lg-2.col-md-2.col-2
+                        div.header-left
+                            button.primary-btn.btn-hover.menu-toggle-button.border-0
+                                span.icon.iconfont.icon-menu
+                    div.col-lg-10.col-md-10.col-10
+                        div.header-right
+                            div.profile
+                                button.dropdown-toggle.bg-transparent.border-0(type="button" id="profile" data-bs-toggle="dropdown" aria-expanded="false")
+                                    div.profile-info
+                                        img(src="http://v.bootstrapmb.com/2022/3/k0pyr12101/assets/images/profile/profile-image.png", alt="")
+                            ul.dropdown-menu.dropdown-menu-end(aria-labelledby="profile")
+                                li
+                                    a(href="#") 
+                                        i 个人主页
+                                li
+                                    a(href="#") 
+                                        i 退出登录
+        section.page
+            iframe(src="/admin/categories", frameborder="0")     
+                
+
+        footer.footer
+            div.container-fluid
+                div.row 
+                    div.col-md-6
+                    div.col-md-6
