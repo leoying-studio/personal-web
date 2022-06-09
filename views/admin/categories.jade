@@ -14,7 +14,7 @@ block content
         div.table-data#categoriesTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"
-             data-url="/admin/categories/data")
+             data-url="/admin/categories/data")#cateDataTable
                 thead.thead-light
                     tr 
                         th(data-field="_id") id
@@ -39,7 +39,7 @@ block content
                         button(type="button"  data-dismiss="modal").btn.btn-default 取消
                         button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
         //- include ./../components/confirmation-box.jade
-        div#dialog
+        div#confirmBox
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
     script(src="/lib/kendo.jszip.js") 

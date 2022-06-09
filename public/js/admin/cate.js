@@ -1,32 +1,5 @@
 // 初始化加载树组件
-
-
 var selecedNode = null
-var dialog = $("#dialogs").kendoDialog({
-    width: "400px",
-    title: "Software Update",
-    closable: true,
-    modal: false,
-    content: "<p>确认删除吗<p>",
-    actions: [
-        { text: '取消' },
-        { text: '确认', primary: true }
-    ]
-});
-// function confirmBox() {
-//     var dialog = $("#dialogs").kendoDialog({
-//         width: "400px",
-//         title: "Software Update",
-//         closable: true,
-//         modal: false,
-//         content: "<p>确认删除吗<p>",
-//         actions: [
-//             { text: '取消' },
-//             { text: '确认', primary: true }
-//         ]
-//     });
-//     return dialog;
-// }
 
 $.get("/categories/tree", function(res) {
     const formateTree = function(data) {
@@ -56,36 +29,44 @@ $.get("/categories/tree", function(res) {
     }).data("kendoTreeView")
 })
 
-
-var modalInstance = null
-
-$("#confirmationOkBtn").click(function() {
-    // $("#confirmationBox").modal('hide')
-})
-
 function onOperationCate(value, item, index) {
     return "<button class='btn btn-info mr-3' id='editBtn'>编辑</button><button class='btn btn-danger' id='removeBtn'>删除</button>"
 }
+
+
+const request = {
+    remove: function(id) {
+        $.post("/categories/remove", {
+            id
+        }, function(res) {
+            // 删除完成， 更新表格
+            $("#cateDataTable").bootstrapTable('refresh');
+        })
+    },
+    add: function() {
+        var label = $("#categoryName").val();
+        // var cateId = $("")
+        var data = {
+            label
+        }
+        $.post("/categories/save", data, function(res) {
+            if (res.status) {
+                $("#cateDataTable").bootstrapTable('refresh');
+            }
+        })
+    }
+}
+
 
 var operationEvents = {
    'click #editBtn': function (e, value, row, index) {
        
    },
    'click #removeBtn': function (e, value, row, index) {
-    //    var box = confirmBox()
-       dialog.data("kendoDialog").open()
+        kendo.confirm("确认删除吗?").then(function () {
+            request.remove(row._id)
+        });
    }
 }
 
-$("#saveCategoryBtn").click(function() {
-    var label = $("#categoryName").val();
-    // var cateId = $("")
-    var data = {
-        label
-    }
-    $.post("/categories/save", data, function(res) {
-        if (res.status) {
-            
-        }
-    })
-})
+$("#saveCategoryBtn").click(request.add)
