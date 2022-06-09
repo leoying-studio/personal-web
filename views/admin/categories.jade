@@ -1,12 +1,14 @@
 extends ./layout.jade
 block append stylesheet 
+    link(rel="stylesheet", href="/lib/kendo.common.min.css")
+    link(rel="stylesheet", href="/lib/kendo.common.min.css")
     link(href="/styles/cate.css" rel="stylesheet")
     link(href="/styles/components.css" rel="stylesheet")
     link(rel="stylesheet", href="/lib/bs-table.css")
-    link(rel="stylesheet", href="https://cdn.bootcdn.net/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.css")
+    link(rel="stylesheet", href="/lib/kendo.default.min.css")
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
-    script(src="https://cdn.bootcdn.net/ajax/libs/bootstrap-treeview/1.2.0/bootstrap-treeview.min.js") 
+    script(src="/lib/kendo.all.min.js") 
     script(src="/js/admin/cate.js") 
     
 block content
@@ -23,20 +25,21 @@ block content
                         th(data-field="value" ) 值
                         th(data-formatter="onOperationCate" data-events="operationEvents") 操作
                     tbody 
-        //- div.modal.fade#categoryModal(aria-hidden="true"  role="dialog"  tabindex="-1")
-        //-     div.modal-dialog
-        //-         div.modal-content
-        //-             div.modal-header
-        //-                 h4 新增分类
-        //-             div.modal-body
-        //-                form(action="") 
-        //-                     div.mb-3
-        //-                         label(for="").col-form-label 名称
-        //-                         input(type="text").form-control#categoryName 
-        //-                     div 
-        //-                         label(for="").col-form-label 所属分类
-        //-                         div.form-control#categoriesTree
-        //-             div.modal-footer
-        //-                 button(type="button"  data-dismiss="modal").btn.btn-default 取消
-        //-                 button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
-        include ./../components/confirmation-box.jade
+        div.modal.fade#categoryModal(aria-hidden="true"  role="dialog"  tabindex="-1")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        h4 新增分类
+                    div.modal-body
+                       form(action="") 
+                            div.mb-3
+                                label(for="").col-form-label 名称
+                                input(type="text").form-control#categoryName 
+                            div 
+                                label(for="").col-form-label 所属分类
+                                div#categoriesTree
+                    div.modal-footer
+                        button(type="button"  data-dismiss="modal").btn.btn-default 取消
+                        button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
+        //- include ./../components/confirmation-box.jade
+        div#dialog

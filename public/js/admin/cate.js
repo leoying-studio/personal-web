@@ -1,31 +1,49 @@
 // 初始化加载树组件
+
+
+var selecedNode = null
+
+function confirmBox() {
+    var dialog = $("#dialogs").kendoDialog({
+        width: "400px",
+        title: "Software Update",
+        closable: true,
+        modal: false,
+        content: "<p>确认删除吗<p>",
+        actions: [
+            { text: '取消' },
+            { text: '确认', primary: true }
+        ]
+    });
+    return dialog;
+}
+
 $.get("/categories/tree", function(res) {
     const formateTree = function(data) {
         data.forEach(function(item) {
             item.text = item.label;
-            item.nodes = item.children;
-            item.state = {
-                expanded: false
-            }
-            item.icon = "icon iconfont icon-add-bold"
-            item.selectedIcon = "icon iconfont icon-minus-bold"
-            if (item.children.length) {
-                formateTree(item.nodes)
+            item.items = item.children;
+            if (item.items.length) {
+                formateTree(item.items)
             }
         })
     }
 
     formateTree(res)
 
-    $("#categoriesTree").treeview({
-        data: res,
-        showCheckbox:false,
-        multiSelect:false
-    })
+    var onSelect = function(e, data) {
+        selecedNode = e.node
+    }
 
-    $('#categoriesTree').on('nodeChecked', function(event, data) {
-        // Your logic goes here
-    });
+    $("#categoriesTree").kendoTreeView({
+        dataSource: [
+            {
+                text: '选择分类',
+                items: res
+            }
+        ],
+        select: onSelect
+    }).data("kendoTreeView")
 })
 
 
@@ -44,7 +62,8 @@ var operationEvents = {
        
    },
    'click #removeBtn': function (e, value, row, index) {
-    // modalInstance = $("#confirmationBox").modal('show')
+       var box = confirmBox()
+       box.data("kendoDialog").open()
    }
 }
 
