@@ -6,11 +6,7 @@ block append stylesheet
     link(href="/styles/components.css" rel="stylesheet")
     link(rel="stylesheet", href="/lib/bs-table.css")
     link(rel="stylesheet", href="/lib/kendo.default.min.css")
-block append script
-    script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
-    script(src="/lib/kendo.jszip.js") 
-    script(src="/lib/kendo.all.min.js") 
-    script(src="/js/admin/cate.js") 
+
     
 block content
     div.container-fluid.categories-page
@@ -44,3 +40,8 @@ block content
                         button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
         //- include ./../components/confirmation-box.jade
         div#dialog
+block append script
+    script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
+    script(src="/lib/kendo.jszip.js") 
+    script(src="/lib/kendo.all.min.js") 
+    script(src="/js/admin/cate.js") 

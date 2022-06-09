@@ -2,21 +2,31 @@
 
 
 var selecedNode = null
-
-function confirmBox() {
-    var dialog = $("#dialogs").kendoDialog({
-        width: "400px",
-        title: "Software Update",
-        closable: true,
-        modal: false,
-        content: "<p>确认删除吗<p>",
-        actions: [
-            { text: '取消' },
-            { text: '确认', primary: true }
-        ]
-    });
-    return dialog;
-}
+var dialog = $("#dialogs").kendoDialog({
+    width: "400px",
+    title: "Software Update",
+    closable: true,
+    modal: false,
+    content: "<p>确认删除吗<p>",
+    actions: [
+        { text: '取消' },
+        { text: '确认', primary: true }
+    ]
+});
+// function confirmBox() {
+//     var dialog = $("#dialogs").kendoDialog({
+//         width: "400px",
+//         title: "Software Update",
+//         closable: true,
+//         modal: false,
+//         content: "<p>确认删除吗<p>",
+//         actions: [
+//             { text: '取消' },
+//             { text: '确认', primary: true }
+//         ]
+//     });
+//     return dialog;
+// }
 
 $.get("/categories/tree", function(res) {
     const formateTree = function(data) {
@@ -62,8 +72,8 @@ var operationEvents = {
        
    },
    'click #removeBtn': function (e, value, row, index) {
-       var box = confirmBox()
-       box.data("kendoDialog").open()
+    //    var box = confirmBox()
+       dialog.data("kendoDialog").open()
    }
 }
 
