@@ -6,7 +6,7 @@ block content
         nav.sidebar-nav
             ul
                 li.nav-item
-                    a(href="#" ) 
+                    a(href="/admin/categories/data/view" target="pageFrame") 
                         span.icon.iconfont.icon-menu
                         span.name 分类管理
                 li.nav-item.nav-has-children
@@ -15,7 +15,9 @@ block content
                         span.name 文章管理
                     ul#articleList.collapse
                         li 
-                            a(href="#") 列表
+                            a(href="/admin/articles/list/view" target="pageFrame") 列表
+                        li 
+                            a(href="/admin/articles/save/view" target="pageFrame") 新增
                 li.nav-item
                     a(href="#") 
                         span.icon.iconfont.icon-film
@@ -43,7 +45,7 @@ block content
                                     a(href="#") 
                                         i 退出登录
         section.page
-            iframe(src="/admin/categories", frameborder="0")     
+            iframe(src="/admin/categories", frameborder="0" name="pageFrame")     
 
         footer.footer
             div.container-fluid

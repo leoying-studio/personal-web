@@ -1,0 +1,32 @@
+extends ./layout.jade
+block append stylesheet 
+    link(rel="stylesheet", href="/lib/kendo.common.min.css")
+    link(href="/styles/iframe.css" rel="stylesheet")
+    link(href="/styles/components.css" rel="stylesheet")
+    link(rel="stylesheet", href="/lib/bs-table.css")
+    link(rel="stylesheet", href="/lib/kendo.default.min.css")
+    link(rel="stylesheet", href="/lib/kendo.bootstrap.min.css")
+    link(rel="stylesheet", href="/lib/kendo.common-bootstrap.min.css")
+block content
+    div.container-fluid.container-card
+        include ./toolbar
+        div.table-data#articlesDataTable
+            table.table-striped(data-toggle="table" 
+             data-pagination="true"
+             data-url="/articles/list")
+                thead.thead-light
+                    tr 
+                        th(data-field="_id") id
+                        th(data-field="title" ) 标题
+                        th(data-field="description" ) 说明
+                        th(data-field="content" ) 文章内容
+                        th(data-field="recommend") 是否推荐
+                        th(data-field="illustration" ) 文章配图
+                        th(data-field="recommendPicture") 推荐图
+                        th(data-formatter="onOperationCate" data-events="operationEvents") 操作
+                    tbody 
+block append script
+    script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
+    script(src="/lib/kendo.jszip.js") 
+    script(src="/lib/kendo.all.min.js") 
+    script(src="/js/admin/articles.js") 

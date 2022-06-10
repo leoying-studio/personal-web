@@ -1,0 +1,45 @@
+extends ./layout.jade
+block append stylesheet 
+     link(rel="stylesheet" href="/lib/kendo.common.min.css")
+     link(rel="stylesheet" href="/lib/fileupload.min.css")
+     link(href="/styles/iframe.css" rel="stylesheet")
+     link(href="/styles/components.css" rel="stylesheet")
+     link(rel="stylesheet" href="/lib/bs-table.css")
+     link(rel="stylesheet" href="/lib/kendo.default.min.css")
+     link(rel="stylesheet" href="/lib/kendo.bootstrap.min.css")
+     link(rel="stylesheet" href="/lib/kendo.common-bootstrap.min.css")
+
+block content
+     form.container-fluid.container-card#articleForm
+          div
+               label(for="") 所属分类
+               div#cateTree
+          div.form-group.mt-1
+               label(for="") 标题
+               input(type="text" data-field="title").form-control.mt-3
+          div.form-group
+               label(for="" ) 说明
+               input(type="text" data-field="description").form-control.mt-3
+          div.form-group.mt-3
+               label(for="").mr-3 是否推荐:
+               label(for="").radio.mr-3 
+                    span 是
+                    input(type="radio" name="recommend" value="true" data-title="是") 
+               label(for="").radio 
+                    span 否
+                    input(type="radio" name="recommend" value="false" data-title="否") 
+          div.form-group
+               label(for="") 推荐图
+               div.mt-3
+                    include ./../components/uploader.jade
+          div.form-group
+               label(for="").mb-3 内容
+               textarea(type="text" id="articleEditor")
+          div.form-group
+               button.btn.btn-primary#saveArticleBtn(type="button") 保存
+
+block append script
+     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
+     script(src="/lib/kendo.jszip.js") 
+     script(src="/lib/kendo.all.min.js")
+     script(src="/js/admin/article-save.js") 
