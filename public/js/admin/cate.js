@@ -1,5 +1,5 @@
 // 初始化加载树组件
-var selecedNode = null
+var selectedTreeItem = null
 
 $.get("/categories/tree", function(res) {
     const formateTree = function(data) {
@@ -15,10 +15,12 @@ $.get("/categories/tree", function(res) {
     formateTree(res)
 
     var onSelect = function(e, data) {
-        selecedNode = e.node
+        var tree = $("#cateTree").data("kendoTreeView");
+        var dataItem = tree.dataItem(e.node);
+        selectedTreeItem = dataItem;
     }
 
-    $("#categoriesTree").kendoTreeView({
+    $("#cateTree").kendoTreeView({
         dataSource: [
             {
                 text: '选择分类',
@@ -45,9 +47,9 @@ const request = {
     },
     add: function() {
         var label = $("#categoryName").val();
-        // var cateId = $("")
         var data = {
-            label
+            label,
+            parentId: selectedTreeItem._id
         }
         $.post("/categories/save", data, function(res) {
             if (res.status) {

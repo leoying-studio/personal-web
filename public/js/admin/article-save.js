@@ -1,4 +1,5 @@
 var selectedTreeItem = null;
+var recommendPicturePath = ""
 
 $.get("/categories/tree", function (res) {
   const formateTree = function (data) {
@@ -37,6 +38,9 @@ var request = {
     if (!selectedTreeItem) {
       return kendo.alert("请选择文章分类");
     }
+    if (!recommendPicturePath) {
+      return kendo.alert("请上传推荐图");
+    }
     var elems = $("#articleForm").find("input[data-field], textarea");
     var articleEditor = $("#articleEditor").data("kendoEditor");
     var recommend = $(":radio[name=recommend]:checked").val();
@@ -44,6 +48,7 @@ var request = {
       categories: [selectedTreeItem._id],
       content: articleEditor.value(),
       recommend,
+      recommendPicture: recommendPicturePath
     };
     $.each(elems, function (index, item) {
       var key = $(item).attr("data-field");
@@ -115,6 +120,30 @@ var createFormData = function (file) {
   return formData;
 };
 
+
+var refreshUploaderImage = function(path) {
+   var origin = document.location.origin;
+   var src = origin + "/" + path
+   var i = $("#uploader").children("i");
+   if (i) {
+     i.remove();
+   }
+   var img = $("#uploader").children("img")
+   if (img.length) {
+      img[0].attr({
+        src
+      })
+   } else {
+    var img = $("<img />").css({
+      width: "100%",
+      height: "100%"
+    }).attr({
+      src
+    })
+    $("#uploader").append(img)
+   }
+}
+
 $("#fileUpload").on("change", function (e) {
   var files = e.target.files;
   var file = files[0];
@@ -126,8 +155,9 @@ $("#fileUpload").on("change", function (e) {
       data: formdata,
       processData: false, //  告诉jquery不要处理发送的数据
       contentType: false, // 告诉jquery不要设置content-Type请求头
-      success: function (data) {
-        debugger
+      success: function (res) {
+        recommendPicturePath = res.data
+        refreshUploaderImage(res.data)
       },
     });
   }
