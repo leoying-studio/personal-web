@@ -1,5 +1,5 @@
 function onOperationCate(value, item, index) {
-    return "<button class='btn btn-info mr-3' id='editBtn'>编辑</button><button class='btn btn-danger' id='removeBtn'>删除</button>"
+    return  "<span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
 }
 
 function onFormateRecommendPic(value, item, index) {

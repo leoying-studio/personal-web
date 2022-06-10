@@ -1,16 +1,15 @@
 extends ./layout.jade
 block append stylesheet 
     link(rel="stylesheet", href="/lib/kendo.common.min.css")
-    link(href="/styles/iframe.css" rel="stylesheet")
-    link(href="/styles/components.css" rel="stylesheet")
     link(rel="stylesheet", href="/lib/bs-table.css")
     link(rel="stylesheet", href="/lib/kendo.default.min.css")
     link(rel="stylesheet", href="/lib/kendo.bootstrap.min.css")
     link(rel="stylesheet", href="/lib/kendo.common-bootstrap.min.css")
+    link(href="/styles/iframe.css" rel="stylesheet")
     
 block content
     div.container-fluid.container-card
-        include ./toolbar
+        include ./components/toolbar
         div.table-data#categoriesTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"

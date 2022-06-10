@@ -1,4 +1,6 @@
-
+@import url('./reset.css');
+@import url('./base.less');
+@import url('./components.less');
 
 ::-webkit-scrollbar {
     width: 0px;
@@ -12,8 +14,25 @@ body {
     color: #303030;
     background: rgb(247 242 253);
 
-    .table-data {
-        background-color: #fff;
+    .bootstrap-table  {
+        font-weight: 500;
+        font-size: 14px;
+        color: #271c37;
+        .table-bordered {
+            border: none;
+            
+            th {
+                border: none;
+            }
+            td {
+                line-height: 1.5;
+                font-weight: normal;
+                border: none;
+                color: #5d657b;
+            }
+        }
+
+       
     }
 
     .container-card {
