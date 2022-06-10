@@ -14,8 +14,8 @@ block content
         div.table-data#categoriesTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"
-             data-url="/categories/data")#cateDataTable
-                thead.thead-light
+             data-url="/cate/data")#cateDataTable
+                thead(data-thead-classes="thead-light")
                     tr 
                         th(data-field="_id") id
                         th(data-field="label") 名称

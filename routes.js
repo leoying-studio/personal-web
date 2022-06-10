@@ -4,11 +4,11 @@ import CateController from './controllers/cate.controller'
 import ArticlesController from './controllers/articles.controller'
 import MediaController from './controllers/media.controller'
 // 分类
-router.post("/categories/save", CateController.save);
-router.get("/categories/tree", CateController.tree);
-router.post("/categories/remove", CateController.remove);
-router.post("/categories/update", CateController.update);
-router.get("/categories/data",  CateController.data);
+router.post("/cate/save", CateController.save);
+router.get("/cate/tree", CateController.tree);
+router.post("/cate/remove", CateController.remove);
+router.post("/cate/update", CateController.update);
+router.get("/cate/data",  CateController.data);
 // 文章
 router.post("/article/save", ArticlesController.save);
 router.get("/articles/list", ArticlesController.list);
@@ -18,15 +18,15 @@ router.post("/media/upload", MediaController.upload);
 
 // views
 router.get("/", (req, res) => {
-    res.render("index", {})
+    res.render("www/index", {})
 });
 
 router.get("/admin", (req, res) => {
-    res.render("admin/admin", {})
+    res.render("admin/index", {})
 });
 
 router.get("/admin/categories/data/view", (req, res) => {
-    res.render("admin/categories", {})
+    res.render("admin/cate", {})
 });
 
 router.get("/admin/articles/list/view", (req, res) => {

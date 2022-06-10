@@ -1,7 +1,7 @@
 var selectedTreeItem = null;
 var recommendPicturePath = ""
 
-$.get("/categories/tree", function (res) {
+$.get("/cate/tree", function (res) {
   const formateTree = function (data) {
     data.forEach(function (item) {
       item.text = item.label;

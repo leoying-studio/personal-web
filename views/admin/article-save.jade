@@ -8,6 +8,7 @@ block append stylesheet
      link(rel="stylesheet" href="/lib/kendo.default.min.css")
      link(rel="stylesheet" href="/lib/kendo.bootstrap.min.css")
      link(rel="stylesheet" href="/lib/kendo.common-bootstrap.min.css")
+     link(rel="stylesheet", href="/styles/uploader.css")
 
 block content
      form.container-fluid.container-card#articleForm
@@ -31,7 +32,7 @@ block content
           div.form-group
                label(for="") 推荐图
                div.mt-3
-                    include ./../components/uploader.jade
+                    include ./components/uploader.jade
           div.form-group
                label(for="").mb-3 内容
                textarea(type="text" id="articleEditor")
