@@ -33,12 +33,12 @@ block content
                                 input(type="text").form-control#categoryName 
                             div 
                                 label(for="").col-form-label 所属分类
-                                div#cateTree
+                                div#cateSelectorTree
                     div.modal-footer
                         button(type="button"  data-dismiss="modal").btn.btn-default 取消
                         button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
-    script(src="/lib/kendo.jszip.js") 
+    script(src="/lib/selector-tree.js") 
     script(src="/lib/kendo.all.min.js") 
     script(src="/js/admin/cate.js") 

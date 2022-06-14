@@ -1,3 +1,6 @@
-div.uploader.flex-center-all#uploader
-    input(type="file" name="file")#fileUpload
-    i.icon.iconfont.icon-upload
+mixin uploader(id) {
+    div.uploader.flex-center-all(id = id)
+        input(type="file" name="file")
+        i.icon.iconfont.icon-upload
+
+}

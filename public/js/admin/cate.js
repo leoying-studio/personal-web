@@ -1,44 +1,20 @@
 // 初始化加载树组件
 var selectedTreeItem = null
-
-$.get("/categories/tree", function(res) {
-    const formateTree = function(data) {
-        data.forEach(function(item) {
-            item.text = item.label;
-            item.items = item.children;
-            if (item.items.length) {
-                formateTree(item.items)
-            }
-        })
+var selectorTree = null
+$.get("/cate/tree", function(res) {
+    var formateSource = function() {
+        
     }
-
-    formateTree(res)
-
-    var onSelect = function(e, data) {
-        var tree = $("#cateTree").data("kendoTreeView");
-        var dataItem = tree.dataItem(e.node);
-        selectedTreeItem = dataItem;
-    }
-
-    $("#cateTree").kendoTreeView({
-        dataSource: [
-            {
-                text: '选择分类',
-                items: res
-            }
-        ],
-        select: onSelect
-    }).data("kendoTreeView")
+   selectorTree = $("#cateSelectorTree").selectorTree(res)
 })
 
 function onOperationCate(value, item, index) {
     return "<span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
 }
 
-
 const request = {
     remove: function(id) {
-        $.post("/categories/remove", {
+        $.post("/cate/remove", {
             id
         }, function(res) {
             // 删除完成， 更新表格
@@ -47,11 +23,12 @@ const request = {
     },
     add: function() {
         var label = $("#categoryName").val();
-        var data = {
-            label,
-            parentId: selectedTreeItem._id
+        var parentId = selectorTree.getValue()
+        var data = {label}
+        if (parentId) {
+            data.parentId = parentId;
         }
-        $.post("/categories/save", data, function(res) {
+        $.post("/cate/save", data, function(res) {
             if (res.status) {
                 $("#cateDataTable").bootstrapTable('refresh');
             }

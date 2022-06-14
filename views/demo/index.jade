@@ -1,0 +1,24 @@
+extends layout.jade
+
+block content 
+    div 
+        h1 demo测试
+    div(style="position:relative; max-width: 248px")#selectorTree
+        //- input(type="text" ).form-control
+        //- ul.dropdown-menu(style="display: block")
+        //-     li.dropdown-item
+        //-         这是1
+        //-         ul.dropdown-menu(style="display: none; position: absolute; left: 160px; top: 0")
+        //-             li.dropdown-item
+        //-                 这是1-1
+        //-             li.dropdown-item
+        //-                 这是1-2
+        //-             li.dropdown-item
+        //-                 这是1-3
+        //-     li.dropdown-item
+        //-         这是2
+        //-     li.dropdown-item
+        //-         这是3
+block script 
+    script(src="/lib/selector-tree.js") 
+    script(src="/js/demo.js")

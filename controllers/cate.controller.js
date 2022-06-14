@@ -2,7 +2,7 @@ import CateService from "./../services/cate.service"
 import CateModel from "./../models/cate.model"
 export default class CateController {
     
-    static save(req, res) {
+    static async save(req, res) {
         const body = req.body || {};
         if (!body.label) {
             return res.send({
@@ -10,6 +10,7 @@ export default class CateController {
                 status: false
             })
         }
+
         CateService.save(body).then((err, result) => {
             if (result > 0) {
                 res.send({
@@ -18,6 +19,12 @@ export default class CateController {
                     status: true
                 })
             }
+        }).catch((err) => {
+            res.send({
+                data: err,
+                msg: "error",
+                status: false
+            })
         })
     }
 

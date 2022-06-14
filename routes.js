@@ -37,4 +37,8 @@ router.get("/admin/articles/save/view", (req, res) => {
     res.render("admin/article-save", {})
 });
 
+router.get("/demo/view", (req, res) => {
+    res.render("demo/index", {})
+});
+
 export default router;
