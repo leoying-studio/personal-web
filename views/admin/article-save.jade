@@ -14,8 +14,8 @@ block content
      form.container-fluid.container-card#articleForm
           div
                label(for="") 所属分类
-               div#cateTree
-          div.form-group.mt-1
+               div#articleSelectorTree.mt-3
+          div.form-group.mt-3
                label(for="") 标题
                input(type="text" data-field="title").form-control.mt-3
           div.form-group
@@ -42,4 +42,5 @@ block content
 block append script
      script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
      script(src="/lib/kendo.all.min.js")
+     script(src="/lib/selector-tree.js") 
      script(src="/js/admin/article-save.js") 

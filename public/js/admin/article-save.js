@@ -1,6 +1,21 @@
 var selectedTreeItem = null;
 var recommendPicturePath = ""
 
+var selectorTree = null
+$.get("/cate/tree", function(res) {
+    var formateSource = function(children) {
+        children.forEach(function(item) {
+            item.value = item._id;
+            if (item.children.length) {
+                formateSource(item.children)
+            }
+        })
+    }
+   formateSource(res)
+   selectorTree = $("#articleSelectorTree").selectorTree(res)
+})
+
+
 $.get("/cate/tree", function (res) {
   const formateTree = function (data) {
     data.forEach(function (item) {
@@ -35,7 +50,9 @@ $.get("/cate/tree", function (res) {
 
 var request = {
   add: function () {
-    if (!selectedTreeItem) {
+    var categoryId = selectorTree.getValue()
+
+    if (!categoryId) {
       return kendo.alert("请选择文章分类");
     }
     if (!recommendPicturePath) {
@@ -45,7 +62,7 @@ var request = {
     var articleEditor = $("#articleEditor").data("kendoEditor");
     var recommend = $(":radio[name=recommend]:checked").val();
     var params = {
-      categories: [selectedTreeItem._id],
+      categories: [categoryId],
       content: articleEditor.value(),
       recommend,
       recommendPicture: recommendPicturePath

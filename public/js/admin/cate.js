@@ -2,9 +2,16 @@
 var selectedTreeItem = null
 var selectorTree = null
 $.get("/cate/tree", function(res) {
-    var formateSource = function() {
-        
+    var formateSource = function(children) {
+        children.forEach(function(item) {
+            item.value = item._id;
+            if (item.children.length) {
+                formateSource(item.children)
+            }
+        })
     }
+
+   formateSource(res)
    selectorTree = $("#cateSelectorTree").selectorTree(res)
 })
 
