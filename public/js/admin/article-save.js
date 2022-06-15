@@ -1,52 +1,26 @@
 var selectedTreeItem = null;
 var recommendPicturePath = ""
-
 var selectorTree = null
-$.get("/cate/tree", function(res) {
-    var formateSource = function(children) {
-        children.forEach(function(item) {
-            item.value = item._id;
-            if (item.children.length) {
-                formateSource(item.children)
-            }
-        })
-    }
-   formateSource(res)
-   selectorTree = $("#articleSelectorTree").selectorTree(res)
-})
 
-
-$.get("/cate/tree", function (res) {
-  const formateTree = function (data) {
-    data.forEach(function (item) {
-      item.text = item.label;
-      item.items = item.children;
-      if (item.items.length) {
-        formateTree(item.items);
+var getTree = function() {
+    $.get("/cate/tree", function(res) {
+      var formateSource = function(children) {
+          children.forEach(function(item) {
+              item.value = item._id;
+              if (item.children.length) {
+                  formateSource(item.children)
+              }
+          })
       }
-    });
-  };
+    formateSource(res)
+    selectorTree = $("#articleSelectorTree").selectorTree(res)
+  })
+}
 
-  formateTree(res);
 
-  var onSelect = function (e, data) {
-    var tree = $("#cateTree").data("kendoTreeView");
-    var dataItem = tree.dataItem(e.node);
-    selectedTreeItem = dataItem;
-  };
-
-  $("#cateTree")
-    .kendoTreeView({
-      dataSource: [
-        {
-          text: "选择分类",
-          items: res,
-        },
-      ],
-      select: onSelect,
-    })
-    .data("kendoTreeView");
-});
+$("#articleUploader").uploader({
+  
+})
 
 var request = {
   add: function () {
@@ -179,3 +153,6 @@ $("#fileUpload").on("change", function (e) {
     });
   }
 });
+
+
+getTree()

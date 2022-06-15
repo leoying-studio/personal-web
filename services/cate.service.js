@@ -19,7 +19,7 @@ export default class CateService {
                 if (item._id.equals(parentId)) {
                     return item
                 } else if (item.children?.length) {
-                   return findParent(item.children, parentId)
+                    findParent(item.children, parentId)
                 }
             }
             return null
@@ -40,5 +40,4 @@ export default class CateService {
         });
         return treeData;
     }
-    
 }

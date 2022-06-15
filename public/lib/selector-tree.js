@@ -44,7 +44,9 @@
             /**
              *  完成节点的组装
              */
+
             var el = $(this).css({position: 'relative'})
+            el.children().remove();
             var tree = renderTree(dataSource)
             var inputBox = $(
                 "<div style='position:relative;'><input class='form-control' placeholder='请选择'/><i class='icon iconfont icon-close' style='position: absolute; right: 10px;top: 12px;'></i></div>"
@@ -93,9 +95,9 @@
             tree.click(function(e) {
                 if (e.target.tagName === 'LI') {
                     tree.hide().find('ul').hide()
-                    const el = $(e.target)
-                    selectorValue = el.attr(DATA_TREEVALUE)
-                    var text = el.attr(DATA_TREELABEL)
+                    const target = $(e.target)
+                    selectorValue = target.attr(DATA_TREEVALUE)
+                    var text = target.attr(DATA_TREELABEL)
                     inputBox.children('input').val(text)
                 } 
             })
@@ -108,5 +110,4 @@
             }
         }
     });
-
 })(jQuery);

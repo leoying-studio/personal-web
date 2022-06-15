@@ -1,22 +1,26 @@
 // 初始化加载树组件
 var selectedTreeItem = null
 var selectorTree = null
-$.get("/cate/tree", function(res) {
-    var formateSource = function(children) {
-        children.forEach(function(item) {
-            item.value = item._id;
-            if (item.children.length) {
-                formateSource(item.children)
-            }
-        })
-    }
 
-   formateSource(res)
-   selectorTree = $("#cateSelectorTree").selectorTree(res)
-})
+var getTree = function() {
+    $.get("/cate/tree", function(res) {
+        var formateSource = function(children) {
+            children.forEach(function(item) {
+                item.value = item._id;
+                if (item.children.length) {
+                    formateSource(item.children)
+                }
+            })
+        }
+    
+       formateSource(res)
+       selectorTree = $("#cateSelectorTree").selectorTree(res)
+    })
+}
+
 
 function onOperationCate(value, item, index) {
-    return "<span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
+    return "<span class='icon iconfont icon-edit text-info  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
 }
 
 const request = {
@@ -26,6 +30,7 @@ const request = {
         }, function(res) {
             // 删除完成， 更新表格
             $("#cateDataTable").bootstrapTable('refresh');
+            getTree();
         })
     },
     add: function() {
@@ -38,6 +43,7 @@ const request = {
         $.post("/cate/save", data, function(res) {
             if (res.status) {
                 $("#cateDataTable").bootstrapTable('refresh');
+                getTree();
             }
         })
     }
@@ -56,3 +62,5 @@ var operationEvents = {
 }
 
 $("#saveCategoryBtn").click(request.add)
+
+getTree();

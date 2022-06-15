@@ -32,7 +32,7 @@ block content
           div.form-group
                label(for="") 推荐图
                div.mt-3
-                    include ./components/uploader.jade
+                    div#articleUploader
           div.form-group
                label(for="").mb-3 内容
                textarea(type="text" id="articleEditor")
@@ -43,4 +43,5 @@ block append script
      script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
      script(src="/lib/kendo.all.min.js")
      script(src="/lib/selector-tree.js") 
+     script(src="/lib/fileuploader.js") 
      script(src="/js/admin/article-save.js") 
