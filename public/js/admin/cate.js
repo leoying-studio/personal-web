@@ -20,7 +20,7 @@ var getTree = function() {
 
 
 function onOperationCate(value, item, index) {
-    return "<span class='icon iconfont icon-edit text-info  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
+    return "<span class='icon iconfont icon-edit text-info  mr-3' id='editBtn'></span></span>"
 }
 
 const request = {

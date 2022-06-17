@@ -24,8 +24,12 @@ MediaSchema.statics.removeById = function(id) {
 }
 
 // 查找所有的数据
-MediaSchema.statics.all = function() {
-	const query = this.find({})
+MediaSchema.statics.pagingQuery = function(conditions = {},  pageNo = 0, pageSize = 10) {
+	return this.find(conditions).skip(pageNo * pageSize).limit(pageSize).sort({'_id':-1}).exec()
+} 
+
+MediaSchema.statics.findByCond = function(cond = {}) {
+	const query = this.find(cond)
 	return query.exec()
 }
 

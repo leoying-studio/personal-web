@@ -1,5 +1,9 @@
-function onOperationCate(value, item, index) {
+function onOperationOptions(value, item, index) {
     return  "<span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
+}
+
+function onFomatterRecommend(value, item, index) {
+    return value ? '是' : '否';
 }
 
 function onFormateRecommendPic(value, item, index) {

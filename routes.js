@@ -13,8 +13,10 @@ router.get("/cate/data",  CateController.data);
 router.post("/article/save", ArticlesController.save);
 router.get("/articles/list", ArticlesController.list);
 router.post("/articles/remove", ArticlesController.remove);
-// // 评论
+// 媒体
 router.post("/media/upload", MediaController.upload);
+router.get("/media/list", MediaController.list);
+router.post("/media/remove", MediaController.remove);
 
 // views
 router.get("/", (req, res) => {
@@ -25,16 +27,20 @@ router.get("/admin", (req, res) => {
     res.render("admin/index", {})
 });
 
-router.get("/admin/categories/data/view", (req, res) => {
-    res.render("admin/cate", {})
+router.get("/admin/cate/data/view", (req, res) => {
+    res.render("admin/pages/cate", {})
 });
 
 router.get("/admin/articles/list/view", (req, res) => {
-    res.render("admin/articles", {})
+    res.render("admin/pages/articles", {})
 });
 
 router.get("/admin/articles/save/view", (req, res) => {
-    res.render("admin/article-save", {})
+    res.render("admin/pages/article-save", {})
+});
+
+router.get("/admin/media/view", (req, res) => {
+    res.render("admin/pages/media", {})
 });
 
 router.get("/demo/view", (req, res) => {

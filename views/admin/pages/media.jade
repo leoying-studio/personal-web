@@ -1,0 +1,28 @@
+extends ./../layout.jade
+block append stylesheet 
+    link(rel="stylesheet", href="/lib/kendo.common.min.css")
+    link(rel="stylesheet", href="/lib/bs-table.css")
+    link(rel="stylesheet", href="/lib/kendo.default.min.css")
+    link(rel="stylesheet", href="/lib/kendo.bootstrap.min.css")
+    link(rel="stylesheet", href="/lib/kendo.common-bootstrap.min.css")
+    link(href="/styles/iframe.css" rel="stylesheet")
+    
+block content
+    div.container-fluid.container-card
+        include ./../components/toolbar
+        div.table-data#mediaDataTable
+            table.table-striped(data-toggle="table" 
+             data-pagination="true"
+             data-url="/media/list")
+                thead(data-thead-classes="thead-light")
+                    tr 
+                        th(data-field="_id") id
+                        th(data-field="name") 文件名称
+                        th(data-field="mimeType") 文件类型
+                        th(data-field="name" data-formatter="onFormatterMedia") 预览
+                        th(data-formatter="onFormatterOption" data-events="operationEvents") 操作
+                    tbody
+block append script
+    script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
+    script(src="/lib/kendo.all.min.js")
+    script(src="/js/admin/media.js")

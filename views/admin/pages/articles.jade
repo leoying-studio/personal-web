@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ./../layout.jade
 block append stylesheet 
     link(rel="stylesheet", href="/lib/kendo.common.min.css")
     link(rel="stylesheet", href="/lib/bs-table.css")
@@ -8,7 +8,7 @@ block append stylesheet
     link(href="/styles/iframe.css" rel="stylesheet")
 block content
     div.container-fluid.container-card
-        include ./components/toolbar
+        include ./../components/toolbar
         div.table-data#articlesDataTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"
@@ -19,10 +19,10 @@ block content
                         th(data-field="title" ) 标题
                         th(data-field="description" ) 说明
                         th(data-field="content" ) 文章内容
-                        th(data-field="recommend") 是否推荐
+                        th(data-field="recommend" data-formatter="onFomatterRecommend") 是否推荐
                         th(data-field="illustration" ) 文章配图
                         th(data-field="recommendPicture" data-formatter="onFormateRecommendPic") 推荐图
-                        th(data-formatter="onOperationCate" data-events="operationEvents") 操作
+                        th(data-formatter="onOperationOptions" data-events="operationEvents") 操作
                     tbody 
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 

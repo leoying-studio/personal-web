@@ -44,7 +44,6 @@
             /**
              *  完成节点的组装
              */
-
             var el = $(this).css({position: 'relative'})
             el.children().remove();
             var tree = renderTree(dataSource)

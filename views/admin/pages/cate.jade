@@ -1,4 +1,4 @@
-extends ./layout.jade
+extends ./../layout.jade
 block append stylesheet 
     link(rel="stylesheet", href="/lib/kendo.common.min.css")
     link(rel="stylesheet", href="/lib/bs-table.css")
@@ -9,7 +9,7 @@ block append stylesheet
     
 block content
     div.container-fluid.container-card
-        include ./components/toolbar
+        include ./../components/toolbar
         div.table-data#categoriesTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"

@@ -1,6 +1,7 @@
 import MediaService from "./../services/media.service"
+import MediaModel from "./../models/media.model"
 
-export default class CateController {
+export default class MediaController {
     
     static async upload(req, res) {   
        try {
@@ -15,8 +16,31 @@ export default class CateController {
                 data: ""
             })
        }
-      
     }
-    
+
+    static async list(req, res) {   
+        try {
+            const docs = await MediaModel.pagingQuery({}, 0, 10)
+            res.json(docs)
+        } catch {
+            res.json([])
+        }
+     }
+
+     static async remove(req, res) {   
+        const id = req.body.id
+        if (!id) {
+            return res.status(500).json({
+                msg: 'id不能为空',
+                data: null
+            })
+        } 
+        try {
+            const docs = await MediaModel.removeById(id)
+            res.json(docs)
+        } catch {
+            res.json([])
+        }
+     }
 }
 
