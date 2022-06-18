@@ -37,6 +37,19 @@ block content
                     div.modal-footer
                         button(type="button"  data-dismiss="modal").btn.btn-default 取消
                         button(type="button" data-dismiss="modal").btn.btn-primary#saveCategoryBtn 确定 
+        div.modal.fade#categoryUpdateModal(aria-hidden="true"  role="dialog"  tabindex="-1")
+            div.modal-dialog
+                div.modal-content
+                    div.modal-header
+                        h4 修改类别
+                    div.modal-body
+                       form(action="") 
+                            div.mb-3
+                                label(for="").col-form-label 名称
+                                input(type="text").form-control#categoryName 
+                    div.modal-footer
+                        button(type="button"  data-dismiss="modal").btn.btn-default 取消
+                        button(type="button" data-dismiss="modal").btn.btn-primary 确定 
 block append script
     script(src="https://unpkg.com/bootstrap-table@1.15.3/dist/bootstrap-table.min.js") 
     script(src="/lib/selector-tree.js") 

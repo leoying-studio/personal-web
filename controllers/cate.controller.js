@@ -44,8 +44,8 @@ export default class CateController {
 
     static async update(req, res) {
         const id = req.body.id
-        const result = await CateModel.update(id, req.body)
-        res.send(result)
+        const result = await CateModel.$findByIdAndUpdate(id, req.body)
+        res.json(result)
     }
 
     static async data(req, res) {

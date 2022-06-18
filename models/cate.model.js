@@ -36,7 +36,7 @@ CateSchema.statics.all = function() {
 	return query.exec()
 }
 
-CateSchema.statics.update = function(id, data) {
+CateSchema.statics.$findByIdAndUpdate = function(id, data) {
 	return this.findByIdAndUpdate(id, {
 		$set: data	
 	}).exec()
