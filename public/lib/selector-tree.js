@@ -107,7 +107,10 @@
                         return item
                     }
                     if (item.children.length) {
-                        querySelectorItem(item.children, value)
+                       var parent = querySelectorItem(item.children, value)
+                       if (parent) {
+                        return parent
+                       }
                     }
                 }
 

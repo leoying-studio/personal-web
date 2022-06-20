@@ -2,23 +2,28 @@ extends layout
 
 block content 
     
-    div.recommend
-        ul.banners.clearfix#banners
-            li.banner-item
-                a(href="#") 
-                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
-            li.banner-item(style="background-color: green")
-                a(href="#") 
-                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
-            li.banner-item(style="background-color: blue")
-                a(href="#") 
-                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
-            li.banner-item(style="background-color: red")
-                a(href="#") 
-                    img(src="http://pic.people.com.cn/NMediaFile/2022/0525/MAIN202205251723082182335585968.jpg", alt="")
+    div.carousel.slide#carouselRecommendIndicators(data-ride="carousel")
+        ol.carousel-indicators
+            li(data-target="#carouselRecommendIndicators" data-slide-to="0").active
+            li(data-target="#carouselRecommendIndicators" data-slide-to="1") 
+            li(data-target="#carouselRecommendIndicators" data-slide-to="2")  
+        div.carousel-inner
+            div.carousel-item.active(data-interval="10000")
+                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
+             div.carousel-item(data-interval="2000")
+                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
+             div.carousel-item
+                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
+        button.carousel-control-prev(type="button" data-target="#carouselRecommendIndicators" data-slide="prev")
+            span.carousel-control-prev-icon(aria-hidden="true")
+            span.sr-only Previous
+        button.carousel-control-next(type="button" data-target="#carouselRecommendIndicators" data-slide="next")
+            span.carousel-control-next-icon(aria-hidden="true")
+            span.sr-only Next
 
 
 
-    script(src="https://cdn.bootcdn.net/ajax/libs/require.js/2.3.6/require.js" data-main="/js/index.js") 
+
+    //- script(src="https://cdn.bootcdn.net/ajax/libs/require.js/2.3.6/require.js" data-main="/js/index.js") 
 
 

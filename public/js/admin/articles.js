@@ -1,5 +1,5 @@
 function onOperationOptions(value, item, index) {
-    return  "<a href=/admin/articles/save/view?id="+ item._id +" target='pageFrame'><span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
+    return  "<a href=/admin/articles/save/view?id="+ item._id +" target='pageFrame'><span class='icon iconfont icon-edit text-danger  mr-3' id='editBtn'></span></a><span class='icon iconfont icon-delete text-danger' id='removeBtn' ></span>"
 }
 
 function onFomatterRecommend(value, item, index) {

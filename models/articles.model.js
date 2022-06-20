@@ -69,7 +69,7 @@ ArticleScheam.statics.remove = function(id, data) {
 	return this.findByIdAndRemove(id)
 }
 
-ArticleScheam.statics.findRecommend = function() {
+ArticleScheam.statics.$findRecommend = function() {
 	return this.find({
 		recommend: true
 	})

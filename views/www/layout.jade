@@ -1,7 +1,7 @@
 doctype html
 html
-    
     head
+        link(href="/lib/bootstrap.min.css" rel="stylesheet")
         link(rel="stylesheet", href="/styles/reset.css")
         link(rel="stylesheet", href="/styles/index.css")
         block stylesheet
@@ -16,3 +16,5 @@ html
         include footer
 
     block script 
+        script(src="/lib/jquery.min.js")
+        script(src="/lib/bootstrap.bundle.min.js")
