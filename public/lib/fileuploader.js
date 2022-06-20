@@ -100,6 +100,14 @@
                 var formData = toFormData(files)
                 upload(formData)
             }) 
+
+
+            return {
+               setDefaultImage: function(url) {
+                 var src = refreshView(url)
+                 success(url, src)
+               }
+            }
         }
     });
 })(jQuery);

@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
-
 // 定义映射的集合结构模型
 const CateSchema = new Schema({
 	 // 分类名称

@@ -57,8 +57,8 @@ const request = {
         if (!label) {
             return alert("请填写名称")
         }
-        var params = Object.assign(updateRow, {label, id: updateRow._id})
-        $.post("/cate/update", {params}, function(res) {
+        var params = Object.assign({label, id: updateRow._id, value: updateRow.value, parentId: updateRow.parentId })
+        $.post("/cate/save", params, function(res) {
                 $("#cateDataTable").bootstrapTable('refresh');
                 getTree();
         })
@@ -77,6 +77,10 @@ var operationEvents = {
         });
    }
 }
+
+$("#categoryModal").on('show.bs.modal', function(e) {
+    $(this).find('input').val('');
+})
 
 $("#saveCategoryBtn").click(request.add)
 updateModalButton.click(request.update)

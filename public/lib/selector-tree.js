@@ -5,7 +5,6 @@
             var DATA_TREEVALUE = "data-treevalue";
             var DATA_TREELABEL = "data-treelabel";
             var selectorValue = null;
-
             var setAttr = function(ancestralId, value, label) {
                 var attr = {};
                 attr[DATA_ANC] = ancestralId
@@ -101,9 +100,30 @@
                 } 
             })
 
+            var querySelectorItem = function(children, value) {
+                for (var i = 0; i < children.length; i++) {
+                    var item = children[i];
+                    if (item._id === value) {
+                        return item
+                    }
+                    if (item.children.length) {
+                        querySelectorItem(item.children, value)
+                    }
+                }
+
+                return null
+            }
+
             return {
                 getValue: function() {
                     return selectorValue
+                },
+                setValue: function(value) {
+                    selectorValue = value;
+                    var item = querySelectorItem(dataSource, value)
+                    if (item) { 
+                        inputBox.children('input').val(item.label);
+                    }
                 },
                 clear
             }

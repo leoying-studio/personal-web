@@ -41,7 +41,11 @@ ArticleScheam.statics.skip= function(conditions = {},  pageNo = 0, pageSize = 10
 	}).exec()
 } 
 
-ArticleScheam.statics.update = function(data) {
+ArticleScheam.statics.$findOne = function(id) {
+    return this.findOne({_id: id}).exec()
+} 
+
+ArticleScheam.statics.$findByIdAndUpdate = function(id, data) {
     return this.findByIdAndUpdate(id, {
 		$set: data	
 	}).exec()

@@ -6,10 +6,11 @@ block append stylesheet
     link(rel="stylesheet", href="/lib/kendo.bootstrap.min.css")
     link(rel="stylesheet", href="/lib/kendo.common-bootstrap.min.css")
     link(href="/styles/iframe.css" rel="stylesheet")
+    link(rel="stylesheet", href="/styles/cate.css")
     
 block content
     div.container-fluid.container-card
-        include ./../components/toolbar
+        include ./../components/toolbar.jade
         div.table-data#categoriesTable
             table.table-striped(data-toggle="table" 
              data-pagination="true"

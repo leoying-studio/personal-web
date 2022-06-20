@@ -1,10 +1,15 @@
 import CateModel from '../models/cate.model'
-
+import ObjectUtils from './../utils/object'
 export default class CateService {
 
     static save(data, id) {
         if (id) {
-            return CateModel.update(id, data)
+            const filterKeys = ["id"];
+            if (!data.parentId) {
+                filterKeys.push('parentId');
+            }
+            const dataItem = ObjectUtils.filter(data, filterKeys);
+            return CateModel.$findByIdAndUpdate(id, dataItem)
         } 
         const cate = new CateModel(data)
         return cate.save()

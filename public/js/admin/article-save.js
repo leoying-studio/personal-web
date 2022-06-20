@@ -1,6 +1,42 @@
 var selectedTreeItem = null;
-var recommendPicturePath = ""
-var selectorTree = null
+var recommendPicturePath = "";
+var selectorTree = null;
+var articleEditor = $("#articleEditor");
+var uploader = null;
+
+// 处理编辑显示逻辑
+function getQueryVariable(variable){
+       var query = window.location.search.substring(1);
+       var vars = query.split("&");
+       for (var i=0;i<vars.length;i++) {
+               var pair = vars[i].split("=");
+               if(pair[0] == variable){return pair[1];}
+       }
+       return(false);
+}
+
+var articleId = getQueryVariable('id');
+
+var setFormFields = function(data) {
+  var elems = $("#articleForm").find("input[data-field], textarea");
+  articleEditor.data('kendoEditor').value(data.content)
+  var recommendRadios = $(":radio[name=recommend]")
+  if (data.recommend) {
+    $(recommendRadios[0]).attr('checked', true)
+  } else {
+    $(recommendRadios[1]).attr('checked', true)
+  }
+  uploader.setDefaultImage(data.recommendPicture)
+  var categoryId = data.categories[0]
+  if (categoryId) {
+    selectorTree.setValue(categoryId)
+  }
+  $.each(elems, function (index, item) {
+    var key = $(item).attr("data-field");
+    $(item).val(data[key]);
+  });
+}
+
 
 var getTree = function() {
     $.get("/cate/tree", function(res) {
@@ -14,11 +50,21 @@ var getTree = function() {
       }
     formateSource(res)
     selectorTree = $("#articleSelectorTree").selectorTree(res)
+
+    if (articleId) {
+      $.get("/articles/one", {
+         id: articleId
+      }, function(res) {
+         if (res.status) {
+           setFormFields(res.data)
+         }
+      })
+  }
   })
 }
 
 var request = {
-  add: function () {
+  save: function () {
     var categoryId = selectorTree.getValue()
     if (!categoryId) {
       return kendo.alert("请选择文章分类");
@@ -35,6 +81,9 @@ var request = {
       recommend,
       recommendPicture: recommendPicturePath
     };
+    if (articleId) {
+       params['id'] = articleId
+    }
     $.each(elems, function (index, item) {
       var key = $(item).attr("data-field");
       var value = $(item).val();
@@ -47,17 +96,18 @@ var request = {
     });
     $.post("/article/save", params, function (res) {
       if (res.status) {
-        kendo.alert("添加成功");
+        var text = articleId ? '更新成功' : '添加成功';
+        kendo.alert(text);
       }
     });
   },
 };
 
 $("#saveArticleBtn").click(function () {
-  request.add();
+  request.save();
 });
 
-$("#articleEditor").kendoEditor({
+articleEditor.kendoEditor({
   resizable: {
     content: true,
     toolbar: true,
@@ -99,7 +149,7 @@ $("#articleEditor").kendoEditor({
   ],
 });
 
-$("#articleUploader").uploader({
+uploader = $("#articleUploader").uploader({
   url: '/media/upload',
   success: function(url) {
     recommendPicturePath = url;

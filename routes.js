@@ -7,11 +7,11 @@ import MediaController from './controllers/media.controller'
 router.post("/cate/save", CateController.save);
 router.get("/cate/tree", CateController.tree);
 router.post("/cate/remove", CateController.remove);
-router.post("/cate/update", CateController.update);
 router.get("/cate/data",  CateController.data);
 // 文章
 router.post("/article/save", ArticlesController.save);
 router.get("/articles/list", ArticlesController.list);
+router.get("/articles/one", ArticlesController.one);
 router.post("/articles/remove", ArticlesController.remove);
 // 媒体
 router.post("/media/upload", MediaController.upload);
