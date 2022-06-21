@@ -18,6 +18,7 @@ function onFormateRecommendPic(value, item, index) {
 var request = {
     remove: function(id) {
         $.post("/articles/remove", {id}, function(res) {
+            debugger
             $("#articlesDataTable").bootstrapTable('refresh');
         })
     }

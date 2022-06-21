@@ -1,9 +1,11 @@
 @import url(./base.less);
+@import url(./components.less);
+
 .nav {
    height: 65px;
    padding: 0 8%;
-   background: white;
    box-shadow: 0 0 1px 0px #e4e4e4;
+   background-color: transparent;
    .nav-logo {
       font-size: 24px;
 		line-height: 65px;
@@ -30,27 +32,55 @@
 
 .recommend {
    width: 100%;
-   height: 500px; 
-   overflow: hidden;
-   .banners {
-      width: 300%;
-      height: 100%;
-      .banner-item {
-         float: left;
-         width: 33.333333%;
-         height: 100%;
-         a {
-            display: block;
-            width: 100%;
-            img {
-               width: 100%;
-            }
-         }
+   button {
+      background-color: transparent;
+      border: none;
+   }
+}
+
+.hot {
+   margin-top: 58px;
+   .headline {
+      text-align: center;
+      margin-bottom: 30px;
+      font-size: 42px;
+      line-height: 56px;
+      font-weight: 600;
+   }
+
+   article {
+      border: none;
+      padding: 0 10px;
+      img {
+         border-radius: 8px;
       }
    }
 }
 
+.visitor {
+   margin-top: 58px;
+   height: 400px;
+   background-image: url("https://w.wallhaven.cc/full/y8/wallhaven-y8622k.jpg");
+   background-size: cover;
+   background-position: center center;
+   background-color: rgba(0,0,0.5);
+   background-clip:content-box;
+   color: #fff;
+   .inner {
+      height: 100%;
+      background-color: rgba(0,0,0, 0.6);
+      article {
+         border: none;
+         padding: 0 10px;
+         text-align: center;
+         background-color: transparent;
+      }
+   }
+}
 
-.bug {
-   
+.page-footer {
+   margin-top: 40px;
+   padding-top: 50px;
+   padding-bottom: 30px;
+   background-color: #0f1113;
 }

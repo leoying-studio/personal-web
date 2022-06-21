@@ -1,18 +1,16 @@
 extends layout
-
 block content 
-    
-    div.carousel.slide#carouselRecommendIndicators(data-ride="carousel")
+    div.carousel.slide#carouselRecommendIndicators.recommend(data-ride="carousel")
         ol.carousel-indicators
             li(data-target="#carouselRecommendIndicators" data-slide-to="0").active
             li(data-target="#carouselRecommendIndicators" data-slide-to="1") 
             li(data-target="#carouselRecommendIndicators" data-slide-to="2")  
         div.carousel-inner
-            div.carousel-item.active(data-interval="10000")
+            div.carousel-item.active(data-interval="2000")
                 img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
              div.carousel-item(data-interval="2000")
                 img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
-             div.carousel-item
+             div.carousel-item(data-interval="2000")
                 img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
         button.carousel-control-prev(type="button" data-target="#carouselRecommendIndicators" data-slide="prev")
             span.carousel-control-prev-icon(aria-hidden="true")
@@ -20,10 +18,40 @@ block content
         button.carousel-control-next(type="button" data-target="#carouselRecommendIndicators" data-slide="next")
             span.carousel-control-next-icon(aria-hidden="true")
             span.sr-only Next
-
-
-
-
-    //- script(src="https://cdn.bootcdn.net/ajax/libs/require.js/2.3.6/require.js" data-main="/js/index.js") 
-
-
+    section.hot.container
+        h3.headline 热门内容
+        div.row
+            article.col-4.card
+                img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
+                div.card-body
+                    h5.card-title 这里是标题
+                    p.card-text.mb-3 这里是描述
+                    a(href="#").btn.btn-primary.btn-theme 查看我
+            article.col-4.card
+                img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
+                div.card-body
+                    h5.card-title 这里是标题
+                    p.card-text.mb-3 这里是描述
+                    a(href="#").btn.btn-primary.btn-theme 查看我
+             article.col-4.card
+                img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
+                div.card-body
+                    h5.card-title 这里是标题
+                    p.card-text.mb-3 这里是描述
+                    a(href="#").btn.btn-primary.btn-theme 查看我
+    section.visitor.container
+         div.inner
+            div.row
+                article.col-4.card
+                    div.card-body
+                        h5.card-title 今日访客
+                        p.card-text.mb-3 这里是描述
+                article.col-4.card
+                    div.card-body
+                        h5.card-title 昨日访客
+                        p.card-text.mb-3 这里是描述
+                article.col-4.card
+                    div.card-body
+                        h5.card-title 一周访客
+                        p.card-text.mb-3 这里是描述
+    include ./footer
