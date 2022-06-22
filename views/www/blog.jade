@@ -1,7 +1,6 @@
 extends ./layout.jade
 block append stylesheet
     link(rel="stylesheet", href="styles/blog.css")
-
 block content
     section.container.pt-5.pb-5.blog-grid
         div.row
@@ -29,4 +28,10 @@ block content
                             span.icon.iconfont.icon-link
                             span  这里是item的标题
                         p.desc Diam amet eos at no eos sit, amet rebum ipsum clita stet, diam sea est diam eos, sit vero stet justo
+    section.container.flex-center-all.mb-5
+        div#extendPagination
+
+block append script
+    script(src="/lib/extendPagination.js") 
+    script(src="/js/blog.js") 
            
