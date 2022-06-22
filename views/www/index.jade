@@ -18,27 +18,25 @@ block content
         button.carousel-control-next(type="button" data-target="#carouselRecommendIndicators" data-slide="next")
             span.carousel-control-next-icon(aria-hidden="true")
             span.sr-only Next
-    section.hot.container
+    section.hot.container.module
         h3.headline 最近的博客
         p 如果他感到痛苦，他将被视为无助。他和他一起生活的孩子们住在一起。
-
-
         div.row
-            div.col.col-4
+            div.col-4
                 article.card
                     img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
                     div.card-body
                         h5.card-title 这里是标题
                         p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
                         a(href="#").btn.btn-primary.btn-theme 查看我
-            div.col.col-4
+            div.col-4
                 article.card
                     img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
                     div.card-body
                         h5.card-title 这里是标题
                         p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
                         a(href="#").btn.btn-primary.btn-theme 查看我
-            div.col.col-4
+            div.col-4
                 article.card
                     img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
                     div.card-body
@@ -46,19 +44,59 @@ block content
                         p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
                         a(href="#").btn.btn-primary.btn-theme 查看我
             
-    section.visitor.container
+    section.visitor.container.module
          div.inner
             div.row
-                article.col-4.card
-                    div.card-body
-                        h5.card-title 今日访客
-                        p.card-text.mb-3 这里是描述
-                article.col-4.card
-                    div.card-body
-                        h5.card-title 昨日访客
-                        p.card-text.mb-3 这里是描述
-                article.col-4.card
-                    div.card-body
-                        h5.card-title 一周访客
-                        p.card-text.mb-3 这里是描述
-include ./footer
+                article.col-4
+                    div.card
+                        div.card-body
+                            h5.card-title 
+                                i.counter 1500
+                                span.plus +
+                            p.card-text.mb-3.visitor-title 今日访客
+                            p.card-text.mb-3 今日的访客数量
+                 article.col-4
+                    div.card
+                        div.card-body
+                            h5.card-title 
+                                i.counter 1500
+                                span.plus +
+                            p.card-text.mb-3.visitor-title 昨日访客
+                            p.card-text.mb-3 昨日的访客数量
+                 article.col-4
+                    div.card
+                        div.card-body
+                            h5.card-title 
+                                i.counter 1500
+                                span.plus +
+                            p.card-text.mb-3.visitor-title 一周访客
+                            p.card-text.mb-3 最近一周的总访问数量
+    section.message-board.module
+        h3.headline 踩一踩
+        p 一片绿叶,饱含着它对根的情谊;一句贺词,浓缩了我对你的祝愿,祝成功和快乐永远伴随着你 ,祝朋友幸福永远! 
+        div.container
+            div.row
+                div.col-md-6.board-item
+                    h5 作者信息
+                    p.mt-3 
+                        i.icon.iconfont.icon-navigation
+                        span.ml-1 坐标: 湖北武汉
+                    p.mt-3 
+                        i.icon.iconfont.icon-email
+                        span.ml-1 934725772@qq.com
+                div.col-md-6.board-item
+                    h5 提交一条留言
+                    form(action="").form-group.mt-3
+                        div.row
+                            div.col-sm-6 
+                                input(type="text" placeholder='用户名').form-control
+                            div.col-sm-6 
+                                input(type="text" placeholder='邮箱').form-control
+                        div.row.mt-3
+                            div.col-sm-12 
+                                input(type="text" placeholder='内容').form-control
+                                div.mt-3
+                                    textarea(name="", cols="60").form-control 
+                        button.btn.btn-theme 发送
+block append script 
+    script(src="/js/index.js") 

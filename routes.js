@@ -1,8 +1,9 @@
 import express from 'express'
-const router = express.Router();
 import CateController from './controllers/cate.controller'
 import ArticlesController from './controllers/articles.controller'
 import MediaController from './controllers/media.controller'
+const router = express.Router();
+
 // 分类
 router.post("/cate/save", CateController.save);
 router.get("/cate/tree", CateController.tree);
@@ -21,6 +22,14 @@ router.post("/media/remove", MediaController.remove);
 // views
 router.get("/", (req, res) => {
     res.render("www/index", {})
+});
+
+router.get("/blog", (req, res) => {
+    res.render("www/blog", {})
+});
+
+router.get("/board", (req, res) => {
+    res.render("www/board", {})
 });
 
 router.get("/admin", (req, res) => {

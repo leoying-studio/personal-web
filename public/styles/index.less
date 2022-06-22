@@ -1,3 +1,4 @@
+@import url(./../iconfont/iconfont.css);
 @import url(./base.less);
 @import url(./components.less);
 
@@ -5,7 +6,7 @@
    height: 65px;
    padding: 0 8%;
    box-shadow: 0 0 1px 0px #e4e4e4;
-   background-color: transparent;
+   background-color: #fff;
    .nav-logo {
       font-size: 24px;
 		line-height: 65px;
@@ -38,8 +39,7 @@
    }
 }
 
-.hot {
-   margin-top: 58px;
+.module {
    .headline {
       text-align: center;
       margin-bottom: 30px;      
@@ -50,6 +50,8 @@
       color: #222222;
    }
 
+
+
    & > p {
       text-align: center;
       padding-bottom: 45px;
@@ -57,13 +59,14 @@
       color: #646464;
       font-family: 'Open Sans', sans-serif;
    }
+}
 
+.hot {
+   margin-top: 58px;
    article {
-
       img {
          height: 230px;
       }
-
       .card-title {
          font-size: 22px;
          font-weight: 400;
@@ -71,7 +74,6 @@
          color: #454444;
          font-family: 'Roboto Slab', serif;
       }
-
       .card-text {
          color: #646464;
          font-size: 14px;
@@ -83,7 +85,7 @@
 }
 
 .visitor {
-   margin-top: 58px;
+   margin-top: 44px;
    height: 400px;
    background-image: url("/images/img3.jpg");
    background-size: cover;
@@ -92,19 +94,84 @@
    background-clip:content-box;
    color: #fff;
    .inner {
+      display: flex;
+      align-items: center;
       height: 100%;
       background-color: rgba(0,0,0, 0.6);
-      article {
-         border: none;
-         padding: 0 10px;
-         text-align: center;
-         background-color: transparent;
+      
+      .row {
+         width: 100%;
+         .card {
+            border: none;
+            padding: 0 10px;
+            text-align: center;
+            background-color: transparent;
+
+            .card-body {
+               .counter, .plus {
+                  font-style: normal;
+                  font-size: 60px;
+                  font-weight: 600;
+                  color: #fff;
+                  margin: 30px 0;
+                  display: inline-block;
+                  opacity: 1;
+               }
+
+               .visitor-title {
+                  font-size: 24px;
+                  line-height: 34px;
+                  margin-bottom: 15px;
+                  font-weight: 700;
+                  color: #009688;
+                  display: inline-block;
+                  text-transform: capitalize;
+               }
+            }
+         }
       }
    }
 }
 
+
+.message-board {
+   margin-top: 66px;
+    min-height: 650px;
+    background: #eeeeee;
+    padding: 80px 0;
+
+    .board-item {
+       h5 {
+         font-size: 22px;
+         font-weight: 400;
+         text-transform: uppercase;
+         padding-bottom: 20px;
+         font-family: 'Roboto Slab', serif;
+         color: #222222;
+       }
+
+       p {
+         color: #696969;
+         font-size: 14px;
+         font-family: 'Open Sans', sans-serif;
+       }
+    }
+
+    input, textarea {
+      border-radius: 0px;
+      margin-bottom: 20px;
+      border: 0px;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+      background: #d4d4d4;
+      font-style: italic;
+      color: #696969;
+      outline: none;
+      font-family: 'Open Sans', sans-serif;
+    }
+}
+
 .page-footer {
-   margin-top: 40px;
    padding-top: 50px;
    padding-bottom: 30px;
    background-color: #0f1113;
