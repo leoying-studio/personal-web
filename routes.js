@@ -36,6 +36,10 @@ router.get("/admin", (req, res) => {
     res.render("admin/index", {})
 });
 
+router.get("/sign-in", (req, res) => {
+    res.render("sign-in/index", {})
+});
+
 router.get("/admin/cate/data/view", (req, res) => {
     res.render("admin/pages/cate", {})
 });
