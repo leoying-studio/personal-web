@@ -7,17 +7,17 @@ html
         title 登录
     body.flex-center-all
         div.container
-            div.card.m-auto(style="width: 400px")
+            form.card.m-auto(style="width: 400px" action="/sign-in/submit" method="post")
                 h3.card-title.text-center 管理系统登录
                 div.card-body
                     form.m-auto
                         div.form-group
                             label(for="") 用户名
-                            input(type="text").form-control.mt-2
-                            small(class="form-text text-muted") 输入用户名
+                            input(type="text" name="username").form-control.mt-2
+                            small(class="form-text text-muted" name="password") 输入用户名
                         div.form-group
                             label(for="") 密码
-                            input(type="text").form-control.mt-2
+                            input(type="password").form-control.mt-2
                             small(class="form-text text-muted") 输入密码
                         button.btn.btn-theme 登录
 script(src="/lib/jquery.min.js")

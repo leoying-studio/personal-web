@@ -2,8 +2,8 @@ import express from 'express'
 import CateController from './controllers/cate.controller'
 import ArticlesController from './controllers/articles.controller'
 import MediaController from './controllers/media.controller'
+import Auth from './middleware/auth'
 const router = express.Router();
-
 // 分类
 router.post("/cate/save", CateController.save);
 router.get("/cate/tree", CateController.tree);
@@ -32,12 +32,16 @@ router.get("/board", (req, res) => {
     res.render("www/board", {})
 });
 
-router.get("/admin", (req, res) => {
+router.get("/admin", Auth.initUser, Auth.query, (req, res) => {
     res.render("admin/index", {})
 });
 
-router.get("/sign-in", (req, res) => {
+router.get("/sign-in/view", (req, res) => {
     res.render("sign-in/index", {})
+});
+
+router.post("/sign-in/submit", (req, res) => {
+    res.redirect("/admin/index", {})
 });
 
 router.get("/admin/cate/data/view", (req, res) => {
