@@ -6,7 +6,7 @@ export default class ArticlesController {
      static async list (req, res) {
         const { pageSize, pageNo } = req.query;
         try {
-            const doc = await ArticlesModel.skip({}, pageNo, pageSize)
+            const doc = await ArticlesModel.$skip({}, pageNo, pageSize)
             const data = doc.map((item) => item.toJSON());
             res.send(data)
         } catch (e){
@@ -46,7 +46,7 @@ export default class ArticlesController {
     static async remove(req, res) {
         const body = req.body;
         try {
-            const doc = await ArticlesModel.remove(body.id);
+            const doc = await ArticlesModel.$remove(body.id);
             const data = doc.toJSON();
             res.send({
                 data,

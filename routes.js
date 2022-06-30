@@ -2,6 +2,8 @@ import express from 'express'
 import CateController from './controllers/cate.controller'
 import ArticlesController from './controllers/articles.controller'
 import MediaController from './controllers/media.controller'
+import UserController from './controllers/user.controller'
+import AggregateController from './controllers/aggregate.controller'
 import Auth from './middleware/auth'
 const router = express.Router();
 // 分类
@@ -18,11 +20,11 @@ router.post("/articles/remove", ArticlesController.remove);
 router.post("/media/upload", MediaController.upload);
 router.get("/media/list", MediaController.list);
 router.post("/media/remove", MediaController.remove);
-
-// views
-router.get("/", (req, res) => {
-    res.render("www/index", {})
-});
+// 登录和登出
+router.post("/sign-in/submit", UserController.signIn);
+router.get("/sign-off", UserController.signOff);
+// 首页查询
+router.get("/",Auth.applyAccount, AggregateController.recommendAndRecently);
 
 router.get("/blog", (req, res) => {
     res.render("www/blog", {})
@@ -32,16 +34,14 @@ router.get("/board", (req, res) => {
     res.render("www/board", {})
 });
 
-router.get("/admin", Auth.initUser, Auth.query, (req, res) => {
-    res.render("admin/index", {})
+router.get("/admin", Auth.applyAccount, Auth.query, (req, res) => {
+    res.render("admin/index", {
+        username: req.body.username
+    })
 });
 
 router.get("/sign-in/view", (req, res) => {
     res.render("sign-in/index", {})
-});
-
-router.post("/sign-in/submit", (req, res) => {
-    res.redirect("/admin/index", {})
 });
 
 router.get("/admin/cate/data/view", (req, res) => {

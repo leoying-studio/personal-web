@@ -7,8 +7,8 @@ const session = require('express-session');
 const rootPath = __dirname
 const publicPath = path.join(rootPath, "public") ;
 const config = require('./config')
-import routes from './routes'
-
+const routes = require("./routes")
+require("./db")
 /**
  *  处理session
  */
@@ -21,7 +21,7 @@ const useSession = session({
         httpOnly: true,
         secure: false,
         // 如果不设置maxAge，则退出关闭浏览器tab，当前cookie就会过期
-        maxAge: 1000 * 3
+        maxAge: 1000 * 3600 * 24
     }
 })
 app.use(useSession)
@@ -49,6 +49,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", routes)
+app.use("/", routes.default)
 
 module.exports = app;

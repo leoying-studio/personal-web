@@ -31,11 +31,11 @@ const ArticleScheam = new Schema({
 });
 
 // 分页查询
-ArticleScheam.statics.findByIdAndPopulate = function(id) {
+ArticleScheam.statics.$findByIdAndPopulate = function(id) {
 	return this.findById(id).populate("categories").exec()
 } 
 
-ArticleScheam.statics.skip= function(conditions = {},  pageNo = 0, pageSize = 10) {
+ArticleScheam.statics.$skip= function(conditions = {},  pageNo = 0, pageSize = 10) {
 	return this.find(conditions).skip(pageNo * pageSize).limit(pageSize).sort({
 		_id: -1
 	}).exec()
@@ -51,13 +51,13 @@ ArticleScheam.statics.$findByIdAndUpdate = function(id, data) {
 	}).exec()
 } 
 
-ArticleScheam.statics.pullSub = function(id, cateId) {
+ArticleScheam.statics.$pullSub = function(id, cateId) {
 	return this.findByIdAndUpdate({_id: id, 'categories._id': cateId}, {$pull: {categories: {
 		_id: cateId
 	}}});
 } 
 
-ArticleScheam.statics.pushSub = async function(id, cateId) {
+ArticleScheam.statics.$pushSub = async function(id, cateId) {
 	return this.findByIdAndUpdate({_id: id}, {
 		$push: {
 			categories: new ObjectId(cateId)
@@ -65,7 +65,7 @@ ArticleScheam.statics.pushSub = async function(id, cateId) {
 	});
 } 
 
-ArticleScheam.statics.remove = function(id, data) {
+ArticleScheam.statics.$remove = function(id, data) {
 	return this.findByIdAndRemove(id)
 }
 
@@ -73,6 +73,10 @@ ArticleScheam.statics.$findRecommend = function() {
 	return this.find({
 		recommend: true
 	})
+}
+
+ArticleScheam.statics.$limit3 = function() {
+	return this.find({}).limit(3).exec()
 }
 
 const Articles = mongoose.model('articles', ArticleScheam);

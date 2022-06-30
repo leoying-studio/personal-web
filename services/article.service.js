@@ -9,7 +9,7 @@ export default class CateService {
             const dataItem = ObjectUtils.filter(data, filterKeys);
             return ArticeModel.$findByIdAndUpdate(id, dataItem)
         }
-       const article =  new ArticeModel(data)
+       const article = new ArticeModel(data)
        return article.save()
     }
     

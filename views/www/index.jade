@@ -6,12 +6,10 @@ block content
             li(data-target="#carouselRecommendIndicators" data-slide-to="1") 
             li(data-target="#carouselRecommendIndicators" data-slide-to="2")  
         div.carousel-inner
-            div.carousel-item.active(data-interval="2000")
-                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
-             div.carousel-item(data-interval="2000")
-                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
-             div.carousel-item(data-interval="2000")
-                img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="" ).d-block.w-100
+                - const recommend = data.recommend
+                each item in recommend
+                    div.carousel-item.active(data-interval="2000")
+                        img(src=item.recommendPicture, alt="" ).d-block.w-100
         button.carousel-control-prev(type="button" data-target="#carouselRecommendIndicators" data-slide="prev")
             span.carousel-control-prev-icon(aria-hidden="true")
             span.sr-only Previous
@@ -22,28 +20,15 @@ block content
         h3.headline 最近的博客
         p 如果他感到痛苦，他将被视为无助。他和他一起生活的孩子们住在一起。
         div.row
-            div.col-4
-                article.card
-                    img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
-                    div.card-body
-                        h5.card-title 这里是标题
-                        p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
-                        a(href="#").btn.btn-primary.btn-theme 查看我
-            div.col-4
-                article.card
-                    img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
-                    div.card-body
-                        h5.card-title 这里是标题
-                        p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
-                        a(href="#").btn.btn-primary.btn-theme 查看我
-            div.col-4
-                article.card
-                    img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
-                    div.card-body
-                        h5.card-title 这里是标题
-                        p.card-text.mb-3 Lorem ipsum dolor sit amet, consectetur adipscing elit. Lorem ipsum dolor sit amet, conse ctetur adipiscing elit. consectetur Lorem ipsum dolor sitamet, conse ctetur adipiscing elit.
-                        a(href="#").btn.btn-primary.btn-theme 查看我
-            
+            - const recently = data.recently || []
+                each item in recently
+                    div.col-4
+                        article.card
+                            img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
+                            div.card-body
+                                h5.card-title=item.title
+                                p.card-text.mb-3=item.description
+                                a(href="#").btn.btn-primary.btn-theme 查看我
     section.visitor.container.module
          div.inner
             div.row

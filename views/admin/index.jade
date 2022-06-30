@@ -37,13 +37,11 @@ block content
                                 button.dropdown-toggle.bg-transparent.border-0(type="button" id="profile" data-toggle="dropdown" aria-expanded="false")
                                     div.profile-info
                                         img(src="http://v.bootstrapmb.com/2022/3/k0pyr12101/assets/images/profile/profile-image.png", alt="")
-                            ul.dropdown-menu.dropdown-menu-end(aria-labelledby="profile")
-                                li
-                                    a(href="#") 
-                                        i 个人主页
-                                li
-                                    a(href="#") 
-                                        i 退出登录
+                                ul.dropdown-menu.dropdown-menu-end(aria-labelledby="profile")
+                                    h5 欢迎你
+                                    li.dropdown-item
+                                        a(href="/sign-off") 
+                                            span 退出登录
         section.page
             iframe(src="/admin/view", frameborder="0" name="pageFrame")     
 
