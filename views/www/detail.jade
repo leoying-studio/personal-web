@@ -1,0 +1,10 @@
+extends ./layout.jade
+block content
+    article.container.mb-2
+        h1.mb-4.mt-5(style="font-size: 30px;font-weight:700;word-break:break-word;")=data.title
+        p.mb-5(id="content")=data.content
+block append script 
+    script. 
+        var text = $("#content").text();$("#content").html(text)
+
+

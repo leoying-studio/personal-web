@@ -63,7 +63,7 @@
                 }
                 var img = el.children("img")
                 if (img.length) {
-                   img[0].attr({
+                   $(img[0]).attr({
                      src
                    })
 

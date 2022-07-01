@@ -1,8 +1,9 @@
 var selectedTreeItem = null;
-var recommendPicturePath = "";
+var recommendPicturePath = "", illPicturePath = '';
 var selectorTree = null;
 var articleEditor = $("#articleEditor");
 var uploader = null;
+var illUploader = null;
 
 // 处理编辑显示逻辑
 function getQueryVariable(variable){
@@ -27,6 +28,7 @@ var setFormFields = function(data) {
     $(recommendRadios[1]).attr('checked', true)
   }
   uploader.setDefaultImage(data.recommendPicture)
+  illUploader.setDefaultImage(data.illustration)
   var categoryId = data.categories[0]
   if (categoryId) {
     selectorTree.setValue(categoryId)
@@ -72,6 +74,9 @@ var request = {
     if (!recommendPicturePath) {
       return kendo.alert("请上传推荐图");
     }
+    if (!illPicturePath) {
+      return kendo.alert("请上传文章配图");
+    }
     var elems = $("#articleForm").find("input[data-field], textarea");
     var articleEditor = $("#articleEditor").data("kendoEditor");
     var recommend = $(":radio[name=recommend]:checked").val();
@@ -79,7 +84,8 @@ var request = {
       categories: [categoryId],
       content: articleEditor.value(),
       recommend,
-      recommendPicture: recommendPicturePath
+      recommendPicture: recommendPicturePath,
+      illustration: illPicturePath
     };
     if (articleId) {
        params['id'] = articleId
@@ -153,6 +159,13 @@ uploader = $("#articleUploader").uploader({
   url: '/media/upload',
   success: function(url) {
     recommendPicturePath = url;
+  }
+})
+
+illUploader = $("#illUploader").uploader({
+  url: '/media/upload',
+  success: function(url) {
+    illPicturePath = url;
   }
 })
 

@@ -2,13 +2,12 @@ extends layout
 block content 
     div.carousel.slide#carouselRecommendIndicators.recommend(data-ride="carousel")
         ol.carousel-indicators
-            li(data-target="#carouselRecommendIndicators" data-slide-to="0").active
-            li(data-target="#carouselRecommendIndicators" data-slide-to="1") 
-            li(data-target="#carouselRecommendIndicators" data-slide-to="2")  
+            - const recommend = data.recommend
+            each item,index in recommend
+                li(data-target="#carouselRecommendIndicators" data-slide-to=index class=index === 0 ? 'active' : '')
         div.carousel-inner
-                - const recommend = data.recommend
-                each item in recommend
-                    div.carousel-item.active(data-interval="2000")
+                each item,index in recommend
+                    a(href="/articles/detail/" + item._id).carousel-item(data-interval=(index + 1) * 1000 class=index === 0 ? 'active' : '')
                         img(src=item.recommendPicture, alt="" ).d-block.w-100
         button.carousel-control-prev(type="button" data-target="#carouselRecommendIndicators" data-slide="prev")
             span.carousel-control-prev-icon(aria-hidden="true")
@@ -17,18 +16,18 @@ block content
             span.carousel-control-next-icon(aria-hidden="true")
             span.sr-only Next
     section.hot.container.module
-        h3.headline 最近的博客
+        h3.headline 最近的动态
         p 如果他感到痛苦，他将被视为无助。他和他一起生活的孩子们住在一起。
         div.row
             - const recently = data.recently || []
                 each item in recently
-                    div.col-4
+                    div.col-md-4
                         article.card
-                            img.card-img-top(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="")
+                            img.card-img-top(src="/" + item.illustration, alt="", srcset="")
                             div.card-body
                                 h5.card-title=item.title
                                 p.card-text.mb-3=item.description
-                                a(href="#").btn.btn-primary.btn-theme 查看我
+                                a(href="/articles/detail/" + item._id).btn.btn-primary.btn-theme 查看我
     section.visitor.container.module
          div.inner
             div.row
@@ -71,17 +70,17 @@ block content
                         span.ml-1 934725772@qq.com
                 div.col-md-6.board-item
                     h5 提交一条留言
-                    form(action="").form-group.mt-3
+                    form(action="/board/save" method="post").form-group.mt-3
                         div.row
                             div.col-sm-6 
-                                input(type="text" placeholder='用户名').form-control
+                                input(type="text" placeholder='用户名' name="username").form-control
                             div.col-sm-6 
-                                input(type="text" placeholder='邮箱').form-control
+                                input(type="text" placeholder='邮箱' name="emal").form-control
                         div.row.mt-3
                             div.col-sm-12 
-                                input(type="text" placeholder='内容').form-control
+                                input(type="text" placeholder='标题' name="title").form-control
                                 div.mt-3
-                                    textarea(name="", cols="60").form-control 
+                                    textarea( cols="60" placeholder='请输入内容' name="content").form-control 
                         button.btn.btn-theme 发送
 block append script 
     script(src="/js/index.js") 

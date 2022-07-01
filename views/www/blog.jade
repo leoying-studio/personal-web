@@ -1,36 +1,21 @@
 extends ./layout.jade
 block append stylesheet
-    link(rel="stylesheet", href="styles/blog.css")
+    link(rel="stylesheet", href="/styles/blog.css")
 block content
     section.container.pt-5.pb-5.blog-grid
         div.row
-            article.col-md-4.mb-3 
-                div.card
-                    img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="").card-img-top
-                    div.card-body
-                        h4.title.mb-3
-                            span.icon.iconfont.icon-link
-                            span  这里是item的标题
-                        p.desc Diam amet eos at no eos sit, amet rebum ipsum clita stet, diam sea est diam eos, sit vero stet justo
-            article.col-md-4.mb-3 
-                div.card
-                    img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="").card-img-top
-                    div.card-body
-                        h4.title.mb-3
-                            span.icon.iconfont.icon-link
-                            span  这里是item的标题
-                        p.desc Diam amet eos at no eos sit, amet rebum ipsum clita stet, diam sea est diam eos, sit vero stet justo
-            article.col-md-4.mb-3 
-                div.card
-                    img(src="https://img95.699pic.com/photo/50043/4792.jpg_wh860.jpg", alt="", srcset="").card-img-top
-                    div.card-body
-                        h4.title.mb-3
-                            span.icon.iconfont.icon-link
-                            span  这里是item的标题
-                        p.desc Diam amet eos at no eos sit, amet rebum ipsum clita stet, diam sea est diam eos, sit vero stet justo
+            - each item in data.data
+                article.col-md-4.mb-3 
+                    div.card
+                        a(href="/articles/detail/" + item._id) 
+                            img(src="/" + item.illustration, alt="", srcset="").card-img-top
+                        div.card-body
+                            h4.title.mb-3
+                                span.icon.iconfont.icon-link
+                                span #{item.title}
+                            p.desc #{item.description}
     section.container.flex-center-all.mb-5
-        div#extendPagination
-
+        div#extendPagination(count=data.count)
 block append script
     script(src="/lib/extendPagination.js") 
     script(src="/js/blog.js") 

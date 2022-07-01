@@ -79,6 +79,33 @@ ArticleScheam.statics.$limit3 = function() {
 	return this.find({}).limit(3).exec()
 }
 
+ArticleScheam.statics.$pagingQuery = function(pageNo = 0, pageSize = 9) {
+	return this.aggregate([
+		{
+			$facet: {
+				"count": [
+					{
+						"$count": "total"
+					}
+				],
+				data: [
+					{"$skip":pageNo * pageSize},
+					{"$limit":pageSize},
+					{"$sort": {
+						_id: -1
+					}}
+				]
+			}
+		}
+	]).then((res) => {
+		const {count, data} = res[0] || {};
+		return {
+			data,
+			count: count[0].total
+		}
+	})
+}
+
 const Articles = mongoose.model('articles', ArticleScheam);
 
 export default Articles;

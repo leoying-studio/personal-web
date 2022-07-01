@@ -15,6 +15,24 @@ export default class ArticlesController {
         }
     }
 
+    static async blogView (req, res) {
+        const { pageSize = 9, pageNo = 1 } = req.query;
+        try {
+            const data = await ArticlesModel.$pagingQuery(pageNo - 1, pageSize - 0)
+            res.render("www/blog", {
+                data
+            })
+        } catch (e){
+            console.log(e)
+            res.render("www/blog", {
+                data: {
+                    data: [],
+                    total: {count: 0}
+                }
+            })
+        }
+    }
+
     static async one(req, res) {
         const { id } = req.query;
         try {
@@ -27,6 +45,20 @@ export default class ArticlesController {
             res.send({
                 status: false,
                 data: e
+            })
+        }
+    }
+
+    static async detailView(req, res) {
+        const { id } = req.params;
+        try {
+            const doc = await ArticlesModel.$findOne(id)
+            res.render("www/detail",{
+                data: doc
+            })
+        } catch (e){
+            res.render("/bad/error",{
+                data: doc
             })
         }
     }
@@ -60,6 +92,5 @@ export default class ArticlesController {
                 status: false
             })
         }
-        
     }
 }

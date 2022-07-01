@@ -1,0 +1,13 @@
+extends ./layout.jade
+block append stylesheet 
+    link(href="/styles/board.css" rel="stylesheet")
+
+block content
+    section.container 
+        ul.list-group
+          - each item,index in data.data
+                li
+                    h5.title #{item.title} 
+                        span.level #{index + 1}楼
+                    p.content #{item.content}
+                    span.mate #{item.createAt}
