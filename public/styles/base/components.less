@@ -1,0 +1,102 @@
+// 按钮
+.btn-outline {
+    background: transparent;
+    color: #5f00e1;
+    border-color: #5f00e1;
+}
+
+.btn-theme {
+    padding: 5px 30px;
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: 600;
+    transition: 0.3s ease-in;
+    border: none;
+    color: #fff;
+    background-color: #009688;
+}
+
+.uploader {
+    width: 178px;
+    height: 178px;
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+
+    .icon {
+        font-size: 28px;
+        color: #8c939d;
+        width: 178px;
+        height: 178px;
+        line-height: 178px;
+        text-align: center;
+    }
+
+    input {
+        width: 178px;
+        height: 178px;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+    }
+}
+
+.toolbar {
+    padding: 20px ;
+    background-color: white;
+    form {
+        margin-left: 40px;
+        .form-item  {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+
+            input {
+                margin-right: 5px;
+                width: auto;
+            }
+        }
+    }
+}
+
+.page-nav {
+    height: 65px;
+    padding: 0 8%;
+    box-shadow: 0 0 1px 0px #e4e4e4;
+    background-color: #fff;
+    .nav-logo {
+       font-size: 24px;
+         line-height: 65px;
+         color: @primary-color;
+    }
+    .nav-menu {
+       li {
+          padding: 0 20px;
+          a {
+             display: block;
+             font-weight: bold;
+             color: #404040;
+             text-decoration: none;
+             &:hover {
+                color: @primary-color;
+             }
+          }
+          .active {
+            color: @primary-color;
+          }
+          &:last-child {
+             padding-right: 0;
+          }
+       }
+    }
+ } 
+ 
+
+ .page-footer {
+    padding-top: 50px;
+    padding-bottom: 30px;
+    background-color: #0f1113;
+ }

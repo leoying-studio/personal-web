@@ -1,35 +1,5 @@
-@import url(./../iconfont/iconfont.css);
-@import url(./base.less);
-@import url(./components.less);
+@import url(./base/all.less);
 
-.nav {
-   height: 65px;
-   padding: 0 8%;
-   box-shadow: 0 0 1px 0px #e4e4e4;
-   background-color: #fff;
-   .nav-logo {
-      font-size: 24px;
-		line-height: 65px;
-		color: @primary-color;
-   }
-   .nav-menu {
-      li {
-         padding: 0 20px;
-         a {
-            display: block;
-            font-weight: bold;
-            color: #404040;
-            text-decoration: none;
-            &:hover {
-               color: @primary-color;
-            }
-         }
-         &:last-child {
-            padding-right: 0;
-         }
-      }
-   }
-} 
 
 .recommend {
    width: 100%;
@@ -176,8 +146,3 @@
     }
 }
 
-.page-footer {
-   padding-top: 50px;
-   padding-bottom: 30px;
-   background-color: #0f1113;
-}

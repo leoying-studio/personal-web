@@ -8,4 +8,5 @@ $(document).ready(function () {
       window.location.href = "/blog/view?pageNo="+curr+"&pageSize=9"
     },
   });
+
 });

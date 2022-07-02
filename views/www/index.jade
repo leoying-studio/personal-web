@@ -17,7 +17,7 @@ block content
             span.sr-only Next
     section.hot.container.module
         h3.headline 最近的动态
-        p 如果他感到痛苦，他将被视为无助。他和他一起生活的孩子们住在一起。
+        p 每一个懂事淡定的现在,都有一个很傻很天真的过去,每一个温暖而淡然的如今,都有一个悲伤而不安的曾经。
         div.row
             - const recently = data.recently || []
                 each item in recently
@@ -84,3 +84,5 @@ block content
                         button.btn.btn-theme 发送
 block append script 
     script(src="/js/index.js") 
+    script 
+        $("header nav ul li").eq(0).children("a").addClass("active")
