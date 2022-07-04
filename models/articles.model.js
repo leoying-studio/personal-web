@@ -79,6 +79,10 @@ ArticleScheam.statics.$limit3 = function() {
 	return this.find({}).limit(3).exec()
 }
 
+ArticleScheam.pre('update', function() {
+	this.update({},{ $set: { updatedAt: new Date() } });
+})
+
 ArticleScheam.statics.$pagingQuery = function(pageNo = 0, pageSize = 9) {
 	return this.aggregate([
 		{

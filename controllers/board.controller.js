@@ -12,7 +12,8 @@ export default class {
         });
         try {
             const data = await board.save();
-            res.redirect("/")
+            req.session.message ='您的留言已经提交成功!';
+            res.redirect("/board/view")
         } catch(e) {
             res.redirect("/")
         }
@@ -20,8 +21,11 @@ export default class {
 
     static async list(req, res) {
         const data = await BoardModel.find({}).sort({"_id": -1});
+        const message = req.session.message;
+        req.session.message = "";
         res.render("www/board", {
-            data
+            data,
+            message
         })
     }
 }

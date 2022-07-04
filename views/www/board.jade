@@ -1,13 +1,15 @@
 extends ./layout.jade
 block append stylesheet 
     link(href="/styles/board.css" rel="stylesheet")
-
 block content
     section.container 
         ul.list-group
-          - each item, index in data    
+          - each item, index in data   
                 li
                     h5.title #{item.title} 
-                        span.level #{index + 1}楼
+                        span.level ##{index + 1}楼
                     p.content #{item.content}
                     span.mate #{item.createAt}
+block append script 
+    script 
+        $("header nav ul li").eq(2).children("a").addClass("active")

@@ -20,13 +20,17 @@ export default class ArticlesController {
         try {
             const data = await ArticlesModel.$pagingQuery(pageNo - 1, pageSize - 0)
             res.render("www/blog", {
-                data
+                data: {
+                    ...data,
+                    pageNo
+                }
             })
         } catch (e){
             console.log(e)
             res.render("www/blog", {
                 data: {
                     data: [],
+                    pageNo,
                     total: {count: 0}
                 }
             })

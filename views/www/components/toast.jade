@@ -1,0 +1,12 @@
+
+- var msg = message
+    if msg
+        div(class="toast" role="alert" aria-live="assertive" aria-atomic="true"
+        style="position:fixed; top: 100px; left: 50%; width: 300px; margin-left: -150px; z-index: 100;" data-delay="2000")#toast
+            div.toast-header
+                strong.mr-auto 成功
+                small 关闭
+                button(type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close")
+                    span(aria-hidden="true")&times;
+            div(class="toast-body bg-theme-color text-white") #{message}
+    else

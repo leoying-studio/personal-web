@@ -10,15 +10,22 @@ body {
     .blog-grid {
         .card {
             border: none;
+            font-family: "Oswald", sans-serif;
+
+            .card-image-box {
+                overflow: hidden;
+                height: 200px;
+            }
+           
             .card-body {
                 padding: 15px;
-         
                 .title {
-                    font-family: "Oswald", sans-serif;
+                    display: block;
+                    box-sizing: border-box;
+                    text-decoration-line: none;
                     font-weight: 500;
                     line-height: 1.2;
                     color: #252531;
-                    box-sizing: border-box;
                     .icon {
                         padding: 10px;
                         color: #fff;
@@ -31,5 +38,16 @@ body {
             }
         }
     }
+
+
+    .pagination {
+        li.active  {
+           & .page-link {
+            background-color: @primary-color;
+            border: none;
+           }
+        }
+    }
+  
 }
 

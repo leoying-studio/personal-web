@@ -7,15 +7,15 @@ block content
             - each item in data.data
                 article.col-md-4.mb-3 
                     div.card
-                        a(href="/articles/detail/" + item._id) 
+                        a(href="/articles/detail/" + item._id).card-image-box.flex-center-all
                             img(src="/" + item.illustration, alt="", srcset="").card-img-top
                         div.card-body
-                            h4.title.mb-3
+                            a(href="/articles/detail/" + item._id).title.mb-3
                                 span.icon.iconfont.icon-link
-                                span #{item.title}
+                                span.ml-2 #{item.title}
                             p.desc #{item.description}
     section.container.flex-center-all.mb-5
-        div#extendPagination(count=data.count)
+        div#extendPagination(count=data.count pageNo=data.pageNo)
 block append script
     script(src="/lib/extendPagination.js") 
     script(src="/js/blog.js") 
