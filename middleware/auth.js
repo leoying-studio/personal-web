@@ -1,5 +1,6 @@
 import User from "../models/user.model";
 import UserModel from "../models/user.model";
+import adminConfig from './../config/admin.json'
 export default class {
   
   static query(req, res, next) {
@@ -17,8 +18,7 @@ export default class {
     }
     const user = new UserModel({
       nickname: '不打烊的小黄人', 
-      username: 'admin',
-      password: 'admin'
+      ...adminConfig
     })
     user.save(function() {
       next()

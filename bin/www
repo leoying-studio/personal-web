@@ -7,7 +7,7 @@ require("@babel/register");
 const app = require("../app");
 const debug = require("debug")("blog:server");
 const http = require("http");
-const config = require("./../config");
+const config = require("./../config/connection.json");
 /**
  * Get port from environment and store in Express.
  */

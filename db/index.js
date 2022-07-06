@@ -1,4 +1,4 @@
-var config = require("./../config");
+var config = require("./../config/connection.json");
 var mongoose = require('mongoose');
 var dbConnection = mongoose.connection;
 var connectDB = function() {

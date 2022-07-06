@@ -6,7 +6,6 @@ const lessMiddleware = require('less-middleware');
 const session = require('express-session');
 const rootPath = __dirname
 const publicPath = path.join(rootPath, "public") ;
-const config = require('./config')
 const routes = require("./routes")
 require("./db")
 /**
