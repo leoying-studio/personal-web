@@ -1,13 +1,13 @@
-const express = require('express');
-const path = require('path');
-const bodyParser = require('body-parser');
+import express from 'express';
+import bodyParser from 'body-parser';
+import lessMiddleware from 'less-middleware';
+import session from 'express-session';
+import routes from './routes'
+import path from 'path';
+import db from './db'
 const app = express();
-const lessMiddleware = require('less-middleware');
-const session = require('express-session');
 const rootPath = __dirname
 const publicPath = path.join(rootPath, "public") ;
-const routes = require("./routes")
-require("./db")
 /**
  *  处理session
  */
@@ -48,6 +48,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use("/", routes.default)
+app.use("/", routes)
 
-module.exports = app;
+export default app;

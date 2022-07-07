@@ -1,7 +1,7 @@
-import AggregateArticles from './../services/aggregate.service'
+import ArticlesModal from './../models/articles.model'
 export default class {
     static async recommendAndRecently(req, res) {
-        const data = await AggregateArticles.query()
+        const data = await ArticlesModal.$aggregate()
         res.render("www/index", {data})
     }
 }

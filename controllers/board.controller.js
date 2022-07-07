@@ -1,5 +1,4 @@
 import BoardModel from './../models/board.model';
-
 export default class {
 
     static async save(req, res) {

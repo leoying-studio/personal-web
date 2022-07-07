@@ -24,7 +24,10 @@ export default class CateService {
                 if (item._id.equals(parentId)) {
                     return item
                 } else if (item.children?.length) {
-                    findParent(item.children, parentId)
+                    const parent = findParent(item.children, parentId)
+                    if(parent) {
+                       return parent;
+                    }
                 }
             }
             return null

@@ -110,6 +110,35 @@ ArticleScheam.statics.$pagingQuery = function(pageNo = 0, pageSize = 9) {
 	})
 }
 
+ArticleScheam.statics.$aggregate = function(count = 3) {
+	return this.aggregate([
+		{
+			$facet: {
+				recommend: [
+					{
+						$match: {
+							recommend: true
+						},
+					}
+				],
+				recently: [
+					{"$skip":0 * count},
+					{"$limit":count},
+					{"$sort": {
+						_id: -1
+					}}
+				]
+			}
+		}
+	]).then((res) => {
+		const [{recommend, recently}] = res;
+		return {
+			recommend,
+			recently
+		}
+	})
+}
+
 const Articles = mongoose.model('articles', ArticleScheam);
 
 export default Articles;

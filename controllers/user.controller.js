@@ -1,5 +1,4 @@
 import UserService from './../services/user.service';
-
 export default class {
 
     static async signIn(req, res, next) {

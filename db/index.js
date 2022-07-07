@@ -1,7 +1,8 @@
-var config = require("./../config/connection.json");
-var mongoose = require('mongoose');
-var dbConnection = mongoose.connection;
-var connectDB = function() {
+const config = require("../config/connection.json");
+const mongoose = require('mongoose');
+const dbConnection = mongoose.connection;
+
+const connect = function() {
     mongoose.connect(`mongodb://${config.ip}:${config.port}/${config.db}`);
 };
 
@@ -16,13 +17,7 @@ dbConnection.on('error', function(error) {
 
 dbConnection.on('close', function() {
     console.log('数据库断开，重新连接数据库');
-    connectDB();
+    connect();
 });
 
-// 执行连接
-connectDB();
-
-module.exports = {
-    "dbConnection":dbConnection,
-    "mongoose":mongoose
-};
+connect();
