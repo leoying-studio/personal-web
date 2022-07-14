@@ -4,7 +4,7 @@ import lessMiddleware from 'less-middleware';
 import session from 'express-session';
 import routes from './routes'
 import path from 'path';
-import db from './db'
+import './db'
 const app = express();
 const rootPath = __dirname
 const publicPath = path.join(rootPath, "public") ;
