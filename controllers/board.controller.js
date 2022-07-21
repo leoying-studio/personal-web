@@ -14,6 +14,7 @@ export default class {
             req.session.message ='您的留言已经提交成功!';
             res.redirect("/board/view")
         } catch(e) {
+            req.session.message ='您的留言已经提交失败!';
             res.redirect("/")
         }
     }

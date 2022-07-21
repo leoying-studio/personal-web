@@ -1,5 +1,5 @@
-import CateService from "./../services/cate.service"
-import CateModel from "./../models/cate.model"
+import CateService from "./../services/cate.service";
+import CateModel from "./../models/cate.model";
 
 export default class CateController {
     

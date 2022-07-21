@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import HelperPlugin from './plugins/helper'
 const Schema = mongoose.Schema;
 const ObjectId = Schema.Types.ObjectId;
 // 定义映射的集合结构模型
@@ -30,15 +31,11 @@ const ArticleScheam = new Schema({
 	timestamps: {createdAt: 'createdAt', updatedAt: 'updateAt'}
 });
 
+ArticleScheam.plugin(HelperPlugin.install)
+
 // 分页查询
 ArticleScheam.statics.$findByIdAndPopulate = function(id) {
 	return this.findById(id).populate("categories").exec()
-} 
-
-ArticleScheam.statics.$skip= function(conditions = {},  pageNo = 0, pageSize = 10) {
-	return this.find(conditions).skip(pageNo * pageSize).limit(pageSize).sort({
-		_id: -1
-	}).exec()
 } 
 
 ArticleScheam.statics.$findOne = function(id) {
@@ -82,33 +79,6 @@ ArticleScheam.statics.$limit3 = function() {
 ArticleScheam.pre('update', function() {
 	this.update({},{ $set: { updatedAt: new Date() } });
 })
-
-ArticleScheam.statics.$pagingQuery = function(pageNo = 0, pageSize = 9) {
-	return this.aggregate([
-		{
-			$facet: {
-				"count": [
-					{
-						"$count": "total"
-					}
-				],
-				data: [
-					{"$skip":pageNo * pageSize},
-					{"$limit":pageSize},
-					{"$sort": {
-						_id: -1
-					}}
-				]
-			}
-		}
-	]).then((res) => {
-		const {count, data} = res[0] || {};
-		return {
-			data,
-			count: count[0].total
-		}
-	})
-}
 
 ArticleScheam.statics.$aggregate = function(count = 3) {
 	return this.aggregate([

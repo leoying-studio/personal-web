@@ -4,11 +4,13 @@ import ArticleService from './../services/article.service'
 export default class ArticlesController {
 
      static async list (req, res) {
-        const { pageSize, pageNo } = req.query;
+        const { pageSize, pageNo = 1,  ...rest } = req.query;
         try {
-            const doc = await ArticlesModel.$skip({}, pageNo, pageSize)
-            const data = doc.map((item) => item.toJSON());
-            res.send(data)
+            const {data, count} = await ArticlesModel.$pagingQuery(pageNo - 1, pageSize, rest)
+            res.send({
+                total: count,
+                rows: data
+            })
         } catch (e){
             console.log(e)
             res.send([])

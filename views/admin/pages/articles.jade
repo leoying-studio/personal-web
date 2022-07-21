@@ -9,10 +9,17 @@ block append stylesheet
     link(href="/styles/articles.css" rel="stylesheet")
 block content
     div.container-fluid.container-card
-        include ./../components/toolbar
+        //- include ./../components/toolbar
         div.table-data#articlesDataTable
-            table.table-striped(data-toggle="table" 
+            table.table-striped(
+             data-toggle="table" 
+             data-query-params="formateQueryParams"
+             data-search="true"
+             data-page-list="[5, 10, 20, 50]"
+             data-side-pagination="server"
+             data-page-size="5"
              data-pagination="true"
+             data-class="table-column"
              data-url="/articles/list")
                 thead(data-thead-classes="thead-light")
                     tr 

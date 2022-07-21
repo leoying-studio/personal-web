@@ -15,6 +15,15 @@ function onFormateRecommendPic(value, item, index) {
     return "-"
 }
 
+function formateQueryParams(params) {
+    var pageNo = Math.ceil(params.offset / params.limit) + 1;
+    return {
+        pageNo,
+        pageSize: params.limit,
+        title: params.search
+    }
+}
+
 var request = {
     remove: function(id) {
         $.post("/articles/remove", {id}, function(res) {
