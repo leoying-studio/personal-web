@@ -25,28 +25,28 @@ export default class MediaService {
 
     static start(req, res) {
         const uploder = MediaService.uploadConfig(1)
-        return new Promise((resolve, reject) => {
-            uploder(req, res, function(err) {
-                if (err instanceof multer.MulterError) {
-                    return reject(err)
-                } else if (err) {
-                    return reject(err)
+        const promise = new Promise;
+        uploder(req, res, function(err) {
+            if (err instanceof multer.MulterError) {
+                return promise.reject(err)
+            } else if (err) {
+                return promise.reject(err)
+            }
+            const {filename, size, mimetype, originalname}  = req.file;
+            const doc = new MediaModel({
+                name: filename,
+                size,
+                mimeType: mimetype,
+                originalName: originalname
+            })
+            doc.save(function(err, res) {
+                if (err) {
+                    promise.reject(err)
+                } else {
+                    promise.resolve(filename)
                 }
-                const {filename, size, mimetype, originalname}  = req.file;
-                const doc = new MediaModel({
-                    name: filename,
-                    size,
-                    mimeType: mimetype,
-                    originalName: originalname
-                })
-                doc.save(function(err, res) {
-                    if (err) {
-                        reject(err)
-                    } else {
-                        resolve(`uploads/${filename}`)
-                    }
-                })
             })
         })
+        return promise;
     }
 }

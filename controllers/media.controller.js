@@ -20,9 +20,13 @@ export default class MediaController {
 
     static async list(req, res) {   
         try {
-            const docs = await MediaModel.pagingQuery({}, 0, 10)
-            res.json(docs)
-        } catch {
+            const {count, data} = await MediaModel.$pagingQuery(0, 10)
+            res.json({
+                rows: data,
+                total: count
+            })
+        } catch(e) {
+            console.log(e, 'MediaModel list')
             res.json([])
         }
      }
