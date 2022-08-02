@@ -15,21 +15,20 @@ const MediaSchema = new Schema({
 	 updateAt: {type: Date,  default:  Date.now},
 });
 
-MediaSchema.plugin(HelperPlugin.install)
-
-/**
- * 业务量比较少直接写里面就可以, 否则建议使用loadClass
- */
-//删除当前文档
-MediaSchema.statics.$removeById = function(id) {
-	return this.findByIdAndRemove(id)
-}
-
 MediaSchema.virtual("src").get(function() {
 	debugger
 	return '/uploads/' + this._id + '/' + this.fileName;
 });
 
-const Media = mongoose.model('media', MediaSchema);
+MediaSchema.plugin(HelperPlugin.install)
 
-export default Media
+export const MediaModel = mongoose.model('media', MediaSchema);
+
+export class MediaAccess {
+
+	static removeById(id) {
+		return this.findByIdAndRemove(id)
+	}
+}
+
+

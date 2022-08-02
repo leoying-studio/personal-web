@@ -4,7 +4,7 @@ export default class Helper {
   
   static install(schema, options) {
   
-    schema.statics.$pagingQuery = async function (
+    schema.statics.pagingQuery = async function (
       pageNo = 0,
       pageSize = 9,
       condition = {}

@@ -13,7 +13,7 @@ const ArticleScheam = new Schema({
 	// 所属分类
 	categories: [
 		{
-			type: mongoose.Schema.Types.ObjectId, 
+			type: ObjectId, 
 			required: true, 
 			ref: 'categories'
 		}
@@ -33,82 +33,82 @@ const ArticleScheam = new Schema({
 
 ArticleScheam.plugin(HelperPlugin.install)
 
-// 分页查询
-ArticleScheam.statics.$findByIdAndPopulate = function(id) {
-	return this.findById(id).populate("categories").exec()
-} 
-
-ArticleScheam.statics.$findOne = function(id) {
-    return this.findOne({_id: id}).exec()
-} 
-
-ArticleScheam.statics.$findByIdAndUpdate = function(id, data) {
-    return this.findByIdAndUpdate(id, {
-		$set: data	
-	}).exec()
-} 
-
-ArticleScheam.statics.$pullSub = function(id, cateId) {
-	return this.findByIdAndUpdate({_id: id, 'categories._id': cateId}, {$pull: {categories: {
-		_id: cateId
-	}}});
-} 
-
-ArticleScheam.statics.$pushSub = async function(id, cateId) {
-	return this.findByIdAndUpdate({_id: id}, {
-		$push: {
-			categories: new ObjectId(cateId)
-		}
-	});
-} 
-
-ArticleScheam.statics.$remove = function(id, data) {
-	return this.findByIdAndRemove(id)
-}
-
-ArticleScheam.statics.$findRecommend = function() {
-	return this.find({
-		recommend: true
-	})
-}
-
-ArticleScheam.statics.$limit3 = function() {
-	return this.find({}).limit(3).exec()
-}
-
 ArticleScheam.pre('update', function() {
 	this.update({},{ $set: { updatedAt: new Date() } });
 })
 
-ArticleScheam.statics.$aggregate = function(count = 3) {
-	return this.aggregate([
-		{
-			$facet: {
-				recommend: [
-					{
-						$match: {
-							recommend: true
-						},
-					}
-				],
-				recently: [
-					{"$skip":0 * count},
-					{"$limit":count},
-					{"$sort": {
-						_id: -1
-					}}
-				]
+export const ArticlesModel = mongoose.model('articles', ArticleScheam);
+/**
+ *  之所以没有用内置api statics 方法挂载静态方法是因为容易导致命名冲突
+ *  所以重新封装一层
+ */
+export class ArticleModalAccess{
+
+	 static async aggregate(count = 3) {
+		const documents = await ArticlesModel.aggregate([
+			{
+				$facet: {
+					recommend: [
+						{
+							$match: {
+								recommend: true
+							},
+						}
+					],
+					recently: [
+						{"$skip":0 * count},
+						{"$limit":count},
+						{"$sort": {
+							_id: -1
+						}}
+					]
+				}
 			}
-		}
-	]).then((res) => {
-		const [{recommend, recently}] = res;
+		]);
+		const [{recommend, recently}] = documents;
 		return {
 			recommend,
 			recently
 		}
-	})
+	}
+
+	static limit3() {
+		return ArticlesModel.find({}).limit(3).exec()
+	}
+
+	static findRecommend() {
+		return ArticlesModel.find({
+			recommend: true
+		})
+	}
+
+	static remove(id) {
+		return ArticlesModel.findByIdAndRemove(id)
+	}
+
+	static pushSub(id, cateId) {
+		return ArticlesModel.findByIdAndUpdate({_id: id, 'categories._id': cateId}, {$pull: {categories: {
+			_id: cateId
+		}}});
+	}
+
+	static pullSub(id, cateId) {
+		return ArticlesModel.findByIdAndUpdate({_id: id, 'categories._id': cateId}, {$pull: {categories: {
+			_id: cateId
+		}}});
+	}
+
+	static findByIdAndUpdate(id, data) {
+		return ArticlesModel.findByIdAndUpdate(id, {
+			$set: data	
+		}).exec()
+	}
+
+	static findOne(id) {
+		return ArticlesModel.findOne({_id: id}).exec()
+	}
+
+	static findByIdAndPopulate(id) {
+		return ArticlesModel.findById(id).populate("categories").exec()
+	}
 }
-
-const Articles = mongoose.model('articles', ArticleScheam);
-
-export default Articles;

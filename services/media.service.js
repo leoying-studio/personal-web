@@ -1,5 +1,5 @@
 import multer from  "multer"
-import MediaModel from './../models/media.model'
+import { MediaModel } from './../models/media.model'
 
 export default class MediaService {
 

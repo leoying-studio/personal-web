@@ -1,4 +1,4 @@
-import User from "../models/user.model";
+import {UserModal, UserModalAccess} from "../models/user.model";
 import UserModel from "../models/user.model";
 import adminConfig from './../config/admin.json'
 export default class {
@@ -12,7 +12,7 @@ export default class {
   }
 
   static async applyAccount(req, res, next) {
-    const count = await User.count()
+    const count = await UserModalAccess.count()
     if (count) {
       return next()
     }

@@ -1,4 +1,4 @@
-import ArticeModel from '../models/articles.model'
+import {ArticlesModal, ArticleModalAccess } from '../models/articles.model'
 import ObjectUtils from './../utils/object'
 
 export default class CateService {
@@ -7,9 +7,9 @@ export default class CateService {
         if (id) {
             const filterKeys = ["id"];
             const dataItem = ObjectUtils.filter(data, filterKeys);
-            return ArticeModel.$findByIdAndUpdate(id, dataItem)
+            return ArticleModalAccess.findByIdAndUpdate(id, dataItem)
         }
-       const article = new ArticeModel(data)
+       const article = new ArticlesModal(data)
        return article.save()
     }
     

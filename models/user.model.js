@@ -10,9 +10,18 @@ const UserScheam = new mongoose.Schema({
 	 updateAt: {type: Date,  default: Date.now},
 });
 
-UserScheam.statics.$findOne = function(username, password) {
-	return this.findOne({username, password}).exec()
+export const UserModal = mongoose.model('users', UserScheam);
+
+export class UserModalAccess {
+
+	static findOne(username, password) {
+		return UserModal.findOne({username, password}).exec()
+	}
+
+	static count() {
+		return UserModal.count()
+	}
 }
 
-const User = mongoose.model('users', UserScheam);
-export default User;
+
+

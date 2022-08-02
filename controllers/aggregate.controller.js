@@ -1,7 +1,7 @@
-import ArticlesModal from './../models/articles.model'
+import { ArticleModalAccess} from './../models/articles.model'
 export default class {
     static async recommendAndRecently(req, res) {
-        const data = await ArticlesModal.$aggregate()
+        const data = await ArticleModalAccess.aggregate()
         res.render("www/index", {data})
     }
 }

@@ -1,4 +1,4 @@
-import CateModel from '../models/cate.model'
+import {CateModalAccess} from '../models/cate.model'
 import ObjectUtils from './../utils/object'
 export default class CateService {
 
@@ -9,14 +9,14 @@ export default class CateService {
                 filterKeys.push('parentId');
             }
             const dataItem = ObjectUtils.filter(data, filterKeys);
-            return CateModel.$findByIdAndUpdate(id, dataItem)
+            return CateModalAccess.findByIdAndUpdate(id, dataItem)
         } 
         const cate = new CateModel(data)
         return cate.save()
     }
 
      static async tree () {
-        const result = await CateModel.all();
+        const result = await CateModalAccess.all();
         const data = result.map(item => item.toJSON())
         const treeData = [];
         const findParent = (list, parentId) => {
